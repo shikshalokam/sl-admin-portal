@@ -4,7 +4,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 
-
 declare var Keycloak: any;
 
 @Injectable({
@@ -38,6 +37,13 @@ export class keyCloakService {
     return (this.keycloak && this.keycloak['_instance'].token) ? true : false
   }
 
+
+  setToken() {
+    const tokendetails = this.keycloak.getKeycloakInstance();
+    localStorage.setItem('access-token', tokendetails.token);
+    localStorage.setItem('userdetails', JSON.stringify(tokendetails.profile));
+    console.log('================', tokendetails);
+  }
   instanceLogin() {
     this.keycloak.login().then(successs => {
       console.log("successs")
@@ -65,6 +71,13 @@ export class keyCloakService {
     // console.log(jwt_decode(this.keycloakAuth.token).name)
     // this.userName = jwt_decode(this.keycloakAuth.token).name;
     // return jwt_decode(this.keycloakAuth.token);
+    this.keycloak.isLoggedIn().then(
+      isLogged => {
+        if (isLogged) {
+          return this.keycloak.getUsername();
+        }
+      }
+    )
     console.log(this.getToken())
     this.userName = this.getToken() ? this.jwtHelper.decodeToken(this.getToken()).name : '';
 
@@ -77,8 +90,7 @@ export class keyCloakService {
     return this.keycloakAuth.logout();
   }
   logout() {
-    this.router.navigateByUrl('/users');
-    this.keycloak.logout();
+    this.keycloak.logout('http://localhost:4200/users');
     localStorage.clear();
   }
 

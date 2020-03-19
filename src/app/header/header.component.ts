@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { keyCloakService } from '../modules/admin-core';
-keyCloakService
+
+
 
 
 @Component({
@@ -13,10 +14,11 @@ export class HeaderComponent implements OnInit {
   username: any;
   constructor(private KeycloakService: keyCloakService) { }
   ngOnInit() {
-    this.userdetails = this.KeycloakService.getCurrentUserDetails();
+    // this.userdetails = this.KeycloakService.getKeycloakInstance();
+    this.userdetails = JSON.parse(localStorage.getItem('userdetails'));
     console.log('**********', this.userdetails);
     if (this.userdetails)
-      this.username = this.userdetails.name;
+      this.username = this.userdetails.firstName;
   }
 
   sidemenu() {
