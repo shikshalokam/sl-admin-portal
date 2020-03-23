@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { QuestionBase } from 'src/app/modules/admin-shared';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TextboxQuestion } from 'src/app/modules/admin-shared/form/textbox';
-import { DropdownQuestion } from 'src/app/modules/admin-shared/form/dropdown';
-import { of } from 'rxjs';
 
 
 
@@ -30,48 +26,23 @@ export class UsersService {
   }
 
 
-  toFormGroup(questions: QuestionBase<string>[]) {
+  toFormGroup(questions) {
     let group: any = {};
-
+    let validaciones = [];
     questions.forEach(question => {
-      group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
+      group[question.field] = question.validation.required ?
+        new FormControl(question.value || '', Validators.required)
         : new FormControl(question.value || '');
+      // if (question.required) {
+      //   validaciones.push(Validators.required);
+      // }
+      // if (question.number) {
+      //   validaciones.push(Validators.pattern(/^([0-9])*$/));
+      // }
+      // group[question.key] = new FormControl(question.value || '', validaciones);
+      // validaciones = [];
     });
     return new FormGroup(group);
   }
 
-  getQuestions() {
-
-    let questions: QuestionBase<string>[] = [
-
-      new DropdownQuestion({
-        key: 'brave',
-        label: 'Bravery Rating',
-        options: [
-          {key: 'solid',  value: 'Solid'},
-          {key: 'great',  value: 'Great'},
-          {key: 'good',   value: 'Good'},
-          {key: 'unproven', value: 'Unproven'}
-        ],
-        order: 3
-      }),
-
-      new TextboxQuestion({
-        key: 'firstName',
-        label: 'First name',
-        value: 'Bombasto',
-        required: true,
-        order: 1
-      }),
-
-      new TextboxQuestion({
-        key: 'emailAddress',
-        label: 'Email',
-        type: 'email',
-        order: 2
-      })
-    ];
-
-    return of(questions.sort((a, b) => a.order - b.order));
-  }
 }

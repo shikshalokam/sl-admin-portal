@@ -6,8 +6,20 @@
   </div>
 
   <div class="col-md-4 col-sm-8" style="padding-top: 10px;">
+    <div>
+
+    </div>
     <div class="row font-weight-bold">
-      <div class="col-md-3">
+      <span *ngFor="let link of menuarray">
+        <div class="col-md-12">
+          <span [routerLinkActive]="['active']">
+            <a routerLink="{{link.anchorLink}}">{{link.value}}</a>
+            <a [routerLink]="['/single-user']"> </a>
+            <a [routerLink]="['/multi-users']"></a>
+          </span>
+        </div>
+      </span>
+      <!-- <div class="col-md-3">
         <a [routerLink]="['/home']" [routerLinkActive]="['active']">
           Home</a>
       </div>
@@ -22,7 +34,7 @@
       <div class="col-md-5">
         <a [routerLink]="['/unauthorized']" [routerLinkActive]="['active']">
           Assign Users</a>
-      </div>
+      </div> -->
     </div>
   </div>
 

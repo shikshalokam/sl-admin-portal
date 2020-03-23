@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UsersService } from '../../admin-core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
-import { QuestionBase } from '../../admin-shared';
+
 
 
 @Component({
@@ -13,67 +13,20 @@ import { QuestionBase } from '../../admin-shared';
   styleUrls: ['./single-user.component.scss']
 })
 export class SingleUserComponent implements OnInit {
-  questions$: Observable<QuestionBase<any>[]>;
+  questions: any;
   dynamicForm: FormGroup;
   submitted = false;
   entitysubmitted = false;
   formdata: any;
   fieldsbackend: any;
   loading: boolean = false;
-  fields = [
-    {
-      type: "input",
-      label: "firstName",
-      inputType: "text",
-      name: "name",
-      visible: true,
-      editable: true,
-      required: true,
-      validations: [
-        {
-          name: "required",
-          validator: "required",
-          message: "Name Required"
-        },
-        {
-          name: "pattern",
-          validator: "^[a-zA-Z]+$",
-          message: "Accept only text"
-        }
-      ]
-    },
-    {
-      "label": "firstName",
-      "field": "firstName",
-      "value": "",
-      "visible": true,
-      "editable": true,
-      "input": "text",
-      "validation": {
-        "required": true,
-        "regex": "/^[A-Za-z]+$/"
-      }
-    },
 
-    {
-      type: "password",
-      label: "Password",
-      inputType: "text",
-      name: "name",
-      validations: [
-        {
-          name: "required",
-          validator: "required",
-          message: "Password Required"
-        }
-      ]
-    }
-  ];
+  
 
 
   constructor(private formBuilder: FormBuilder, private usersService: UsersService,
     private router: Router, private _snackBar: MatSnackBar) {
-    this.questions$ = usersService.getQuestions();
+    
   }
 
   ngOnInit() {
@@ -81,8 +34,11 @@ export class SingleUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createUser(this.dynamicForm.value);
+    // this.createUser(this.dynamicForm.value);
   }
+
+
+
 
   /**
    * To get the form from the backend
@@ -91,12 +47,14 @@ export class SingleUserComponent implements OnInit {
     this.usersService.getUserForm().subscribe(data => {
       this.formdata = data['result'];
       this.fieldsbackend = this.formdata.form;
+      console.log('createForm', JSON.stringify(this.fieldsbackend));
+      this.questions = this.fieldsbackend;
       const controls = {};
       this.fieldsbackend.forEach(res => {
         const validationsArray = [];
         if (res.validation.required) {
           validationsArray.push(Validators.required);
-          validationsArray.push(Validators.pattern("^([+-]{1})([0-9]{3})$"));
+          validationsArray.push(Validators.pattern(res.regex));
         }
         controls[res.label] = new FormControl('', validationsArray);
       });

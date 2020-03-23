@@ -34,7 +34,9 @@ export class AppComponent implements OnInit {
   */
   userRoles() {
     this.usersService.getUserRoles().subscribe(data => {
-      this.roles = data;
+      this.roles = data['result'];
+      console.log('rolessssssss', this.roles);
+      localStorage.setItem('user_role', this.roles.roles[0]);
     }, error => {
 
     });

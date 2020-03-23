@@ -1,13 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { QuestionBase } from '../form/question-base';
 
 @Component({
     selector: 'app-question',
-    templateUrl: './main-form.component.html'
+    templateUrl: './main-form.component.html',
+    styleUrls: ['./dynamic-form.component.scss']
 })
-export class DynamicFormQuestionComponent {
-    @Input() question: QuestionBase<string>;
+export class DynamicFormQuestionComponent implements OnInit {
+    @Input() question: any;
     @Input() form: FormGroup;
-    get isValid() { return this.form.controls[this.question.key].valid; }
+
+    // For mandatory field 
+   get isValid() {
+        return this.form.controls[this.question.field].valid;
+    }
+
+    // To validate the patterns
+    // get pattern(){
+    //     return this.form.controls[this.question.field].hasError
+    // }
+
+    ngOnInit() {
+    }
 }

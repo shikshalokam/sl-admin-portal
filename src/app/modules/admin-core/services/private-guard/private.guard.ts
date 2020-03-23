@@ -22,7 +22,7 @@ export class PrivateGuard implements CanActivate {
     }
     allowedArray = this.keyCloakService.getAllowedUrls();
 
-    if (allowedArray.includes(this.url)) {
+    if (localStorage.getItem('user_role') === 'OBS_REVIEWER') {
       return true;
     } else {
       return false;

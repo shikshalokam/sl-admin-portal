@@ -10,6 +10,7 @@ import { PrivateGuard } from './modules/admin-core';
 const routes: Routes = [
   {
     path: '',
+    // canActivate: [PrivateGuard],
     loadChildren: './modules/users/users.module#UsersModule', 
   },
   { path: 'home', component: CommingSoonComponent },
