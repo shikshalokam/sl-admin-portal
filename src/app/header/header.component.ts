@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { keyCloakService, UsersService } from '../modules/admin-core';
-UsersService
 
 
 

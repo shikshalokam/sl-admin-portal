@@ -32,7 +32,8 @@ export class AppComponent implements OnInit {
   /**
   * To get the form from the backend
   */
-  userRoles() {
+   userRoles() {
+   const rolesdata =  this.usersService.getCurrentUserRoles();
     this.usersService.getUserRoles().subscribe(data => {
       this.roles = data['result'];
       console.log('rolessssssss', this.roles);

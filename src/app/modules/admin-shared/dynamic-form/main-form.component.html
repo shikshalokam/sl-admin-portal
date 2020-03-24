@@ -10,14 +10,22 @@
             <input class="form-control" *ngSwitchCase="'password'" [formControlName]="question.field"
                 [id]="question.field" [type]="question.input">
         </div>
-        <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
-            <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
-        </select> -->
+        <div class="form-group">
+            <select class="form-control" [id]="question.field" *ngSwitchCase="'select'"
+                [formControlName]="question.field">
+                <option *ngFor="let opt of question.options" [value]="opt.value">{{opt.label}}</option>
+            </select>
+        </div>
 
     </div>
 
     <div class="errmsg" *ngIf="!isValid">{{question.label}} is required</div>
-    <!-- <div class="errmsg" *ngIf="form.controls[question.field].hasError('maxlength')">
+    <div *ngIf="pattern">
+        <div *ngFor="let data of question.validation">
+            <span  class="errmsg" *ngIf="data.name == 'pattern'"> {{data.message}}</span>
+        </div>
+    </div>
+    <!-- <div class="errmsg" *ngIf="form.controls[question.field].">
             {{question.label}} is too long
          </div> -->
 </div>

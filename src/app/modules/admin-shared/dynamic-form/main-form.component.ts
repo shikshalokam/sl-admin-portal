@@ -9,16 +9,24 @@ import { FormGroup } from '@angular/forms';
 export class DynamicFormQuestionComponent implements OnInit {
     @Input() question: any;
     @Input() form: FormGroup;
-
+    data: any;
     // For mandatory field 
-   get isValid() {
+    get isValid() {
         return this.form.controls[this.question.field].valid;
     }
 
     // To validate the patterns
-    // get pattern(){
-    //     return this.form.controls[this.question.field].hasError
-    // }
+    get pattern() {
+        this.question.validation.forEach(element => {
+            if (element.name === 'pattern') {
+             this.data = this.form.controls[this.question.field].valid;
+;            } else {
+               this.data = '';
+            }
+        });
+        return this.data;
+        // return this.form.controls[this.question.field].errors.pattern(this.question.validation.validator)
+    }
 
     ngOnInit() {
     }

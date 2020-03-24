@@ -1,6 +1,6 @@
 
 export class TextboxQuestion {
-  controlType = 'textbox';
+  controlType = 'text';
   type: string;
 
   constructor(options: {} = {}) {
