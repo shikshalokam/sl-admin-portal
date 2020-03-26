@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommingSoonComponent, UnauthorizedComponent } from './modules/admin-shared';
-import { PrivateGuard } from './modules/admin-core';
 import { RouteGuard } from './modules/admin-core/guards/route.guard';
 
 

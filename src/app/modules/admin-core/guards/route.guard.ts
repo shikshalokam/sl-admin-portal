@@ -11,11 +11,11 @@ import { UsersService } from '../services/users-service/users.service';
 export class RouteGuard implements CanActivate {
 
   constructor(private usersService: UsersService, private route: Router) {
-
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+   
     if (this.usersService.roles) {
       // if(admin === 'OBS_DESIGNER'){
         // return true;

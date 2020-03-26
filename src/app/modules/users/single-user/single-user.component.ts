@@ -1,265 +1,227 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../../admin-core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
+import { FieldConfig } from "../../admin-shared/field.interface";
+import { DynamicFormComponent } from '../../admin-shared/components/dynamic-form/dynamic-form.component';
 
 
 
 @Component({
-  selector: 'app-single-user',
-  templateUrl: './single-user.component.html',
-  styleUrls: ['./single-user.component.scss']
+   selector: 'app-single-user',
+   templateUrl: './single-user.component.html',
+   styleUrls: ['./single-user.component.scss']
 })
 export class SingleUserComponent implements OnInit {
-  questions: any[];
-  questions1 = [
-    {
-       "field":"firstName",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"First name required"
-          },
-          {
-             "name":"pattern",
-             "validator":"^[A-Za-z]+$/",
-             "message":"Please provide a valid First name"
-          }
-       ],
-       "label":"First name",
-       "input":"text"
-    },
-    {
-       "field":"lastName",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"Last name required"
-          },
-          {
-             "name":"pattern",
-             "validator":"^[A-Za-z]+$/",
-             "message":"Please provide a valid Last name"
-          }
-       ],
-       "label":"Last name",
-       "input":"text"
-    },
-    {
-       "field":"email",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"Email required"
-          },
-          {
-             "name":"pattern",
-             "validator":"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
-             "message":"Please provide a valid Email"
-          }
-       ],
-       "label":"Email",
-       "input":"text"
-    },
-    {
-       "field":"phoneNumber",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"Phone Number required"
-          },
-          {
-             "name":"pattern",
-             "validator":"^((+)?(d{2}[-]))?(d{10}){1}?$",
-             "message":"Please provide a valid Phone Number"
-          }
-       ],
-       "label":"Phone Number",
-       "input":"text"
-    },
-    {
-       "field":"userName",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"User Name required"
-          },
-          {
-             "name":"pattern",
-             "validator":"^[A-Za-z]+$/",
-             "message":"Please provide a valid User Name"
-          }
-       ],
-       "label":"User Name",
-       "input":"text"
-    },
-    {
-       "field":"password",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"Password required"
-          },
-          {
-             "name":"pattern",
-             "validator":"/^(?=.*d).{4,}$/",
-             "message":"Minimum four charaters required"
-          }
-       ],
-       "label":"Password",
-       "input":"password"
-    },
-    {
-       "field":"state",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"State required"
-          },
-          {
-             "name":"pattern",
-             "validator":"",
-             "message":""
-          }
-       ],
-       "label":"State",
-       "input":"select",
-       "options":[]
-    },
-    {
-       "field":"organisations",
-       "value":"",
-       "visible":true,
-       "editable":true,
-       "validation":[
-          {
-             "name":"required",
-             "validator":"required",
-             "message":"Organisations required"
-          },
-          {
-             "name":"pattern",
-             "validator":"",
-             "message":""
-          }
-       ],
-       "label":"Organisations",
-       "input":"select",
-       "options":[
-          {
-             "label":"0125747659358699520",
-             "value":"0125747659358699520"
-          }
-       ]
-    }
- ]
-  dynamicForm: FormGroup;
-  submitted = false;
-  entitysubmitted = false;
-  formdata: any;
-  fieldsbackend: any;
-  loading: boolean = false;
-
-
+   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
+   questions: any[];
+   field: FieldConfig;
+   group: FormGroup;
   
+   formdata: any;
+   fieldsbackend: any;
+
+   regConfig: FieldConfig[] = [
+      {
+         type: "input",
+         label: "firstName",
+         inputType: "text",
+         name: "firstName",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Name Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern("([a-zA-Z]{3,30}\s*)+"),
+               message: "Please provide a valid First name"
+            }
+         ]
+      },
+      {
+         type: "input",
+         label: "LastName",
+         inputType: "text",
+         name: "lastName",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Name Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern("[a-zA-Z]{3,30}"),
+               message: "Please provide a valid Last name"
+            }
+         ]
+      },
+
+      {
+         type: "input",
+         label: "Email Address",
+         inputType: "email",
+         name: "email",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Email Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern(
+                  "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+               ),
+               message: "Invalid email"
+            }
+         ]
+      },
+      {
+         type: "input",
+         label: "Phone Number",
+         inputType: "number",
+         name: "phoneNumber",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Phone Number Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern(
+                  "(0/91)?[7-9][0-9]{9}"
+               ),
+               message: "Invalid Phone Number"
+            }
+         ]
+      },
+      {
+         type: "input",
+         label: "User Name",
+         inputType: "text",
+         name: "userName",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "User Name Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern(
+                  "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
+               ),
+               message: "Please provide a valid User Name"
+            }
+         ]
+      },
+      {
+         type: "input",
+         label: "Password",
+         inputType: "password",
+         name: "password",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Password Required"
+            },
+            {
+               name: "pattern",
+               validator: Validators.pattern(
+                  "^(?=.*\d).{4,8}$"
+               ),
+               message: "Minimum four charaters required"
+            }
+         ]
+      },
+      {
+         type: "radiobutton",
+         label: "Gender",
+         name: "gender",
+         options: ["Male", "Female"],
+         value: "Male"
+      },
+      {
+         type: "date",
+         label: "DOB",
+         name: "dob",
+         validations: [
+            {
+               name: "required",
+               validator: Validators.required,
+               message: "Date of Birth Required"
+            }
+         ]
+      },
+      {
+         type: "select",
+         label: "Country",
+         name: "country",
+         value: "UK",
+         options: ["India", "UAE", "UK", "US"]
+      },
+      {
+         type: "checkbox",
+         label: "Accept Terms",
+         name: "term",
+         value: true
+      },
+      // {
+      //    type: "button",
+      //    label: "Create"
+      // }
+   ];
+
+   constructor(private formBuilder: FormBuilder, private usersService: UsersService,
+      private router: Router, private _snackBar: MatSnackBar) {
+
+   }
+
+   ngOnInit() {
+      this.createForm();
+   }
+
+   onSubmit() {
+      if (this.form.form.valid) {
+         this.createUser(this.form.value)
+      } else {
+         this.form.validateAllFormFields(this.form.form);
+      }
+   }
+
+   /**
+    * To get the form from the backend
+    */
+   createForm() {
+      this.usersService.getUserForm().subscribe(data => {
+         this.formdata = data['result'];
+         this.fieldsbackend = this.formdata.form;
+      }, error => {
+
+      });
+   }
 
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService,
-    private router: Router, private _snackBar: MatSnackBar) {
-    
-  }
-
-  ngOnInit() {
-    this.createForm();
-  }
-
-  onSubmit() {
-    // this.createUser(this.dynamicForm.value);
-  }
-
-
-
-
-  /**
-   * To get the form from the backend
+   /**
+   * To Create the User
    */
-  createForm() {
-    this.usersService.getUserForm().subscribe(data => {
-      this.formdata = data['result'];
-      this.fieldsbackend = this.formdata.form;
-      this.questions = this.fieldsbackend;
-      const controls = {};
-      this.fieldsbackend.forEach(res => {
-        const validationsArray = [];
-        if (res.validation.required) {
-          validationsArray.push(Validators.required);
-          validationsArray.push(Validators.pattern(res.regex));
-        }
-        controls[res.label] = new FormControl('', validationsArray);
+   createUser(userdata) {
+      console.log('this.form.value', userdata)
+      this.usersService.createUser(userdata).subscribe(data => {
+         this._snackBar.open('User Created Sucessfully', 'Created', {
+            duration: 2000,
+         });
+         this.form.form.reset();
+      }, error => {
+
       });
-      this.dynamicForm = new FormGroup(
-        controls
-      );
-      this.loading = true;
-    }, error => {
-
-    });
-  }
-
-
-  /**
-  * To Create the User
-  */
-  createUser(userdata) {
-    console.log('createUser', userdata);
-    let data = {
-      firstName: userdata.firstName,
-      lastName: userdata.lastName,
-      email: userdata.email,
-      phoneNumber: userdata.phoneNumber,
-      userName: userdata.userName,
-      password: userdata.password,
-      organisations: userdata.organisations,
-      state: userdata.state
-    }
-    this.usersService.createUser(data).subscribe(data => {
-      this._snackBar.open('User Created Sucessfully', 'Created', {
-        duration: 2000,
-      });
-      this.dynamicForm.reset();
-    }, error => {
-
-    });
-  }
+   }
 
 }

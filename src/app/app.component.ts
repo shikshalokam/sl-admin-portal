@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { keyCloakService, UsersService } from './modules/admin-core';
 
@@ -13,11 +12,16 @@ import { keyCloakService, UsersService } from './modules/admin-core';
 export class AppComponent implements OnInit {
   title = 'admin-portal';
   roles: any;
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService,
+  constructor(private usersService: UsersService,
     private router: Router, private keycloak: keyCloakService) {
+    this.sendMessage();
 
   }
 
+  sendMessage(): void {
+    // send message to subscribers via observable subject
+    this.usersService.sendMessage('Message from app Component to message Component!');
+  }
 
   // Initial loading
   ngOnInit() {
@@ -32,11 +36,10 @@ export class AppComponent implements OnInit {
   /**
   * To get the form from the backend
   */
-   userRoles() {
-   const rolesdata =  this.usersService.getCurrentUserRoles();
+  userRoles() {
+    //  const rolesdata =  this.usersService.getCurrentUserRoles();
     this.usersService.getUserRoles().subscribe(data => {
       this.roles = data['result'];
-      console.log('rolessssssss', this.roles);
       localStorage.setItem('user_role', this.roles.roles[0]);
     }, error => {
 

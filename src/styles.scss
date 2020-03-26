@@ -2571,3 +2571,24 @@ margin: 0 2px;
   border-color: $primary-color;
 }
 
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+}
+.demo-full-width {
+  width: 100%;
+}
+.margin-top {
+  margin-top: 15px;
+}
+.margin-left {
+  margin-left: 10px;
+}
+.radio-label-padding {
+  padding-right: 10px;
+  color: grey;
+}
+
+
+

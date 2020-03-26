@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     // this.userdetails = this.KeycloakService.getKeycloakInstance();
     //  let res =  await this.usersService.getUserRoles();
     this.userdetails =  JSON.parse(localStorage.getItem('userdetails'));
-     this.user_role = await localStorage.getItem('user_role');
+    //  this.user_role = await localStorage.getItem('user_role');
     if (this.userdetails) {
       this.username = this.userdetails.firstName;
     }

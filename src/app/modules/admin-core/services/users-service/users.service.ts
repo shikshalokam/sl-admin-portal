@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
-
+import { UsersConfig } from './users.config';
+import { Observable, Subject } from 'rxjs';
 
 
 
@@ -13,24 +11,39 @@ import { map } from 'rxjs/operators';
 })
 export class UsersService {
   roles;
+  private subject = new Subject<any>();
   constructor(private Http: HttpClient) { }
 
   getUserForm() {
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/user-creation/getForm');
+    return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
 
   getUserRoles() {
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/platform-user-roles/getProfile')
+    return this.Http.get(environment.base_url + UsersConfig.userroles)
   }
 
   createUser(data) {
-    console.log('!!!!!!!!!!!!!!!', data);
-    return this.Http.post(environment.base_url + '/admin-service/api/v1/user-creation/create', data)
+    return this.Http.post(environment.base_url + UsersConfig.createuser, data)
+  }
+
+  // To store data here
+  sendMessage(message: string) {
+    this.subject.next({ text: message });
+  }
+
+  // To Clear the stored data
+  clearMessage() {
+    this.subject.next();
+  }
+
+  //  To pass the data to other component
+  getMessage(): Observable<any> {
+    return this.subject.asObservable();
   }
 
   getCurrentUserRoles() {
     let promise = new Promise((resolve, reject) => {
-      this.Http.get(environment.base_url + '/admin-service/api/v1/platform-user-roles/getProfile')
+      this.Http.get(environment.base_url + UsersConfig.userroles)
         .toPromise().then(
           res => { // Success
             this.roles = res['result']['roles'];
@@ -40,20 +53,4 @@ export class UsersService {
     });
     return promise;
   }
-
-  toFormGroup(questions) {
-    let group: any = {};
-    questions.forEach(question => {
-      group[question.field] = 
-      // new FormControl(true);
-      question.visible ? new FormControl(question.value || '', Validators.required): new FormControl(question.value || '');
-
-      question.validation.forEach(valid =>{
-        valid.name === 'pattern' ? new FormControl(question.value || '', Validators.pattern("^[A-Za-z]+$/")): new FormControl(question.value || '');
-      });
-
-    });
-    return new FormGroup(group);
-  }
-
 }
