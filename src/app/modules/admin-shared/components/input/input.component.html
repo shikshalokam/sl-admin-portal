@@ -1,0 +1,7 @@
+<div class="demo-full-width" [formGroup]="group">
+    <label class="required">{{field.label}}</label>
+    <input class="form-control custom-form" [formControlName]="field.name" [type]="field.inputType">
+    <ng-container *ngFor="let validation of field.validations;">
+        <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message}}</mat-error>
+    </ng-container>
+</div>

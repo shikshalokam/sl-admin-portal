@@ -3,11 +3,7 @@ import { FormGroup } from "@angular/forms";
 import { FieldConfig } from "../../field.interface";
 @Component({
 selector: "app-checkbox",
-template: `
-<div class="demo-full-width margin-top" [formGroup]="group" >
-<mat-checkbox [formControlName]="field.name">{{field.label}}</mat-checkbox>
-</div>
-`,
+templateUrl: './checkbox.component.html',
 styles: []
 })
 export class CheckboxComponent implements OnInit {

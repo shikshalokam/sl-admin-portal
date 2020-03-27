@@ -33,7 +33,7 @@ export class SingleUserComponent implements OnInit {
             {
                name: "required",
                validator: Validators.required,
-               message: "Name Required"
+               message: "First Name is Required"
             },
             {
                name: "pattern",
@@ -51,7 +51,7 @@ export class SingleUserComponent implements OnInit {
             {
                name: "required",
                validator: Validators.required,
-               message: "Name Required"
+               message: "Last Name is Required"
             },
             {
                name: "pattern",

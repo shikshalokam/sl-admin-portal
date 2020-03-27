@@ -27,8 +27,8 @@ export class DynamicFormComponent implements OnInit {
   createControl() {
      const group = this.fb.group({});
     this.fields.forEach(field => {
-      // if (field.type === "button")
-      //  return;
+      if (field.type === "button")
+       return;
       const control = this.fb.control(
         field.value,
         this.bindValidations(field.validations || [])

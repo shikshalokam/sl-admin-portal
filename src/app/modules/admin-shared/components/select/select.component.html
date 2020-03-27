@@ -1,0 +1,6 @@
+<div class="demo-full-width margin-top" [formGroup]="group">
+    <label>{{field.name}}</label>
+    <select class="form-control custom-form" [placeholder]="field.label" [formControlName]="field.name">
+        <option *ngFor="let item of field.options" [value]="item">{{item}}</option>
+    </select>
+</div>
