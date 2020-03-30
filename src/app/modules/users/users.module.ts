@@ -7,6 +7,8 @@ import { SingleUserComponent } from './single-user/single-user.component';
 import { AdminSharedModule, DynamicFormComponent } from '../admin-shared';
 import { UsersRoutingModule } from './users-routing.module';
 import { DynamicFieldDirective } from '../admin-shared/components/dynamic-field/dynamic-field.directive';
+import { UsersListComponent } from './users-list/users-list.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 
 
@@ -17,7 +19,8 @@ import { DynamicFieldDirective } from '../admin-shared/components/dynamic-field/
     FormsModule, ReactiveFormsModule,
     AdminSharedModule,
     UsersRoutingModule],
-  declarations: [UsersComponent, DynamicFormComponent, DynamicFieldDirective, MultiUsersComponent, SingleUserComponent],
+    entryComponents:[AddUserComponent],
+  declarations: [UsersComponent, DynamicFormComponent, DynamicFieldDirective, MultiUsersComponent, SingleUserComponent, UsersListComponent, AddUserComponent],
   schemas:[NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA]
 })
 export class UsersModule { }

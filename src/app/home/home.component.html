@@ -1,0 +1,85 @@
+<div class="dashboard-content">
+  <div class="row">
+
+    <div class="col-md-2">
+      <mat-card class="product">
+        <mat-card-content>
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom" matTooltipPosition="above" matTooltip="Dashboard"><a [routerLink]="['/comming-soon']">dashboard</a></mat-icon>
+          </div>
+          <div class="text-center">
+            <h5>Dashboard</h5>
+            <span (click)="singleuser()">See Relevant data of organisation</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <!-- <div class="col-md-2">
+      <button mat-raised-button matTooltip="Info about the action"
+        aria-label="Button that displays a tooltip when focused or hovered over">
+        <div class="roundimg">
+          <mat-icon class="mat-icon-custom">dashboard</mat-icon>
+          <h4>Dashboard</h4>
+          <h5 (click)="singleuser()"><a [routerLink]="['/users']">See Relevant data of organisation</a></h5>
+        </div>
+      </button>
+    </div> -->
+    <div class="col-md-2">
+      <mat-card class="product">
+        <mat-card-content>
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom" matTooltipPosition="above" matTooltip="Users"><a [routerLink]="['/users/users-list']">person</a></mat-icon>
+          </div>
+          <div class="text-center">
+            <h5>Users</h5>
+            <span (click)="singleuser()">Add or Manage Users</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+
+    <div class="col-md-2">
+      <mat-card class="product">
+        <mat-card-content>
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom" matTooltipPosition="above" matTooltip="Organisations"><a [routerLink]="['/comming-soon']">account_balance</a></mat-icon>
+          </div>
+          <div class="text-center">
+            <h5>Organisations</h5>
+            <span (click)="singleuser()">Add or Manage Organisations</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="col-md-2">
+      <mat-card class="product">
+        <mat-card-content>
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom" matTooltipPosition="above" matTooltip="Reports"><a [routerLink]="['/comming-soon']">assessment</a></mat-icon>
+          </div>
+          <div class="text-center">
+            <h5>Reports</h5>
+            <span (click)="singleuser()">Add or Manage Reports</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- <div class="col-md-2">
+      <mat-card class="product">
+        <mat-card-content>
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom">email</mat-icon>
+            <h4>Users</h4>
+            <h5 (click)="singleuser()">Add or Manage Users</h5>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div> -->
+
+
+  </div>
+</div>

@@ -12,7 +12,12 @@ import {
   MatSelectModule,
   MatOptionModule,
   MatCheckboxModule,
-  MatRadioModule
+  MatRadioModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatDialogModule,
+  MatTooltipModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +47,12 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     MatOptionModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatTooltipModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -55,6 +65,11 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     MatOptionModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatTooltipModule,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

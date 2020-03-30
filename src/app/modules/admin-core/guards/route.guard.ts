@@ -16,13 +16,13 @@ export class RouteGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
    
-    if (this.usersService.roles) {
+    if (localStorage.getItem('user_role') === 'OBS_DESIGNER') {
       // if(admin === 'OBS_DESIGNER'){
         // return true;
       // }
       return true;
     } else {
-      this.route.navigate(['/unauthorized'])
+      this.route.navigate(['/home'])
       return false;
     }
 

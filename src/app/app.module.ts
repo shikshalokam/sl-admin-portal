@@ -13,6 +13,7 @@ import { keyCloakService } from './modules/admin-core';
 import { AdminSharedModule } from './modules/admin-shared';
 import { environment } from 'src/environments/environment';
 import { KeycloakAngularModule } from 'keycloak-angular';
+import { HomeComponent } from './home/home.component';
 
 
 export function tokenGetter() {
@@ -24,6 +25,7 @@ export function tokenGetter() {
     HeaderComponent,
     // FooterComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

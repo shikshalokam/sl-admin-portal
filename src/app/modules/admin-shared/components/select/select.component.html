@@ -1,6 +1,9 @@
 <div class="demo-full-width margin-top" [formGroup]="group">
-    <label>{{field.name}}</label>
-    <select class="form-control custom-form" [placeholder]="field.label" [formControlName]="field.name">
-        <option *ngFor="let item of field.options" [value]="item">{{item}}</option>
+    <label>{{field.label}}</label>
+    <select class="form-control custom-form" [placeholder]="field.label" [formControlName]="field.field">
+        <option *ngFor="let item of field.options" [value]="item.value">{{item.label}}</option>
     </select>
+    <ng-container *ngFor="let validation of field.validation;">
+        <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
+    </ng-container>
 </div>

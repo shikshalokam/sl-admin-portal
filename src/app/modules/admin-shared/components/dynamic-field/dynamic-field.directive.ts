@@ -12,14 +12,15 @@ import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 
 
-// TO bind the components
+// TO bind the components based on the type of the field
 const componentMapper = {
-  input: InputComponent,
+  text: InputComponent,
+  password: InputComponent,
   // button: ButtonComponent,
   select: SelectComponent,
-  date: DateComponent,
-  radiobutton: RadiobuttonComponent,
-  checkbox: CheckboxComponent
+  // date: DateComponent,
+  // radio: RadiobuttonComponent,
+  // checkbox: CheckboxComponent
 };
 
 @Directive({
@@ -36,7 +37,7 @@ export class DynamicFieldDirective implements OnInit {
 
   ngOnInit() {
     const factory = this.resolver.resolveComponentFactory(
-      componentMapper[this.field.type]
+      componentMapper[this.field.input]
     );
     this.componentRef = this.container.createComponent(factory);
     this.componentRef.instance.field = this.field;

@@ -19,25 +19,29 @@ export class SingleUserComponent implements OnInit {
    questions: any[];
    field: FieldConfig;
    group: FormGroup;
-  
+   // regConfig: any[];
    formdata: any;
    fieldsbackend: any;
+   loading: boolean = false;
 
-   regConfig: FieldConfig[] = [
+   regConfig1 = [
       {
          type: "input",
+         field: '',
+         visible: true,
+         editable: true,
          label: "firstName",
          inputType: "text",
          name: "firstName",
-         validations: [
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "First Name is Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern("([a-zA-Z]{3,30}\s*)+"),
+               validator: "([a-zA-Z]{3,30}\s*)+",
                message: "Please provide a valid First name"
             }
          ]
@@ -46,16 +50,19 @@ export class SingleUserComponent implements OnInit {
          type: "input",
          label: "LastName",
          inputType: "text",
+         field: '',
+         visible: true,
+         editable: true,
          name: "lastName",
-         validations: [
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "Last Name is Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern("[a-zA-Z]{3,30}"),
+               validator: "[a-zA-Z]{3,30}",
                message: "Please provide a valid Last name"
             }
          ]
@@ -65,18 +72,21 @@ export class SingleUserComponent implements OnInit {
          type: "input",
          label: "Email Address",
          inputType: "email",
+         field: '',
+         visible: true,
+         editable: true,
          name: "email",
-         validations: [
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "Email Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern(
+               validator:
                   "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-               ),
+               ,
                message: "Invalid email"
             }
          ]
@@ -85,18 +95,20 @@ export class SingleUserComponent implements OnInit {
          type: "input",
          label: "Phone Number",
          inputType: "number",
+         field: '',
+         visible: true,
+         editable: true,
          name: "phoneNumber",
-         validations: [
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "Phone Number Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern(
-                  "(0/91)?[7-9][0-9]{9}"
-               ),
+               validator: "(0/91)?[7-9][0-9]{9}"
+               ,
                message: "Invalid Phone Number"
             }
          ]
@@ -106,17 +118,18 @@ export class SingleUserComponent implements OnInit {
          label: "User Name",
          inputType: "text",
          name: "userName",
-         validations: [
+         field: '',
+         visible: true,
+         editable: true,
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "User Name Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern(
-                  "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
-               ),
+               validator: "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$",
                message: "Please provide a valid User Name"
             }
          ]
@@ -126,17 +139,19 @@ export class SingleUserComponent implements OnInit {
          label: "Password",
          inputType: "password",
          name: "password",
-         validations: [
+         field: '',
+         visible: true,
+         editable: true,
+         validation: [
             {
                name: "required",
-               validator: Validators.required,
+               validator: true,
                message: "Password Required"
             },
             {
                name: "pattern",
-               validator: Validators.pattern(
-                  "^(?=.*\d).{4,8}$"
-               ),
+               validator: "^(?=.*\d).{4,8}$"
+               ,
                message: "Minimum four charaters required"
             }
          ]
@@ -145,6 +160,9 @@ export class SingleUserComponent implements OnInit {
          type: "radiobutton",
          label: "Gender",
          name: "gender",
+         field: '',
+         visible: true,
+         editable: true,
          options: ["Male", "Female"],
          value: "Male"
       },
@@ -152,32 +170,293 @@ export class SingleUserComponent implements OnInit {
          type: "date",
          label: "DOB",
          name: "dob",
-         validations: [
-            {
-               name: "required",
-               validator: Validators.required,
-               message: "Date of Birth Required"
-            }
+         field: '',
+         visible: true,
+         editable: true,
+         validation: [
+
          ]
       },
       {
          type: "select",
          label: "Country",
          name: "country",
-         value: "UK",
-         options: ["India", "UAE", "UK", "US"]
+         field: '',
+         visible: true,
+         editable: true,
+         options: [{
+            label: 'India',
+            Value: 'India'
+         }, {
+            label: 'UAE',
+            Value: 'UAE'
+         }, {
+            label: 'UK',
+            Value: 'UK'
+         }, {
+            label: 'US',
+            Value: 'US'
+         }],
+         validation: [
+            {
+               name: "required",
+               validator: true,
+               message: "Country Required"
+            }
+         ]
       },
       {
          type: "checkbox",
+         field: '',
+         visible: true,
+         editable: true,
          label: "Accept Terms",
          name: "term",
          value: true
       },
-      // {
-      //    type: "button",
-      //    label: "Create"
-      // }
    ];
+
+   regConfig: FieldConfig[] = [
+      {
+        "field": "firstName",
+        "value": "",
+        "name": " ",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "First name required"
+          },
+          {
+            "name": "pattern",
+            "validator": "([a-zA-Z]{3,30}\s*)+",
+            "message": "Please provide a valid First name"
+          }
+        ],
+        "label": "First name",
+        "input": "text"
+      },
+      {
+        "field": "lastName",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Last name required"
+          },
+          {
+            "name": "pattern",
+            "validator": "[a-zA-Z]{3,30}",
+            "message": "Please provide a valid Last name"
+          }
+        ],
+        "label": "Last name",
+        "input": "text"
+      },
+      {
+        "field": "email",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Email required"
+          },
+          {
+            "name": "pattern",
+            "validator": "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$",
+            "message": "Please provide a valid Email"
+          }
+        ],
+        "label": "Email",
+        "input": "text"
+      },
+      {
+        "field": "phoneNumber",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Phone Number required"
+          },
+          {
+            "name": "pattern",
+            "validator": "^[A-Za-z]+$/",
+            "message": "Please provide a valid Phone Number"
+          }
+        ],
+        "label": "Phone Number",
+        "input": "text"
+      },
+      {
+        "field": "userName",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "User Name required"
+          },
+          {
+            "name": "pattern",
+            "validator": "^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$",
+            "message": "Please provide a valid User Name"
+          }
+        ],
+        "label": "User Name",
+        "input": "text"
+      },
+      {
+        "field": "password",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Password required"
+          },
+          {
+            "name": "pattern",
+            "validator": "/^(?=.*d).{4,}$/",
+            "message": "Minimum four charaters required"
+          }
+        ],
+        "label": "Password",
+        "input": "password"
+      },
+      {
+        "field": "state",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "State required"
+          },
+          {
+            "name": "pattern",
+            "validator": "",
+            "message": ""
+          }
+        ],
+        "label": "State",
+        "input": "select",
+        "options": [
+          {
+            "label": "Karnataka",
+            "value": "5d6609ef81a57a6173a79e7a"
+          },
+          {
+            "label": "Goa",
+            "value": "5d6609ef81a57a6173a79e79"
+          },
+          {
+            "label": "Dummy KEF State",
+            "value": "5de4c1fb1f6a980ca737c7f5"
+          },
+          {
+            "label": "Delhi",
+            "value": "5d6609ef81a57a6173a79e78"
+          },
+          {
+            "label": "Punjab",
+            "value": "5da96a79f91e5f43e4104ec7"
+          },
+          {
+            "label": "Goa",
+            "value": "5dba74f5ef7a6518ddabbd8c"
+          },
+          {
+            "label": "KARNATAKA",
+            "value": "5dca7951a31c183b48ef847c"
+          },
+          {
+            "label": "Rajasthan",
+            "value": "5de4f9e9bedec30a7bb9671d"
+          }
+        ]
+      },
+      {
+        "field": "organisations",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Organisations required"
+          },
+          {
+            "name": "pattern",
+            "validator": "",
+            "message": ""
+          }
+        ],
+        "label": "Organisations",
+        "input": "select",
+        "options": [
+          {
+            "label": "0125747659358699520",
+            "value": "0125747659358699520"
+          }
+        ]
+      },
+      {
+        "field": "roles",
+        "value": "",
+        "visible": true,
+        "editable": true,
+        "validation": [
+          {
+            "name": "required",
+            "validator": "required",
+            "message": "Roles required"
+          },
+          {
+            "name": "pattern",
+            "validator": "",
+            "message": ""
+          }
+        ],
+        "label": "Roles",
+        "input": "select",
+        "options": [
+          {
+            "label": "Observation Designer",
+            "value": "5da6f7da280a694559c2cef9"
+          },
+          {
+            "label": "Observation Reviewer",
+            "value": "5da6f7da280a694559c2cefa"
+          },
+          {
+            "label": "Platform Admin",
+            "value": "5e71eb418fff053cb94fa2ae"
+          },
+          {
+            "label": "Organisation Admin",
+            "value": "5e71eb418fff053cb94fa2af"
+          }
+        ]
+      }
+    ]
 
    constructor(private formBuilder: FormBuilder, private usersService: UsersService,
       private router: Router, private _snackBar: MatSnackBar) {
@@ -203,6 +482,9 @@ export class SingleUserComponent implements OnInit {
       this.usersService.getUserForm().subscribe(data => {
          this.formdata = data['result'];
          this.fieldsbackend = this.formdata.form;
+         // this.regConfig = this.formdata.form
+         this.loading = true;
+         console.log(' this.regConfig',  this.regConfig);
       }, error => {
 
       });

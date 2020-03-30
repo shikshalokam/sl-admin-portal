@@ -90,7 +90,7 @@ export class keyCloakService {
     return this.keycloakAuth.logout();
   }
   logout() {
-    this.keycloak.logout('http://localhost:4200/users');
+    this.keycloak.logout('http://localhost:4200/home');
     localStorage.clear();
   }
 

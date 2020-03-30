@@ -27,13 +27,13 @@ export class DynamicFormComponent implements OnInit {
   createControl() {
      const group = this.fb.group({});
     this.fields.forEach(field => {
-      if (field.type === "button")
+      if (field.input === "button")
        return;
       const control = this.fb.control(
         field.value,
-        this.bindValidations(field.validations || [])
+        this.bindValidations(field.validation || [])
       );
-      group.addControl(field.name, control);
+      group.addControl(field.field, control);
     });
     return group;
   }
@@ -43,7 +43,13 @@ export class DynamicFormComponent implements OnInit {
     if (validations.length > 0) {
       const validList = [];
       validations.forEach(valid => {
-        validList.push(valid.validator);
+        if(valid.name === 'required') {
+          validList.push(Validators.required)
+        }
+        if(valid.name === 'pattern'){
+          validList.push(Validators.pattern(valid.validator))
+
+        }
       });
       return Validators.compose(validList);
     }
