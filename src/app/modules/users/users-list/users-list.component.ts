@@ -5,6 +5,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 
 export interface PeriodicElement {
   name: string;
@@ -35,7 +36,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersListComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['Shikshalokam', 'Unnati', 'Mantra'];
+  options: string[] = ['Shikshalokam', 'Unnati', 'Mantra', 'Dhiti', 'Bodha', 'AdminPortal', 'Assesment', 'Community'];
   filteredOptions: Observable<string[]>;
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -50,10 +51,10 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
 
   }
 
@@ -63,6 +64,7 @@ export class UsersListComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  // Adding single user popup
   openDialog(): void {
     const dialogRef = this.dialog.open(AddUserComponent
       , {
@@ -77,6 +79,20 @@ export class UsersListComponent implements OnInit {
     });
   }
 
+  // Adding multiple users popup
+  UploadUsers() {
+    const dialogRef = this.dialog.open(AddMultipleUsersComponent
+      , {
+        width: '50%',
+        height: '60%',
+        data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
   addNewUser() {
 
   }

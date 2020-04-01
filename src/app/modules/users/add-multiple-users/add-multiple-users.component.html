@@ -1,0 +1,34 @@
+<mat-toolbar role="toolbar" class="task-header">
+  <h5 class="title" id="exampleModalLabel">Create Multiple User ID's</h5>
+  <span class="fx-spacer"></span>
+  <button mat-icon-button (click)="close()">
+    <mat-icon mat-list-icon style="color: antiquewhite;">close</mat-icon>
+  </button>
+</mat-toolbar>
+<h3 class="titlehead">User Info</h3>
+<div class="row">
+  <div class="col-md-2 imagegap">
+    <span class="dashboard-icon">
+      <mat-icon class="roundimg">people</mat-icon>
+    </span>
+    <h3 class="ftitle">Users Creation</h3>
+  </div>
+
+  <div class="col-md-8">
+    <input type="file" id="file" enctype="multipart/form-data" (change)="handleFileInput($event.target.files)"
+      accept=".csv">
+    <div class="space">
+      ** Note:
+      Click the link <a href="{{downloadurl}}" download>here</a> to download
+      sample .csv file to upload users
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()" class="btn btn-primary">Cancel</button>&nbsp;
+      <button mat-button (click)="uploadFileToActivity()" class="btn btn-primary">Upload</button>
+    </div>
+  </div>
+
+</div>
+
+
+

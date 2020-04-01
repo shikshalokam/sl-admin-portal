@@ -8,6 +8,8 @@ import { AdminSharedModule, DynamicFormComponent } from '../admin-shared';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
+// import { FileSaverModule } from 'ngx-filesaver';
 
 
 
@@ -17,8 +19,9 @@ import { AddUserComponent } from './add-user/add-user.component';
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
     AdminSharedModule,
+    // FileSaverModule,
     UsersRoutingModule],
-    entryComponents:[AddUserComponent],
-  declarations: [UsersComponent, DynamicFormComponent, MultiUsersComponent, SingleUserComponent, UsersListComponent, AddUserComponent],
+  entryComponents: [AddUserComponent, AddMultipleUsersComponent],
+  declarations: [UsersComponent, DynamicFormComponent, MultiUsersComponent, SingleUserComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent],
 })
 export class UsersModule { }
