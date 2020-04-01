@@ -2,30 +2,42 @@
   <div>
     <mat-toolbar class="tool-bar">
       <mat-toolbar-row>
-          <div class="col-md-2 col-sm-2">
-            <button (click)="openDialog()" mat-raised-button matTooltip="Add User">
-              Add New user
-            </button>
-          </div>
-          <div class="col-md-2 col-sm-2">
-            <button mat-raised-button matTooltip="Upload users">
-              Bulk upload users
-            </button>
-          </div>
-          <div class="col-md-2 col-sm-2">
-            <button  mat-raised-button matTooltip="Download">
-              Download users
-            </button>
-          </div>
+        <div class="col-md-2 col-sm-2">
+          <button (click)="openDialog()" mat-raised-button matTooltip="Add User">
+            Add New user
+          </button>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <button mat-raised-button matTooltip="Upload users">
+            Bulk upload users
+          </button>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <button mat-raised-button matTooltip="Download">
+            Download users
+          </button>
+        </div>
       </mat-toolbar-row>
     </mat-toolbar>
   </div>
 
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
     </mat-form-field>
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Select Organisation" aria-label="Number" matInput [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
   </div>
+  
 
   <div class="example-container mat-elevation-z8">
 

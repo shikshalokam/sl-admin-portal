@@ -18,9 +18,9 @@ const componentMapper = {
   password: InputComponent,
   // button: ButtonComponent,
   select: SelectComponent,
-  // date: DateComponent,
-  // radio: RadiobuttonComponent,
-  // checkbox: CheckboxComponent
+  date: DateComponent,
+  radio: RadiobuttonComponent,
+  checkbox: CheckboxComponent
 };
 
 @Directive({

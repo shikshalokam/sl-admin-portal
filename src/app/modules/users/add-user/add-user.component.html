@@ -1,23 +1,11 @@
-<!-- <div class="dashboard-content"> -->
-<!-- <mat-toolbar role="toolbar" class="task-header">
-  <span> Dialog Title</span>
-  <span class="fx-spacer"></span>
-  <button mat-icon-button (click)="close()">
-    <mat-icon mat-list-icon>close</mat-icon>
-  </button>
-</mat-toolbar> -->
 <mat-toolbar role="toolbar" class="task-header">
-  <div>
-    <h5 class="title" id="exampleModalLabel">Create Single User ID</h5>
-  </div>
+  <h5 class="title" id="exampleModalLabel">Create Single User ID</h5>
   <span class="fx-spacer"></span>
   <button mat-icon-button (click)="close()">
     <mat-icon mat-list-icon style="color: antiquewhite;">close</mat-icon>
   </button>
 </mat-toolbar>
-<div>
-  <h3 class="titlehead">User Info</h3>
-</div>
+<h3 class="titlehead">User Info</h3>
 <div class="row">
   <div class="col-md-2 imagegap">
     <span class="dashboard-icon">
@@ -27,27 +15,11 @@
   </div>
 
   <div class="col-md-6">
-    <div>
-      <dynamic-form *ngIf="loading" [fields]="regConfig" (submit)="submit($event)">
-      </dynamic-form>
-      <div style="padding-top: 10px">
-        <button type="button" (click)="onSubmit()" class="btn btn-primary">Create</button>
-      </div>
+    <dynamic-form *ngIf="loading" [fields]="regConfig" (submit)="submit($event)">
+    </dynamic-form>
+    <div style="padding-top: 10px">
+      <button type="button" (click)="onSubmit()" class="btn btn-primary">Create</button>
     </div>
   </div>
-  <div class="col-md-4">
 
-  </div>
-
-  <div class="col-md-4">
-    <div class="modal-body">
-
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="modal-body">
-
-    </div>
-  </div>
 </div>
-<!-- </div> -->

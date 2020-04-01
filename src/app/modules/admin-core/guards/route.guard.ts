@@ -16,7 +16,7 @@ export class RouteGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
    
-    if (localStorage.getItem('user_role') === 'OBS_DESIGNER') {
+    if (localStorage.getItem('access-token')) {
       // if(admin === 'OBS_DESIGNER'){
         // return true;
       // }

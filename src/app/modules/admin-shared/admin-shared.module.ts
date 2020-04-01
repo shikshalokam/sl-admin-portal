@@ -17,7 +17,8 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatDialogModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,12 +28,14 @@ import { SelectComponent } from './components/select/select.component';
 import { DateComponent } from './components/date/date.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+
 
 
 
 @NgModule({
   // ButtonComponent
-  declarations: [CommingSoonComponent, UnauthorizedComponent, InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent],
+  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -52,7 +55,8 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatAutocompleteModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -70,6 +74,8 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
     MatPaginatorModule,
     MatDialogModule,
     MatTooltipModule,
+    DynamicFieldDirective,
+    MatAutocompleteModule,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
