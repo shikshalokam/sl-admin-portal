@@ -1,0 +1,14 @@
+<!-- Again we need to change based on the response for multi select -->
+
+<div class="demo-full-width margin-top" [formGroup]="group">
+  <mat-form-field>
+    <mat-label>{{field.label}}</mat-label>
+    <mat-select [formControl]="field.field" multiple>
+      <mat-option *ngFor="let data of field.options" [value]="data.value">{{data.label}}</mat-option>
+    </mat-select>
+    <ng-container *ngFor="let validation of field.validation;">
+      <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
+    </ng-container>
+  </mat-form-field>
+</div>
+

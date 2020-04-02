@@ -10,6 +10,8 @@ import { SelectComponent } from "../select/select.component";
 import { DateComponent } from "../date/date.component";
 import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
+import { MultiSelectComponent } from "../multi-select/multi-select.component";
+
 
 
 // TO bind the components based on the type of the field
@@ -20,7 +22,8 @@ const componentMapper = {
   select: SelectComponent,
   date: DateComponent,
   radio: RadiobuttonComponent,
-  checkbox: CheckboxComponent
+  checkbox: CheckboxComponent,
+  multiselect: MultiSelectComponent
 };
 
 @Directive({

@@ -4,6 +4,8 @@ import { FieldConfig } from "../../admin-shared/field.interface";
 import { FormBuilder, FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { UsersService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material';
+import {ThemePalette} from '@angular/material/core';
 
 
 
@@ -19,6 +21,8 @@ export class AddUserComponent implements OnInit {
   group: FormGroup;
   // regConfig: any[];
   formdata: any;
+  // colour = '#A63936'
+  // color: ThemePalette = '#A63936';
   fieldsbackend: any;
   loading: boolean = false;
   regConfig: FieldConfig[] = [
@@ -96,7 +100,7 @@ export class AddUserComponent implements OnInit {
         },
         {
           "name": "pattern",
-          "validator": "^[A-Za-z]+$/",
+          "validator": "(0/91)?[7-9][0-9]{9}",
           "message": "Please provide a valid Phone Number"
         }
       ],
@@ -136,7 +140,7 @@ export class AddUserComponent implements OnInit {
         },
         {
           "name": "pattern",
-          "validator": "/^(?=.*d).{4,}$/",
+          "validator": "^(?=.*\d).{4,8}$",
           "message": "Minimum four charaters required"
         }
       ],
@@ -263,6 +267,7 @@ export class AddUserComponent implements OnInit {
     }
   ]
   constructor(private usersService: UsersService,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
   ngOnInit() {
@@ -270,23 +275,48 @@ export class AddUserComponent implements OnInit {
   }
 
 
-   /**
-    * To get the form from the backend
-    */
-   createForm() {
+  /**
+   * To get the form from the backend
+   */
+  createForm() {
     this.usersService.getUserForm().subscribe(data => {
-       this.formdata = data['result'];
-       this.fieldsbackend = this.formdata.form;
-       // this.regConfig = this.formdata.form
-       this.loading = true;
+      this.formdata = data['result'];
+      this.fieldsbackend = this.formdata.form;
+      console.log('=========', this.fieldsbackend);
+      // this.regConfig = this.formdata.form
+      this.loading = true;
       //  console.log(' this.regConfig',  this.regConfig);s
     }, error => {
 
     });
- }
+  }
 
- close(){
-  this.dialogRef.close();
- }
+  onSubmit() {
+    if (this.form.form.valid) {
+      this.createUser(this.form.value)
+    } else {
+      this.form.validateAllFormFields(this.form.form);
+    }
+  }
+
+  /**
+    * To Create the User
+    */
+  createUser(userdata) {
+    console.log('this.form.value', userdata)
+    this.usersService.createUser(userdata).subscribe(data => {
+      console.log('=========response=',data)
+      this._snackBar.open('User Created Sucessfully', 'Created', {
+        duration: 2000,
+      });
+      // this.form.form.reset();
+    }, error => {
+
+    });
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
 
 }

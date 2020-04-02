@@ -2,18 +2,22 @@
   <div>
     <mat-toolbar class="tool-bar">
       <mat-toolbar-row>
-        <div class="col-md-2 col-sm-2">
-          <button (click)="openDialog()" mat-raised-button matTooltip="Add User">
+        <a [routerLink]="['/home']">
+          <mat-icon matTooltip="home" class="home" aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        </a>
+
+        <div class="btn-gap">
+          <button mat-button (click)="openDialog()" matTooltip="Add User">
             Add New user
           </button>
         </div>
-        <div class="col-md-2 col-sm-2">
-          <button (click)="UploadUsers()" mat-raised-button matTooltip="Upload users">
+        <div class="btn-gap">
+          <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
             Bulk upload users
           </button>
         </div>
-        <div class="col-md-2 col-sm-2">
-          <button mat-raised-button matTooltip="Download">
+        <div class="btn-gap">
+          <button (click)="downloadUsers(dataSource)" mat-button matTooltip="Download">
             Download users
           </button>
         </div>
@@ -21,23 +25,28 @@
     </mat-toolbar>
   </div>
 
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
-    </mat-form-field>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Select Organisation" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
+  <div class="example-header row">
+    <div class="col-md-3">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Select Organisation" 
+          aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)='chooseFirstOption($event)'>
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
       </mat-form-field>
-    </form>
+    </div>
   </div>
-  
+
 
   <div class="example-container mat-elevation-z8">
 
@@ -65,6 +74,20 @@
       <ng-container matColumnDef="symbol">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.symbol}} </mat-cell>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+          <button (click)="editUser(user)" mat-icon-button color="primary" matTooltip="Edit User">
+            <mat-icon>create</mat-icon>
+          </button>&nbsp;
+          <button (click)="ViewUser(user)" mat-icon-button color="primary" matTooltip="View User">
+            <mat-icon>visibility</mat-icon>
+          </button>&nbsp;
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

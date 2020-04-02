@@ -1,25 +1,25 @@
 <mat-toolbar role="toolbar" class="task-header">
   <h5 class="title" id="exampleModalLabel">Create Single User ID</h5>
-  <span class="fx-spacer"></span>
-  <button mat-icon-button (click)="close()">
-    <mat-icon mat-list-icon style="color: antiquewhite;">close</mat-icon>
-  </button>
 </mat-toolbar>
-<h3 class="titlehead">User Info</h3>
-<div class="row">
-  <div class="col-md-2 imagegap">
-    <span class="dashboard-icon">
-      <mat-icon class="roundimg">person</mat-icon>
-    </span>
-    <h3 class="ftitle">User Creation</h3>
-  </div>
-
-  <div class="col-md-6">
-    <dynamic-form *ngIf="loading" [fields]="regConfig" (submit)="submit($event)">
-    </dynamic-form>
-    <div style="padding-top: 10px">
-      <button type="button" (click)="onSubmit()" class="btn btn-primary">Create</button>
+<mat-dialog-content class="mat-typography">
+  <h3 class="titlehead">User Info</h3>
+  <div class="row">
+    <div class="col-md-3 imagegap">
+      <span class="dashboard-icon">
+        <mat-icon class="roundimg">person</mat-icon>
+      </span>
+      <h3 class="ftitle">User Creation</h3>
     </div>
-  </div>
+    <div class="col-md-6">
+      <mat-spinner *ngIf="loading == false"></mat-spinner>
+      <dynamic-form *ngIf="loading" [fields]="regConfig" (submit)="submit($event)">
+      </dynamic-form>
+    </div>
 
-</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button class="btn btn-primary" mat-dialog-close>Cancel</button>
+  <button mat-button (click)="onSubmit()" class="btn btn-primary" cdkFocusInitial>Add New user</button>
+  <!-- [mat-dialog-close]="true"  -->
+</mat-dialog-actions>

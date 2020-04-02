@@ -32,3 +32,12 @@
 .fx-spacer {
     flex: 1 1 auto;
 }
+.spin {
+color: $primary-color;
+}
+
+.mat-spinner {
+    ::ng-deep circle {
+        stroke:  #A63936 !important;
+    }
+}

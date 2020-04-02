@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../admin-core';
 import { saveAs } from 'file-saver';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
- 
+import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-add-multiple-users',
@@ -13,10 +14,9 @@ export class AddMultipleUsersComponent implements OnInit {
   filecontent: any;
   downloadurl: 'download url from server';
   constructor(private usersService: UsersService,
+    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<AddMultipleUsersComponent>
-    // private fileSaverService: FileSaverService
-    // private fileSaver: FileSaver
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -31,15 +31,22 @@ export class AddMultipleUsersComponent implements OnInit {
 
   // Sendind csv to service
   uploadFileToActivity() {
-    this.usersService.uploadUsersCsv(this.filecontent).subscribe(res => {
-      if (res.status === 'sucess') {
+    if (this.filecontent) {
 
-      } else {
+      this.usersService.uploadUsersCsv(this.filecontent).subscribe(res => {
+        if (res.status === 'sucess') {
 
-      }
-    }, err => {
-      console.log('uploadFileToActivity error', err);
-    });
+        } else {
+
+        }
+      }, err => {
+        console.log('uploadFileToActivity error', err);
+      });
+    } else {
+      this._snackBar.open('Please Select the File', 'error', {
+        duration: 2000,
+      });
+    }
   }
 
   // To download the failed csv file
@@ -75,7 +82,10 @@ export class AddMultipleUsersComponent implements OnInit {
 
   };
 
-  close(){
+  close() {
     this.dialogRef.close();
-   }
+  }
+  onNoClick() {
+    this.dialogRef.close();
+  }
 }

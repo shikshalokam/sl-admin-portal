@@ -15,9 +15,7 @@ table {
   }
   
   .example-header {
-    min-height: 64px;
     padding: 8px 24px 0;
-    max-width: 25%;
   }
   
   .mat-form-field {
@@ -36,4 +34,20 @@ table {
   .tool-bar{
       background-color: $primary-color;
   }
+  .btn-gap{
+    padding: 20px;
+  }
+
+  .mat-toolbar {
+    color: $white-color;
+    font-size: initial;
   
+  }
+  .mat-button {
+    font-weight: 600;
+  }
+  .home {
+    color: white;
+    cursor: pointer;
+    padding-top: 8px;
+  }

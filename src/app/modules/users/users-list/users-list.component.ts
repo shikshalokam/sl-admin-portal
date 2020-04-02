@@ -38,14 +38,13 @@ export class UsersListComponent implements OnInit {
   myControl = new FormControl();
   options: string[] = ['Shikshalokam', 'Unnati', 'Mantra', 'Dhiti', 'Bodha', 'AdminPortal', 'Assesment', 'Community'];
   filteredOptions: Observable<string[]>;
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(public dialog: MatDialog) {
-
+    this.myControl.setValue(this.options[0]);
   }
 
   ngOnInit() {
@@ -57,10 +56,12 @@ export class UsersListComponent implements OnInit {
       );
 
   }
+  chooseFirstOption(values): void {
+    console.log('selected value', values.option.value);
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
@@ -69,13 +70,11 @@ export class UsersListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddUserComponent
       , {
         width: '50%',
-        height: '80%',
         data: {}
       });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
   }
 
@@ -84,17 +83,12 @@ export class UsersListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddMultipleUsersComponent
       , {
         width: '50%',
-        height: '60%',
         data: {}
       });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      // this.animal = result;
     });
-  }
-  addNewUser() {
-
   }
   /**
   * Set the paginator and sort after the view init since this component will
@@ -109,6 +103,39 @@ export class UsersListComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  // To Download the csv file
+  downloadFile(data: any) {
+    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
+    const header = Object.keys(data[0]);
+    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
+    csv.unshift(header.join(','));
+    let csvArray = csv.join('\r\n');
+
+    var a = document.createElement('a');
+    var blob = new Blob([csvArray], { type: 'text/csv' }),
+      url = window.URL.createObjectURL(blob);
+
+    a.href = url;
+    a.download = "Users.csv";
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  }
+
+  // Download users
+  downloadUsers(data) {
+    this.downloadFile(data.filteredData);
+  }
+
+  // To Edit the user
+  editUser(user) {
+
+  }
+
+  ViewUser(user) {
+
   }
 
 

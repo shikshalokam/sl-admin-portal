@@ -18,7 +18,8 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,13 +30,15 @@ import { DateComponent } from './components/date/date.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 
 
 
 
 @NgModule({
   // ButtonComponent
-  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent],
+  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
+    InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -56,7 +59,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatPaginatorModule,
     MatDialogModule,
     MatTooltipModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressSpinnerModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -76,6 +80,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatTooltipModule,
     DynamicFieldDirective,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -84,7 +89,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     SelectComponent,
     DateComponent,
     RadiobuttonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    MultiSelectComponent
   ]
 })
 export class AdminSharedModule { }
