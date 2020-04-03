@@ -18,6 +18,12 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
 
+  // To get the orginsations based on the user logged in
+  getOrganisations() {
+    return this.Http.get(environment.base_url + UsersConfig.organisations);
+  }
+
+
   getUserRoles() {
     return this.Http.get(environment.base_url + UsersConfig.userroles)
   }
@@ -35,7 +41,7 @@ export class UsersService {
   uploadUsersCsv(file): Observable<any> {
     let formData = new FormData();
     formData.append('files', file);
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token'});
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
     headers.append('Content-Type', 'multipart/form-data');
     const req = new HttpRequest('POST', environment.base_url + '',
       formData, {
@@ -46,9 +52,9 @@ export class UsersService {
   }
 
 
-   // To download the failed Users csv file
-   failedCsvUpload(failedpath) {
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token'});
+  // To download the failed Users csv file
+  failedCsvUpload(failedpath) {
+    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
     headers.append('Content-Type', 'multipart/form-data');
     const params = new HttpParams()
       .set('filePath', failedpath);
@@ -56,7 +62,7 @@ export class UsersService {
 
   }
 
- 
+
 
   // To Clear the stored data
   clearMessage() {

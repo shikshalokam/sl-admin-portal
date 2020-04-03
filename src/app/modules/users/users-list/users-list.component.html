@@ -32,9 +32,10 @@
           <input type="text" placeholder="Select Organisation" 
           aria-label="Number" matInput [formControl]="myControl"
             [matAutocomplete]="auto">
+            <!-- [displayWith]="displayFn"  -->
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)='chooseFirstOption($event)'>
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">
+              {{option.label}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>

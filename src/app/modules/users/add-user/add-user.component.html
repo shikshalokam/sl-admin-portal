@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-6">
       <mat-spinner *ngIf="loading == false"></mat-spinner>
-      <dynamic-form *ngIf="loading" [fields]="regConfig" (submit)="submit($event)">
+      <dynamic-form *ngIf="loading" [fields]="fieldsbackend" (submit)="submit($event)">
       </dynamic-form>
     </div>
 

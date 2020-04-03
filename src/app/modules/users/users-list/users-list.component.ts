@@ -6,6 +6,8 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
+import { UsersService } from '../../admin-core';
+
 
 export interface PeriodicElement {
   name: string;
@@ -36,33 +38,52 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersListComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['Shikshalokam', 'Unnati', 'Mantra', 'Dhiti', 'Bodha', 'AdminPortal', 'Assesment', 'Community'];
+  options: any[];
+  firstorganisationValue: any;
   filteredOptions: Observable<string[]>;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog) {
-    this.myControl.setValue(this.options[0]);
+  constructor(public dialog: MatDialog, private usersService: UsersService) {
   }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-    this.filteredOptions = this.myControl.valueChanges
+    this.getUserOrginasations();
+  }
+
+  /**
+   * To get the form from the backend
+   */
+  getUserOrginasations() {
+    this.usersService.getOrganisations().subscribe(data => {
+      this.options = data['result'];
+      this.myControl.setValue(this.options[0].label);
+      this.firstorganisationValue = this.options[0].value;
+      this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
+    }, error => {
 
+    });
   }
+
+  // displayFn(label): any {
+  //   console.log('bhvhgvg', label);
+  //   return label
+  // }
+
   chooseFirstOption(values): void {
     console.log('selected value', values.option.value);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.options.filter(option => option.label.toLowerCase().includes(filterValue));
   }
 
   // Adding single user popup

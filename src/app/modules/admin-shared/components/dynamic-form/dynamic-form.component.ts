@@ -27,6 +27,7 @@ export class DynamicFormComponent implements OnInit {
   createControl() {
      const group = this.fb.group({});
     this.fields.forEach(field => {
+      if(field.visible) {
       if (field.input === "button")
        return;
       const control = this.fb.control(
@@ -34,6 +35,7 @@ export class DynamicFormComponent implements OnInit {
         this.bindValidations(field.validation || [])
       );
       group.addControl(field.field, control);
+      }
     });
     return group;
   }
@@ -75,6 +77,7 @@ export class DynamicFormComponent implements OnInit {
   // To Validate the form
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
+      
       const control = formGroup.get(field);
       control.markAsTouched({ onlySelf: true });
     });

@@ -31,15 +31,15 @@ table {
   .panel {
       cursor: pointer;
   }
-  .tool-bar{
-      background-color: $primary-color;
-  }
+  // .tool-bar{
+  //     background-color: $primary-color;
+  // }
   .btn-gap{
     padding: 20px;
   }
 
   .mat-toolbar {
-    color: $white-color;
+    color: $primary-color;
     font-size: initial;
   
   }
@@ -47,7 +47,6 @@ table {
     font-weight: 600;
   }
   .home {
-    color: white;
     cursor: pointer;
     padding-top: 8px;
   }

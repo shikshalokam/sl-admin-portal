@@ -1,5 +1,5 @@
-<div class="demo-full-width margin-top" [formGroup]="group">
-    <mat-label>{{field.label}}</mat-label>
+<div *ngIf ="field.visible" class="demo-full-width margin-top" [formGroup]="group">
+    <mat-label class="required">{{field.label}}</mat-label>
     <select class="form-control custom-form" [placeholder]="field.label" [formControlName]="field.field">
         <option *ngFor="let item of field.options" [value]="item.value">{{item.label}}</option>
     </select>

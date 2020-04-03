@@ -1,15 +1,15 @@
 <!-- <mat-toolbar> -->
 
-<div class="row" style="padding:25px">
+<div class="row head">
   <div class="col-md-6 col-sm-4">
-    <img width="30%" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
+    <img class="b-color" width="30%" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
   </div>
 
-  <div class="col-md-4 col-sm-8" style="padding-top: 4px;">
-   
+  <div class="col-md-4 col-sm-8" style="padding-top: 10px;">
+
     <form class="form-inline">
-      <input style="height: 40px;" class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search" aria-label="Search"
-        mdbInput>
+      <input style="height: 50px;" class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search"
+        aria-label="Search" mdbInput>
     </form>
     <!-- <div class="row font-weight-bold">
       <div class="col-md-3">
@@ -32,19 +32,20 @@
   </div>
 
   <div class="row">
-      <button matTooltip="Search" mat-icon-button aria-label="search">
-        <mat-icon>search</mat-icon>
+    <div class="Button">
+      <button class="b-color" matTooltip="Search" mat-icon-button aria-label="search">
+        <mat-icon class="c-mat">search</mat-icon>
       </button>
-    <div class="custom-gap">
-      <button matTooltip="Notifications" mat-icon-button aria-label="Notifications">
-        <mat-icon>notifications</mat-icon>
+    </div>
+    <div class="Button">
+      <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
+        <mat-icon class="c-mat">notifications</mat-icon>
       </button>
     </div>
 
-    <div class="custom-gap">
-      <button matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu"
-        aria-label="user">
-        <mat-icon>person</mat-icon>
+    <div class="Button">
+      <button  class="b-color" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu" aria-label="user">
+        <mat-icon  class="c-mat">person</mat-icon>
       </button>
 
       <mat-menu #menu="matMenu">
