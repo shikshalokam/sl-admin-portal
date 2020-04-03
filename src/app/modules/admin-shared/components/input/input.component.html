@@ -1,4 +1,4 @@
-<div class="demo-full-width" [formGroup]="group">
+<div [formGroup]="group">
     <label class="required">{{field.label}}</label>
     <input class="form-control custom-form" [formControlName]="field.field" [type]="field.input">
     <ng-container *ngFor="let validation of field.validation;">

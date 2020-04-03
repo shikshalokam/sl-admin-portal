@@ -25,14 +25,13 @@ export class AddMultipleUsersComponent implements OnInit {
   // File Handling
   handleFileInput(files: Event) {
     const file = files[0];
-    this.uploadFileToActivity();
+    this.uploadUsersCSVFile();
     this.filecontent = file;
   }
 
   // Sendind csv to service
-  uploadFileToActivity() {
+  uploadUsersCSVFile() {
     if (this.filecontent) {
-
       this.usersService.uploadUsersCsv(this.filecontent).subscribe(res => {
         if (res.status === 'sucess') {
 
@@ -40,25 +39,13 @@ export class AddMultipleUsersComponent implements OnInit {
 
         }
       }, err => {
-        console.log('uploadFileToActivity error', err);
+        console.log('uploadUsersCSVFile error', err);
       });
     } else {
       this._snackBar.open('Please Select the File', 'error', {
         duration: 2000,
       });
     }
-  }
-
-  // To download the failed csv file
-  failedleadbycsv(file) {
-    this.usersService.failedCsvUpload(file)
-      .subscribe(res => {
-        // this.faileddata = res;
-        // this.saveFileInLocalSystem(this.faileddata.data);
-      }, err => {
-
-        console.log('uploadFileToActivity error', err);
-      });
   }
 
   // Saving the file in to local
@@ -79,7 +66,6 @@ export class AddMultipleUsersComponent implements OnInit {
       type: "text/csv"
     });
     saveAs(blob, reportName)
-
   };
 
   close() {

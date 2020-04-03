@@ -56,17 +56,20 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    userdata.organisations = '';
+    userdata.organisations = '0125747659358699520';
     console.log('userdata',userdata)
     this.usersService.createUser(userdata).subscribe(data => {
-      if (data['result'].response === 'Sucess') {
+      if (data['result'].response === 'SUCCESS') {
         this._snackBar.open('User Created Sucessfully', 'Created', {
           duration: 2000,
         });
         this.form.form.reset();
+        this.dialogRef.close();
       }
     }, error => {
-
+      this._snackBar.open(error.error.message.params.errmsg, 'error', {
+        duration: 2000,
+      });
     });
   }
 

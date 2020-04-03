@@ -9,7 +9,6 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
-// import { FileSaverModule } from 'ngx-filesaver';
 
 
 
@@ -19,7 +18,6 @@ import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-use
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
     AdminSharedModule,
-    // FileSaverModule,
     UsersRoutingModule],
   entryComponents: [AddUserComponent, AddMultipleUsersComponent],
   declarations: [UsersComponent, DynamicFormComponent, MultiUsersComponent, SingleUserComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent],

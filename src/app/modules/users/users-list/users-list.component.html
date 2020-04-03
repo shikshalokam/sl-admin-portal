@@ -29,12 +29,11 @@
     <div class="col-md-3">
       <form class="example-form">
         <mat-form-field class="example-full-width">
-          <input type="text" placeholder="Select Organisation" 
-          aria-label="Number" matInput [formControl]="myControl"
+          <input type="text" placeholder="Select Organisation" aria-label="Number" matInput [formControl]="myControl"
             [matAutocomplete]="auto">
-            <!-- [displayWith]="displayFn"  -->
+          <!-- [displayWith]="displayFn"  -->
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)='chooseFirstOption($event)'>
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.value">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.label">
               {{option.label}}
             </mat-option>
           </mat-autocomplete>
@@ -52,6 +51,18 @@
   <div class="example-container mat-elevation-z8">
 
     <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
 
       <!-- ID Column -->
       <ng-container matColumnDef="position">

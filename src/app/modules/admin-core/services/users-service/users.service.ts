@@ -39,29 +39,18 @@ export class UsersService {
 
   // To upload the Users csv
   uploadUsersCsv(file): Observable<any> {
-    let formData = new FormData();
-    formData.append('files', file);
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
-    headers.append('Content-Type', 'multipart/form-data');
-    const req = new HttpRequest('POST', environment.base_url + '',
-      formData, {
-      headers: headers
-    });
+    let fileData = new FormData();
+    fileData.append('files', file);
+    return this.Http.post(environment.base_url + '', fileData)
+    // let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
+    // headers.append('Content-Type', 'multipart/form-data');
+    // const req = new HttpRequest('POST', environment.base_url + '',
+    //   formData, {
+    //   headers: headers
+    // });
 
-    return this.Http.request(req);
+    // return this.Http.request(req);
   }
-
-
-  // To download the failed Users csv file
-  failedCsvUpload(failedpath) {
-    let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
-    headers.append('Content-Type', 'multipart/form-data');
-    const params = new HttpParams()
-      .set('filePath', failedpath);
-    return this.Http.get(environment.base_url + '' + params, { headers });
-
-  }
-
 
 
   // To Clear the stored data

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
+import {SelectionModel} from '@angular/cdk/collections';
 
 
 export interface PeriodicElement {
@@ -41,7 +42,8 @@ export class UsersListComponent implements OnInit {
   options: any[];
   firstorganisationValue: any;
   filteredOptions: Observable<string[]>;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'Action'];
+  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol', 'Action'];
+  selection = new SelectionModel<PeriodicElement>(true, []);
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -54,6 +56,27 @@ export class UsersListComponent implements OnInit {
     this.getUserOrginasations();
   }
 
+   /** Whether the number of selected elements matches the total number of rows. */
+   isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+   /** Selects all rows if they are not all selected; otherwise clear selection. */
+   masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: PeriodicElement): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
   /**
    * To get the form from the backend
    */
@@ -63,19 +86,23 @@ export class UsersListComponent implements OnInit {
       this.myControl.setValue(this.options[0].label);
       this.firstorganisationValue = this.options[0].value;
       this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value))
+        );
     }, error => {
 
     });
   }
 
   // displayFn(label): any {
-  //   console.log('bhvhgvg', label);
-  //   return label
+  //     return label.label
   // }
+
+  returnFn(user) {
+    console.log('user', user);
+    // return user ? user.id : undefined;
+  }
 
   chooseFirstOption(values): void {
     console.log('selected value', values.option.value);

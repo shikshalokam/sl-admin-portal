@@ -38,6 +38,13 @@ table {
     padding: 20px;
   }
 
+  th.mat-header-cell {
+    border-bottom-style: none;
+  }
+  td.mat-cell {
+    border-bottom-style: none;
+  }
+
   .mat-toolbar {
     color: $primary-color;
     font-size: initial;
