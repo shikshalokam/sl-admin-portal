@@ -30,13 +30,13 @@ export class Interceptor implements HttpInterceptor {
                 }
             });
         }
-        if (request.headers.has('Content-Type')) {
-            request = request.clone({
-                setHeaders: {
-                    'content-type': 'multipart/form-data'
-                }
-            });
-        }
+        // if (request.headers.has('Content-Type')) {
+        //     request = request.clone({
+        //         setHeaders: {
+        //             'content-type': 'multipart/form-data'
+        //         }
+        //     });
+        // }
         request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
         });

@@ -1,30 +1,51 @@
-<mat-toolbar role="toolbar" class="task-header">
-  <h5 class="title" id="exampleModalLabel">Create Multiple User ID's</h5>
-</mat-toolbar>
+<div>
+  <mat-toolbar role="toolbar" class="task-header">
+    <h5 class="title" id="exampleModalLabel">Bulk Upload users</h5>
+  </mat-toolbar>
+</div>
 <mat-dialog-content class="mat-typography">
-  <h3 class="titlehead">Bulk Upload users</h3>
-  <div class="row">
-    <div class="col-md-3">
+  <!-- <h3 class="titlehead">Bulk Upload users</h3> -->
+  <div class="row" style="padding-left: 15px;">
+    <!-- <div class="col-md-3">
       <span class="dashboard-icon">
         <mat-icon class="roundimg">people</mat-icon>
       </span>
       <h3 class="ftitle">Users Creation</h3>
-    </div>
+    </div> -->
 
-    <div class="col-md-9">
-      <input type="file" id="file" enctype="multipart/form-data" (change)="handleFileInput($event.target.files)"
-        accept=".csv">
+    <div >
       <div class="space">
-        ** Note:
-        Click the link <a href="{{downloadurl}}" download>here</a> to download
-        sample .csv file to upload users
+        Add or edit users by uploading a CSV file with their info such as passwords and organisation units
+        <a href="{{downloadurl}}" download>Learn More</a>
+      </div>
+
+      <div class="space">
+        Note:
+        Required Fields are FirstName, Last Name, Email Address, Password and Orgnisation.
+      </div>
+      <input class="space" type="file" id="file" enctype="multipart/form-data"
+        (change)="handleFileInput($event.target.files)" accept=".csv">
+      <div class="space">
+        <h3>Not sure how to get started?</h3>
+      </div>
+      <div class="space">
+        Download a CSV file, then edit and upload the file.
+      </div>
+      <div class="space">
+        * Download blank <a href="{{downloadurl}}" download>CSV template</a>.
+      </div>
+      <div class="space">
+        * Download user's info in a <a href="{{downloadurl}}" download>CSV file</a>.
       </div>
     </div>
   </div>
+  <!-- </div> -->
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button class="btn btn-primary" mat-dialog-close>Cancel</button>
-  <button mat-button (click)="uploadUsersCSVFile()" class="btn btn-primary"
-   cdkFocusInitial>Upload</button>
-   <!-- [mat-dialog-close]="true" -->
+    <button mat-button mat-dialog-close>CANCEL</button>
+    <button mat-button (click)="uploadUsersCSVFile()" cdkFocusInitial>UPLOAD</button>
+
+  <!-- <button mat-button class="btn btn-primary" mat-dialog-close>Cancel</button>
+  <button mat-button (click)="uploadUsersCSVFile()" class="btn btn-primary" cdkFocusInitial>Upload</button> -->
+  <!-- [mat-dialog-close]="true" -->
 </mat-dialog-actions>

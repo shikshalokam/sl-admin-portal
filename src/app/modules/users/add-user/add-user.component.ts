@@ -45,6 +45,7 @@ export class AddUserComponent implements OnInit {
 
   // Form Submit
   onSubmit() {
+    console.log('form', JSON.stringify(this.form.value));
     if (this.form.form.valid) {
       this.createUser(this.form.value)
     } else {
@@ -56,7 +57,7 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    userdata.organisations = '0125747659358699520';
+    // userdata.organisations = '0125747659358699520';
     console.log('userdata',userdata)
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {

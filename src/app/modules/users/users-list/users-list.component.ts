@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource, PageEvent, Sort } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { FormControl } from '@angular/forms';
@@ -7,29 +7,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
-import {SelectionModel} from '@angular/cdk/collections';
-
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { SelectionModel } from '@angular/cdk/collections';
+import { QueryParamsModel } from '../../admin-core/modals/query-params.model';
 
 
 @Component({
@@ -39,42 +18,101 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersListComponent implements OnInit {
   myControl = new FormControl();
+ 
+  selected: any;
+  selectedorganisation: any;
   options: any[];
+  organisations: any;
+  spin: any;
+  recordcount: any;
+  listing: boolean = false;
+  orgnsationid: any;
+  queryParams = {
+    sortType: 0,
+    page: 0,
+    size: 10,
+    sort: 'id',
+    order: 'ASCENDING'
+  };
+  dataSource: any;
   firstorganisationValue: any;
-  filteredOptions: Observable<string[]>;
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol', 'Action'];
-  selection = new SelectionModel<PeriodicElement>(true, []);
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  filteredOptions: any;
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'Action'];
+  selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') searchInput: ElementRef;
+  filterStatus: string = '';
+  filterType: string = '';
 
   constructor(public dialog: MatDialog, private usersService: UsersService) {
   }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    // this.dataSource.sort = this.sort;
     this.getUserOrginasations();
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.queryParams.page = page.pageIndex;
+      this.queryParams.size = page.pageSize;
+      this.getUserList();
+    });
+  }
+  /**
+* To get Userslist
+*/
+  getUserList() {
+    console.log('************', this.queryParams, this.searchInput.nativeElement.value);
+    this.usersService.getUsers(this.queryParams, this.orgnsationid,this.searchInput.nativeElement.value).subscribe(data => {
+      this.options = data['result'];
+      this.dataSource = new MatTableDataSource(data['result'].usersList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      // this.paginator.pageIndex = data['result'].pageable.pageNumber;
+      (<any>this.paginator)._length = data['result'].count;
+      this.listing = true;
+      console.log('lissssssssssss', this.options);
+    }, error => {
+
+    });
   }
 
-   /** Whether the number of selected elements matches the total number of rows. */
-   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  selectorganisation(){
+    this.orgnsationid  = this.selected;
+    this.getUserList();
   }
-   /** Selects all rows if they are not all selected; otherwise clear selection. */
-   masterToggle() {
+
+  onKey(value) {
+    this.selectedorganisation = this.search(value);
+    console.log('=====',  this.selectedorganisation)
+  }
+
+  // Filter the states list and send back to populate the selectedStates**
+  search(value) {
+    let filter = value.toLowerCase();
+    return this.organisations.filter(option => option.label.toLowerCase().startsWith(filter));
+  }
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    if(this.dataSource){
+      const numRows = this.dataSource.data.length;
+      return numSelected === numRows;
+    }
+  
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
     this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
   }
 
   /**
@@ -83,8 +121,13 @@ export class UsersListComponent implements OnInit {
   getUserOrginasations() {
     this.usersService.getOrganisations().subscribe(data => {
       this.options = data['result'];
+      console.log('getUserOrginasations', this.options);
+      this.organisations = data['result'];
       this.myControl.setValue(this.options[0].label);
       this.firstorganisationValue = this.options[0].value;
+      this.orgnsationid = this.firstorganisationValue 
+      this.selected = this.firstorganisationValue;
+      this.getUserList();
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
           startWith(''),
@@ -117,7 +160,8 @@ export class UsersListComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(AddUserComponent
       , {
-        width: '50%',
+        width: '40%',
+        height: '60%',
         data: {}
       });
 
@@ -130,7 +174,7 @@ export class UsersListComponent implements OnInit {
   UploadUsers() {
     const dialogRef = this.dialog.open(AddMultipleUsersComponent
       , {
-        width: '50%',
+        width: '30%',
         data: {}
       });
 
@@ -138,14 +182,10 @@ export class UsersListComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  /**
-  * Set the paginator and sort after the view init since this component will
-  * be able to query its view for the initialized paginator and sort.
-  */
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  onRowClicked(row){
+    console.log('=====', row)
   }
+
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace

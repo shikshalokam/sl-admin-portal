@@ -6,12 +6,9 @@ import { FieldConfig, Validator } from "../../field.interface";
 @Component({
   exportAs: "dynamicForm",
   selector: "dynamic-form",
-  template: `
-  <form class="dynamic-form" [formGroup]="form" (submit)="onSubmit($event)">
-  <ng-container *ngFor="let field of fields;" dynamicField [field]="field" [group]="form">
-  </ng-container>
-  </form>
-  `
+  templateUrl: './dynamic-form.component.html',
+  styleUrls: ['./dynamic-form.component.scss']
+ 
 })
 export class DynamicFormComponent implements OnInit {
   @Input() fields: FieldConfig[] = [];

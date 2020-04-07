@@ -1,11 +1,33 @@
-<div class="dashboard-content">
+<div class="pagename">
+  Users
+</div>
+
+<div class="dashboard-content" style="background-color: #e0e0e0;">
   <div>
+
     <mat-toolbar class="tool-bar">
       <mat-toolbar-row>
-        <a [routerLink]="['/home']">
-          <mat-icon matTooltip="home" class="home" aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-        </a>
-
+        <!-- <a [routerLink]="['/home']">
+          <mat-icon matTooltip="home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
+          </mat-icon>
+        </a> -->
+        <div class="btn-gap">
+          <mat-form-field>
+            <mat-label>Select Organisation</mat-label>
+            <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+              <mat-form-field>
+                <input matInput (keyup)="onKey($event.target.value)">
+              </mat-form-field>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="btn-gap">
+          <mat-form-field>
+            <input matInput #searchInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
+          </mat-form-field>
+        </div>
         <div class="btn-gap">
           <button mat-button (click)="openDialog()" matTooltip="Add User">
             Add New user
@@ -25,13 +47,12 @@
     </mat-toolbar>
   </div>
 
-  <div class="example-header row">
-    <div class="col-md-3">
+  <div class="example-header">
+    <!-- <div class="col-md-3">
       <form class="example-form">
         <mat-form-field class="example-full-width">
           <input type="text" placeholder="Select Organisation" aria-label="Number" matInput [formControl]="myControl"
             [matAutocomplete]="auto">
-          <!-- [displayWith]="displayFn"  -->
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)='chooseFirstOption($event)'>
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option.label">
               {{option.label}}
@@ -39,16 +60,30 @@
           </mat-autocomplete>
         </mat-form-field>
       </form>
+    </div> -->
+    <div class="row">
+      <!-- <mat-form-field>
+        <input matInput #searchInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
+      </mat-form-field> -->
     </div>
-    <div class="col-md-3">
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
+
+    <!-- <div class="col-md-3">
+    <mat-form-field>
+      <mat-label>Select Organisation</mat-label>
+      <mat-select [(value)]="selected" (selectionChange) ="srikanth()">
+          <mat-form-field>
+        <input matInput (keyup)="onKey($event.target.value)">
       </mat-form-field>
-    </div>
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div> -->
   </div>
 
 
   <div class="example-container mat-elevation-z8">
+    <mat-spinner *ngIf="loading == false"></mat-spinner>
 
     <mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="select">
@@ -65,49 +100,50 @@
       </ng-container>
 
       <!-- ID Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.position}} </mat-cell>
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <!-- <mat-icon>account_circle</mat-icon> -->
+          <div>{{row.firstName}}</div>
+        </mat-cell>
       </ng-container>
 
       <!-- Progress Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.weight}}% </mat-cell>
+      <ng-container matColumnDef="lastName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.lastName}}</mat-cell>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row?.email ? row?.email : '-- --'}}</mat-cell>
       </ng-container>
 
       <!-- Color Column -->
-      <ng-container matColumnDef="symbol">
+      <!-- <ng-container matColumnDef="symbol">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.symbol}} </mat-cell>
-      </ng-container>
+      </ng-container> -->
 
 
 
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
         <mat-cell *matCellDef="let user">
-          <button (click)="editUser(user)" mat-icon-button color="primary" matTooltip="Edit User">
-            <mat-icon>create</mat-icon>
-          </button>&nbsp;
-          <button (click)="ViewUser(user)" mat-icon-button color="primary" matTooltip="View User">
-            <mat-icon>visibility</mat-icon>
-          </button>&nbsp;
+          <button matTooltip="Edit User" style="background-color: #f3f4f5;"  mat-button>
+            <a class="actions" [routerLink]="['/comming-soon']">Edit</a></button>&nbsp;
+          <button matTooltip="Delete User" style="background-color: #f3f4f5;"  mat-button>
+            <a  class="actions" [routerLink]="['/comming-soon']">Delete</a></button>
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" style="background-color: #f5f5f5;">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
       </mat-row>
     </mat-table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [showFirstLastButtons]="true"></mat-paginator>
   </div>
 
 </div>

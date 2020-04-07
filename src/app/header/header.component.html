@@ -2,14 +2,18 @@
 
 <div class="row head">
   <div class="col-md-2 col-sm-4">
-    <img class="b-color" width="100%" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
+    <img class="b-color" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
   </div>
 
-  <div class="col-md-6 col-sm-8" style="padding-top: 10px;padding-left: 5%;">
-    <form class="form-inline">
-      <input style="height: 50px;" class="form-control form-control-sm mr-3 w-100" type="text" placeholder="Search"
-        aria-label="Search" mdbInput>
-    </form>
+  <div class="col-md-6 col-sm-8" style="padding-left: 5%;">
+    
+    <!-- <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Search for users, groups or settings</mat-label>
+        <input  type="text" matInput >
+        <button mat-icon-button matPrefix>
+        <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field> -->
     <!-- <div class="row font-weight-bold">
       <div class="col-md-3">
         <a [routerLink]="['/home']" [routerLinkActive]="['active']">
@@ -30,12 +34,12 @@
     </div> -->
   </div>
 
-  <div class="row" style="padding-left: 17%;">
-    <div class="Button">
+  <div class="row" style="padding-left: 23%;">
+    <!-- <div class="Button">
       <button class="b-color" matTooltip="Search" mat-icon-button aria-label="search">
         <mat-icon class="c-mat">search</mat-icon>
       </button>
-    </div>
+    </div> -->
     <div class="Button">
       <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
         <mat-icon class="c-mat">notifications</mat-icon>

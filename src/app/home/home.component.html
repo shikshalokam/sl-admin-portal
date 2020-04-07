@@ -1,3 +1,7 @@
+<div class="pagename">
+    Admin Console
+</div>
+
 <div class="dashboard-content">
   <div class="row">
     <div class="col-md-2" *ngFor="let info of homedisplayArray">
@@ -8,8 +12,8 @@
                 routerLink="{{info.routerlink}}">{{info.icon}}</a></mat-icon>
           </div>
           <div class="text-center">
-            <h5 style="font-weight:600;">{{info.title}}</h5>
-            <span (click)="singleuser()">{{info.data}}</span>
+            <span style="font-weight:600;">{{info.title}}</span>
+            <div style="color: gray;" (click)="singleuser()">{{info.data}}</div>
           </div>
         </mat-card-content>
       </mat-card>

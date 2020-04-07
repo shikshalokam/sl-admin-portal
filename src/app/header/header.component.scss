@@ -19,7 +19,7 @@
   padding-left: 20%;
 }
 .head {
-  padding: 15px;
+  padding: 7px 10px 0px 10px;
   border-bottom: 1px  solid $primary-color;
 }
 .b-color{
@@ -34,3 +34,13 @@ color: $white-color;
     {
         margin:15px;
     }
+
+  //  .mat-form-field-underline {
+  //     display: none !important;
+  // }
+
+ 
+    // .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    //   height: 0px !important;
+    // }
+    

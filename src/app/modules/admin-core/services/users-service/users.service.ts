@@ -24,6 +24,21 @@ export class UsersService {
   }
 
 
+  // To get the orginsations based on the user logged in
+  getUsers(data, orgid, searchfield) {
+    console.log('getUsers', data, orgid, searchfield)
+    // /admin-service/api/v1/organisations/users/0125747659358699520?pageSize=20&pageNo=0&search=Midlaj
+    // return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/users/'+ orgid + params, { headers })
+
+    return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/users/' + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
+    // return this.Http.get(environment.base_url + UsersConfig.userslist);
+  }
+
+  getUsers1(params) {
+    return this.Http.get(environment.base_url + UsersConfig.userslist);
+  }
+
+
   getUserRoles() {
     return this.Http.get(environment.base_url + UsersConfig.userroles)
   }
