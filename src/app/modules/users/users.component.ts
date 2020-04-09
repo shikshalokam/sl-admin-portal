@@ -31,6 +31,7 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['single-user']);
 
   }
+ 
 
   multiuser() {
     this.router.navigate(['multi-users']);

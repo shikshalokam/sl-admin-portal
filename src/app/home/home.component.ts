@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService, keyCloakService } from '../modules/admin-core';
+import { MatDialog } from '@angular/material';
+import { UnauthorizedComponent } from '../modules/admin-shared';
+
 
 @Component({
   selector: 'app-home',
@@ -6,13 +10,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  promiseRowData: any;
+  admin: boolean = false;
+  constructor(private usersService: UsersService,public dialog: MatDialog,
+    private KeycloakService: keyCloakService,) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  async ngOnInit() {
+    this.promiseRowData = await this.usersService.loadAccountList();
+    console.log('hommmmmmmmmmm', this.promiseRowData);
+    if (this.promiseRowData['result'].roles[0] === "ORG_ADMIN") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+      this.openDialog();
+    }
   }
 
   singleuser() {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UnauthorizedComponent
+      , {
+        disableClose: true,
+        width: '25%',
+        // height: '60%',
+        data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.KeycloakService.logout();
+    });
   }
 
   homedisplayArray = [

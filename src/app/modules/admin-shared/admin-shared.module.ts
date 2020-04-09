@@ -26,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './components/input/input.component';
 // import { ButtonComponent } from './components/button/button.component';
 import { SelectComponent } from './components/select/select.component';
-import { DateComponent } from './components/date/date.component';
+// import { DateComponent } from './components/date/date.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
@@ -38,7 +38,7 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -87,7 +87,7 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
     InputComponent,
     // ButtonComponent,
     SelectComponent,
-    DateComponent,
+    // DateComponent,
     RadiobuttonComponent,
     CheckboxComponent,
     MultiSelectComponent

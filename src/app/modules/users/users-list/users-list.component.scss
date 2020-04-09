@@ -23,10 +23,10 @@ table {
     width: 100%;
   }
   
-  .mat-table {
-    overflow: auto;
-    max-height: 500px;
-  }
+  // .mat-table {
+  //   overflow: auto;
+  //   max-height: 500px;
+  // }
 
   .panel {
       cursor: pointer;
@@ -35,7 +35,7 @@ table {
   //     background-color: $primary-color;
   // }
   .btn-gap{
-    padding: 20px;
+    // padding: 20px;
   }
 
   th.mat-header-cell {
@@ -65,4 +65,17 @@ table {
 
   .actions{
     color: $primary-color;
+    background-color: #f3f4f5;
+  }
+
+  .mat-header-cell{
+    color: black;
+    font-weight: 600;
+  }
+  .message {
+    text-align: center;
+  }
+  .mat-table[_ngcontent-c6] {
+    overflow: auto;
+    height: 550px;
   }

@@ -23,6 +23,10 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.organisations);
   }
 
+  getDownloadUsers() {
+    return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/downloadUsers/0125747659358699520?limit=90&page=0');
+  }
+
 
   // To get the orginsations based on the user logged in
   getUsers(data, orgid, searchfield) {
@@ -46,6 +50,25 @@ export class UsersService {
   createUser(data) {
     return this.Http.post(environment.base_url + UsersConfig.createuser, data)
   }
+
+  async loadAccountList() {
+    return new Promise((resolve, reject) => {
+        this.Http.get(environment.base_url + UsersConfig.userroles)
+            .toPromise()
+            .then(
+                res => {
+                  console.log('loadAccountList', res);
+                  resolve(res);
+                    // this.results = res.json().results;
+                    // resolve(res.json().results);
+                },
+                msg => {
+                    reject(msg);
+                }
+            );
+    });
+
+}
 
   // To store data here
   sendMessage(message: string) {

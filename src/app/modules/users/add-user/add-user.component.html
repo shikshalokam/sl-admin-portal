@@ -1,5 +1,6 @@
 <div>
   <mat-toolbar role="toolbar" class="task-header">
+      <mat-icon style="color: white;">account_circle</mat-icon>
     <h5 class="title" id="exampleModalLabel">Add New User</h5>
   </mat-toolbar>
 </div>
@@ -12,10 +13,10 @@
       </span>
       <h3 class="ftitle">User Creation</h3>
     </div> -->
-    <div style="padding-left: 37%;">
+    <!-- <div style="padding-left: 37%;">
       <mat-spinner *ngIf="loading == false"></mat-spinner>
-    </div>
-    <dynamic-form *ngIf="loading" [fields]="fieldsbackend" (submit)="submit($event)">
+    </div> -->
+    <dynamic-form [fields]="fieldsbackend" (submit)="submit($event)">
     </dynamic-form>
 
   </div>

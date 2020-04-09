@@ -14,22 +14,25 @@ export class MultiUsersComponent implements OnInit {
 
   ngOnInit() {
     this.users = [
-      { id: '1', name: 'kiran',email:'kiran@gmail.com' },
-      { id: '2', name: 'tom',email:'tom@gmail.com' },
-      { id: '3', name: 'john',email:'john@gmail.com' },
-      { id: '4', name: 'Frank',email:'frank@gmail.com' },
+      { id: '1', name: 'kiran', email: 'kiran@gmail.com' },
+      { id: '2', name: 'tom', email: 'tom@gmail.com' },
+      { id: '3', name: 'john', email: 'john@gmail.com' },
+      { id: '4', name: 'Frank', email: 'frank@gmail.com' },
 
-  ];
-  this.cols = [
-    { field: 'id', header: 'Id' },
-    { field: 'name', header: 'Name' },
-    { field: 'email', header: 'Email' },
-];
+    ];
+    this.cols = [
+      { field: 'id', header: 'Id' },
+      { field: 'name', header: 'Name' },
+      { field: 'email', header: 'Email' },
+    ];
   }
 
 
-  filesBrowse(data){
-console.log('==============', data);
+  filesBrowse(data) {
+    console.log('==============', data);
+  }
+  singleuser() {
+
   }
 
 }

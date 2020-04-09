@@ -2,7 +2,7 @@
     Admin Console
 </div>
 
-<div class="dashboard-content">
+<div *ngIf="admin" class="dashboard-content">
   <div class="row">
     <div class="col-md-2" *ngFor="let info of homedisplayArray">
       <mat-card class="product">

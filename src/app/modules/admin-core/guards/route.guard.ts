@@ -17,12 +17,14 @@ export class RouteGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
    
     if (localStorage.getItem('access-token')) {
-      // if(admin === 'OBS_DESIGNER'){
-        // return true;
-      // }
-      return true;
+      if(localStorage.getItem('user_role') === 'ORG_ADMIN'){
+        return true;
+      } else {
+        this.route.navigate(['/unauthorized'])
+      }
+      // return true;
     } else {
-      this.route.navigate(['/home'])
+      this.route.navigate(['/unauthorized'])
       return false;
     }
 

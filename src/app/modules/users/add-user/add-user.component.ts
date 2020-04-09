@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../admin-shared';
 import { FieldConfig } from "../../admin-shared/field.interface";
 import { FormGroup } from '@angular/forms';
@@ -23,10 +23,11 @@ export class AddUserComponent implements OnInit {
   loading: boolean = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
   ngOnInit() {
-    this.createForm();
+    this.fieldsbackend =  this.data.fieldsbackend;
   }
 
 
@@ -51,6 +52,9 @@ export class AddUserComponent implements OnInit {
     } else {
       this.form.validateAllFormFields(this.form.form);
     }
+  }
+  submit(data){
+
   }
 
   /**
