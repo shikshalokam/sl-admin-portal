@@ -8,11 +8,11 @@ table {
     color: black;
   }
 
-  .example-container {
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-  }
+  // .example-container {
+  //   display: flex;
+  //   flex-direction: column;
+  //   min-width: 300px;
+  // }
   
   .example-header {
     padding: 8px 24px 0;
@@ -29,9 +29,9 @@ table {
   // .tool-bar{
   //     background-color: $primary-color;
   // }
-  .btn-gap{
-    // padding: 20px;
-  }
+  // .btn-gap{
+  //   padding: 20px;
+  // }
 
   th.mat-header-cell {
     border-bottom-style: none;
@@ -73,5 +73,29 @@ table {
   }
   .mat-table {
     overflow: auto;
-    height: 550px;
+    height: 500px;
+  }
+  // .example-container {
+  //   position: relative;
+  //   min-height: 200px;
+  // }
+  
+  .example-table-container {
+    position: relative;
+    // max-height: 700px;
+    overflow: auto;
+  }
+
+  .example-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }

@@ -352,7 +352,9 @@ min-height: 100vh;
  box-shadow: 0 0 35px rgba(101, 113, 164, 0.1);
  /* border-radius: 20px; */
  position: relative;
+ border-radius: 0;
 }
+
 .sidebar{
   position: absolute;
   top: 0;
@@ -856,10 +858,7 @@ img{max-width: 100%;}
   flex-direction: column-reverse;
   padding: 0;
 }
-.dashboard-wrapper{
- min-height: 100vh;
-border-radius: 0;
-}
+
 .header-username{
   display: none;
 }

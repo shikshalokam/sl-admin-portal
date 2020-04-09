@@ -31,6 +31,7 @@ import { RadiobuttonComponent } from './components/radiobutton/radiobutton.compo
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 
 
@@ -38,7 +39,7 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -90,7 +91,8 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
     // DateComponent,
     RadiobuttonComponent,
     CheckboxComponent,
-    MultiSelectComponent
+    MultiSelectComponent,
+    CommingSoonComponent
   ]
 })
 export class AdminSharedModule { }

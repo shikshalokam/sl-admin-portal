@@ -25,6 +25,7 @@ export class UsersListComponent implements OnInit {
   selectedorganisation: any;
   options: any[];
   organisations: any;
+  organisationlist: any;
   spin: any;
   recordcount: any;
   formdata: any;
@@ -66,12 +67,6 @@ export class UsersListComponent implements OnInit {
       , distinctUntilChanged()
       // subscription for response
     ).subscribe((text: string) => {
-      // this.isSearching = true;
-      // if (text) {
-      //   this.searchmds(text);
-      // } else {
-      //   this.loadMdList();
-      // }
       this.getUserList();
     });
     this.getUserOrginasations();
@@ -95,8 +90,6 @@ export class UsersListComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.recordcount = data['result'].count;
       this.cdr.detectChanges();
-      // this.paginator.pageIndex = data['result'].pageable.pageNumber;
-      // (<any>this.paginator)._length = data['result'].count;
       this.listing = true;
       console.log('lissssssssssss', this.options);
     }, error => {
@@ -121,11 +114,12 @@ export class UsersListComponent implements OnInit {
   // Filter the states list and send back to populate the selectedStates**
   search(value) {
     let filter = value.toLowerCase();
-    return this.organisations.filter(option => option.label.toLowerCase().startsWith(filter));
+    return this.organisationlist.filter(option => option.label.toLowerCase().startsWith(filter));
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
+    // console.log('isAllSelected', numSelected);
     if (this.dataSource) {
       const numRows = this.dataSource.data.length;
       return numSelected === numRows;
@@ -137,10 +131,12 @@ export class UsersListComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
+      // console.log('masterToggle', this.dataSource);
   }
 
   /** The label for the checkbox on the passed row */
   checkboxLabel(row): string {
+    // console.log('checkboxLabel', row);
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -155,6 +151,7 @@ export class UsersListComponent implements OnInit {
       this.options = data['result'];
       console.log('getUserOrginasations', this.options);
       this.organisations = data['result'];
+      this.organisationlist = data['result'];
       this.myControl.setValue(this.options[0].label);
       this.firstorganisationValue = this.options[0].value;
       this.orgnsationid = this.firstorganisationValue
@@ -212,6 +209,7 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getUserList();
     });
   }
 
@@ -226,6 +224,7 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getUserList();
     });
   }
   onRowClicked(row) {

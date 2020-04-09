@@ -12,13 +12,12 @@ import { UnauthorizedComponent } from '../modules/admin-shared';
 export class HomeComponent implements OnInit {
   promiseRowData: any;
   admin: boolean = false;
-  constructor(private usersService: UsersService,public dialog: MatDialog,
-    private KeycloakService: keyCloakService,) { }
+  constructor(private usersService: UsersService, public dialog: MatDialog,
+    private KeycloakService: keyCloakService, ) { }
 
   async ngOnInit() {
     this.promiseRowData = await this.usersService.loadAccountList();
-    console.log('hommmmmmmmmmm', this.promiseRowData);
-    if (this.promiseRowData['result'].roles[0] === "ORG_ADMIN") {
+    if(this.promiseRowData['result'].roles.includes("ORG_ADMIN" || "ADMIN")){
       this.admin = true;
     } else {
       this.admin = false;
@@ -34,7 +33,6 @@ export class HomeComponent implements OnInit {
       , {
         disableClose: true,
         width: '25%',
-        // height: '60%',
         data: {}
       });
 
