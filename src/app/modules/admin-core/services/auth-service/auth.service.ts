@@ -91,7 +91,7 @@ export class keyCloakService {
   }
   logout() {
     // environment.base_url + '/home'
-    this.keycloak.logout(environment.base_url + '/home');
+    this.keycloak.logout('https://devhome.shikshalokam.org/admin-portal/home');
     localStorage.clear();
   }
 

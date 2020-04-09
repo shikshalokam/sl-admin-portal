@@ -69,8 +69,9 @@ table {
   }
   .message {
     text-align: center;
+    background-color: white;
   }
-  .mat-table[_ngcontent-c6] {
+  .mat-table {
     overflow: auto;
     height: 550px;
   }

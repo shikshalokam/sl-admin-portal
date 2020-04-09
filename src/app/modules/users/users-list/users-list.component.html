@@ -128,6 +128,7 @@
       </mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
       </mat-row>
+      <div class="message" *ngIf="recordcount == 0">No records found</div>
     </mat-table>
     <div class="message" *ngIf="recordcount == 0 || !dataSource">No records found</div>
     <mat-paginator [length]="recordcount" [showFirstLastButtons]="true" [pageSize]="10"
