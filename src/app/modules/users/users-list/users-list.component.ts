@@ -207,7 +207,6 @@ export class UsersListComponent implements OnInit {
       , {
         disableClose: true,
         width: '50%',
-        height: '60%',
         data: {fieldsbackend}
       });
 
