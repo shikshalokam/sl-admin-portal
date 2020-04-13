@@ -25,41 +25,7 @@ export class HeaderComponent implements OnInit {
     if (this.userdetails) {
       this.username = this.userdetails.firstName;
     }
-    let menu = [];
-
-    let home = {
-      value: "Home",
-      anchorLink: "/home",
-      icon: "description",
-    }
-
-    let users = {
-      value: "Create Users",
-      anchorLink: "/users",
-      icon: "description"
-    };
-
-    let unauthorized = {
-      value: "Assign Users",
-      anchorLink: "/unauthorized",
-      icon: "rate_review"
-    }
-
-
-    if (this.user_role === 'OBS_DESIGNER') {
-      menu.push(home);
-      menu.push(unauthorized);
-    }
-    if (this.user_role === 'OBS_REVIEWER') {
-      menu.push(users);
-    }
-
-    this.links = [{
-      linkHeading: "headings.features",
-      values: menu
-    }
-    ];
-   this.menuarray =  this.links[0].values;
+    
   }
 
   sidemenu() {

@@ -32,16 +32,16 @@ export class UsersService {
   // To get the orginsations based on the user logged in
   getUsers(data, orgid, searchfield) {
     console.log('getUsers', data, orgid, searchfield)
-    return this.Http.get(environment.base_url + UsersConfig.userslist + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
+    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
   createUser(data) {
-    return this.Http.post(environment.base_url + UsersConfig.createuser, data)
+    return this.Http.post(environment.base_url + UsersConfig.createUser, data)
   }
 
   async getUserRoles() {
     return new Promise((resolve, reject) => {
-        this.Http.get(environment.base_url + UsersConfig.userroles)
+        this.Http.get(environment.base_url + UsersConfig.userRoles)
             .toPromise()
             .then(
                 res => {
@@ -76,7 +76,7 @@ export class UsersService {
 
   getCurrentUserRoles() {
     let promise = new Promise((resolve, reject) => {
-      this.Http.get(environment.base_url + UsersConfig.userroles)
+      this.Http.get(environment.base_url + UsersConfig.userRoles)
         .toPromise().then(
           res => { // Success
             this.roles = res['result']['roles'];

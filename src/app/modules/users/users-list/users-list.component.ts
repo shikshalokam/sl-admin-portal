@@ -8,7 +8,6 @@ import { fromEvent, merge, Subscription, of } from 'rxjs';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { QueryParamsModel } from '../../admin-core/modals/query-params.model';
 import { debounceTime, startWith, distinctUntilChanged, map, tap, skip, delay, take, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 
@@ -25,7 +24,6 @@ export class UsersListComponent implements OnInit {
   selectedorganisation: any;
   options: any[];
   organisations: any;
-  organisationList: any;
   spin: any;
   recordcount: any;
   formdata: any;
@@ -114,7 +112,7 @@ export class UsersListComponent implements OnInit {
   // Filter the states list and send back to populate the selectedStates**
   search(value) {
     let filter = value.toLowerCase();
-    return this.organisationList.filter(option => option.label.toLowerCase().startsWith(filter));
+    return this.organisations.filter(option => option.label.toLowerCase().startsWith(filter));
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -136,7 +134,7 @@ export class UsersListComponent implements OnInit {
 
   /** The label for the checkbox on the passed row */
   checkboxLabel(row): string {
-    // console.log('checkboxLabel', row);
+    // console.log('checkboxLabel', this.selection);
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -151,7 +149,6 @@ export class UsersListComponent implements OnInit {
       this.options = data['result'];
       console.log('getUserOrginasations', this.options);
       this.organisations = data['result'];
-      this.organisationList = data['result'];
       this.myControl.setValue(this.options[0].label);
       this.firstorganisationValue = this.options[0].value;
       this.orgnsationId = this.firstorganisationValue
@@ -238,35 +235,19 @@ export class UsersListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  // To Download the csv file
-  downloadFile(data: any) {
-    const replacer = (key, value) => value === null ? '' : value; // specify how you want to handle null values here
-    const header = Object.keys(data[0]);
-    let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','));
-    csv.unshift(header.join(','));
-    let csvArray = csv.join('\r\n');
 
-    var a = document.createElement('a');
-    var blob = new Blob([csvArray], { type: 'text/csv' }),
-      url = window.URL.createObjectURL(blob);
-
-    a.href = url;
-    a.download = "Users.csv";
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-  }
 
   // Download users
   downloadUsers(data) {
-    // this.downloadFile(data.filteredData);
     this.downloadapi();
   }
 
   downloadapi() {
     let data = {
-      usersList: ["1a163eef-f79c-49ac-9745-d3fadca769ad", "66964742-1b61-4e3e-8bb0-a6874dab61e2"],
+      usersList: ["84b2ecd0-0378-40e0-9502-465a65caa7e6", "1a163eef-f79c-49ac-9745-d3fadca769ad"],
       organisationId: "0125747659358699520",
+      pageSize: 100,
+      pageNo: 1
     }
     this.usersService.getDownloadUsers(data).subscribe(data => {
       console.log('downloadapi', data);

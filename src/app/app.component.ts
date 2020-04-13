@@ -19,20 +19,10 @@ export class AppComponent implements OnInit {
   // Initial loading
   ngOnInit() {
     this.getBasicdetails();
-    this.userRoles();
   }
 
   getBasicdetails() {
     this.keycloak.setToken();
-  }
-
-  /**
-  * To get the form from the backend
-  */
- async userRoles() {
-     const rolesdata =  await this.usersService.getUserRoles();
-     console.log('apppcomponent', rolesdata);
-     localStorage.setItem('user_role', rolesdata['result'].roles);
   }
 
 }
