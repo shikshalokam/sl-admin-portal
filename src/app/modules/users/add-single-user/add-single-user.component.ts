@@ -19,7 +19,6 @@ export class AddUserComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   formdata: any;
-  fieldsbackend: any;
   loading: boolean = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
@@ -27,21 +26,7 @@ export class AddUserComponent implements OnInit {
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
   ngOnInit() {
-    this.fieldsbackend =  this.data.fieldsbackend;
-  }
-
-
-  /**
-   * To get the form from the backend
-   */
-  createForm() {
-    this.usersService.getUserForm().subscribe(data => {
-      this.formdata = data['result'];
-      this.fieldsbackend = this.formdata.form;
-      this.loading = true;
-    }, error => {
-
-    });
+    this.formdata =  this.data.fieldsBackend;
   }
 
   // Form Submit

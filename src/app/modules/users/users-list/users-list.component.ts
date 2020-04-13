@@ -21,22 +21,20 @@ export class UsersListComponent implements OnInit {
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;
-  selectedorganisation: any;
   options: any[];
   organisations: any;
   spin: any;
-  recordcount: any;
+  recordCount: any;
   formdata: any;
-  fieldsbackend: any;
+  fieldsBackend: any;
   listing: boolean = false;
   orgnsationId: any;
   loading: boolean = false;
+  usersId: any[];
   queryParams = {
-    sortType: 0,
     page: 1,
     size: 10,
   };
-  // dataSource: any;
   firstorganisationValue: any;
   filteredOptions: any;
 
@@ -84,9 +82,8 @@ export class UsersListComponent implements OnInit {
       this.options = data['result'];
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
-      // this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.recordcount = data['result'].count;
+      this.recordCount = data['result'].count;
       this.cdr.detectChanges();
       this.listing = true;
       console.log('lissssssssssss', this.options);
@@ -96,7 +93,6 @@ export class UsersListComponent implements OnInit {
   }
   refreshDatasource(data) {
     this.dataSource = data;
-    // this.cdr.detectChanges();
   }
 
   selectorganisation() {
@@ -134,7 +130,7 @@ export class UsersListComponent implements OnInit {
 
   /** The label for the checkbox on the passed row */
   checkboxLabel(row): string {
-    // console.log('checkboxLabel', this.selection);
+    // console.log('checkboxLabel', this.selection.selected);
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -164,44 +160,33 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  // displayFn(label): any {
-  //     return label.label
-  // }
-
-  returnFn(user) {
-    console.log('user', user);
-    // return user ? user.id : undefined;
-  }
-
-  chooseFirstOption(values): void {
-    console.log('selected value', values.option.value);
-  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.label.toLowerCase().includes(filterValue));
   }
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
+    console.log('ngAfterViewInit', this.selection.selected);
   }
+
   createForm() {
     this.usersService.getUserForm().subscribe(data => {
       this.formdata = data['result'];
-      this.fieldsbackend = this.formdata.form;
+      this.fieldsBackend = this.formdata.form;
     }, error => {
 
     });
   }
   addNewUser() {
-    this.openDialog(this.fieldsbackend);
+    this.openDialog(this.fieldsBackend);
   }
   // Adding single user popup
-  openDialog(fieldsbackend): void {
+  openDialog(fieldsBackend): void {
     const dialogRef = this.dialog.open(AddUserComponent
       , {
         disableClose: true,
         width: '50%',
-        data: { fieldsbackend }
+        data: { fieldsBackend }
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -225,7 +210,7 @@ export class UsersListComponent implements OnInit {
     });
   }
   onRowClicked(row) {
-    console.log('=====', row)
+    console.log('=====', this.selection.selected)
   }
 
 
@@ -243,19 +228,43 @@ export class UsersListComponent implements OnInit {
   }
 
   downloadapi() {
+    const selectedData = this.selection.selected
+    this.usersId = [];
+    for (let i = 0; i < selectedData.length; i++) {
+      this.usersId.push(selectedData[i]['id']);
+    }
     let data = {
-      usersList: ["84b2ecd0-0378-40e0-9502-465a65caa7e6", "1a163eef-f79c-49ac-9745-d3fadca769ad"],
-      organisationId: "0125747659358699520",
-      pageSize: 100,
-      pageNo: 1
+      usersList: this.usersId,
+      organisationId: this.orgnsationId,
+      limit: 100,
+      page: 1
     }
     this.usersService.getDownloadUsers(data).subscribe(data => {
       console.log('downloadapi', data);
     },
       error => {
-
+        console.log('error', error);
+        this.downLoadFile(error.error.text, "application/ms-excel");
       }
     )
+  }
+
+ // To download selected records
+  downLoadFile(data: any, type: string) {
+    let blob = new Blob([data], { type: type });
+    let url = window.URL.createObjectURL(blob);
+    let pwa = window.open(url);
+    this._snackBar.open('Users Downloaded Sucessfully', 'sucess', {
+      duration: 2000
+    })
+    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
+      alert('Please disable your Pop-up blocker and try again.');
+    }
+  }
+
+  onFilterChange(data, row) {
+    console.log('onFilterChange', row);
+
   }
 
   // To Edit the user

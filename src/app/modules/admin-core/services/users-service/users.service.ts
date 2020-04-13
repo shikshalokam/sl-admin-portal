@@ -41,22 +41,22 @@ export class UsersService {
 
   async getUserRoles() {
     return new Promise((resolve, reject) => {
-        this.Http.get(environment.base_url + UsersConfig.userRoles)
-            .toPromise()
-            .then(
-                res => {
-                  console.log('getUserRoles', res);
-                  resolve(res);
-                    // this.results = res.json().results;
-                    // resolve(res.json().results);
-                },
-                msg => {
-                    reject(msg);
-                }
-            );
+      this.Http.get(environment.base_url + UsersConfig.userRoles)
+        .toPromise()
+        .then(
+          res => {
+            console.log('getUserRoles', res);
+            resolve(res);
+            // this.results = res.json().results;
+            // resolve(res.json().results);
+          },
+          msg => {
+            reject(msg);
+          }
+        );
     });
 
-}
+  }
 
   // To upload the Users csv
   uploadUsersCsv(file): Observable<any> {

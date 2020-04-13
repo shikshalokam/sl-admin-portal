@@ -45,7 +45,7 @@ table {
     cursor: pointer;
     padding-top: 8px;
   }
-  .pagename {
+  .pageName {
     background-color: white;
     padding: 6px 10px 4px 25px;
     color: $primary-color;
@@ -92,3 +92,8 @@ table {
     justify-content: center;
     height: 100%;
   }
+  .mat-spinner {
+    ::ng-deep circle {
+        stroke:  #A63936 !important;
+    }
+}

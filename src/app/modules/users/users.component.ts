@@ -27,16 +27,6 @@ export class UsersComponent implements OnInit {
     console.log(' this.userdetails', this.userdetails);
   }
 
-  singleuser() {
-    this.router.navigate(['single-user']);
-
-  }
- 
-
-  multiuser() {
-    this.router.navigate(['multi-users']);
-  }
-
   handleChange(data) {
     console.log('data clicked', data);
   }

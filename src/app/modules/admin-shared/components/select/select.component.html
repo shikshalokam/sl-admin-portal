@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="field.visible" class="demo-full-width margin-top" [formGroup]="group">
+<mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
     <mat-select [placeholder]="field.label" [formControlName]="field.field">
         <mat-option *ngFor="let item of field.options" [value]="item">{{item.label}}</mat-option>
