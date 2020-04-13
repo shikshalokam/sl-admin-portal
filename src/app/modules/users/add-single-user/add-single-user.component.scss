@@ -43,10 +43,6 @@ color: $primary-color;
     }
 }
 
-.mat-dialog-container {
-    padding-top: 0 !important;
-}
-
 dialog-overview-example-dialog.ng-star-inserted > div {
     margin-right: -24px;
     margin-left: -24px;
@@ -75,7 +71,6 @@ dialog-overview-example-dialog.ng-star-inserted > div {
     border-radius: 4px;
     box-sizing: border-box;
      overflow: initial;
-    /* outline: 0; */
     width: 100%;
     height: 100%;
     min-height: inherit;

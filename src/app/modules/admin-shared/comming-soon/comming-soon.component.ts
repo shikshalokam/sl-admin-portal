@@ -9,16 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./comming-soon.component.scss']
 })
 export class CommingSoonComponent implements OnInit {
-  @ViewChild('callAPIDialog') callAPIDialog: TemplateRef<any>;
+  @ViewChild('defaultDialog') defaultDialog: TemplateRef<any>;
   constructor(private dialog: MatDialog,
     private router: Router) { }
 
   ngOnInit() {
-    this.callAPI();
+    this.openDialogBox();
   }
 
-  callAPI() {
-    let dialogRef = this.dialog.open(this.callAPIDialog);
+  openDialogBox() {
+    let dialogRef = this.dialog.open(this.defaultDialog);
     dialogRef.afterClosed().subscribe(result => {
         // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
         if (result !== undefined) {

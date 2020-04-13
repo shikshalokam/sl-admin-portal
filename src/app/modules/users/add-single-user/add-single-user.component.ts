@@ -10,8 +10,8 @@ import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.scss']
+  templateUrl: './add-single-user.component.html',
+  styleUrls: ['./add-single-user.component.scss']
 })
 export class AddUserComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
@@ -61,7 +61,6 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    // userdata.organisations = '0125747659358699520';
     console.log('userdata',userdata)
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {

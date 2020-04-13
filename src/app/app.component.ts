@@ -14,13 +14,6 @@ export class AppComponent implements OnInit {
   roles: any;
   constructor(private usersService: UsersService,
     private router: Router, private keycloak: keyCloakService) {
-    this.sendMessage();
-
-  }
-
-  sendMessage(): void {
-    // send message to subscribers via observable subject
-    this.usersService.sendMessage('Message from app Component to message Component!');
   }
 
   // Initial loading
@@ -36,15 +29,10 @@ export class AppComponent implements OnInit {
   /**
   * To get the form from the backend
   */
-  userRoles() {
-    //  const rolesdata =  this.usersService.getCurrentUserRoles();
-    this.usersService.getUserRoles().subscribe(data => {
-      this.roles = data['result'];
-      console.log('userRoles',this.roles);
-      localStorage.setItem('user_role', this.roles.roles[0]);
-    }, error => {
-
-    });
+ async userRoles() {
+     const rolesdata =  await this.usersService.getUserRoles();
+     console.log('apppcomponent', rolesdata);
+     localStorage.setItem('user_role', rolesdata['result'].roles);
   }
 
 }

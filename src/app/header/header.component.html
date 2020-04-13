@@ -1,38 +1,7 @@
-<!-- <mat-toolbar> -->
-
 <div class="row head">
   <div class="col-md-2 col-sm-4">
     <img class="b-color" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
   </div>
-
-  <!-- <div class="col-md-6 col-sm-8" style="padding-left: 5%;"> -->
-    
-    <!-- <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Search for users, groups or settings</mat-label>
-        <input  type="text" matInput >
-        <button mat-icon-button matPrefix>
-        <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field> -->
-    <!-- <div class="row font-weight-bold">
-      <div class="col-md-3">
-        <a [routerLink]="['/home']" [routerLinkActive]="['active']">
-          Home</a>
-      </div>
-      <div class="col-md-4">
-        <span [routerLinkActive]="['active']">
-          <a [routerLink]="['/users']">
-            Create Users</a>
-          <a [routerLink]="['/single-user']"> </a>
-          <a [routerLink]="['/multi-users']"></a>
-        </span>
-      </div>
-      <div class="col-md-5">
-        <a [routerLinkActive]="['active']">
-          Assign Users</a>
-      </div>
-    </div> -->
-  <!-- </div> -->
 
   <div class="row">
     <!-- <div class="Button">
@@ -41,25 +10,24 @@
       </button>
     </div> -->
     <!-- <div class="Button"> -->
-      <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
-        <mat-icon class="c-mat">notifications</mat-icon>
-      </button>
+    <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
+      <mat-icon class="c-mat">notifications</mat-icon>
+    </button>
     <!-- </div> -->
 
     <!-- <div class="Button"> -->
-      <button  class="b-color" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu" aria-label="user">
-        <mat-icon  class="c-mat">person</mat-icon>
-      </button>
+    <button class="b-color" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu" aria-label="user">
+      <mat-icon class="c-mat">person</mat-icon>
+    </button>
 
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <span>{{username}}</span>
-        </button>
-        <button mat-menu-item>
-          <span (click)="logout()">Logout</span>
-        </button>
-      </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>{{username}}</span>
+      </button>
+      <button mat-menu-item>
+        <span (click)="logout()">Logout</span>
+      </button>
+    </mat-menu>
     <!-- </div> -->
   </div>
 </div>
-<!-- </mat-toolbar> -->

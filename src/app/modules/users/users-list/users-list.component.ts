@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddUserComponent } from '../add-user/add-user.component';
+import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { fromEvent, merge, Subscription, of } from 'rxjs';
@@ -25,13 +25,13 @@ export class UsersListComponent implements OnInit {
   selectedorganisation: any;
   options: any[];
   organisations: any;
-  organisationlist: any;
+  organisationList: any;
   spin: any;
   recordcount: any;
   formdata: any;
   fieldsbackend: any;
   listing: boolean = false;
-  orgnsationid: any;
+  orgnsationId: any;
   loading: boolean = false;
   queryParams = {
     sortType: 0,
@@ -50,7 +50,7 @@ export class UsersListComponent implements OnInit {
   filterType: string = '';
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
-    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar,) {
+    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, ) {
   }
 
   ngOnInit() {
@@ -82,7 +82,7 @@ export class UsersListComponent implements OnInit {
 * To get Userslist
 */
   getUserList() {
-    this.usersService.getUsers(this.queryParams, this.orgnsationid, this.searchInput.nativeElement.value).subscribe(data => {
+    this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value).subscribe(data => {
       this.options = data['result'];
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
@@ -102,7 +102,7 @@ export class UsersListComponent implements OnInit {
   }
 
   selectorganisation() {
-    this.orgnsationid = this.selected;
+    this.orgnsationId = this.selected;
     this.getUserList();
   }
 
@@ -114,7 +114,7 @@ export class UsersListComponent implements OnInit {
   // Filter the states list and send back to populate the selectedStates**
   search(value) {
     let filter = value.toLowerCase();
-    return this.organisationlist.filter(option => option.label.toLowerCase().startsWith(filter));
+    return this.organisationList.filter(option => option.label.toLowerCase().startsWith(filter));
   }
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
@@ -131,7 +131,7 @@ export class UsersListComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
-      // console.log('masterToggle', this.dataSource);
+    // console.log('masterToggle', this.dataSource);
   }
 
   /** The label for the checkbox on the passed row */
@@ -151,10 +151,10 @@ export class UsersListComponent implements OnInit {
       this.options = data['result'];
       console.log('getUserOrginasations', this.options);
       this.organisations = data['result'];
-      this.organisationlist = data['result'];
+      this.organisationList = data['result'];
       this.myControl.setValue(this.options[0].label);
       this.firstorganisationValue = this.options[0].value;
-      this.orgnsationid = this.firstorganisationValue
+      this.orgnsationId = this.firstorganisationValue
       this.selected = this.firstorganisationValue;
       this.getUserList();
       this.filteredOptions = this.myControl.valueChanges
@@ -195,7 +195,7 @@ export class UsersListComponent implements OnInit {
 
     });
   }
-  addNewUser(){
+  addNewUser() {
     this.openDialog(this.fieldsbackend);
   }
   // Adding single user popup
@@ -204,7 +204,7 @@ export class UsersListComponent implements OnInit {
       , {
         disableClose: true,
         width: '50%',
-        data: {fieldsbackend}
+        data: { fieldsbackend }
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -264,7 +264,11 @@ export class UsersListComponent implements OnInit {
   }
 
   downloadapi() {
-    this.usersService.getDownloadUsers().subscribe(data => {
+    let data = {
+      usersList: ["1a163eef-f79c-49ac-9745-d3fadca769ad", "66964742-1b61-4e3e-8bb0-a6874dab61e2"],
+      organisationId: "0125747659358699520",
+    }
+    this.usersService.getDownloadUsers(data).subscribe(data => {
       console.log('downloadapi', data);
     },
       error => {

@@ -99,30 +99,4 @@ export class keyCloakService {
     this.keycloakAuth.login();
   }
 
-  /**
-   * Restricting the urls based on the user role
-   * @returns {Array} - Response data.
-   */
-  // getAllowedUrls() {
-  //   if (localStorage.getItem("roleInfo")) {
-  //     let roles = JSON.parse(localStorage.getItem("roleInfo"));
-  //     let allowedArray = [];
-  //     roles.roles.forEach(element => {
-  //       if (element == environment.platform_admin) {
-  //         allowedArray.push("/single-user");
-  //         allowedArray.push("/multiple-user");
-  //         allowedArray.push('/create-organisation');
-  //         allowedArray.push('/create-roles');
-  //       } else if (element == environment.organisation_admin) {
-  //         allowedArray.push("/single-user");
-  //         allowedArray.push("/multiple-user");
-  //       }
-  //     });
-  //     return allowedArray;
-  //   } else {
-  //     return [];
-  //   }
-
-  // }
-
 }

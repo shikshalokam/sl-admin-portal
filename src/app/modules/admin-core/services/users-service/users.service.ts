@@ -23,41 +23,29 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.organisations);
   }
 
-  getDownloadUsers() {
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/downloadUsers/0125747659358699520?limit=90&page=0');
+  // To download users
+  getDownloadUsers(data) {
+    return this.Http.post(environment.base_url + UsersConfig.downloadUsers, data);
   }
 
 
   // To get the orginsations based on the user logged in
   getUsers(data, orgid, searchfield) {
     console.log('getUsers', data, orgid, searchfield)
-    // /admin-service/api/v1/organisations/users/0125747659358699520?pageSize=20&pageNo=0&search=Midlaj
-    // return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/users/'+ orgid + params, { headers })
-
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/organisations/users/' + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
-    // return this.Http.get(environment.base_url + UsersConfig.userslist);
-  }
-
-  getUsers1(params) {
-    return this.Http.get(environment.base_url + UsersConfig.userslist);
-  }
-
-
-  getUserRoles() {
-    return this.Http.get(environment.base_url + UsersConfig.userroles)
+    return this.Http.get(environment.base_url + UsersConfig.userslist + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
   createUser(data) {
     return this.Http.post(environment.base_url + UsersConfig.createuser, data)
   }
 
-  async loadAccountList() {
+  async getUserRoles() {
     return new Promise((resolve, reject) => {
         this.Http.get(environment.base_url + UsersConfig.userroles)
             .toPromise()
             .then(
                 res => {
-                  console.log('loadAccountList', res);
+                  console.log('getUserRoles', res);
                   resolve(res);
                     // this.results = res.json().results;
                     // resolve(res.json().results);
@@ -69,11 +57,6 @@ export class UsersService {
     });
 
 }
-
-  // To store data here
-  sendMessage(message: string) {
-    this.subject.next({ text: message });
-  }
 
   // To upload the Users csv
   uploadUsersCsv(file): Observable<any> {
@@ -90,16 +73,6 @@ export class UsersService {
     // return this.Http.request(req);
   }
 
-
-  // To Clear the stored data
-  clearMessage() {
-    this.subject.next();
-  }
-
-  //  To pass the data to other component
-  getMessage(): Observable<any> {
-    return this.subject.asObservable();
-  }
 
   getCurrentUserRoles() {
     let promise = new Promise((resolve, reject) => {

@@ -16,8 +16,9 @@ export class HomeComponent implements OnInit {
     private KeycloakService: keyCloakService, ) { }
 
   async ngOnInit() {
-    this.promiseRowData = await this.usersService.loadAccountList();
-    if(this.promiseRowData['result'].roles.includes("ORG_ADMIN" || "ADMIN")){
+    this.promiseRowData = await this.usersService.getUserRoles();
+    const rolesArray = this.promiseRowData['result'].roles;
+    if (rolesArray.includes("ORG_ADMIN") || rolesArray.includes("ADMIN")) {
       this.admin = true;
     } else {
       this.admin = false;

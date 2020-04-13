@@ -26,12 +26,6 @@ table {
   .panel {
       cursor: pointer;
   }
-  // .tool-bar{
-  //     background-color: $primary-color;
-  // }
-  // .btn-gap{
-  //   padding: 20px;
-  // }
 
   th.mat-header-cell {
     border-bottom-style: none;
@@ -40,10 +34,9 @@ table {
     border-bottom-style: none;
   }
 
-  .mat-toolbar {
+ .c-toolbar {
     color: $primary-color;
     font-size: initial;
-  
   }
   .mat-button {
     font-weight: 600;

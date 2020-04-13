@@ -49,24 +49,24 @@ export class AddMultipleUsersComponent implements OnInit {
   }
 
   // Saving the file in to local
-  saveFileInLocalSystem(base64) {
-    let binaryString = window.atob(base64);
-    let binaryLen = binaryString.length;
-    let bytes = new Uint8Array(binaryLen);
-    for (var i = 0; i < binaryLen; i++) {
-      var ascii = binaryString.charCodeAt(i);
-      bytes[i] = ascii;
-    }
-    this.saveByteArray("FailedUsers.csv", bytes);
-  }
+  // saveFileInLocalSystem(base64) {
+  //   let binaryString = window.atob(base64);
+  //   let binaryLen = binaryString.length;
+  //   let bytes = new Uint8Array(binaryLen);
+  //   for (var i = 0; i < binaryLen; i++) {
+  //     var ascii = binaryString.charCodeAt(i);
+  //     bytes[i] = ascii;
+  //   }
+  //   this.saveByteArray("FailedUsers.csv", bytes);
+  // }
 
-  saveByteArray(reportName, byte) {
-    console.log('saveByteArray');
-    var blob = new Blob([byte], {
-      type: "text/csv"
-    });
-    saveAs(blob, reportName)
-  };
+  // saveByteArray(reportName, byte) {
+  //   console.log('saveByteArray');
+  //   var blob = new Blob([byte], {
+  //     type: "text/csv"
+  //   });
+  //   saveAs(blob, reportName)
+  // };
 
   close() {
     this.dialogRef.close();
