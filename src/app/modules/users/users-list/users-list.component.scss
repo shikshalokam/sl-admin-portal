@@ -8,17 +8,7 @@ table {
     color: black;
   }
 
-  // .example-container {
-  //   display: flex;
-  //   flex-direction: column;
-  //   min-width: 300px;
-  // }
-  
-  .example-header {
-    padding: 8px 24px 0;
-  }
-  
-  .mat-form-field {
+  .custom-form-field {
     font-size: 14px;
     width: 100%;
   }
@@ -68,18 +58,13 @@ table {
     overflow: auto;
     height: 500px;
   }
-  // .example-container {
-  //   position: relative;
-  //   min-height: 200px;
-  // }
   
-  .example-table-container {
+  .custom-table-container {
     position: relative;
-    // max-height: 700px;
     overflow: auto;
   }
 
-  .example-loading-shade {
+  .page-loading-shade {
     position: absolute;
     top: 0;
     left: 0;

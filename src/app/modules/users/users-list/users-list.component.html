@@ -12,10 +12,10 @@
         </mat-icon>
       </a>
       <div class="col-md-3 btn-gap">
-        <mat-form-field>
+        <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
           <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field>
+            <mat-form-field class="custom-form-field">
               <input matInput (keyup)="onKey($event.target.value)">
             </mat-form-field>
             <!-- <mat-option>None</mat-option> -->
@@ -24,7 +24,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-3 btn-gap">
-        <mat-form-field>
+        <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
           <input matInput #searchInput (keyup)="applyFilter($event.target.value)">
           <button mat-icon-button matPrefix>
@@ -53,16 +53,14 @@
   </mat-toolbar>
   <!-- </div> -->
 
-  <div class="example-header">
-  </div>
-
+ 
 
   <div class="example-container mat-elevation-z8">
-    <div *ngIf ="listing == false" class="example-loading-shade">
+    <div *ngIf ="listing == false" class="page-loading-shade">
       <mat-spinner></mat-spinner>
 
     </div>
-    <div class="example-table-container">
+    <div class="custom-table-container">
       <!-- <mat-spinner *ngIf="loading == false"></mat-spinner> -->
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select">

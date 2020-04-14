@@ -20,7 +20,7 @@ export class UsersService {
 
   // To get the orginsations based on the user logged in
   getOrganisations() {
-    return this.Http.get(environment.base_url + UsersConfig.organisations);
+    return this.Http.get(environment.base_url + UsersConfig.organisations + '?pageSize=20&pageNo=1');
   }
 
   // To download users
@@ -31,7 +31,6 @@ export class UsersService {
 
   // To get the orginsations based on the user logged in
   getUsers(data, orgid, searchfield) {
-    console.log('getUsers', data, orgid, searchfield)
     return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
