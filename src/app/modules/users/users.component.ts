@@ -52,6 +52,14 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  singleuser(){
+
+  }
+
+  multiuser(){
+    
+  }
+
   addSingle() {
     console.log('sadxasd');
   }
