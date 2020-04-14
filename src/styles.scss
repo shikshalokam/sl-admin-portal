@@ -15,7 +15,7 @@ code {
     monospace;
 } */
 @import "./assets/scss/variables.scss";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap');
 body{
@@ -2595,6 +2595,8 @@ body {
   padding: 6px 10px 4px 25px;
   color: $primary-color;
 }
+
+
 
 
 

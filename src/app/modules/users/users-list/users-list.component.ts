@@ -244,7 +244,7 @@ export class UsersListComponent implements OnInit {
     },
       error => {
         console.log('error', error);
-        this.downLoadFile(error.error.text, "application/ms-excel");
+        this.downLoadFile(error.error.text, "text/csv");
       }
     )
   }

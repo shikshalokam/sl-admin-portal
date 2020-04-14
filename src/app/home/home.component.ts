@@ -12,13 +12,17 @@ import { UnauthorizedComponent } from '../modules/admin-shared';
 export class HomeComponent implements OnInit {
   promiseRowData: any;
   admin: boolean = false;
+  rolesArray: any;
   constructor(private usersService: UsersService, public dialog: MatDialog,
     private KeycloakService: keyCloakService, ) { }
 
   async ngOnInit() {
     this.promiseRowData = await this.usersService.getUserRoles();
-    const rolesArray = this.promiseRowData['result'].roles;
-    if (rolesArray.includes("ORG_ADMIN") || rolesArray.includes("ADMIN")) {
+    console.log('promiseRowData',this.promiseRowData);
+    if(this.promiseRowData['result']) {
+     this.rolesArray = this.promiseRowData['result'].roles;
+    }
+    if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
     } else {
       this.admin = false;
