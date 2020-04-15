@@ -14,13 +14,15 @@
       <div class="col-md-3 btn-gap">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <!-- <mat-option>None</mat-option> -->
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
+          <!-- <div style="padding-left: 10px;"> -->
+            <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+              <mat-form-field class="custom-form-field">
+                <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+              </mat-form-field>
+              <!-- <mat-option>None</mat-option> -->
+              <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+            </mat-select>
+          <!-- </div> -->
         </mat-form-field>
       </div>
       <div class="col-md-3 btn-gap">
@@ -32,7 +34,9 @@
           </button>
         </mat-form-field>
       </div>
-      <div class="col-md-9 row" style="padding-left: 20%;">
+      <div class="col-md-2"></div>
+     
+      <div class="col-md-4 row">
         <div class="btn-gap">
           <button mat-button (click)="addNewUser()" matTooltip="Add User">
             Add New user
@@ -53,15 +57,14 @@
   </mat-toolbar>
   <!-- </div> -->
 
- 
+
 
   <div class="example-container mat-elevation-z8">
-    <div *ngIf ="listing == false" class="page-loading-shade">
+    <div *ngIf="listing == false" class="page-loading-shade">
       <mat-spinner></mat-spinner>
 
     </div>
     <div class="custom-table-container">
-      <!-- <mat-spinner *ngIf="loading == false"></mat-spinner> -->
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef style="padding-top: 10px;">
@@ -129,7 +132,7 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns;" style="background-color: #f5f5f5;">
         </mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
         </mat-row>
         <div class="message" *ngIf="recordCount == 0">No records found</div>
       </mat-table>

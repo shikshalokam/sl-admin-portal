@@ -23,6 +23,7 @@ export class UsersListComponent implements OnInit {
   selected: any;
   options: any[];
   organisations: any;
+  organisationsList: any;
   spin: any;
   recordCount: any;
   formdata: any;
@@ -31,6 +32,7 @@ export class UsersListComponent implements OnInit {
   orgnsationId: any;
   loading: boolean = false;
   usersId: any[];
+  dataArray: any[];
   queryParams = {
     page: 1,
     size: 10,
@@ -86,34 +88,50 @@ export class UsersListComponent implements OnInit {
       this.recordCount = data['result'].count;
       this.cdr.detectChanges();
       this.listing = true;
-      console.log('lissssssssssss', this.options);
     }, error => {
-
+      this.listing = true;
+      this._snackBar.open(error.error.message, 'Error', {
+        duration: 2000,
+      });
     });
   }
   refreshDatasource(data) {
     this.dataSource = data;
   }
 
+  // change of organisation
   selectorganisation() {
     this.orgnsationId = this.selected;
     this.getUserList();
+    this.paginator.firstPage();
   }
 
+  // on search key
   onKey(value) {
-    this.organisations = this.search(value);
-    this.cdr.detectChanges();
+    if (value) {
+      this.organisations = this.selectSearch(value);
+      this.cdr.detectChanges();
+    } else {
+      this.organisations = this.organisationsList;
+    }
   }
 
-  // Filter the states list and send back to populate the selectedStates**
-  search(value) {
+  // To filter the data
+  selectSearch(value: string) {
+    this.dataArray = [];
     let filter = value.toLowerCase();
-    return this.organisations.filter(option => option.label.toLowerCase().startsWith(filter));
+    for (let i = 0; i < this.organisationsList.length; i++) {
+      let option = this.organisationsList[i];
+      if (option.label.toLowerCase().indexOf(filter) >= 0) {
+        this.dataArray.push(option);
+      }
+    }
+    return this.dataArray;
   }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    // console.log('isAllSelected', numSelected);
     if (this.dataSource) {
       const numRows = this.dataSource.data.length;
       return numSelected === numRows;
@@ -125,12 +143,10 @@ export class UsersListComponent implements OnInit {
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));
-    // console.log('masterToggle', this.dataSource);
   }
 
   /** The label for the checkbox on the passed row */
   checkboxLabel(row): string {
-    // console.log('checkboxLabel', this.selection.selected);
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -142,29 +158,27 @@ export class UsersListComponent implements OnInit {
    */
   getUserOrginasations() {
     this.usersService.getOrganisations().subscribe(data => {
-      this.options = data['result'];
-      console.log('getUserOrginasations', this.options);
-      this.organisations = data['result'];
-      this.myControl.setValue(this.options[0].label);
-      this.firstorganisationValue = this.options[0].value;
-      this.orgnsationId = this.firstorganisationValue
-      this.selected = this.firstorganisationValue;
-      this.getUserList();
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => this._filter(value))
-        );
+      if (data['result']) {
+        this.organisations = data['result'];
+        this.organisationsList = data['result'];
+        this.myControl.setValue(this.organisations[0].label);
+        this.firstorganisationValue = this.organisations[0].value;
+        this.orgnsationId = this.firstorganisationValue
+        this.selected = this.firstorganisationValue;
+        this.getUserList();
+      } else {
+        this._snackBar.open('No Organisations Found', 'Error', {
+          duration: 2000,
+        });
+      }
     }, error => {
-
+      this._snackBar.open('No Organisations Found', 'Error', {
+        duration: 2000,
+      });
     });
   }
 
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.label.toLowerCase().includes(filterValue));
-  }
   ngAfterViewInit() {
     console.log('ngAfterViewInit', this.selection.selected);
   }
@@ -249,7 +263,7 @@ export class UsersListComponent implements OnInit {
     )
   }
 
- // To download selected records
+  // To download selected records
   downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type });
     let url = window.URL.createObjectURL(blob);
@@ -277,7 +291,7 @@ export class UsersListComponent implements OnInit {
   }
 
   commingsoon() {
-    this._snackBar.open('Comming soon', 'Soon', {
+    this._snackBar.open('Comming soon', 'Close', {
       duration: 2000,
     });
   }

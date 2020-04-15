@@ -82,3 +82,16 @@ table {
         stroke:  #A63936 !important;
     }
 }
+
+::ng-deep.mat-select-panel-wrap {
+  padding: 25px 15px 10px 16px;
+
+}
+
+::ng-deep.mat-option.mat-active {
+  background-color:#A63936;
+  color: white;
+}
+// ::ng-deep.mat-ripple-element{
+// background-color: #A63936;
+// }

@@ -26,19 +26,30 @@ export class AddUserComponent implements OnInit {
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
   ngOnInit() {
-    this.formdata =  this.data.fieldsBackend;
+    this.formdata = this.data.fieldsBackend;
   }
 
   // Form Submit
   onSubmit() {
     console.log('form', JSON.stringify(this.form.value));
+    // if(this.form.value.email || this.form.value.phoneNumber){
+
+    // }
     if (this.form.form.valid) {
-      this.createUser(this.form.value)
+      if (this.form.value.email || this.form.value.phoneNumber) {
+        this.createUser(this.form.value)
+      } else {
+        this.form.validateAllFormFields(this.form.form);
+        this._snackBar.open('Either Email or phone is mandatory', 'Error',{
+          duration: 2000
+        })
+      }
+
     } else {
       this.form.validateAllFormFields(this.form.form);
     }
   }
-  submit(data){
+  submit(data) {
 
   }
 
@@ -46,7 +57,7 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    console.log('userdata',userdata)
+    console.log('userdata', userdata)
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this._snackBar.open('User Created Sucessfully', 'Created', {
