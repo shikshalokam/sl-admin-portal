@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'Action'];
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;
@@ -211,17 +211,18 @@ export class UsersListComponent implements OnInit {
 
   // Adding multiple users popup
   UploadUsers() {
-    const dialogRef = this.dialog.open(AddMultipleUsersComponent
-      , {
-        disableClose: true,
-        width: '30%',
-        data: {}
-      });
+    this.commingsoon();
+    // const dialogRef = this.dialog.open(AddMultipleUsersComponent
+    //   , {
+    //     disableClose: true,
+    //     width: '30%',
+    //     data: {}
+    //   });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getUserList();
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   this.getUserList();
+    // });
   }
   onRowClicked(row) {
     console.log('=====', this.selection.selected)
@@ -291,7 +292,7 @@ export class UsersListComponent implements OnInit {
   }
 
   commingsoon() {
-    this._snackBar.open('Comming soon', 'Close', {
+    this._snackBar.open('Comming soon', 'Dismiss', {
       duration: 2000,
     });
   }

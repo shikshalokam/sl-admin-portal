@@ -1,6 +1,6 @@
 <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
-    <mat-select style="padding-left: 30px;" [placeholder]="field.label" [formControlName]="field.field" multiple>
+    <mat-select style="padding-left: 30px;" [formControlName]="field.field" multiple>
         <mat-option *ngFor="let item of field.options" [value]="item">{{item.label}}</mat-option>
     </mat-select>
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
