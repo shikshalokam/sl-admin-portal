@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
   ]
   wholeclick(data){
     if(data === '/home'){
-      this._snackBar.open('Comming-soon', 'close', {
+      this._snackBar.open('Comming soon', 'Close', {
         duration: 2000,
       });
     } else {

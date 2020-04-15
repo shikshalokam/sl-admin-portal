@@ -17,7 +17,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'email', 'gender', 'Action'];
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;

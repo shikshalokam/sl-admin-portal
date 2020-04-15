@@ -27,6 +27,10 @@ table {
  .c-toolbar {
     color: $primary-color;
     font-size: initial;
+    display: flex;
+    align-items: center;
+    background: whitesmoke;
+    justify-content: space-between;
   }
   .mat-button {
     font-weight: 600;
@@ -89,8 +93,8 @@ table {
 }
 
 ::ng-deep.mat-option.mat-active {
-  background-color:#A63936;
-  color: white;
+  // background-color:#A63936;
+  color: #A63936;
 }
 // ::ng-deep.mat-ripple-element{
 // background-color: #A63936;
