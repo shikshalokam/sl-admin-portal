@@ -90,8 +90,9 @@ export class UsersListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this._snackBar.open(error.error.message, 'Error', {
-        duration: 2000,
+      this._snackBar.open(error.error.message, 'Dismiss', {
+        duration: 10000,
+        verticalPosition: 'top'
       });
     });
   }
@@ -167,13 +168,15 @@ export class UsersListComponent implements OnInit {
         this.selected = this.firstorganisationValue;
         this.getUserList();
       } else {
-        this._snackBar.open('No Organisations Found', 'Error', {
-          duration: 2000,
+        this._snackBar.open('No Organisations Found', 'Dismiss', {
+          duration: 10000,
+          verticalPosition: 'top'
         });
       }
     }, error => {
-      this._snackBar.open('No Organisations Found', 'Error', {
-        duration: 2000,
+      this._snackBar.open('No Organisations Found', 'Dismiss', {
+        duration: 10000,
+        verticalPosition: 'top'
       });
     });
   }
@@ -229,14 +232,6 @@ export class UsersListComponent implements OnInit {
   }
 
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-
-
-
   // Download users
   downloadUsers(data) {
     this.downloadapi();
@@ -270,7 +265,8 @@ export class UsersListComponent implements OnInit {
     let url = window.URL.createObjectURL(blob);
     let pwa = window.open(url);
     this._snackBar.open('Users Downloaded Sucessfully', 'sucess', {
-      duration: 2000
+      duration: 10000,
+      verticalPosition: 'top'
     })
     if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
       alert('Please disable your Pop-up blocker and try again.');
@@ -293,7 +289,9 @@ export class UsersListComponent implements OnInit {
 
   commingsoon() {
     this._snackBar.open('Comming soon', 'Dismiss', {
-      duration: 2000,
+      duration: 10000,
+      verticalPosition: 'top',
+      // horizontalPosition: 'end',
     });
   }
 

@@ -82,6 +82,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     DynamicFieldDirective,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    SpinnerComponent,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

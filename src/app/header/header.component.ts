@@ -36,7 +36,8 @@ export class HeaderComponent implements OnInit {
 
   notifications() {
     this._snackBar.open('Comming soon', 'Dismiss', {
-      duration: 2000,
+      duration: 10000,
+      verticalPosition: 'top'
     });
   }
 

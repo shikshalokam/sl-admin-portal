@@ -40,8 +40,9 @@ export class AddUserComponent implements OnInit {
         this.createUser(this.form.value)
       } else {
         this.form.validateAllFormFields(this.form.form);
-        this._snackBar.open('Either Email or phone is mandatory', 'Error',{
-          duration: 2000
+        this._snackBar.open('Either Email or PhoneNumber is Mandatory', 'Dismiss',{
+          duration: 10000,
+          verticalPosition: 'top'
         })
       }
 
@@ -62,13 +63,15 @@ export class AddUserComponent implements OnInit {
       if (data['result'].response === 'SUCCESS') {
         this._snackBar.open('User Created Sucessfully', 'Created', {
           duration: 2000,
+          verticalPosition: 'top'
         });
         this.form.form.reset();
         this.dialogRef.close();
       }
     }, error => {
       this._snackBar.open(error.error.message.params.errmsg, 'error', {
-        duration: 2000,
+        duration: 10000,
+        verticalPosition: 'top'
       });
     });
   }

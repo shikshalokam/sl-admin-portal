@@ -1,15 +1,12 @@
 <div class="pageName">
   Admin Console
 </div>
-  <div *ngIf = "response" class="page-loading-shade">
-    <mat-spinner></mat-spinner>
-
-  </div>
+  <app-spinner *ngIf = "response"></app-spinner>
   <div *ngIf="admin" class="dashboard-content">
     <div class="row">
       <div class="col-md-2" *ngFor="let info of homedisplayArray">
         <mat-card class="product">
-          <mat-card-content matTooltip ="{{info.title}}" class="c-click"  (click) = "wholeclick(info.routerlink)">
+          <mat-card-content matTooltip ="{{info.title}}" class="c-click"  (click) = "pageReDirect(info.routerlink)">
             <div class="roundimg">
               <mat-icon class="mat-icon-custom"><a
                   routerLink="{{info.routerlink}}">{{info.icon}}</a></mat-icon>

@@ -44,6 +44,7 @@ export class AddMultipleUsersComponent implements OnInit {
     } else {
       this._snackBar.open('Please Select the File', 'error', {
         duration: 2000,
+        verticalPosition: 'top'
       });
     }
   }

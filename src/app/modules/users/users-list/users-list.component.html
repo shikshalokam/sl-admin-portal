@@ -2,7 +2,7 @@
   Users
 </div>
 
-<div class="dashboard-content" style="background-color: #e0e0e0;">
+<div class="dashboard-content">
 
   <div class="c-toolbar">
     <div class="row" style="padding-top: 5px;">
@@ -24,7 +24,7 @@
       <div style="padding-left: 30px;">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
-          <input matInput #searchInput (keyup)="applyFilter($event.target.value)">
+          <input matInput #searchInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -52,10 +52,11 @@
   </div>
 
   <div class="example-container mat-elevation-z8">
-    <div *ngIf="listing == false" class="page-loading-shade">
+    <!-- <div *ngIf="listing == false" class="page-loading-shade">
       <mat-spinner></mat-spinner>
 
-    </div>
+    </div> -->
+    <app-spinner *ngIf="listing == false"></app-spinner>
     <div class="custom-table-container">
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select">
@@ -74,10 +75,10 @@
         <!-- First Name Column -->
         <ng-container matColumnDef="firstName">
           <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
-          <mat-icon>account_circle</mat-icon>
           <mat-cell *matCellDef="let row">
-            <!-- <img style="max-width: 10%;" [src]="'/assets/images/download.png'"/> -->
-          <!-- <mat-icon>account_circle</mat-icon> -->
+          <button mat-icon-button style="padding-right: 30px;" color="primary">
+              <mat-icon>account_circle</mat-icon>
+           </button>
             <div>{{row.firstName ? row.firstName: '-- --'}}</div>
           </mat-cell>
         </ng-container>

@@ -77,10 +77,13 @@ export class HomeComponent implements OnInit {
       "data": "Add or Manage Reports"
     }
   ]
-  wholeclick(data){
+
+  // To Redirect the page
+  pageReDirect(data){
     if(data === '/home'){
       this._snackBar.open('Comming soon', 'Dismiss', {
-        duration: 2000,
+        duration: 10000,
+        verticalPosition: 'top'
       });
     } else {
       this.router.navigateByUrl('/users/users-list')
