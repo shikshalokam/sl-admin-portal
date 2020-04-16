@@ -13,9 +13,4 @@ constructor() {}
 ngOnInit() {
 }
 
-// passwordValidator(form: FormGroup) {
-//     const condition = form.get('password').value !== form.get('confirmpswd').value;
-
-//     return condition ? { passwordsDoNotMatch: true } : null;
-//   }
 }

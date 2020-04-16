@@ -15,7 +15,7 @@
     <mat-label class="required">{{field.label}}</mat-label>
     <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControlName]="field.field"
         [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let item of field.options" [value]="item.value">{{item.label}}</mat-option>
     </mat-autocomplete>
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">

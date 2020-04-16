@@ -11,13 +11,14 @@ import { SelectComponent } from "../select/select.component";
 import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { MultiSelectComponent } from "../multi-select/multi-select.component";
+import { PasswordComponent } from "../password/password.component";
 
 
 
 // TO bind the components based on the type of the field
 const componentMapper = {
   text: InputComponent,
-  password: InputComponent,
+  password: PasswordComponent,
   // button: ButtonComponent,
   select: SelectComponent,
   // date: DateComponent,

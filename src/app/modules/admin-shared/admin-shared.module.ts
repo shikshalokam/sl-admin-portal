@@ -32,6 +32,7 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { PasswordComponent } from './components/password/password.component';
 
 
 
@@ -39,7 +40,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -91,6 +92,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     SelectComponent,
     // DateComponent,
     RadiobuttonComponent,
+    PasswordComponent,
     CheckboxComponent,
     MultiSelectComponent,
     CommingSoonComponent
