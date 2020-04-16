@@ -79,14 +79,14 @@
           <button mat-icon-button style="padding-right: 30px;" color="primary">
               <mat-icon>account_circle</mat-icon>
            </button>
-            <div>{{row.firstName ? row.firstName: '-- --'}}</div>
+            <div class="text-capital">{{row.firstName ? row.firstName: '-- --'}}</div>
           </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="lastName">
           <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
-          <mat-cell *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
+          <mat-cell class="text-capital" *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
         </ng-container>
 
         <!-- Role Column -->
