@@ -185,7 +185,6 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    console.log('ngAfterViewInit', this.selection.selected);
   }
 
   createForm() {
@@ -230,7 +229,6 @@ export class UsersListComponent implements OnInit {
     // });
   }
   onRowClicked(row) {
-    console.log('=====', this.selection.selected)
   }
 
 
@@ -267,7 +265,7 @@ export class UsersListComponent implements OnInit {
     importedSaveAs(blob, this.fileName);
     // let url = window.URL.createObjectURL(blob);
     // let pwa = window.open(url);
-    this._snackBar.open('Users Downloaded Sucessfully', 'sucess', {
+    this._snackBar.open('Users Downloaded Successfully', 'success', {
       duration: 10000,
       verticalPosition: 'top'
     })

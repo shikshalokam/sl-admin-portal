@@ -19,7 +19,7 @@ export class Interceptor implements HttpInterceptor {
         // public storage: Storage,
     ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        this.token = localStorage.getItem('access-token');
+        this.token = this.KeycloakService.sendToken().token;
         if (this.token) {
             request = request.clone({
                 setHeaders: {

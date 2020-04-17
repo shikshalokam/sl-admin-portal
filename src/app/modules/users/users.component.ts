@@ -24,7 +24,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.userdetails = this.KeycloakService.getCurrentUserDetails();
-    console.log(' this.userdetails', this.userdetails);
   }
 
   handleChange(data) {
@@ -57,11 +56,10 @@ export class UsersComponent implements OnInit {
   }
 
   multiuser(){
-    
+
   }
 
   addSingle() {
-    console.log('sadxasd');
   }
 
 }

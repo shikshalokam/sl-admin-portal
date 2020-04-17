@@ -43,9 +43,12 @@ export class keyCloakService {
 
   setToken() {
     const tokendetails = this.keycloak.getKeycloakInstance();
-    localStorage.setItem('access-token', tokendetails.token);
-    console.log('================', tokendetails);
     this.commonServiceService.setUserDetails(tokendetails.profile);
+  }
+  // To reurn back the details from keycloak
+  sendToken() {
+    const tokendetails = this.keycloak.getKeycloakInstance();
+    return tokendetails;
   }
   instanceLogin() {
     this.keycloak.login().then(successs => {
@@ -59,24 +62,17 @@ export class keyCloakService {
   }
 
   getToken(): string {
-    const accessToken = localStorage.getItem('auth-token');
-    console.log(accessToken)
+    const accessToken = this.keycloak.getKeycloakInstance().token;
     return accessToken ? accessToken : null;
   }
 
 
   getCurrentUserDetails1() {
-    // //console.log(jwt_decode(this.keycloakAuth.token).name)
-    // this.userName = jwt_decode(this.keycloakAuth.token).name;
-    // return jwt_decode(this.keycloakAuth.token);
     this.userName = this.jwtHelper.decodeToken(this.getToken()).name;
     return this.jwtHelper.decodeToken(this.getToken());
   }
 
   getCurrentUserDetails() {
-    // console.log(jwt_decode(this.keycloakAuth.token).name)
-    // this.userName = jwt_decode(this.keycloakAuth.token).name;
-    // return jwt_decode(this.keycloakAuth.token);
     this.keycloak.isLoggedIn().then(
       isLogged => {
         if (isLogged) {
@@ -84,7 +80,6 @@ export class keyCloakService {
         }
       }
     )
-    console.log(this.getToken())
     this.userName = this.getToken() ? this.jwtHelper.decodeToken(this.getToken()).name : '';
 
     return null

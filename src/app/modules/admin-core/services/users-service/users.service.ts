@@ -44,10 +44,7 @@ export class UsersService {
         .toPromise()
         .then(
           res => {
-            console.log('getUserRoles', res);
             resolve(res);
-            // this.results = res.json().results;
-            // resolve(res.json().results);
           },
           msg => {
             reject(msg);

@@ -63,10 +63,9 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    console.log('userdata', userdata)
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
-        this._snackBar.open('User Created Sucessfully', 'Created', {
+        this._snackBar.open('User Created Successfully', 'Dismiss', {
           duration: 2000,
           verticalPosition: 'top'
         });

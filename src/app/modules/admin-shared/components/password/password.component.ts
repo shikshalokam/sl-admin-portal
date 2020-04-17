@@ -13,12 +13,9 @@ export class PasswordComponent implements OnInit {
   mismatch: boolean = false;
   constructor() { }
   ngOnInit() {
-    console.log('=====ppppppppppppp======', this.group);
   }
 
   onKey(data) {
-    console.log('##############', data);
-    console.log('ssssssssssss', this.group.controls.password.value);
     if (this.group.controls.password.value === this.group.controls.confirmpassword.value) {
         this.mismatch = false;
     } {
@@ -28,9 +25,7 @@ export class PasswordComponent implements OnInit {
 
 
 checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-
   let pass = group.get('password').value;
-  console.log('ooooooooooooooooooo', pass);
   let confirmPass = group.get('confirmpassword').value;
 
   return pass === confirmPass ? null : { notSame: true }     

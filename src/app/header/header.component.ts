@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
   }
 
   sidemenu() {
-    console.log('sidemenu');
   }
 
   notifications() {

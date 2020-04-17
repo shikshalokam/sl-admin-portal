@@ -25,10 +25,8 @@ export class CommingSoonComponent implements OnInit {
             if (result === 'yes') {
                 // TODO: Replace the following line with your code.
           this.router.navigate(['/home']);
-                console.log('User clicked yes.');
             } else if (result === 'no') {
                 // TODO: Replace the following line with your code.
-                console.log('User clicked no.');
             }
         }
     })

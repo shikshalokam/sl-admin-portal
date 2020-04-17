@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.promiseRowData = await this.usersService.getUserRoles();
-    console.log('promiseRowData',this.promiseRowData);
     if(this.promiseRowData['result']) {
      this.rolesArray = this.promiseRowData['result'].roles;
     }
