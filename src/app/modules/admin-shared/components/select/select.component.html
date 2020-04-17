@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
+<!-- <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
     <mat-select [formControlName]="field.field">
         <mat-option *ngFor="let item of field.options" [value]="item">{{item.label}}</mat-option>
@@ -6,19 +6,19 @@
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
         <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
     </ng-container>
-</mat-form-field>
+</mat-form-field> -->
 
 
 
 
-<!-- <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
+<mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
-    <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControlName]="field.field"
+    <input type="text" aria-label="Number" (keyup)="OnInput($event)"  matInput  [formControlName]="field.field" 
         [matAutocomplete]="auto">
     <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let item of field.options" [value]="item.value">{{item.label}}</mat-option>
+        <mat-option *ngFor="let item of finaldata" [value]="item">{{item.label}}</mat-option>
     </mat-autocomplete>
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
         <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
     </ng-container>
-</mat-form-field> -->
+</mat-form-field>

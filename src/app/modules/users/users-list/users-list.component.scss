@@ -57,10 +57,12 @@ table {
   .message {
     text-align: center;
     background-color: white;
+    height: 500px;
+    padding-top: 15%;
   }
   .mat-table {
     overflow: auto;
-    // height: 550px;
+    height: 550px;
   }
   
   .custom-table-container {

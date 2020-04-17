@@ -58,9 +58,9 @@ export class UsersListComponent implements OnInit {
         return event.target.value;
       })
       // if character length greater then 2
-      // ,filter(res => res.length > 2)
+      ,filter(res => res.length > 2 || res.length == 0)
       // Time in milliseconds between key events
-      , debounceTime(1000)
+      // , debounceTime(1000)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response

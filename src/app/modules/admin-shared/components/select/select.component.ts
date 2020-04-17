@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FieldConfig } from "../../field.interface";
-import { FormControl } from '@angular/forms';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: "app-select",
@@ -13,31 +12,29 @@ export class SelectComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   finaldata: any;
+  serverName: any;
   filteredOptions: Observable<any[]>;
   constructor() { }
   ngOnInit() {
-
-    this.onValueChanges();
-    this.filteredOptions = this.group.valueChanges
+    this.finaldata = this.field.options;
+    this.filteredOptions = this.group.get(this.field.field)!.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.field.options.slice())
+        map(value => this._filter(value))
       );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.field.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  OnInput(event: any) {
+    this.serverName = event.target.value;
+    this.finaldata = this._filter(this.serverName);
   }
 
+  private _filter(value: any) {
+    const filterValue = value.toLowerCase();
+    return this.field.options.filter(option => option.label.toLowerCase().indexOf(filterValue) === 0);
+  }
 
-
-
-  onValueChanges(): void {
-    this.group.valueChanges.subscribe(val => {
-      console.log('sssssssssssssssss', val);
-    })
+  displayFn(user): string {
+    return user && user.label ? user.label : user;
   }
 }
