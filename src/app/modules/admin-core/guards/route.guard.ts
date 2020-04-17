@@ -21,12 +21,6 @@ export class RouteGuard implements CanActivate {
       this.rolesArray = this.promiseRowData['result'].roles;
     }
     if (localStorage.getItem('access-token')) {
-    // if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
-      // if(localStorage.getItem('user_role') === 'ORG_ADMIN'){
-      //   return true;
-      // } else {
-      //   this.route.navigate(['/unauthorized'])
-      // }
       return true;
     } else {
       this.route.navigate(['/unauthorized'])

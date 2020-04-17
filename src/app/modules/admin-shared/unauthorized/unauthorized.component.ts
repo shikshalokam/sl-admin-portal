@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonServiceService } from '../../admin-core/services/common-service.service';
 
 @Component({
   selector: 'app-unauthorized',
@@ -8,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class UnauthorizedComponent implements OnInit {
   userdetails: any;
   username: any;
-  constructor() { }
+  constructor(private commonServiceService:CommonServiceService) { }
 
   ngOnInit() {
-    this.userdetails =  JSON.parse(localStorage.getItem('userdetails'));
+    this.userdetails = this.commonServiceService.getUserDetails();
     if (this.userdetails) {
       this.username = this.userdetails.firstName;
     }

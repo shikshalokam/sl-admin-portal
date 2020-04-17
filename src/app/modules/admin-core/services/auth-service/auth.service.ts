@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { CommonServiceService } from '../common-service.service';
+
 
 declare var Keycloak: any;
 
@@ -14,7 +16,8 @@ export class keyCloakService {
   isLoggedIn = false;
   redirectUrl: string;
   userName: string;
-  constructor(private jwtHelper: JwtHelperService, private router: Router
+  constructor(private jwtHelper: JwtHelperService, private router: Router,
+    private commonServiceService: CommonServiceService
   ) { }
 
 
@@ -41,8 +44,8 @@ export class keyCloakService {
   setToken() {
     const tokendetails = this.keycloak.getKeycloakInstance();
     localStorage.setItem('access-token', tokendetails.token);
-    localStorage.setItem('userdetails', JSON.stringify(tokendetails.profile));
     console.log('================', tokendetails);
+    this.commonServiceService.setUserDetails(tokendetails.profile);
   }
   instanceLogin() {
     this.keycloak.login().then(successs => {
@@ -50,6 +53,9 @@ export class keyCloakService {
     }).catch(error => {
       console.log("errorrrr")
     })
+  }
+  newMessage() {
+    this.commonServiceService.nextMessage("Second Message")
   }
 
   getToken(): string {

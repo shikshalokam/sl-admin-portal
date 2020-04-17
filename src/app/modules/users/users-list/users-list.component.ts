@@ -4,12 +4,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { fromEvent, merge, Subscription, of } from 'rxjs';
+import { fromEvent} from 'rxjs';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { debounceTime, startWith, distinctUntilChanged, map, tap, skip, delay, take, filter } from 'rxjs/operators';
+import { distinctUntilChanged, map,filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import {saveAs as importedSaveAs} from "file-saver";
 
 @Component({
   selector: 'app-users-list',
@@ -21,6 +22,7 @@ export class UsersListComponent implements OnInit {
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;
+  fileName:any = 'Users'
   options: any[];
   organisations: any;
   organisationsList: any;
@@ -262,21 +264,15 @@ export class UsersListComponent implements OnInit {
   // To download selected records
   downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type });
-    let url = window.URL.createObjectURL(blob);
-    let pwa = window.open(url);
+    importedSaveAs(blob, this.fileName);
+    // let url = window.URL.createObjectURL(blob);
+    // let pwa = window.open(url);
     this._snackBar.open('Users Downloaded Sucessfully', 'sucess', {
       duration: 10000,
       verticalPosition: 'top'
     })
-    if (!pwa || pwa.closed || typeof pwa.closed == 'undefined') {
-      alert('Please disable your Pop-up blocker and try again.');
-    }
   }
 
-  onFilterChange(data, row) {
-    console.log('onFilterChange', row);
-
-  }
 
   // To Edit the user
   editUser(user) {

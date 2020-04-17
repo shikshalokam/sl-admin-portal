@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { keyCloakService, UsersService } from '../modules/admin-core';
 import { MatSnackBar } from '@angular/material';
+import { CommonServiceService } from '../modules/admin-core/services/common-service.service';
 
 
 
@@ -15,19 +16,16 @@ export class HeaderComponent implements OnInit {
   user_role: any;
   links: any[];
   menuarray: any[];
+  message: any;
   constructor(private KeycloakService: keyCloakService, private usersService: UsersService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar, private commonServiceService: CommonServiceService) {
 
   }
-  async ngOnInit() {
-    // this.userdetails = this.KeycloakService.getKeycloakInstance();
-    //  let res =  await this.usersService.getUserRoles();
-    this.userdetails = JSON.parse(localStorage.getItem('userdetails'));
-    //  this.user_role = await localStorage.getItem('user_role');
+   ngOnInit() {
+    this.userdetails = this.commonServiceService.getUserDetails();
     if (this.userdetails) {
-      this.username = this.userdetails.firstName;
+      this.username = this.userdetails.username;
     }
-
   }
 
   sidemenu() {
