@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from 'rxjs';
-import { QuestionBase } from 'src/app/modules/admin-shared';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TextboxQuestion } from 'src/app/modules/admin-shared/form/textbox';
-import { DropdownQuestion } from 'src/app/modules/admin-shared/form/dropdown';
-import { of } from 'rxjs';
+import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { UsersConfig } from './users.config';
+import { Observable, Subject } from 'rxjs';
 
 
 
@@ -14,64 +10,76 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class UsersService {
-
+  roles;
+  private subject = new Subject<any>();
   constructor(private Http: HttpClient) { }
 
   getUserForm() {
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/user-creation/getForm');
+    return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
 
-  getUserRoles() {
-    return this.Http.get(environment.base_url + '/admin-service/api/v1/platform-user-roles/getProfile')
+  // To get the orginsations based on the user logged in
+  getOrganisations() {
+    return this.Http.get(environment.base_url + UsersConfig.organisations + '?pageSize=20&pageNo=1');
+  }
+
+  // To download users
+  getDownloadUsers(data) {
+    return this.Http.post(environment.base_url + UsersConfig.downloadUsers, data);
+  }
+
+
+  // To get the orginsations based on the user logged in
+  getUsers(data, orgid, searchfield) {
+    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
   createUser(data) {
-    return this.Http.post(environment.base_url + '/admin-service/api/v1/user-creation/create', data)
+    return this.Http.post(environment.base_url + UsersConfig.createUser, data)
   }
 
-
-  toFormGroup(questions: QuestionBase<string>[]) {
-    let group: any = {};
-
-    questions.forEach(question => {
-      group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
-        : new FormControl(question.value || '');
+  async getUserRoles() {
+    return new Promise((resolve, reject) => {
+      this.Http.get(environment.base_url + UsersConfig.userRoles)
+        .toPromise()
+        .then(
+          res => {
+            resolve(res);
+          },
+          msg => {
+            reject(msg);
+          }
+        );
     });
-    return new FormGroup(group);
+
   }
 
-  getQuestions() {
+  // To upload the Users csv
+  uploadUsersCsv(file): Observable<any> {
+    let fileData = new FormData();
+    fileData.append('files', file);
+    return this.Http.post(environment.base_url + '', fileData)
+    // let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
+    // headers.append('Content-Type', 'multipart/form-data');
+    // const req = new HttpRequest('POST', environment.base_url + '',
+    //   formData, {
+    //   headers: headers
+    // });
 
-    let questions: QuestionBase<string>[] = [
+    // return this.Http.request(req);
+  }
 
-      new DropdownQuestion({
-        key: 'brave',
-        label: 'Bravery Rating',
-        options: [
-          {key: 'solid',  value: 'Solid'},
-          {key: 'great',  value: 'Great'},
-          {key: 'good',   value: 'Good'},
-          {key: 'unproven', value: 'Unproven'}
-        ],
-        order: 3
-      }),
 
-      new TextboxQuestion({
-        key: 'firstName',
-        label: 'First name',
-        value: 'Bombasto',
-        required: true,
-        order: 1
-      }),
-
-      new TextboxQuestion({
-        key: 'emailAddress',
-        label: 'Email',
-        type: 'email',
-        order: 2
-      })
-    ];
-
-    return of(questions.sort((a, b) => a.order - b.order));
+  getCurrentUserRoles() {
+    let promise = new Promise((resolve, reject) => {
+      this.Http.get(environment.base_url + UsersConfig.userRoles)
+        .toPromise().then(
+          res => { // Success
+            this.roles = res['result']['roles'];
+            resolve();
+          }
+        );
+    });
+    return promise;
   }
 }

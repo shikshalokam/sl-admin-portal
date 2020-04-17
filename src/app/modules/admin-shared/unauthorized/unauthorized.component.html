@@ -1,3 +1,16 @@
-<p class="author">
+<!-- <p class="author">
   unauthorized user
-</p>
+</p> -->
+
+<h1 mat-dialog-title>Hi {{username}}</h1>
+<div mat-dialog-content>
+  <p>You don't have right to access this site.</p>
+  <!-- <mat-form-field>
+    <mat-label>Favorite Animal</mat-label>
+    <input matInput [(ngModel)]="animal">
+  </mat-form-field> -->
+</div>
+<div mat-dialog-actions  align="end">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Re-login</button>
+</div>
+

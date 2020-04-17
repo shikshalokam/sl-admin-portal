@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { CommonServiceService } from '../common-service.service';
+
 
 declare var Keycloak: any;
 
@@ -14,7 +16,8 @@ export class keyCloakService {
   isLoggedIn = false;
   redirectUrl: string;
   userName: string;
-  constructor(private jwtHelper: JwtHelperService, private router: Router
+  constructor(private jwtHelper: JwtHelperService, private router: Router,
+    private commonServiceService: CommonServiceService
   ) { }
 
 
@@ -40,9 +43,12 @@ export class keyCloakService {
 
   setToken() {
     const tokendetails = this.keycloak.getKeycloakInstance();
-    localStorage.setItem('access-token', tokendetails.token);
-    localStorage.setItem('userdetails', JSON.stringify(tokendetails.profile));
-    console.log('================', tokendetails);
+    this.commonServiceService.setUserDetails(tokendetails.profile);
+  }
+  // To reurn back the details from keycloak
+  sendToken() {
+    const tokendetails = this.keycloak.getKeycloakInstance();
+    return tokendetails;
   }
   instanceLogin() {
     this.keycloak.login().then(successs => {
@@ -51,26 +57,22 @@ export class keyCloakService {
       console.log("errorrrr")
     })
   }
+  newMessage() {
+    this.commonServiceService.nextMessage("Second Message")
+  }
 
   getToken(): string {
-    const accessToken = localStorage.getItem('auth-token');
-    console.log(accessToken)
+    const accessToken = this.keycloak.getKeycloakInstance().token;
     return accessToken ? accessToken : null;
   }
 
 
   getCurrentUserDetails1() {
-    // //console.log(jwt_decode(this.keycloakAuth.token).name)
-    // this.userName = jwt_decode(this.keycloakAuth.token).name;
-    // return jwt_decode(this.keycloakAuth.token);
     this.userName = this.jwtHelper.decodeToken(this.getToken()).name;
     return this.jwtHelper.decodeToken(this.getToken());
   }
 
   getCurrentUserDetails() {
-    // console.log(jwt_decode(this.keycloakAuth.token).name)
-    // this.userName = jwt_decode(this.keycloakAuth.token).name;
-    // return jwt_decode(this.keycloakAuth.token);
     this.keycloak.isLoggedIn().then(
       isLogged => {
         if (isLogged) {
@@ -78,7 +80,6 @@ export class keyCloakService {
         }
       }
     )
-    console.log(this.getToken())
     this.userName = this.getToken() ? this.jwtHelper.decodeToken(this.getToken()).name : '';
 
     return null
@@ -90,38 +91,13 @@ export class keyCloakService {
     return this.keycloakAuth.logout();
   }
   logout() {
-    this.keycloak.logout('http://localhost:4200/users');
+    // environment.base_url + '/home'
+    this.keycloak.logout('https://devhome.shikshalokam.org/admin-portal/home');
     localStorage.clear();
   }
 
   getLogin() {
     this.keycloakAuth.login();
-  }
-
-  /**
-   * Restricting the urls based on the user role
-   * @returns {Array} - Response data.
-   */
-  getAllowedUrls() {
-    if (localStorage.getItem("roleInfo")) {
-      let roles = JSON.parse(localStorage.getItem("roleInfo"));
-      let allowedArray = [];
-      roles.roles.forEach(element => {
-        if (element == environment.platform_admin) {
-          allowedArray.push("/single-user");
-          allowedArray.push("/multiple-user");
-          allowedArray.push('/create-organisation');
-          allowedArray.push('/create-roles');
-        } else if (element == environment.organisation_admin) {
-          allowedArray.push("/single-user");
-          allowedArray.push("/multiple-user");
-        }
-      });
-      return allowedArray;
-    } else {
-      return [];
-    }
-
   }
 
 }

@@ -17,15 +17,6 @@ export class UsersComponent implements OnInit {
   submitted = false;
   userdetails: any;
   entitysubmitted = false;
-  states = [{
-    name: 'Andhra',
-  }, {
-    name: 'Karnataka',
-  }, {
-    name: 'Telanaga',
-  }, {
-    name: 'Orissia',
-  }]
   constructor(private formBuilder: FormBuilder,
     private router: Router, private KeycloakService: keyCloakService) {
 
@@ -33,16 +24,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.userdetails = this.KeycloakService.getCurrentUserDetails();
-    console.log(' this.userdetails', this.userdetails);
-  }
-
-  singleuser() {
-    this.router.navigate(['single-user']);
-
-  }
-
-  multiuser() {
-    this.router.navigate(['multi-users']);
   }
 
   handleChange(data) {
@@ -60,8 +41,6 @@ export class UsersComponent implements OnInit {
       return;
     }
 
-    // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.singleuserForm.value, null, 4));
   }
 
   onEntitySubmit() {
@@ -72,8 +51,15 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  singleuser(){
+
+  }
+
+  multiuser(){
+
+  }
+
   addSingle() {
-    console.log('sadxasd');
   }
 
 }

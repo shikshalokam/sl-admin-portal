@@ -1,0 +1,86 @@
+@import "../../../../assets/scss/variables.scss";
+
+table {
+    width: 100%;
+  }
+  
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  .custom-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  .panel {
+      cursor: pointer;
+  }
+
+  th.mat-header-cell {
+    border-bottom-style: none;
+  }
+  td.mat-cell {
+    border-bottom-style: none;
+  }
+
+ .c-toolbar {
+    color: $primary-color;
+    font-size: initial;
+    display: flex;
+    align-items: center;
+    background: whitesmoke;
+    justify-content: space-between;
+  }
+  .mat-button {
+    font-weight: 600;
+  }
+  .home {
+    cursor: pointer;
+    padding-top: 8px;
+  }
+  .pageName {
+    background-color: white;
+    padding: 6px 10px 4px 25px;
+    color: $primary-color;
+  }
+
+  .actions{
+    color: $primary-color;
+    background-color: #f3f4f5;
+  }
+
+  .mat-header-cell{
+    color: black;
+    font-weight: 600;
+  }
+  .message {
+    text-align: center;
+    background-color: white;
+  }
+  .mat-table {
+    overflow: auto;
+    height: 550px;
+  }
+  
+  .custom-table-container {
+    position: relative;
+    overflow: auto;
+  }
+
+
+
+.dashboard-content{
+  padding: 30px 40px 15px 50px;
+  background: #efeeee;
+}
+
+::ng-deep.mat-select-panel-wrap {
+  padding: 25px 15px 10px 16px;
+
+}
+
+::ng-deep.mat-option.mat-active {
+  // background-color:#A63936;
+  color: #A63936;
+}

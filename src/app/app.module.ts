@@ -7,13 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
-// import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminCoreModule } from './modules/admin-core/admin-core.module';
 import { keyCloakService } from './modules/admin-core';
 import { AdminSharedModule } from './modules/admin-shared';
 import { environment } from 'src/environments/environment';
 import { KeycloakAngularModule } from 'keycloak-angular';
+import { HomeComponent } from './home/home.component';
 
 
 export function tokenGetter() {
@@ -25,6 +25,7 @@ export function tokenGetter() {
     HeaderComponent,
     // FooterComponent,
     LoginComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
