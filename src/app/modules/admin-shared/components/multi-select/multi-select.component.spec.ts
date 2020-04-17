@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MultiUsersComponent } from './multi-users.component';
+import { MultiSelectComponent } from './multi-select.component';
 
-describe('MultiUsersComponent', () => {
-  let component: MultiUsersComponent;
-  let fixture: ComponentFixture<MultiUsersComponent>;
+describe('MultiSelectComponent', () => {
+  let component: MultiSelectComponent;
+  let fixture: ComponentFixture<MultiSelectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiUsersComponent ]
+      declarations: [ MultiSelectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MultiUsersComponent);
+    fixture = TestBed.createComponent(MultiSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,7 +20,7 @@ export class PrivateGuard implements CanActivate {
     if (!localStorage.getItem("roleInfo")) {
       // let res = await this.keyCloakService.getUserRoles();
     }
-    allowedArray = this.keyCloakService.getAllowedUrls();
+    // allowedArray = this.keyCloakService.getAllowedUrls();
 
     if (localStorage.getItem('user_role') === 'OBS_REVIEWER') {
       return true;

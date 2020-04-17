@@ -15,7 +15,7 @@ code {
     monospace;
 } */
 @import "./assets/scss/variables.scss";
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap');
 body{
@@ -333,18 +333,7 @@ display: flex;
 
 
 
-/* Global setting  page css */
 
-.dashaboard-outer{
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eaeef8+0,e7ecfa+100 */
-background: #eaeef8; /* Old browsers */
-background: -moz-linear-gradient(45deg, #eaeef8 0%, #e7ecfa 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(45deg, #eaeef8 0%,#e7ecfa 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(45deg, #eaeef8 0%,#e7ecfa 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeef8', endColorstr='#e7ecfa',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-min-height: 100vh;
-/* padding: 20px; */
-}
 .dashboard-wrapper{
   background: white;
   min-height: calc(100vh);
@@ -352,7 +341,9 @@ min-height: 100vh;
  box-shadow: 0 0 35px rgba(101, 113, 164, 0.1);
  /* border-radius: 20px; */
  position: relative;
+ border-radius: 0;
 }
+
 .sidebar{
   position: absolute;
   top: 0;
@@ -517,7 +508,7 @@ img{max-width: 100%;}
 
 
 .dashboard-content{
-  padding: 15px 50px;
+  padding: 30px 40px 15px 50px;
 }
 .box{
   background: #fff;
@@ -856,10 +847,7 @@ img{max-width: 100%;}
   flex-direction: column-reverse;
   padding: 0;
 }
-.dashboard-wrapper{
-min-height: 100vh;
-border-radius: 0;
-}
+
 .header-username{
   display: none;
 }
@@ -904,7 +892,8 @@ border-radius: 0;
   height: 30px;
 }
 .dashboard-content {
-  padding: 15px 15px;
+  padding: 60px 40px 15px 15px;
+
 }
 .g-edit-box {
   top: 5px;
@@ -2575,8 +2564,9 @@ margin: 0 2px;
 body {
   margin: 0;
 }
-.demo-full-width {
-  width: 100%;
+.form-full-width {
+  width: 48%;
+  padding-left: 50px;
 }
 .margin-top {
   margin-top: 15px;
@@ -2588,6 +2578,27 @@ body {
   padding-right: 10px;
   color: grey;
 }
+
+.pageName {
+  background-color: #f3f4f5;
+  padding: 6px 10px 4px 25px;
+  color: $primary-color;
+}
+
+*:focus {
+  outline: none !important;
+  border: 0 !important;
+}
+.text-capital {
+  text-transform: capitalize;
+}
+.mat-simple-snackbar-action button {
+  color:rgb(233, 228, 221);
+}
+
+
+
+
 
 
 

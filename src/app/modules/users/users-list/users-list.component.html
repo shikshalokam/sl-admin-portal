@@ -1,78 +1,144 @@
-<div class="dashboard-content">
-  <div>
-    <mat-toolbar class="tool-bar">
-      <mat-toolbar-row>
-        <div class="col-md-2 col-sm-2">
-          <button (click)="openDialog()" mat-raised-button matTooltip="Add User">
-            Add New user
-          </button>
-        </div>
-        <div class="col-md-2 col-sm-2">
-          <button mat-raised-button matTooltip="Upload users">
-            Bulk upload users
-          </button>
-        </div>
-        <div class="col-md-2 col-sm-2">
-          <button mat-raised-button matTooltip="Download">
-            Download users
-          </button>
-        </div>
-      </mat-toolbar-row>
-    </mat-toolbar>
-  </div>
+<div class="pageName">
+  Users
+</div>
 
-  <div class="example-header">
-    <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Users">
-    </mat-form-field>
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Select Organisation" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
+<div class="dashboard-content">
+
+  <div class="c-toolbar">
+    <div class="row" style="padding-top: 5px;">
+      <a style="padding-left: 30px;" [routerLink]="['/home']">
+        <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
+        </mat-icon>
+      </a>
+      <div style="padding-left: 30px;">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Select Organisation</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+            <mat-form-field class="custom-form-field">
+              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+            </mat-form-field>
+            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div style="padding-left: 30px;">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Search for users</mat-label>
+          <input matInput #searchInput>
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row" style="padding-right: 17px;">
+      <div class="btn-gap">
+        <button mat-button (click)="addNewUser()" matTooltip="Add New User">
+          Add New user
+        </button>
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
+          Bulk upload users
+        </button>
+      </div>
+      <div class="btn-gap">
+        <button (click)="downloadapi()" mat-button matTooltip="Download Users">
+          Download users
+        </button>
+      </div>
+    </div>
   </div>
-  
 
   <div class="example-container mat-elevation-z8">
+    <!-- <div *ngIf="listing == false" class="page-loading-shade">
+      <mat-spinner></mat-spinner>
 
-    <mat-table [dataSource]="dataSource" matSort>
+    </div> -->
+    <app-spinner *ngIf="listing == false"></app-spinner>
+    <div class="custom-table-container">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef style="padding-top: 10px;">
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row" style="padding-top: 10px;">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.position}} </mat-cell>
-      </ng-container>
+        <!-- First Name Column -->
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+          <button mat-icon-button style="padding-right: 30px;" color="primary">
+              <mat-icon>account_circle</mat-icon>
+           </button>
+            <div class="text-capital">{{row.firstName ? row.firstName: '-- --'}}</div>
+          </mat-cell>
+        </ng-container>
 
-      <!-- Progress Column -->
-      <ng-container matColumnDef="weight">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Progress </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.weight}}% </mat-cell>
-      </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="lastName">
+          <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+          <mat-cell class="text-capital" *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
+        </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
-      </ng-container>
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              <div style="width: 200px; word-wrap: break-word">
+                  {{row?.role ? row?.role : '-- --'}}
+              </div>
+           
+          </mat-cell>
+        </ng-container>
 
-      <!-- Color Column -->
-      <ng-container matColumnDef="symbol">
+        <!-- gender Column -->
+        <ng-container matColumnDef="gender">
+          <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{row.gender ? row?.gender : '-- --'}}</mat-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <!-- <ng-container matColumnDef="symbol">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
         <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.symbol}} </mat-cell>
-      </ng-container>
+      </ng-container> -->
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;">
-      </mat-row>
-    </mat-table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+        <ng-container matColumnDef="Action">
+          <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+          <mat-cell *matCellDef="let user">
+            <button matTooltip="Edit User" class="actions" (click)="commingsoon()" mat-button>
+              <!-- <a class="actions" [routerLink]="['/comming-soon']">Edit</a> -->
+              Edit
+            </button>&nbsp;
+            <button matTooltip="Delete User" class="actions" (click)="commingsoon()" mat-button>
+              Delete
+              <!-- <a class="actions" [routerLink]="['/comming-soon']">Delete</a> -->
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="background-color: #f5f5f5;">
+        </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
+        </mat-row>
+        <div class="message" *ngIf="recordCount == 0">No records found</div>
+      </mat-table>
+
+      <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
+      <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
   </div>
-
 </div>

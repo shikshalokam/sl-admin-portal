@@ -14,36 +14,15 @@ export class AppComponent implements OnInit {
   roles: any;
   constructor(private usersService: UsersService,
     private router: Router, private keycloak: keyCloakService) {
-    this.sendMessage();
-
-  }
-
-  sendMessage(): void {
-    // send message to subscribers via observable subject
-    this.usersService.sendMessage('Message from app Component to message Component!');
   }
 
   // Initial loading
   ngOnInit() {
     this.getBasicdetails();
-    this.userRoles();
   }
 
   getBasicdetails() {
     this.keycloak.setToken();
-  }
-
-  /**
-  * To get the form from the backend
-  */
-  userRoles() {
-    //  const rolesdata =  this.usersService.getCurrentUserRoles();
-    this.usersService.getUserRoles().subscribe(data => {
-      this.roles = data['result'];
-      localStorage.setItem('user_role', this.roles.roles[0]);
-    }, error => {
-
-    });
   }
 
 }

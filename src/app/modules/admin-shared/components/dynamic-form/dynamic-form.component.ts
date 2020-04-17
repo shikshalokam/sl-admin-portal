@@ -6,12 +6,9 @@ import { FieldConfig, Validator } from "../../field.interface";
 @Component({
   exportAs: "dynamicForm",
   selector: "dynamic-form",
-  template: `
-  <form class="dynamic-form" [formGroup]="form" (submit)="onSubmit($event)">
-  <ng-container *ngFor="let field of fields;" dynamicField [field]="field" [group]="form">
-  </ng-container>
-  </form>
-  `
+  templateUrl: './dynamic-form.component.html',
+  styleUrls: ['./dynamic-form.component.scss']
+ 
 })
 export class DynamicFormComponent implements OnInit {
   @Input() fields: FieldConfig[] = [];
@@ -20,13 +17,17 @@ export class DynamicFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.form = this.createControl();
+    if(this.fields){
+      this.form = this.createControl();
+    }
+   
   }
 
 // Binding the controls with the fields
   createControl() {
      const group = this.fb.group({});
     this.fields.forEach(field => {
+      if(field.visible) {
       if (field.input === "button")
        return;
       const control = this.fb.control(
@@ -34,6 +35,7 @@ export class DynamicFormComponent implements OnInit {
         this.bindValidations(field.validation || [])
       );
       group.addControl(field.field, control);
+      }
     });
     return group;
   }
@@ -75,6 +77,7 @@ export class DynamicFormComponent implements OnInit {
   // To Validate the form
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
+      
       const control = formGroup.get(field);
       control.markAsTouched({ onlySelf: true });
     });

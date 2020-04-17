@@ -18,24 +18,29 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatTooltipModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './components/input/input.component';
 // import { ButtonComponent } from './components/button/button.component';
 import { SelectComponent } from './components/select/select.component';
-import { DateComponent } from './components/date/date.component';
+// import { DateComponent } from './components/date/date.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { PasswordComponent } from './components/password/password.component';
 
 
 
 
 @NgModule({
   // ButtonComponent
-  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, InputComponent, SelectComponent, DateComponent, RadiobuttonComponent, CheckboxComponent],
+  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
+    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -56,7 +61,8 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatPaginatorModule,
     MatDialogModule,
     MatTooltipModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressSpinnerModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -76,15 +82,20 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
     MatTooltipModule,
     DynamicFieldDirective,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    SpinnerComponent,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     InputComponent,
     // ButtonComponent,
     SelectComponent,
-    DateComponent,
+    // DateComponent,
     RadiobuttonComponent,
-    CheckboxComponent
+    PasswordComponent,
+    CheckboxComponent,
+    MultiSelectComponent,
+    CommingSoonComponent
   ]
 })
 export class AdminSharedModule { }

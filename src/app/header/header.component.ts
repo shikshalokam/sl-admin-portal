@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { keyCloakService, UsersService } from '../modules/admin-core';
+import { MatSnackBar } from '@angular/material';
+import { CommonServiceService } from '../modules/admin-core/services/common-service.service';
 
 
 
@@ -14,56 +16,26 @@ export class HeaderComponent implements OnInit {
   user_role: any;
   links: any[];
   menuarray: any[];
-  constructor(private KeycloakService: keyCloakService, private usersService: UsersService) {
+  message: any;
+  constructor(private KeycloakService: keyCloakService, private usersService: UsersService,
+    private _snackBar: MatSnackBar, private commonServiceService: CommonServiceService) {
 
   }
-  async ngOnInit() {
-    // this.userdetails = this.KeycloakService.getKeycloakInstance();
-    //  let res =  await this.usersService.getUserRoles();
-    this.userdetails =  JSON.parse(localStorage.getItem('userdetails'));
-    //  this.user_role = await localStorage.getItem('user_role');
+   ngOnInit() {
+    this.userdetails = this.commonServiceService.getUserDetails();
     if (this.userdetails) {
-      this.username = this.userdetails.firstName;
+      this.username = this.userdetails.username;
     }
-    let menu = [];
-
-    let home = {
-      value: "Home",
-      anchorLink: "/home",
-      icon: "description",
-    }
-
-    let users = {
-      value: "Create Users",
-      anchorLink: "/users",
-      icon: "description"
-    };
-
-    let unauthorized = {
-      value: "Assign Users",
-      anchorLink: "/unauthorized",
-      icon: "rate_review"
-    }
-
-
-    if (this.user_role === 'OBS_DESIGNER') {
-      menu.push(home);
-      menu.push(unauthorized);
-    }
-    if (this.user_role === 'OBS_REVIEWER') {
-      menu.push(users);
-    }
-
-    this.links = [{
-      linkHeading: "headings.features",
-      values: menu
-    }
-    ];
-   this.menuarray =  this.links[0].values;
   }
 
   sidemenu() {
-    console.log('sidemenu');
+  }
+
+  notifications() {
+    this._snackBar.open('Comming soon', 'Dismiss', {
+      duration: 10000,
+      verticalPosition: 'top'
+    });
   }
 
   /**

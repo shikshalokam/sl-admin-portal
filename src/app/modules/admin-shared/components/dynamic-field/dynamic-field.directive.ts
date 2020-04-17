@@ -7,20 +7,24 @@ import { FieldConfig } from "../../field.interface";
 import { InputComponent } from "../input/input.component";
 // import { ButtonComponent } from "../button/button.component";
 import { SelectComponent } from "../select/select.component";
-import { DateComponent } from "../date/date.component";
+// import { DateComponent } from "../date/date.component";
 import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
+import { MultiSelectComponent } from "../multi-select/multi-select.component";
+import { PasswordComponent } from "../password/password.component";
+
 
 
 // TO bind the components based on the type of the field
 const componentMapper = {
   text: InputComponent,
-  password: InputComponent,
+  password: PasswordComponent,
   // button: ButtonComponent,
   select: SelectComponent,
-  date: DateComponent,
+  // date: DateComponent,
   radio: RadiobuttonComponent,
-  checkbox: CheckboxComponent
+  checkbox: CheckboxComponent,
+  multiselect: MultiSelectComponent
 };
 
 @Directive({
