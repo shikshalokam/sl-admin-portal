@@ -34,6 +34,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordComponent } from './components/password/password.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -64,7 +65,8 @@ import { PasswordComponent } from './components/password/password.component';
     MatTooltipModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    NgxMatSelectSearchModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -87,7 +89,8 @@ import { PasswordComponent } from './components/password/password.component';
     MatProgressSpinnerModule,
     SpinnerComponent,
     MatChipsModule,
-    MatRadioModule],
+    MatRadioModule,
+    NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     InputComponent,

@@ -1,4 +1,4 @@
-<mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
+<!-- <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
     <mat-select style="padding-left: 30px;" [formControlName]="field.field" multiple>
         <mat-option *ngFor="let item of field.options" [value]="item">{{item.label}}</mat-option>
@@ -6,7 +6,24 @@
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
         <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
     </ng-container>
-</mat-form-field>
+</mat-form-field> -->
+
+
+
+
+    <mat-form-field class="form-full-width margin-top" [formGroup]="group">
+        <mat-select [formControlName]="field.field" placeholder="Role" [multiple]="true" #multiSelect>
+            <ngx-mat-select-search  placeholderLabel="Find role..." noEntriesFoundLabel="No matching role found" [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+            <mat-option *ngFor="let role of finaldata" [value]="role">
+                {{role.label}}
+            </mat-option>
+        </mat-select>
+        <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
+            <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
+        </ng-container>
+    </mat-form-field>
+
+
 
 <!-- <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label class="required">{{field.label}}</mat-label>
@@ -38,7 +55,7 @@
             [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
     </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onFruitSelectionChange($event)">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onRoleSelectionChange($event)">
         <mat-option [id]="'multi-select-mat-option-'+ fruit.label.toLowerCase()" *ngFor="let fruit of filtereddata | async"
             [value]="fruit">
             <mat-pseudo-checkbox class="multi-select-pseudo-checkbox"
@@ -47,4 +64,7 @@
             <span class="multi-select-option-text">{{fruit.label}}</span>
         </mat-option>
     </mat-autocomplete>
+    <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
+        <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
+    </ng-container>
 </mat-form-field> -->

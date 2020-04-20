@@ -1,13 +1,14 @@
 // import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormControlName } from "@angular/forms";
+import { FormGroup, FormControl,  FormControlName } from "@angular/forms";
 import { FieldConfig } from "../../field.interface";
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
+import { ReplaySubject, Subject } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit,Input, QueryList, ViewChildren } from '@angular/core';
 import { DOWN_ARROW, TAB, ESCAPE } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatChipInputEvent } from '@angular/material';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-multi-select',
@@ -32,24 +33,38 @@ export class MultiSelectComponent implements OnInit {
   // fruitCtrl = new FormControl();
   filtereddata: any;
   fruits: any[] = [];
-
+  public bankMultiFilterCtrl: FormControl = new FormControl();
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
   @ViewChild('searchInput', { read: MatAutocompleteTrigger }) autoComplete;
+  @Input() noEntriesFoundLabel = 'No data Found';
   constructor() { }
   ngOnInit() {
     this.finaldata = this.field.options;
-    // this.filteredOptions = this.group.get(this.field.field)!.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     map(value => this._filter(value))
-    //   );
+    this.filteredOptions = this.group.get(this.field.field)!.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+    this.bankMultiFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.finaldata = this.filterBanksMulti();
 
+      });
 
     this.filtereddata = this.group.get(this.field.field)!.valueChanges.pipe(
       startWith(null),
       map((fruit: string | null) => fruit ? this._filter(fruit) : this.field.options.slice()));
   }
 
+  protected filterBanksMulti() {
+    const filterValue = this.bankMultiFilterCtrl.value.toLowerCase();
+    return this.field.options.filter(option => option.label.toLowerCase().includes(filterValue));
+  
+  }
+
+
+  protected _onDestroy = new Subject<void>();
 
   OnInput(event: any) {
     this.serverName = event.target.value;
@@ -111,15 +126,14 @@ export class MultiSelectComponent implements OnInit {
     // this.fruitCtrl.setValue(null);
   }
 
-  remove(fruit){
-    console.log('remove', fruit);
+  remove(fruit) {
     const index = this.fruits.indexOf(fruit);
     if (index >= 0) {
       this.fruits.splice(index, 1);
     }
   }
 
-  onFruitSelectionChange(event: MatAutocompleteSelectedEvent): void {
+  onRoleSelectionChange(event: MatAutocompleteSelectedEvent): void {
     this.updateFruitList(event.option.viewValue);
     this.searchInput.nativeElement.value = '';
     // this.fruitCtrl.setValue(null);
@@ -130,7 +144,6 @@ export class MultiSelectComponent implements OnInit {
   }
 
   private _filter(value) {
-    console.log('filllllllll',  value);
     if (typeof (value) == 'object') {
       const filterValue = value.label.toLowerCase();
 
@@ -147,26 +160,25 @@ export class MultiSelectComponent implements OnInit {
     event.preventDefault();
   }
 
-    addFruit(fruit) {
-    console.log('addFruit', fruit);
+  addFruit(fruit) {
     this.fruits.push(fruit);
-    console.log('uuuuuuuuuu', this.fruits);
   }
 
   isFruitSelected(fruit): boolean {
-    // console.log('isFruitSelected', fruit);
     return this.fruits.indexOf(fruit) >= 0;
   }
 
   updateFruitList(fruit) {
-    console.log('updateFruitList', fruit);
-    
+
     if (this.isFruitSelected(fruit)) {
       this.remove(fruit);
     } else {
       this.addFruit(fruit);
     }
   }
+
+
+
 
 }
 
