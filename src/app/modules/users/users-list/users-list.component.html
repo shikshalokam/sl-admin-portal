@@ -77,7 +77,7 @@
           <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
           <mat-cell *matCellDef="let row">
           <button mat-icon-button style="padding-right: 30px;" color="primary">
-              <mat-icon>account_circle</mat-icon>
+              <mat-icon matSuffix>account_circle</mat-icon>
            </button>
             <div class="text-capital">{{row.firstName ? row.firstName: '-- --'}}</div>
           </mat-cell>
@@ -121,10 +121,6 @@
               <!-- <a class="actions" [routerLink]="['/comming-soon']">Edit</a> -->
               Edit
             </button>&nbsp;
-            <button matTooltip="Delete User" class="actions" (click)="commingsoon()" mat-button>
-              Delete
-              <!-- <a class="actions" [routerLink]="['/comming-soon']">Delete</a> -->
-            </button>
           </mat-cell>
         </ng-container>
 

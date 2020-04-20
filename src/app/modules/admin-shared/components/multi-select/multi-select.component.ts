@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { FieldConfig } from "../../field.interface";
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { Component,  OnInit} from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-multi-select',
@@ -14,63 +14,22 @@ export class MultiSelectComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   finaldata: any;
-  serverName: any;
-  selectedUsers: any = [];
-  filteredOptions: Observable<any[]>;
+  public roleMultiFilterCtrl: FormControl = new FormControl();
   constructor() { }
   ngOnInit() {
     this.finaldata = this.field.options;
-    this.filteredOptions = this.group.get(this.field.field)!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
+    this.roleMultiFilterCtrl.valueChanges
+      .pipe()
+      .subscribe(() => {
+        this.finaldata = this.filterRolesMulti();
 
-
-  OnInput(event: any) {
-    this.serverName = event.target.value;
-    this.finaldata = this._filter(this.serverName);
-  }
-
-  private _filter(value: any) {
-    const filterValue = value.toLowerCase();
-    return this.field.options.filter(option => option.label.toLowerCase().indexOf(filterValue) === 0);
-  }
-
- // To return back the data to view
-  displayFn(value): string | undefined {
-    let displayValue: string;
-    if (Array.isArray(value)) {
-      value.forEach((user, index) => {
-        if (index === 0) {
-          displayValue = user.label;
-        } else {
-          displayValue += ', ' + user.label;
-        }
       });
-    } else {
-      displayValue = value;
-    }
-    return displayValue;
   }
 
-  // To select the data 
-  optionClicked(event: Event, user) {
-    event.stopPropagation();
-    this.toggleSelection(user);
-  }
+  protected filterRolesMulti() {
+    const filterValue = this.roleMultiFilterCtrl.value.toLowerCase();
+    return this.field.options.filter(option => option.label.toLowerCase().includes(filterValue));
 
-  // checkbox selection 
-  toggleSelection(user) {
-    user.selected = !user.selected;
-    if (user.selected) {
-      this.selectedUsers.push(user);
-    } else {
-      const i = this.selectedUsers.findIndex(value => value.label === user.label && value.value === user.value);
-      this.selectedUsers.splice(i, 1);
-    }
-    this.group.controls.roles.setValue(this.selectedUsers);
   }
 
 }

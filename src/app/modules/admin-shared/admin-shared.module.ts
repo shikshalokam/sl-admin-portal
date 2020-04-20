@@ -19,7 +19,8 @@ import {
   MatDialogModule,
   MatTooltipModule,
   MatAutocompleteModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatChipsModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -33,6 +34,7 @@ import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordComponent } from './components/password/password.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -62,7 +64,9 @@ import { PasswordComponent } from './components/password/password.component';
     MatDialogModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    NgxMatSelectSearchModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -84,7 +88,9 @@ import { PasswordComponent } from './components/password/password.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
-    MatRadioModule],
+    MatChipsModule,
+    MatRadioModule,
+    NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     InputComponent,
