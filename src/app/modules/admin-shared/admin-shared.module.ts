@@ -19,7 +19,8 @@ import {
   MatDialogModule,
   MatTooltipModule,
   MatAutocompleteModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatChipsModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -62,7 +63,8 @@ import { PasswordComponent } from './components/password/password.component';
     MatDialogModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatChipsModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -84,6 +86,7 @@ import { PasswordComponent } from './components/password/password.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
+    MatChipsModule,
     MatRadioModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

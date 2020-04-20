@@ -4,13 +4,13 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { fromEvent} from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { distinctUntilChanged, map,filter } from 'rxjs/operators';
+import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
-import {saveAs as importedSaveAs} from "file-saver";
+import { saveAs as importedSaveAs } from "file-saver";
 
 @Component({
   selector: 'app-users-list',
@@ -22,7 +22,8 @@ export class UsersListComponent implements OnInit {
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;
-  fileName:any = 'Users'
+  date = new Date();
+  fileName: any;
   options: any[];
   organisations: any;
   organisationsList: any;
@@ -60,7 +61,7 @@ export class UsersListComponent implements OnInit {
         return event.target.value;
       })
       // if character length greater then 2
-      ,filter(res => res.length > 2 || res.length == 0)
+      , filter(res => res.length > 2 || res.length == 0)
       // Time in milliseconds between key events
       // , debounceTime(1000)
       // If previous query is diffent from current
@@ -76,6 +77,7 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
     this.createForm();
+    this.fileName = this.date.toLocaleDateString() + '-' + this.date.toLocaleTimeString();
   }
 
   /**
@@ -215,18 +217,17 @@ export class UsersListComponent implements OnInit {
 
   // Adding multiple users popup
   UploadUsers() {
-    this.commingsoon();
-    // const dialogRef = this.dialog.open(AddMultipleUsersComponent
-    //   , {
-    //     disableClose: true,
-    //     width: '30%',
-    //     data: {}
-    //   });
+    const dialogRef = this.dialog.open(AddMultipleUsersComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: {}
+      });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.getUserList();
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getUserList();
+    });
   }
   onRowClicked(row) {
   }
