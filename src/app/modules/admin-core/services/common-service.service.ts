@@ -9,6 +9,7 @@ export class CommonServiceService {
   private message = new BehaviorSubject('First Message');
   sharedMessage = this.message.asObservable();
   details: any;
+  editUserDetails: any;
 
   constructor() { }
 
@@ -24,5 +25,13 @@ export class CommonServiceService {
 
   getUserDetails() {
     return this.details;
+  }
+
+  dataForEdit(user) {
+    this.editUserDetails = user;
+  }
+
+  showEditUserDetails() {
+    return this.editUserDetails;
   }
 }

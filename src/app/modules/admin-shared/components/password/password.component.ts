@@ -10,6 +10,7 @@ import { FieldConfig } from "../../field.interface";
 export class PasswordComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
+  hide: any;
   mismatch: boolean = false;
   constructor() { }
   ngOnInit() {

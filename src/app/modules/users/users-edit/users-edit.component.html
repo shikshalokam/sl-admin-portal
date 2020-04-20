@@ -1,0 +1,98 @@
+<div class="pageName">
+  Users
+</div>
+
+<div class="sample-wrapper">
+  <div class="dashboard-content">
+    <div class="row">
+      <div>
+        <mat-card class="example-card" style="min-width: 350px;">
+          <mat-card-content>
+            <div style="display: flex;justify-content:space-between;align-items: center;">
+              <img style="height: 50px;width:50px;" class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
+                onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." />
+              <div class="text-capital" style="max-width: 270px;padding-right: 20px;">
+                <h2> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h2>
+              </div>
+              <!-- <div>a1@shikshalokamdev</div> -->
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      <div style="padding-left: 15px;">
+        <mat-card class="example-card" style="height: 70px;min-width: 1111px;">
+        </mat-card>
+        <div style="padding-top: 15px;height: auto;">
+          <mat-card class="example-card" style="height: auto;min-width: 1111px;">
+            <mat-accordion>
+              <mat-expansion-panel [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Personal data
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Type your name and age
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div style="display: flex;justify-content: space-around;">
+                  <mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label> lastName</mat-label>
+                    <input matInput type="text">
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+
+                  <mat-form-field>
+                    <mat-label>Age</mat-label>
+                    <input matInput>
+                  </mat-form-field>
+
+
+                </div>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    User information
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    User information
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div style="display: flex;justify-content: space-around;">
+                  <div>
+                    <p>Secoundary email | Work</p>
+                  </div>
+                  <div>
+                    <p>Secoundary email | Work</p>
+                  </div>
+                </div>
+
+              </mat-expansion-panel>
+            </mat-accordion>
+          </mat-card>
+        </div>
+        <div style="padding-top: 15px;">
+          <mat-card class="example-card" style="height: 165px;min-width: 1111px;">
+          </mat-card>
+        </div>
+        <div style="padding-top: 15px;">
+          <mat-card class="example-card" style="height: 200px;min-width: 1111px;">
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

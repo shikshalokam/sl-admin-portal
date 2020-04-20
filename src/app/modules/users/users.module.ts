@@ -7,6 +7,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-single-user/add-single-user.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
+import { UsersEditComponent } from './users-edit/users-edit.component';
 
 
 
@@ -18,6 +19,6 @@ import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-use
     AdminSharedModule,
     UsersRoutingModule],
   entryComponents: [AddUserComponent, AddMultipleUsersComponent],
-  declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent],
+  declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent],
 })
 export class UsersModule { }

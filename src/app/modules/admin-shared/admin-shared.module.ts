@@ -20,7 +20,8 @@ import {
   MatTooltipModule,
   MatAutocompleteModule,
   MatProgressSpinnerModule,
-  MatChipsModule
+  MatChipsModule,
+  MatExpansionModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -66,7 +67,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatExpansionModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -79,6 +81,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     MatOptionModule,
     MatCheckboxModule,
     MatFormFieldModule,
+    MatExpansionModule,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,

@@ -117,8 +117,7 @@
         <ng-container matColumnDef="Action">
           <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
           <mat-cell *matCellDef="let user">
-            <button matTooltip="Edit User" class="actions" (click)="commingsoon()" mat-button>
-              <!-- <a class="actions" [routerLink]="['/comming-soon']">Edit</a> -->
+            <button matTooltip="Edit User" class="actions" (click)="editUser(user)" mat-button>
               Edit
             </button>&nbsp;
           </mat-cell>

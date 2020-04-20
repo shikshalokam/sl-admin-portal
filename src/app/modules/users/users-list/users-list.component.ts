@@ -11,6 +11,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
+import { Router } from '@angular/router';
+import { CommonServiceService } from '../../admin-core/services/common-service.service';
+
 
 @Component({
   selector: 'app-users-list',
@@ -51,7 +54,8 @@ export class UsersListComponent implements OnInit {
   filterType: string = '';
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
-    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, ) {
+    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
+    private commonServiceService: CommonServiceService) {
   }
 
   ngOnInit() {
@@ -275,7 +279,8 @@ export class UsersListComponent implements OnInit {
 
   // To Edit the user
   editUser(user) {
-
+    this.commonServiceService.dataForEdit(user);
+    this.router.navigate(['/users/users-edit'])
   }
 
   ViewUser(user) {
