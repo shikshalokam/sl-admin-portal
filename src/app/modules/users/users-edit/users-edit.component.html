@@ -1,82 +1,150 @@
 <div class="pageName">
-  Users
+  Users > {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}
 </div>
 
 <div class="sample-wrapper">
   <div class="dashboard-content">
     <div class="row">
-      <div>
-        <mat-card class="example-card" style="min-width: 350px;">
-          <mat-card-content>
-            <div style="display: flex;justify-content:space-between;align-items: center;">
-              <img style="height: 50px;width:50px;" class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
+      <mat-card class="profile-card">
+        <mat-card-content>
+          <div class="row" style="padding-left: 15px;">
+            <div class="col-md-2 profile-image">
+              <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
                 onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." />
-              <div class="text-capital" style="max-width: 270px;padding-right: 20px;">
-                <h2> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h2>
-              </div>
-              <!-- <div>a1@shikshalokamdev</div> -->
             </div>
-          </mat-card-content>
-          <mat-card-actions>
+            <div class="col-md-9" style="text-align: justify;">
+              <div class="text-capital">
+                <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
+              </div>
+              <div>
+                a1@shikshalokamdev
+              </div>
+              <div style="color: green;">
+                Active
+              </div>
 
-          </mat-card-actions>
+              <div class="text-color">
+                Last Sign in : About 2 hours ago
+              </div>
+              <div class="text-color">
+                Created: April 21, 2020
+              </div>
+            </div>
+
+          </div>
+        </mat-card-content>
+        <!-- <mat-card-actions> -->
+        <div class="c-line"></div>
+        <!-- </mat-card-actions> -->
+        <div class="row user-org c-line">
+          <div class="col-md-10">
+            <div class="text-color c-font">Organisational Unit</div>
+            <div class="c-font">Shikshaloakam.org</div>
+
+          </div>
+
+        </div>
+        <div class="row" style="padding:10px">
+          <div class="col-md-9 profile-actions-icon" (click)="reset()">
+            <span>
+              <mat-icon>lock</mat-icon>
+            </span>
+            <span class="profile-actions-text"> RESET PASSWORD</span>
+          </div>
+          <div class="col-md-9 profile-actions-icon" (click)="reset()">
+            <span>
+              <mat-icon>edit</mat-icon>
+            </span>
+            <span class="profile-actions-text"> RENAME USER</span>
+          </div>
+          <div class="col-md-9 profile-actions-icon" (click)="reset()">
+
+            <mat-icon>more_vert</mat-icon>
+            <span class="profile-actions-text"> MORE</span>
+
+          </div>
+
+        </div>
+      </mat-card>
+      <div class="user-details">
+        <mat-card class="user-details-card1">
+          <div class="text-color c-font">User Data</div>
         </mat-card>
-      </div>
-      <div style="padding-left: 15px;">
-        <mat-card class="example-card" style="height: 70px;min-width: 1111px;">
-        </mat-card>
-        <div style="padding-top: 15px;height: auto;">
-          <mat-card class="example-card" style="height: auto;min-width: 1111px;">
+        <div class="user-details-card2">
+          <mat-card class="c-card">
             <mat-accordion>
               <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Personal data
                   </mat-panel-title>
-                  <mat-panel-description>
-                    Type your name and age
-                  </mat-panel-description>
+                  <!-- <mat-panel-description>
+                    Personal
+                  </mat-panel-description> -->
                 </mat-expansion-panel-header>
-                <div style="display: flex;justify-content: space-around;">
-                  <mat-form-field>
-                    <mat-label>First name</mat-label>
-                    <input matInput>
-                  </mat-form-field>
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>First name</mat-label>
+                      <input matInput value="{{editUserDetails?.firstName}}">
+                    </mat-form-field>
+                  </div>
 
-                  <mat-form-field>
-                    <mat-label> lastName</mat-label>
-                    <input matInput type="text">
-                  </mat-form-field>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label> lastName</mat-label>
+                      <input matInput type="text" value="{{editUserDetails?.lastName}}">
+                    </mat-form-field>
+                  </div>
 
-                  <mat-form-field>
-                    <mat-label>Email</mat-label>
-                    <input matInput>
-                  </mat-form-field>
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>Date of Birth</mat-label>
+                      <input matInput [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
 
-                  <mat-form-field>
-                    <mat-label>Age</mat-label>
-                    <input matInput>
-                  </mat-form-field>
-
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>Roles</mat-label>
+                      <input matInput>
+                    </mat-form-field>
+                  </div>
 
                 </div>
               </mat-expansion-panel>
 
-              <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel [expanded]="true">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     User information
                   </mat-panel-title>
-                  <mat-panel-description>
+                  <!-- <mat-panel-description>
                     User information
-                  </mat-panel-description>
+                  </mat-panel-description> -->
                 </mat-expansion-panel-header>
-                <div style="display: flex;justify-content: space-around;">
-                  <div>
-                    <p>Secoundary email | Work</p>
+                <div class="row">
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label>UserName</mat-label>
+                      <input disabled matInput>
+                    </mat-form-field>
                   </div>
-                  <div>
-                    <p>Secoundary email | Work</p>
+
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label> Email</mat-label>
+                      <input disabled matInput type="text">
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-3">
+                    <mat-form-field>
+                      <mat-label> Phone Number</mat-label>
+                      <input disabled matInput type="number">
+                    </mat-form-field>
                   </div>
                 </div>
 
@@ -84,12 +152,49 @@
             </mat-accordion>
           </mat-card>
         </div>
-        <div style="padding-top: 15px;">
-          <mat-card class="example-card" style="height: 165px;min-width: 1111px;">
-          </mat-card>
+        <div class="user-details-card3">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Security
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                      Personal
+                    </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <mat-label>First name</mat-label>
+                        <input matInput value="{{editUserDetails?.firstName}}">
+                      </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <mat-label> lastName</mat-label>
+                        <input matInput type="text" value="{{editUserDetails?.lastName}}">
+                      </mat-form-field>
+                    </div>
+  
+                    <div class="col-md-3">
+                      <mat-form-field>
+                        <mat-label>Roles</mat-label>
+                        <input matInput>
+                      </mat-form-field>
+                    </div>
+  
+                  </div>
+                </mat-expansion-panel>
+                </mat-accordion>
+          <!-- <mat-card class="c-card" style="height: 165px;">
+            <div class="text-color c-font">Security Data</div>
+          </mat-card> -->
         </div>
-        <div style="padding-top: 15px;">
-          <mat-card class="example-card" style="height: 200px;min-width: 1111px;">
+        <div class="user-details-card3">
+          <mat-card class="c-card" style="height: 200px;">
+            <div class="text-color c-font">Other Information</div>
           </mat-card>
         </div>
       </div>
