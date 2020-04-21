@@ -25,4 +25,12 @@ export class UsersEditComponent implements OnInit {
     });
   }
 
+  editPersonalData() {
+
+  }
+
+  editRoles() {
+
+  }
+
 }

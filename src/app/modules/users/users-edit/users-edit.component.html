@@ -2,17 +2,18 @@
   Users > {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}
 </div>
 
-<div class="sample-wrapper">
+<div class="edit-wrapper">
   <div class="dashboard-content">
     <div class="row">
       <mat-card class="profile-card">
         <mat-card-content>
-          <div class="row" style="padding-left: 15px;">
-            <div class="col-md-2 profile-image">
-              <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
-                onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." />
+          <div class="row">
+            <div class="col-md-2">
+              <mat-icon style="font-size: 70px;">account_circle</mat-icon>
+              <!-- <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
+                onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." /> -->
             </div>
-            <div class="col-md-9" style="text-align: justify;">
+            <div class="col-md-9" class="user-name">
               <div class="text-capital">
                 <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
               </div>
@@ -33,17 +34,14 @@
 
           </div>
         </mat-card-content>
-        <!-- <mat-card-actions> -->
         <div class="c-line"></div>
-        <!-- </mat-card-actions> -->
         <div class="row user-org c-line">
           <div class="col-md-10">
             <div class="text-color c-font">Organisational Unit</div>
             <div class="c-font">Shikshaloakam.org</div>
-
           </div>
-
         </div>
+
         <div class="row" style="padding:10px">
           <div class="col-md-9 profile-actions-icon" (click)="reset()">
             <span>
@@ -55,148 +53,137 @@
             <span>
               <mat-icon>edit</mat-icon>
             </span>
-            <span class="profile-actions-text"> RENAME USER</span>
-          </div>
-          <div class="col-md-9 profile-actions-icon" (click)="reset()">
-
-            <mat-icon>more_vert</mat-icon>
-            <span class="profile-actions-text"> MORE</span>
-
+            <span class="profile-actions-text">INACTIVATE USER</span>
           </div>
 
         </div>
       </mat-card>
       <div class="user-details">
-        <mat-card class="user-details-card1">
-          <div class="text-color c-font">User Data</div>
-        </mat-card>
-        <div class="user-details-card2">
-          <mat-card class="c-card">
-            <mat-accordion>
-              <mat-expansion-panel [expanded]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Personal data
-                  </mat-panel-title>
-                  <!-- <mat-panel-description>
-                    Personal
-                  </mat-panel-description> -->
-                </mat-expansion-panel-header>
-                <div class="row">
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label>First name</mat-label>
-                      <input matInput value="{{editUserDetails?.firstName}}">
-                    </mat-form-field>
-                  </div>
+        <mat-accordion>
+          <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Non-Editable Data
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field>
+                  <mat-label>User Name</mat-label>
+                  <input matInput disabled value="">
+                </mat-form-field>
+              </div>
 
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label> lastName</mat-label>
-                      <input matInput type="text" value="{{editUserDetails?.lastName}}">
-                    </mat-form-field>
-                  </div>
+              <div class="col-md-3">
+                <mat-form-field>
+                  <mat-label>Email</mat-label>
+                  <input matInput disabled type="text" value="">
+                </mat-form-field>
+              </div>
 
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label>Date of Birth</mat-label>
-                      <input matInput [matDatepicker]="picker">
-                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                  </div>
+              <div class="col-md-3">
+                <mat-form-field>
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput disabled value="">
+                </mat-form-field>
+              </div>
 
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label>Roles</mat-label>
-                      <input matInput>
-                    </mat-form-field>
-                  </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
 
-                </div>
-              </mat-expansion-panel>
+        <div class="user-details-card">
+          <mat-accordion>
+            <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Personal data
+                </mat-panel-title>
 
-              <mat-expansion-panel [expanded]="true">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    User information
-                  </mat-panel-title>
-                  <!-- <mat-panel-description>
-                    User information
-                  </mat-panel-description> -->
-                </mat-expansion-panel-header>
-                <div class="row">
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label>UserName</mat-label>
-                      <input disabled matInput>
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label> Email</mat-label>
-                      <input disabled matInput type="text">
-                    </mat-form-field>
-                  </div>
-
-                  <div class="col-md-3">
-                    <mat-form-field>
-                      <mat-label> Phone Number</mat-label>
-                      <input disabled matInput type="number">
-                    </mat-form-field>
-                  </div>
+              </mat-expansion-panel-header>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>First Name</mat-label>
+                    <input matInput value="{{editUserDetails?.firstName}}">
+                  </mat-form-field>
                 </div>
 
-              </mat-expansion-panel>
-            </mat-accordion>
-          </mat-card>
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label> last Name</mat-label>
+                    <input matInput type="text" value="{{editUserDetails?.lastName}}">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select>
+                      <mat-option value="Female">Female</mat-option>
+                      <mat-option value="Male">Male</mat-option>
+                      <mat-option value="Other">Other</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+              <mat-card-actions align="end">
+                <button mat-button (click)="editPersonalData()" cdkFocusInitial class="edit-button">Edit</button>
+              </mat-card-actions>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
-        <div class="user-details-card3">
-            <mat-accordion>
-                <mat-expansion-panel [expanded]="true">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Security
-                    </mat-panel-title>
-                    <!-- <mat-panel-description>
-                      Personal
-                    </mat-panel-description> -->
-                  </mat-expansion-panel-header>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <mat-label>First name</mat-label>
-                        <input matInput value="{{editUserDetails?.firstName}}">
-                      </mat-form-field>
-                    </div>
-  
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <mat-label> lastName</mat-label>
-                        <input matInput type="text" value="{{editUserDetails?.lastName}}">
-                      </mat-form-field>
-                    </div>
-  
-                    <div class="col-md-3">
-                      <mat-form-field>
-                        <mat-label>Roles</mat-label>
-                        <input matInput>
-                      </mat-form-field>
-                    </div>
-  
-                  </div>
-                </mat-expansion-panel>
-                </mat-accordion>
-          <!-- <mat-card class="c-card" style="height: 165px;">
-            <div class="text-color c-font">Security Data</div>
-          </mat-card> -->
+
+        <div class="user-details-card">
+          <mat-accordion>
+            <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Organisation and Roles
+                </mat-panel-title>
+
+              </mat-expansion-panel-header>
+              <div class="row">
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Organisation</mat-label>
+                    <mat-select>
+                      <mat-option value="Organisation">Organisation1</mat-option>
+                      <mat-option value="Organisation">Organisation2</mat-option>
+                      <mat-option value="Organisation">Organisation2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-md-3">
+                  <mat-form-field>
+                    <mat-label>Roles</mat-label>
+                    <mat-select>
+                      <mat-option value="role">Role1</mat-option>
+                      <mat-option value="role">Role2</mat-option>
+                      <mat-option value="role">Role3</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <mat-card-actions align="end">
+                <button mat-button class="edit-button" (click)="editRoles()" cdkFocusInitial>Edit</button>
+              </mat-card-actions>
+            </mat-expansion-panel>
+          </mat-accordion>
+
         </div>
-        <div class="user-details-card3">
-          <mat-card class="c-card" style="height: 200px;">
-            <div class="text-color c-font">Other Information</div>
-          </mat-card>
-        </div>
+
       </div>
     </div>
   </div>
