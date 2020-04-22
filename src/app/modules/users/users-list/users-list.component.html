@@ -32,20 +32,15 @@
       </div>
     </div>
 
-    <div style="border: 1px solid #e6e2e2">
-      <mat-toolbar-row>
-        <div class="btn-group">
-          <button mat-button (click)="allUsers()" matTooltip="All users">
-            All
-          </button>
-          <button mat-button (click)="activeUsers()" matTooltip="Active users">
-            Active
-          </button>
-          <button mat-button (click)="inActiveUsers()" matTooltip="Inactive users">
-            Inactive
-          </button>
-        </div>
-      </mat-toolbar-row>
+    <div>
+      <mat-button-toggle-group  #toggleGroup="matButtonToggleGroup">
+        <mat-button-toggle checked (click)="allUsers(toggleGroup.value)" class="filter" value="All">All
+        </mat-button-toggle>
+        <mat-button-toggle (click)="allUsers(toggleGroup.value)" class="filter" value="Active">Active
+        </mat-button-toggle>
+        <mat-button-toggle (click)="allUsers(toggleGroup.value)" class="filter" value="Inactive">Inactive
+        </mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
     <div class="row" style="padding-right: 17px;">

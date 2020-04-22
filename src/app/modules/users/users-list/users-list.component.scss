@@ -1,86 +1,91 @@
 @import "../../../../assets/scss/variables.scss";
 
 table {
-    width: 100%;
-  }
-  
-  th.mat-sort-header-sorted {
-    color: black;
-  }
+  width: 100%;
+}
 
-  .custom-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  .panel {
-      cursor: pointer;
-  }
+th.mat-sort-header-sorted {
+  color: black;
+}
 
-  th.mat-header-cell {
-    border-bottom-style: none;
-  }
-  td.mat-cell {
-    border-bottom-style: none;
-  }
+.custom-form-field {
+  font-size: 14px;
+  width: 100%;
+}
 
- .c-toolbar {
-    color: $primary-color;
-    font-size: initial;
-    display: flex;
-    align-items: center;
-    background: whitesmoke;
-    justify-content: space-between;
-  }
-  .mat-button {
-    font-weight: 600;
-  }
-  .home {
-    cursor: pointer;
-    padding-top: 8px;
-  }
-  .pageName {
-    background-color: white;
-    padding: 6px 10px 4px 25px;
-    color: $primary-color;
-  }
+.panel {
+  cursor: pointer;
+}
 
-  .actions{
-    color: $primary-color;
-    background-color: #f3f4f5;
-  }
+th.mat-header-cell {
+  border-bottom-style: none;
+}
+td.mat-cell {
+  border-bottom-style: none;
+}
 
-  .mat-header-cell{
-    color: black;
-    font-weight: 600;
-  }
-  .message {
-    text-align: center;
-    background-color: white;
-  }
-  .mat-table {
-    overflow: auto;
-    height: 550px;
-  }
-  
-  .custom-table-container {
-    position: relative;
-    overflow: auto;
-  }
+.c-toolbar {
+  color: $primary-color;
+  font-size: initial;
+  display: flex;
+  align-items: center;
+  background: whitesmoke;
+  justify-content: space-between;
+}
+.mat-button {
+  font-weight: 600;
+}
+.home {
+  cursor: pointer;
+  padding-top: 8px;
+}
+.pageName {
+  background-color: white;
+  padding: 6px 10px 4px 25px;
+  color: $primary-color;
+}
 
+.actions {
+  color: $primary-color;
+  background-color: #f3f4f5;
+}
 
+.filter {
+  color: $primary-color;
+}
 
-.dashboard-content{
+.mat-header-cell {
+  color: black;
+  font-weight: 600;
+}
+.message {
+  text-align: center;
+  background-color: white;
+}
+.mat-table {
+  overflow: auto;
+  height: 550px;
+}
+
+.custom-table-container {
+  position: relative;
+  overflow: auto;
+}
+
+.dashboard-content {
   padding: 30px 40px 15px 50px;
   background: #efeeee;
 }
 
 ::ng-deep.mat-select-panel-wrap {
   padding: 25px 15px 10px 16px;
-
 }
 
-::ng-deep.mat-option.mat-active {
-  // background-color:#A63936;
-  color: #A63936;
-}
+// ::ng-deep.mat-option.mat-active {
+//   // background-color:#A63936;
+//   color: #A63936;
+// }
+
+// .mat-button-toggle-appearance-standard {
+//   background-color: rgb(252, 246, 246);
+// }

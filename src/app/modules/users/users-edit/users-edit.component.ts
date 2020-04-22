@@ -3,6 +3,8 @@ import { CommonServiceService } from '../../admin-core/services/common-service.s
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { UsersService } from '../../admin-core';
+import { Router,ActivatedRoute } from '@angular/router';
+
 
 
 @Component({
@@ -16,15 +18,25 @@ export class UsersEditComponent implements OnInit {
   confirmPopupResult: any;
   constructor(private commonServiceService: CommonServiceService,
     private _snackBar: MatSnackBar, private dialog: MatDialog,
-    private usersService: UsersService) { }
+    private usersService: UsersService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.editUserDetails = this.commonServiceService.showEditUserDetails();
-    console.log(' this.editUserDetails', this.editUserDetails);
+    const id = this.route.snapshot.paramMap.get('id');
+    this.getUserDetails(id);
+    console.log(' this.editUserDetails', this.editUserDetails, id);
   }
 
   reset() {
     this.commonServiceService.commonSnackBar('comming', 'Dismiss', 'top', '10000');
+  }
+
+   // User Details
+   getUserDetails(id) {
+    this.usersService.singleUserDetails(id).subscribe(data => {
+    }, error => {
+      console.log('getUserDetails', error);
+    })
   }
 
   editPersonalData() {

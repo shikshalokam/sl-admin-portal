@@ -39,6 +39,7 @@ export class UsersListComponent implements OnInit {
   loading: boolean = false;
   usersId: any[];
   dataArray: any[];
+  status: any = '';
   queryParams = {
     page: 1,
     size: 10,
@@ -50,8 +51,10 @@ export class UsersListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild('toggleGroup') toggleGroup: ElementRef;
   filterStatus: string = '';
   filterType: string = '';
+
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
@@ -88,7 +91,7 @@ export class UsersListComponent implements OnInit {
 * To get Userslist
 */
   getUserList() {
-    this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value).subscribe(data => {
+    this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
@@ -112,14 +115,25 @@ export class UsersListComponent implements OnInit {
     switch (status) {
       case 0:
         return 'InActive';
-      case '1':
+      case 1:
         return 'Active';
     }
     return '-- --';
   }
 
-  allUsers() {
-
+  allUsers(value) {
+    switch (value) {
+      case 'Inactive':
+        this.status = 0;
+        break;
+      case 'Active':
+        this.status = 1;
+        break;
+      case 'All':
+        this.status = '';
+        break;
+    }
+    this.getUserList();
   }
 
   activeUsers() {
@@ -302,7 +316,7 @@ export class UsersListComponent implements OnInit {
   // To Edit the user
   editUser(user) {
     this.commonServiceService.dataForEdit(user);
-    this.router.navigate(['/users/users-edit'])
+    this.router.navigate(['/users/edit', user.id])
   }
 
   ViewUser(user) {

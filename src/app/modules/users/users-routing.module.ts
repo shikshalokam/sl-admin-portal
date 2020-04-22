@@ -12,9 +12,9 @@ const routes: Routes = [
     children: [
       { path: 'users', component: UsersComponent, data: { title: 'users Home' }, pathMatch: 'full' },
       {
-        path: 'users-list', component: UsersListComponent
+        path: 'list', component: UsersListComponent
       },
-      { path: 'users-edit', component: UsersEditComponent }
+      { path: 'edit/:id', component: UsersEditComponent }
     ]
   }
 ];

@@ -31,8 +31,8 @@ export class UsersService {
 
 
   // To get the orginsations based on the user logged in
-  getUsers(data, orgid, searchfield) {
-    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
+  getUsers(data, orgid, searchfield, status) {
+    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield + '&status=' + status);
   }
 
   // User creation
@@ -43,6 +43,11 @@ export class UsersService {
   // Block user
   blockUser(userid) {
     return this.Http.get(environment.base_url + UsersConfig.blockUser + userid)
+  }
+
+  // get details to Edit
+  singleUserDetails(id) {
+    return this.Http.get(environment.base_url + UsersConfig.singleUser + id)
   }
 
   async getUserRoles() {

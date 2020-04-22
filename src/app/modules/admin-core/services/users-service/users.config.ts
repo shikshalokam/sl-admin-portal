@@ -6,5 +6,6 @@ export const UsersConfig = {
     organisations: '/admin-service/api/v1/organisations/list',
     usersList: '/admin-service/api/v1/organisations/users/',
     downloadUsers: '/admin-service/api/v1/organisations/downloadUsers/',
-    blockUser: '/admin-service/api/v1/user-creation/block/'
+    blockUser: '/admin-service/api/v1/user-creation/block/',
+    singleUser: '/admin-service/api/v1/'
 }

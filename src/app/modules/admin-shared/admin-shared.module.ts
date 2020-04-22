@@ -21,7 +21,8 @@ import {
   MatAutocompleteModule,
   MatProgressSpinnerModule,
   MatChipsModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatButtonToggleModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -69,7 +70,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatProgressSpinnerModule,
     MatChipsModule,
     NgxMatSelectSearchModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonToggleModule
   ],
   exports: [MatMenuModule,
     MatToolbarModule,
@@ -94,6 +96,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     SpinnerComponent,
     MatChipsModule,
     MatRadioModule,
+    MatButtonToggleModule,
     NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

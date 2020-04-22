@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
       "data": "See Relevant data of organisation"
     },
     {
-      "routerlink": "/users/users-list",
+      "routerlink": "/users/list",
       "icon": "person",
       "title": "Users",
       "data": "Add or Manage Users"
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit {
         verticalPosition: 'top'
       });
     } else {
-      this.router.navigateByUrl('/users/users-list')
+      this.router.navigateByUrl('/users/list')
     }
    
   }
