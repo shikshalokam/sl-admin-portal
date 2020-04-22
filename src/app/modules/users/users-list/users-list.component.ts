@@ -21,7 +21,7 @@ import { CommonServiceService } from '../../admin-core/services/common-service.s
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status','role', 'Action'];
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   selected: any;
@@ -116,6 +116,18 @@ export class UsersListComponent implements OnInit {
         return 'Active';
     }
     return '-- --';
+  }
+
+  allUsers() {
+
+  }
+
+  activeUsers() {
+
+  }
+
+  inActiveUsers() {
+
   }
 
   // change of organisation
