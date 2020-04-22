@@ -36,6 +36,7 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordComponent } from './components/password/password.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
@@ -43,7 +44,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -104,7 +105,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     PasswordComponent,
     CheckboxComponent,
     MultiSelectComponent,
-    CommingSoonComponent
+    CommingSoonComponent,
+    ConfirmDialogComponent
   ]
 })
 export class AdminSharedModule { }

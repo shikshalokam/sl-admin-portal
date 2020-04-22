@@ -14,6 +14,7 @@ export class UsersService {
   private subject = new Subject<any>();
   constructor(private Http: HttpClient) { }
 
+  // To get the dynamic form
   getUserForm() {
     return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
@@ -34,8 +35,14 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
+  // User creation
   createUser(data) {
     return this.Http.post(environment.base_url + UsersConfig.createUser, data)
+  }
+
+  // Block user
+  blockUser(userid) {
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid)
   }
 
   async getUserRoles() {

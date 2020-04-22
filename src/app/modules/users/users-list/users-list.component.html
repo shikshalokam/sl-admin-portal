@@ -32,6 +32,22 @@
       </div>
     </div>
 
+    <div style="border: 1px solid #e6e2e2">
+      <mat-toolbar-row>
+        <div class="btn-group">
+          <button mat-button (click)="allUsers()" matTooltip="All users">
+            All
+          </button>
+          <button mat-button (click)="activeUsers()" matTooltip="Active users">
+            Active
+          </button>
+          <button mat-button (click)="inActiveUsers()" matTooltip="Inactive users">
+            Inactive
+          </button>
+        </div>
+      </mat-toolbar-row>
+    </div>
+
     <div class="row" style="padding-right: 17px;">
       <div class="btn-gap">
         <button mat-button (click)="addNewUser()" matTooltip="Add New User">
@@ -76,9 +92,9 @@
         <ng-container matColumnDef="firstName">
           <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
           <mat-cell *matCellDef="let row">
-          <button mat-icon-button style="padding-right: 30px;" color="primary">
+            <button mat-icon-button style="padding-right: 30px;" color="primary">
               <mat-icon matSuffix>account_circle</mat-icon>
-           </button>
+            </button>
             <div class="text-capital">{{row.firstName ? row.firstName: '-- --'}}</div>
           </mat-cell>
         </ng-container>
@@ -93,10 +109,10 @@
         <ng-container matColumnDef="role">
           <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
           <mat-cell *matCellDef="let row">
-              <div style="width: 200px; word-wrap: break-word">
-                  {{row?.role ? row?.role : '-- --'}}
-              </div>
-           
+            <div style="width: 200px; word-wrap: break-word">
+              {{row?.role ? row?.role : '-- --'}}
+            </div>
+
           </mat-cell>
         </ng-container>
 
@@ -105,6 +121,19 @@
           <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
           <mat-cell *matCellDef="let row">{{row.gender ? row?.gender : '-- --'}}</mat-cell>
         </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+          <mat-cell *matCellDef="let row">{{getStatus(row.active/inactive)}}</mat-cell>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="leadStatus" class="email-cell">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+          <mat-cell *matCellDef="let lead">
+            <span style="font-weight: 600"
+              class="lead kt-badge kt-badge--inline kt-badge--pill kt-badge--{{ getItemCssClassByStatus(lead.leadStatus.name) }} kt-badge--wide">{{lead.leadStatus.name}}</span>
+          </mat-cell>
+        </ng-container> -->
 
         <!-- Color Column -->
         <!-- <ng-container matColumnDef="symbol">

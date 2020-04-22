@@ -4,16 +4,14 @@
 
 <div class="edit-wrapper">
   <div class="dashboard-content">
-    <div class="row">
+    <div style="display: flex;">
       <mat-card class="profile-card">
         <mat-card-content>
-          <div class="row">
-            <div class="col-md-2">
-              <mat-icon style="font-size: 70px;">account_circle</mat-icon>
-              <!-- <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
+          <div style="display: flex;">
+            <mat-icon style="font-size: 70px;padding-right: 80px;">account_circle</mat-icon>
+            <!-- <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
                 onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." /> -->
-            </div>
-            <div class="col-md-9" class="user-name">
+            <div>
               <div class="text-capital">
                 <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
               </div>
@@ -34,22 +32,22 @@
 
           </div>
         </mat-card-content>
-        <div class="c-line"></div>
+        <!-- <div class="c-line"></div> -->
         <div class="row user-org c-line">
-          <div class="col-md-10">
+          <!-- <div class="col-md-10">
             <div class="text-color c-font">Organisational Unit</div>
             <div class="c-font">Shikshaloakam.org</div>
-          </div>
+          </div> -->
         </div>
 
-        <div class="row" style="padding:10px">
-          <div class="col-md-9 profile-actions-icon" (click)="reset()">
+        <div class="row c-line" style="padding:10px">
+          <div matTooltip="Reset Password" class="col-md-9 profile-actions-icon" (click)="reset()">
             <span>
               <mat-icon>lock</mat-icon>
             </span>
             <span class="profile-actions-text"> RESET PASSWORD</span>
           </div>
-          <div class="col-md-9 profile-actions-icon" (click)="reset()">
+          <div matTooltip="Inactivate user" class="col-md-9 profile-actions-icon" (click)="confirmDialog()">
             <span>
               <mat-icon>edit</mat-icon>
             </span>
@@ -63,7 +61,7 @@
           <mat-expansion-panel class="c-accordian-width" [expanded]="true">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Non-Editable Data
+                User information
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="row">

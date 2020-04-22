@@ -12,12 +12,10 @@
 
 
 <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
-    <!-- <mat-label class="required">{{field.label}}</mat-label> -->
-    <mat-label *ngIf="field.validation[0].name === 'required'" class="required">{{field.label}}</mat-label>
-    <mat-label *ngIf="field.validation[0].name === 'pattern'">{{field.label}}</mat-label>
-    <input type="text" aria-label="Number" (keyup)="OnInput($event)"  matInput  [formControlName]="field.field" 
+    <mat-label>{{field.label}}</mat-label>
+    <input type="text" aria-label="Number" (keyup)="OnInput($event)" matInput [formControlName]="field.field"
         [matAutocomplete]="auto">
-    <mat-autocomplete  #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let item of finaldata" [value]="item">{{item.label}}</mat-option>
     </mat-autocomplete>
     <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
