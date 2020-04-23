@@ -74,11 +74,15 @@ td.mat-cell {
 
 .dashboard-content {
   padding: 30px 40px 15px 50px;
-  background: #efeeee;
+  // background: #efeeee;
 }
 
 ::ng-deep.mat-select-panel-wrap {
   padding: 25px 15px 10px 16px;
+}
+.list-content{
+  width: 200px;
+   word-wrap: break-word
 }
 
 // ::ng-deep.mat-option.mat-active {

@@ -17,6 +17,7 @@ $app-darkBlue-color: var(--app-darkBlue-color);
 $faded-label-color: var(--faded-label-color);
 $light-grey: var(--light-grey);
 $text-color: var(--text-color);
+$body-background: var(--body-background);
 
 :root {
   --primary-color: #a63936;
@@ -39,4 +40,5 @@ $text-color: var(--text-color);
   --faded-label-color: rgba(0, 0, 0, 0.5);
   --light-grey: #e8eced;
   --text-color: #83868a;
+  --body-background: #efeeee;
 }

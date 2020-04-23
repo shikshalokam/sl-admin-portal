@@ -111,16 +111,19 @@ export class UsersListComponent implements OnInit {
     this.dataSource = data;
   }
 
+
+  // Display the status based on id
   getStatus(status): string {
     switch (status) {
       case 0:
-        return 'InActive';
+        return 'Inactive';
       case 1:
         return 'Active';
     }
     return '-- --';
   }
 
+  // Filtering the data on status
   allUsers(value) {
     switch (value) {
       case 'Inactive':
@@ -312,16 +315,6 @@ export class UsersListComponent implements OnInit {
     })
   }
 
-
-  // To Edit the user
-  editUser(user) {
-    this.commonServiceService.dataForEdit(user);
-    this.router.navigate(['/users/edit', user.id])
-  }
-
-  ViewUser(user) {
-
-  }
 
   commingsoon() {
     this._snackBar.open('Comming soon', 'Dismiss', {

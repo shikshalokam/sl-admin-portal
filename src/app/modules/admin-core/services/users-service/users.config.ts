@@ -1,11 +1,11 @@
 
 export const UsersConfig = {
-    usersForm: '/admin-service/api/v1/user-creation/getForm',
-    userRoles: '/admin-service/api/v1/platform-user-roles/getProfile',
-    createUser: '/admin-service/api/v1/user-creation/create',
-    organisations: '/admin-service/api/v1/organisations/list',
-    usersList: '/admin-service/api/v1/organisations/users/',
-    downloadUsers: '/admin-service/api/v1/organisations/downloadUsers/',
-    blockUser: '/admin-service/api/v1/user-creation/block/',
-    singleUser: '/admin-service/api/v1/'
+    usersForm: 'v1/user-creation/getForm',
+    userRoles: 'v1/platform-user-roles/getProfile',
+    createUser: 'v1/user-creation/create',
+    organisations: 'v1/organisations/list',
+    usersList: 'v1/organisations/users/',
+    downloadUsers: 'v1/organisations/downloadUsers/',
+    blockUser: 'v1/user-creation/block/',
+    singleUser: 'v1/user-creation/details/'
 }

@@ -1,12 +1,12 @@
 @import "../../../../assets/scss/variables.scss";
-.edit-wrapper {
-  min-height: 710px;
-  background: $background-color;
-}
-
 // .dashboard-content {
 //   padding: 30px 30px 15px 30px;
 // }
+
+.profile {
+  font-size: 70px;
+  padding-right: 80px;
+}
 
 .profile-actions-icon {
   display: flex;
@@ -49,9 +49,7 @@
 }
 
 .profile-card {
-  // width: 350px;
   width: 23%;
-  height: 400px;
 }
 .thumbnail-image {
   height: 35px;

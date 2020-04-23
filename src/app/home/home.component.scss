@@ -1,46 +1,46 @@
-@import "../../assets/scss/variables.scss"; 
+@import "../../assets/scss/variables.scss";
 
-.carddata{
-    width: 360px;
-    height:360px;
+.carddata {
+  width: 360px;
+  height: 360px;
 }
 
-.roundimg{
-    font-size: 2em;
-    text-align: center;
- 
+.roundimg {
+  font-size: 2em;
+  text-align: center;
 }
 
 .mat-icon-custom {
-    height: auto;
-    width: auto;
-    font-size: 2em;
+  height: auto;
+  width: auto;
+  font-size: 2em;
 }
 
-.design-custom{
-    width:60%;
-    margin: auto;
-    padding-top: 10%;
+.design-custom {
+  width: 60%;
+  margin: auto;
+  padding-top: 10%;
 }
 
-  .product{
-    box-shadow: none
-  }
+.product {
+  box-shadow: none;
+}
 
-  a {
-    color: $primary-color;
-  }
-  a:hover {
+a {
+  color: $primary-color;
+}
+a:hover {
   //  text-underline-position: auto;
-   text-decoration: none;
-  }
-  .text-center{
-    text-align: center;
-    padding-top: 10px;
-  }
-  .c-click{
-    cursor: pointer;
-  }
-.pageName{
-  background-color: $grey-color;
+  text-decoration: none;
+}
+.text-center {
+  text-align: center;
+  padding-top: 10px;
+}
+.c-click {
+  cursor: pointer;
+}
+
+.mat-card {
+  background-color: $body-background;
 }

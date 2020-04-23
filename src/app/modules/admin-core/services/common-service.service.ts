@@ -28,14 +28,6 @@ export class CommonServiceService {
     return this.details;
   }
 
-  dataForEdit(user) {
-    this.editUserDetails = user;
-  }
-
-  showEditUserDetails() {
-    return this.editUserDetails;
-  }
-
   // Commonly used in all pages
   commonSnackBar(message, action, position, time) {
     this._snackBar.open(message, action, {
