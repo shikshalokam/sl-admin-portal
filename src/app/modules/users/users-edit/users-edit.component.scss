@@ -35,11 +35,6 @@
   color: $text-color;
   font-size: 25px;
 }
-.user-org {
-  text-align: start;
-  padding: 10px;
-}
-
 .c-line {
   border-bottom: 1px solid #c7c3c3;
 }
@@ -50,6 +45,7 @@
 
 .profile-card {
   width: 23%;
+  height: fit-content;
 }
 .thumbnail-image {
   height: 35px;
@@ -79,3 +75,23 @@
 .back-edit {
   background-color: $text-color;
 }
+.example-chip-list {
+  width: 100%;
+}
+.positive {
+  color: $green-color;
+}
+.negative {
+  color: $primary-color;
+}
+
+.roles-head {
+  display: flex;
+   justify-content: space-between;
+   padding: 15px;
+}
+.actions {
+  color: $primary-color;
+  background-color: #f3f4f5;
+}
+

@@ -8,6 +8,8 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-single-user/add-single-user.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 import { UsersEditComponent } from './users-edit/users-edit.component';
+import { OrganisationRolesComponent } from './organisation-roles/organisation-roles.component';
+import { RolesEditComponent } from './roles-edit/roles-edit.component';
 
 
 
@@ -18,7 +20,7 @@ import { UsersEditComponent } from './users-edit/users-edit.component';
     FormsModule, ReactiveFormsModule,
     AdminSharedModule,
     UsersRoutingModule],
-  entryComponents: [AddUserComponent, AddMultipleUsersComponent],
-  declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent],
+  entryComponents: [AddUserComponent, AddMultipleUsersComponent,RolesEditComponent],
+  declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent, OrganisationRolesComponent, RolesEditComponent],
 })
 export class UsersModule { }

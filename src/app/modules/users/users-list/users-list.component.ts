@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Router } from '@angular/router';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
+import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -40,6 +41,8 @@ export class UsersListComponent implements OnInit {
   usersId: any[];
   dataArray: any[];
   status: any = '';
+  userId: any;
+  confirmPopupResult: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -51,7 +54,6 @@ export class UsersListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
-  @ViewChild('toggleGroup') toggleGroup: ElementRef;
   filterStatus: string = '';
   filterType: string = '';
 
@@ -219,6 +221,7 @@ export class UsersListComponent implements OnInit {
           duration: 10000,
           verticalPosition: 'top'
         });
+        this.listing = true;
       }
     }, error => {
       this._snackBar.open('No Organisations Found', 'Dismiss', {
@@ -324,6 +327,75 @@ export class UsersListComponent implements OnInit {
     });
   }
 
+    // In activate
+    inActivateDialog(id): void {
+      this.userId = id;
+      const message = `Are you sure you want to do this?`;
+  
+      const dialogData = new ConfirmDialogModel("Confirm Action", message);
+  
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: dialogData
+      });
+  
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        this.confirmPopupResult = dialogResult;
+        if (this.confirmPopupResult) {
+          this.blockUser();
+        } else {
+          this.dialog.closeAll();
+        }
+  
+      });
+    }
+  
+    // activate
+    activateDialog(id) {
+      this.userId = id;
+      const message = `Are you sure you want to do this?`;
+  
+      const dialogData = new ConfirmDialogModel("Confirm Action", message);
+  
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: dialogData
+      });
+  
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        this.confirmPopupResult = dialogResult;
+        if (this.confirmPopupResult) {
+          this.unBlockUser();
+        } else {
+          this.dialog.closeAll();
+        }
+  
+      });
+    }
+
+    // Block User
+  blockUser() {
+    this.usersService.blockUser(this.userId).subscribe(data => {
+      this.commonServiceService.commonSnackBar('User Blocked', 'Dismiss', 'top', '10000');
+      this.getUserList();
+    }, error => {
+      console.log('blockUser', error);
+    })
+  }
+
+  // Block User
+  unBlockUser() {
+    this.usersService.unBlockUser(this.userId).subscribe(data => {
+      this.commonServiceService.commonSnackBar('User UnBlocked', 'Dismiss', 'top', '10000');
+      this.getUserList();
+    }, error => {
+      console.log('blockUser', error);
+    })
+  }
+  
+  editUser(user){
+    this.router.navigate(['/users/edit', user.id])
+  }
 
 }
 

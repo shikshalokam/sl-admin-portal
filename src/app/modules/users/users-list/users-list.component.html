@@ -34,11 +34,14 @@
 
     <div>
       <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
-        <mat-button-toggle checked (click)="allUsers(toggleGroup.value)" class="filter" value="All">All
+        <mat-button-toggle matTooltip="All users" checked (click)="allUsers(toggleGroup.value)" class="filter"
+          value="All">All
         </mat-button-toggle>
-        <mat-button-toggle (click)="allUsers(toggleGroup.value)" class="filter" value="Active">Active
+        <mat-button-toggle matTooltip="Active users" (click)="allUsers(toggleGroup.value)" class="filter"
+          value="Active">Active
         </mat-button-toggle>
-        <mat-button-toggle (click)="allUsers(toggleGroup.value)" class="filter" value="Inactive">Inactive
+        <mat-button-toggle matTooltip="Inactive users" (click)="allUsers(toggleGroup.value)" class="filter"
+          value="Inactive">Inactive
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
@@ -102,7 +105,7 @@
 
         <!-- Role Column -->
         <ng-container matColumnDef="role">
-          <mat-header-cell *matHeaderCellDef> Role </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <div class="list-content">
               {{row?.role ? row?.role : '-- --'}}
@@ -122,27 +125,15 @@
           <mat-cell *matCellDef="let row">{{getStatus(row.status)}}</mat-cell>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="leadStatus" class="email-cell">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
-          <mat-cell *matCellDef="let lead">
-            <span style="font-weight: 600"
-              class="lead kt-badge kt-badge--inline kt-badge--pill kt-badge--{{ getItemCssClassByStatus(lead.leadStatus.name) }} kt-badge--wide">{{lead.leadStatus.name}}</span>
-          </mat-cell>
-        </ng-container> -->
-
-        <!-- Color Column -->
-        <!-- <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Color </mat-header-cell>
-        <mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.symbol}} </mat-cell>
-      </ng-container> -->
-
-
-
         <ng-container matColumnDef="Action">
           <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
           <mat-cell *matCellDef="let user">
-            <a [routerLink]="['/users/edit', user.id]"> <button matTooltip="Edit User" class="actions"
-                mat-button>Edit</button></a>
+            <button [disabled] = "user.status == 0" (click)="editUser(user)" matTooltip="Edit User" class="actions"
+              mat-button>Edit</button>&nbsp;
+            <button *ngIf="user.status == 0" (click)="activateDialog(user.id)" matTooltip="Activate User"
+              class="actions" mat-button>Activate </button>&nbsp;
+            <button *ngIf="user.status == 1" (click)="inActivateDialog(user.id)" matTooltip="Inactivate User"
+              class="actions" mat-button> Inactivate</button>
           </mat-cell>
         </ng-container>
 

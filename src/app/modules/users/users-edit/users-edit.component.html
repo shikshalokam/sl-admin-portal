@@ -1,169 +1,160 @@
 <div class="pageName">
-  Users > {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}
+  <a class="negative" [routerLink]="['/users/list']">Users</a> > {{editUserDetails?.firstName}}
+  {{editUserDetails?.lastName}}
 </div>
 
-  <div class="dashboard-content">
-    <div style="display: flex;">
-      <mat-card class="profile-card">
-        <mat-card-content>
-          <div style="display: flex;">
-            <mat-icon style="font-size: 70px;padding-right: 80px;">account_circle</mat-icon>
-            <!-- <img class="thumbnail-image" src="../../../../assets/images/profile.jpeg"
-                onerror="this.src='../../../../assets/images/profile.jpeg';" alt="..." /> -->
-            <div>
-              <div class="text-capital">
-                <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
-              </div>
-              <div>
-                a1@shikshalokamdev
-              </div>
-              <div *ngIf="editUserDetails?.status === 1" style="color: green;">
-                Active
-              </div>
-
-              <div *ngIf="editUserDetails?.status === 0" style="color: brown">
-                In active
-              </div>
-
-              <div class="text-color">
-                Last Sign in : About 2 hours ago
-              </div>
-              <div class="text-color">
-                Created: April 21, 2020
-              </div>
+<div class="dashboard-content">
+  <div style="display: flex;">
+    <mat-card class="profile-card" style="border-radius: 0px;">
+      <mat-card-content>
+        <div style="display: flex;">
+          <mat-icon style="font-size: 70px;padding-right: 80px;">account_circle</mat-icon>
+          <div>
+            <div class="text-capital">
+              <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
+            </div>
+            <!-- <div>
+              a1@shikshalokamdev
+            </div> -->
+            <div *ngIf="editUserDetails?.status === 1" class="positive">
+              Active
             </div>
 
-          </div>
-        </mat-card-content>
-        <!-- <div class="c-line"></div> -->
-        <div class="row user-org c-line">
-          <!-- <div class="col-md-10">
-            <div class="text-color c-font">Organisational Unit</div>
-            <div class="c-font">Shikshaloakam.org</div>
-          </div> -->
-        </div>
+            <div *ngIf="editUserDetails?.status === 0" class="negative">
+              In active
+            </div>
 
-        <div class="row c-line" style="padding:10px">
-          <div matTooltip="Reset Password" class="col-md-9 profile-actions-icon" (click)="reset()">
-            <span>
-              <mat-icon>lock</mat-icon>
-            </span>
-            <span class="profile-actions-text"> RESET PASSWORD</span>
-          </div>
-          <div *ngIf="editUserDetails?.status === 1" matTooltip="Inactivate user" class="col-md-9 profile-actions-icon"
-            (click)="confirmDialog()">
-            <span>
-              <mat-icon style="color: brown;">edit</mat-icon>
-            </span>
-            <span style="color: brown;" class="profile-actions-text">INACTIVATE USER</span>
-          </div>
-
-          <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
-            (click)="confirmDialog()">
-            <span>
-              <mat-icon style="color: green;">edit</mat-icon>
-            </span>
-            <span style="color: green;" class="profile-actions-text">ACTIVATE USER</span>
+            <div class="text-color">
+              Last Sign in : {{editUserDetails?.lastLoginTime}} hours ago
+            </div>
+            <div class="text-color">
+              Created on: {{editUserDetails?.createdDate | date:'longDate'}}
+            </div>
           </div>
 
         </div>
-      </mat-card>
-      <div class="user-details">
-        <mat-accordion>
-          <mat-expansion-panel class="c-accordian-width" [expanded]="true">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                User information
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="row">
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>First Name</mat-label>
-                  <input matInput disabled value="{{editUserDetails?.firstName}}">
-                </mat-form-field>
-              </div>
+      </mat-card-content>
+      <div class=" row c-line"></div>
+      <div class="row" style="padding:10px">
+        <div matTooltip="Reset Password" class="col-md-9 profile-actions-icon" (click)="reset()">
+          <span>
+            <mat-icon>lock</mat-icon>
+          </span>
+          <span class="profile-actions-text"> RESET PASSWORD</span>
+        </div>
+        <div *ngIf="editUserDetails?.status === 1" matTooltip="Inactivate user" class="col-md-9 profile-actions-icon"
+          (click)="inActivateDialog()">
+          <span>
+            <mat-icon class="negative">edit</mat-icon>
+          </span>
+          <span class="profile-actions-text negative">DEACTIVATE USER</span>
+        </div>
 
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label> last Name</mat-label>
-                  <input matInput disabled type="text" value="{{editUserDetails?.lastName}}">
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Date of Birth</mat-label>
-                  <input matInput disabled [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Gender</mat-label>
-                  <input matInput disabled type="text" value="{{editUserDetails?.gender}}">
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>User Name</mat-label>
-                  <input matInput disabled value="">
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Email</mat-label>
-                  <input matInput disabled type="text" value="">
-                </mat-form-field>
-              </div>
-
-              <div class="col-md-3">
-                <mat-form-field>
-                  <mat-label>Phone Number</mat-label>
-                  <input matInput disabled value="">
-                </mat-form-field>
-              </div>
-
-            </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-
-        <div class="user-details-card">
-          <mat-accordion>
-            <mat-expansion-panel class="c-accordian-width" [expanded]="true">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  Organisation and Roles
-                </mat-panel-title>
-
-              </mat-expansion-panel-header>
-              <div class="row">
-                <div class="col-md-3">
-                  <mat-form-field>
-                    <mat-label>Organisation</mat-label>
-                   <input matInput >
-                  </mat-form-field>
-                </div>
-
-                <div class="col-md-3">
-                  <mat-form-field>
-                    <mat-label>Roles</mat-label>
-                    <input matInput >
-                  </mat-form-field>
-                </div>
-              </div>
-              <mat-card-actions align="end">
-                <button mat-button class="edit-button" (click)="editRoles()" cdkFocusInitial>Edit</button>
-              </mat-card-actions>
-            </mat-expansion-panel>
-          </mat-accordion>
-
+        <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
+          (click)="ActivateDialog()">
+          <span>
+            <mat-icon class="positive">edit</mat-icon>
+          </span>
+          <span class="profile-actions-text positive">ACTIVATE USER</span>
         </div>
 
       </div>
+    </mat-card>
+    <div class="user-details">
+      <mat-accordion>
+        <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="c-font">
+              User information
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="editUserDetails" class="row">
+            <div class="col-md-3">
+              <!-- <mat-form-field> -->
+                <label>First Name :{{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label>
+                <!-- <input matInput disabled value="{{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}"> -->
+              <!-- </mat-form-field> -->
+            </div>
+
+            <div class="col-md-3">
+              <label>last Name:</label>
+              {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
+              <!-- <input matInput disabled type="text"
+                value="{{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}"> -->
+            </div>
+
+            <div class="col-md-3">
+              <label>Date of Birth: {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}</label>
+              <!-- <input matInput disabled value="{{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}"> -->
+            </div>
+
+            <div class="col-md-3">
+              <label>Gender: {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}</label>
+              <!-- <input matInput disabled type="text"
+                value="{{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}"> -->
+            </div>
+          </div>
+          <!-- <div class="row" style="padding-top:15px">
+            <div class="col-md-3">
+              <label>User Name</label>
+              <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
+            </div>
+
+            <div class="col-md-3">
+              <label>Email</label>
+              <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
+            </div>
+
+            <div class="col-md-3">
+              <label>Phone Number</label>
+              <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
+            </div>
+          </div> -->
+
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="user-details-card">
+
+        <mat-card>
+          <div class="roles-head">
+            <div>
+              <mat-panel-title class="c-font">
+                Organisations and Roles
+              </mat-panel-title>
+            </div>
+            <div>
+              <button mat-button class="actions" (click) ="newOrganisation()" cdkFocusInitial>Add New organisation</button>
+            </div>
+          </div>
+          <mat-table [dataSource]="details" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="organisation">
+              <mat-header-cell *matHeaderCellDef> organisation </mat-header-cell>>
+              <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>>
+            </ng-container>
+
+            <!-- <ng-template> -->
+            <ng-container matColumnDef="Roles">
+              <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.list}}</mat-cell>
+            </ng-container>
+            <!-- </ng-template> -->
+
+            <ng-container matColumnDef="Action">
+              <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button (click)="Edit(element)" matTooltip="Edit Roles" class="actions" mat-button> Edit</button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>>
+          </mat-table>
+
+
+        </mat-card>
+      </div>
+
     </div>
   </div>
+</div>

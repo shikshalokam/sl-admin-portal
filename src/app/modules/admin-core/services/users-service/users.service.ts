@@ -42,7 +42,12 @@ export class UsersService {
 
   // Block user
   blockUser(userid) {
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid)
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid + '?status=0')
+  }
+
+   // Block user
+  unBlockUser(userid) {
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid + '?status=1')
   }
 
   // get details to Edit
