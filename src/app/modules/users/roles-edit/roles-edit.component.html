@@ -3,18 +3,10 @@
   <h5 class="title">Edit User Roles for {{selecteddata?.label}}</h5>
 </mat-toolbar>
 <h1 mat-dialog-title style="font-weight: 600;text-align: center;">
-  <!-- organisation : {{selecteddata?.label}} -->
 </h1>
-<form [formGroup]="myForm">
+<form>
   <mat-dialog-content class="mat-typography custom-dialog-content" style="display: flex;">
-    <!-- <div >
-      <div *ngFor="let data of data.roles">
-        <div>
-          <mat-checkbox (change)="onChange(data, $event.checked)" value="data">{{data.label}}
-          </mat-checkbox>
-        </div>
-      </div>
-    </div> -->
+   
     <mat-form-field class="example-chip-list" style="width: 100%;">
       <mat-chip-list #chipList aria-label="Role selection">
         <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"

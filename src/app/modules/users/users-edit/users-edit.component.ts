@@ -18,7 +18,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./users-edit.component.scss']
 })
 export class UsersEditComponent implements OnInit {
-  displayedColumns: string[] = ['organisation', 'Roles', 'Action']
+  displayedColumns: string[] = ['Organisation', 'Roles', 'Action']
 
   editUserDetails: any;
   details: any;
@@ -38,6 +38,7 @@ export class UsersEditComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
     private _snackBar: MatSnackBar, private dialog: MatDialog,
+    private router: Router,
     private usersService: UsersService, private route: ActivatedRoute) {
   }
 
@@ -55,7 +56,6 @@ export class UsersEditComponent implements OnInit {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
       console.log('editUserDetails', this.editUserDetails);
-      var h = Math.floor(this.editUserDetails.lastLoginTime/ 3600);
       this.details = this.editUserDetails.organisations;
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
@@ -93,46 +93,46 @@ export class UsersEditComponent implements OnInit {
   }
 
   // activate
-  activateDialog() {
-    const message = `Are you sure you want to do this?`;
+  // activateDialog() {
+  //   const message = `Are you sure you want to do this?`;
 
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+  //   const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    });
+  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  //     maxWidth: "400px",
+  //     data: dialogData
+  //   });
 
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.confirmPopupResult = dialogResult;
-      if (this.confirmPopupResult) {
-        this.unBlockUser();
-      } else {
-        this.dialog.closeAll();
-      }
+  //   dialogRef.afterClosed().subscribe(dialogResult => {
+  //     this.confirmPopupResult = dialogResult;
+  //     if (this.confirmPopupResult) {
+  //       this.unBlockUser();
+  //     } else {
+  //       this.dialog.closeAll();
+  //     }
 
-    });
-  }
+  //   });
+  // }
 
   // Block User
   blockUser() {
     this.usersService.blockUser(this.userId).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-      this.getUserDetails();
+      this.router.navigateByUrl('users/list');
     }, error => {
       console.log('blockUser', error);
     })
   }
 
   // Block User
-  unBlockUser() {
-    this.usersService.unBlockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-       this.getUserDetails();
-    }, error => {
-      console.log('blockUser', error);
-    })
-  }
+  // unBlockUser() {
+  //   this.usersService.unBlockUser(this.userId).subscribe(data => {
+  //     this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+  //      this.getUserDetails();
+  //   }, error => {
+  //     console.log('blockUser', error);
+  //   })
+  // }
 
 // Edit popup
   Edit(data) {

@@ -1,6 +1,6 @@
 <div class="pageName">
-  <a class="negative" [routerLink]="['/users/list']">Users</a> > {{editUserDetails?.firstName}}
-  {{editUserDetails?.lastName}}
+  <a class="negative" [routerLink]="['/users/list']">Users</a> > <span class="text-capital">{{editUserDetails?.firstName}}
+  {{editUserDetails?.lastName}}</span>
 </div>
 
 <div class="dashboard-content">
@@ -23,15 +23,15 @@
             <div *ngIf="editUserDetails?.status === 0" class="negative">
               In active
             </div>
-            <div *ngIf ="editUserDetails?.lastLoginTime ==0" class="text-color">
-                Last Sign in : {{ editUserDetails?.lastLoginTime}} hours ago
-              </div>
+            <div *ngIf="editUserDetails?.lastLoginTime ==0" class="text-color">
+              Last Sign in : {{ editUserDetails?.lastLoginTime}} hours ago
+            </div>
 
-            <div *ngIf ="editUserDetails?.lastLoginTime !=0" class="text-color">
-              Last Sign in : {{ editUserDetails?.lastLoginTime | date: 'short'}}
+            <div *ngIf="editUserDetails?.lastLoginTime !=0" class="text-color">
+              Last Sign in : {{ editUserDetails?.lastLoginTime | date: 'medium'}}
             </div>
             <div class="text-color">
-              Created on: {{editUserDetails?.createdDate | date:'longDate'}}
+              Created on: {{editUserDetails?.createdDate | date:'medium'}}
             </div>
           </div>
 
@@ -53,13 +53,13 @@
           <span class="profile-actions-text negative">DEACTIVATE USER</span>
         </div>
 
-        <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
+        <!-- <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
           (click)="activateDialog()">
           <span>
             <mat-icon class="positive">edit</mat-icon>
           </span>
           <span class="profile-actions-text positive">ACTIVATE USER</span>
-        </div>
+        </div> -->
 
       </div>
     </mat-card>
@@ -73,20 +73,40 @@
           </mat-expansion-panel-header>
           <div *ngIf="editUserDetails" class="row">
             <div class="col-md-3">
-                <label>First Name: {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label>
+              <div class="text-color">
+                <mat-label>First Name:</mat-label>
+              </div>
+              <div>
+                {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}
+              </div>
+              <!-- <label>First Name: {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label> -->
             </div>
 
             <div class="col-md-3">
-              <label>last Name:</label>
-              {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
+              <div class="text-color">
+                <label>Last Name:</label>
+              </div>
+              <div>
+                {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
+              </div>
+
             </div>
 
             <div class="col-md-3">
-              <label>Date of Birth: {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}</label>
+              <div class="text-color"> <label>Date of Birth: </label></div>
+              <div>
+                {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}
+              </div>
             </div>
 
             <div class="col-md-3">
-              <label>Gender: {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}</label>
+              <div class="text-color">
+                <label>Gender: </label>
+              </div>
+              <div>
+                {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}
+              </div>
+
             </div>
           </div>
           <!-- <div class="row" style="padding-top:15px">
@@ -118,13 +138,14 @@
               </mat-panel-title>
             </div>
             <div>
-              <button mat-button class="actions" (click) ="newOrganisation()" cdkFocusInitial>Add New organisation</button>
+              <button mat-button class="actions" (click)="newOrganisation()" cdkFocusInitial>Add New
+                organisation</button>
             </div>
           </div>
           <mat-table [dataSource]="details" class="mat-elevation-z8">
 
-            <ng-container matColumnDef="organisation">
-              <mat-header-cell *matHeaderCellDef> organisation </mat-header-cell>>
+            <ng-container matColumnDef="Organisation">
+              <mat-header-cell *matHeaderCellDef> Organisation </mat-header-cell>>
               <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>>
             </ng-container>
 

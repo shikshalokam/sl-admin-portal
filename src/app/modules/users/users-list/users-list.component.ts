@@ -238,6 +238,10 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.getUserList();
+      this.cdr.detectChanges();
+    }, 3000)
   }
 
   createForm() {
@@ -265,16 +269,16 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
   }
- // get color based on the status
- getItemCssClassByStatus(status): string {
-  switch (status) {
-    case 1:
-      return 'active';
-    case 0:
-      return 'inactive';
+  // get color based on the status
+  getItemCssClassByStatus(status): string {
+    switch (status) {
+      case 1:
+        return 'active';
+      case 0:
+        return 'inactive';
+    }
+    return '';
   }
-  return '';
-}
 
   // Adding multiple users popup
   UploadUsers() {
@@ -342,57 +346,60 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-    // In activate
-    inActivateDialog(id): void {
-      this.userId = id;
-      const message = `Are you sure you want to do this action?`;
-  
-      const dialogData = new ConfirmDialogModel("Confirm Action", message);
-  
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        maxWidth: "400px",
-        data: dialogData
-      });
-  
-      dialogRef.afterClosed().subscribe(dialogResult => {
-        this.confirmPopupResult = dialogResult;
-        if (this.confirmPopupResult) {
-          this.blockUser();
-        } else {
-          this.dialog.closeAll();
-        }
-  
-      });
-    }
-  
-    // activate
-    activateDialog(id) {
-      this.userId = id;
-      const message = `Are you sure you want to do this?`;
-  
-      const dialogData = new ConfirmDialogModel("Confirm Action", message);
-  
-      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        maxWidth: "400px",
-        data: dialogData
-      });
-  
-      dialogRef.afterClosed().subscribe(dialogResult => {
-        this.confirmPopupResult = dialogResult;
-        if (this.confirmPopupResult) {
-          this.unBlockUser();
-        } else {
-          this.dialog.closeAll();
-        }
-  
-      });
-    }
+  // In activate
+  inActivateDialog(id): void {
+    this.userId = id;
+    const message = `Are you sure you want to do this action?`;
 
-    // Block User
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.blockUser();
+      } else {
+        this.dialog.closeAll();
+      }
+
+    });
+  }
+
+  // activate
+  activateDialog(id) {
+    this.userId = id;
+    const message = `Are you sure you want to do this?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.unBlockUser();
+      } else {
+        this.dialog.closeAll();
+      }
+
+    });
+  }
+
+  // Block User
   blockUser() {
     this.usersService.blockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-      this.getUserList();
+      setTimeout(() => {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+        this.getUserList();
+      }, 500);
+
     }, error => {
       console.log('blockUser', error);
     })
@@ -401,16 +408,21 @@ export class UsersListComponent implements OnInit {
   // Block User
   unBlockUser() {
     this.usersService.unBlockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-      this.getUserList();
+      setTimeout(() => {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+        this.getUserList();
+      }, 500);
+
     }, error => {
       console.log('blockUser', error);
     })
   }
-  
-  editUser(user){
+
+  editUser(user) {
     this.router.navigate(['/users/edit', user.id])
   }
+
+
 
 }
 
