@@ -3,16 +3,12 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { UsersService } from '../../admin-core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { RolesEditComponent } from '../roles-edit/roles-edit.component';
-
+import { DatePipe } from '@angular/common';
 
 
 
@@ -59,6 +55,7 @@ export class UsersEditComponent implements OnInit {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
       console.log('editUserDetails', this.editUserDetails);
+      var h = Math.floor(this.editUserDetails.lastLoginTime/ 3600);
       this.details = this.editUserDetails.organisations;
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
@@ -120,7 +117,8 @@ export class UsersEditComponent implements OnInit {
   // Block User
   blockUser() {
     this.usersService.blockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar('User Blocked', 'Dismiss', 'top', '10000');
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+      this.getUserDetails();
     }, error => {
       console.log('blockUser', error);
     })
@@ -129,7 +127,8 @@ export class UsersEditComponent implements OnInit {
   // Block User
   unBlockUser() {
     this.usersService.unBlockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar('User Blocked', 'Dismiss', 'top', '10000');
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+       this.getUserDetails();
     }, error => {
       console.log('blockUser', error);
     })
@@ -142,7 +141,7 @@ export class UsersEditComponent implements OnInit {
     finaldata.push(data);
     const dialogRef = this.dialog.open(RolesEditComponent, {
       disableClose: true,
-      width: '30%',
+      width: '40%',
       data: finaldata
     });
   }

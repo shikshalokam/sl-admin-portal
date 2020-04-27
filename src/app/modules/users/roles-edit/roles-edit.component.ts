@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
@@ -32,6 +32,7 @@ export class RolesEditComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(@Inject(MAT_DIALOG_DATA) public rolesData: any,
+  private _snackBar: MatSnackBar,
     private fb: FormBuilder, public dialogRef: MatDialogRef<RolesEditComponent>) {
     this.allFruits = this.rolesData[0]['roles'];
     this.roles = this.rolesData[1]['roles'];
@@ -65,6 +66,10 @@ export class RolesEditComponent implements OnInit {
   }
   onConfirm() {
     console.log('yyyyyyyyyy', this.roleFormArray, this.roles);
+    this._snackBar.open('Comming soon', 'Dismiss', {
+      duration: 10000,
+      verticalPosition: 'top'
+    });
 
   }
 

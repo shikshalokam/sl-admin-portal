@@ -23,9 +23,12 @@
             <div *ngIf="editUserDetails?.status === 0" class="negative">
               In active
             </div>
+            <div *ngIf ="editUserDetails?.lastLoginTime ==0" class="text-color">
+                Last Sign in : {{ editUserDetails?.lastLoginTime}} hours ago
+              </div>
 
-            <div class="text-color">
-              Last Sign in : {{editUserDetails?.lastLoginTime}} hours ago
+            <div *ngIf ="editUserDetails?.lastLoginTime !=0" class="text-color">
+              Last Sign in : {{ editUserDetails?.lastLoginTime | date: 'short'}}
             </div>
             <div class="text-color">
               Created on: {{editUserDetails?.createdDate | date:'longDate'}}
@@ -42,7 +45,7 @@
           </span>
           <span class="profile-actions-text"> RESET PASSWORD</span>
         </div>
-        <div *ngIf="editUserDetails?.status === 1" matTooltip="Inactivate user" class="col-md-9 profile-actions-icon"
+        <div *ngIf="editUserDetails?.status === 1" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
           (click)="inActivateDialog()">
           <span>
             <mat-icon class="negative">edit</mat-icon>
@@ -51,7 +54,7 @@
         </div>
 
         <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
-          (click)="ActivateDialog()">
+          (click)="activateDialog()">
           <span>
             <mat-icon class="positive">edit</mat-icon>
           </span>
@@ -70,7 +73,7 @@
           </mat-expansion-panel-header>
           <div *ngIf="editUserDetails" class="row">
             <div class="col-md-3">
-                <label>First Name :{{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label>
+                <label>First Name: {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label>
             </div>
 
             <div class="col-md-3">

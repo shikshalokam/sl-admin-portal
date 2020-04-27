@@ -10,6 +10,7 @@ import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-use
 import { UsersEditComponent } from './users-edit/users-edit.component';
 import { OrganisationRolesComponent } from './organisation-roles/organisation-roles.component';
 import { RolesEditComponent } from './roles-edit/roles-edit.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 
 
@@ -18,6 +19,7 @@ import { RolesEditComponent } from './roles-edit/roles-edit.component';
 @NgModule({
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
+    CdkTableModule,
     AdminSharedModule,
     UsersRoutingModule],
   entryComponents: [AddUserComponent, AddMultipleUsersComponent,RolesEditComponent],

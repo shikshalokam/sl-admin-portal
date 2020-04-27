@@ -22,9 +22,11 @@ import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/c
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
+  // displayedColumns: any;
   displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
+  columns: any;
   selected: any;
   date = new Date();
   fileName: any;
@@ -95,8 +97,11 @@ export class UsersListComponent implements OnInit {
   getUserList() {
     this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
+      console.log('lllllllllllll', this.options);
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
+      this.columns = new MatTableDataSource(data['result'].columns);
+      // this.displayedColumns = this.columns.map(column => column.label);
       this.dataSource.sort = this.sort;
       this.recordCount = data['result'].count;
       this.cdr.detectChanges();
@@ -340,7 +345,7 @@ export class UsersListComponent implements OnInit {
     // In activate
     inActivateDialog(id): void {
       this.userId = id;
-      const message = `Are you sure you want to do this?`;
+      const message = `Are you sure you want to do this action?`;
   
       const dialogData = new ConfirmDialogModel("Confirm Action", message);
   
@@ -386,7 +391,7 @@ export class UsersListComponent implements OnInit {
     // Block User
   blockUser() {
     this.usersService.blockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar('User Blocked', 'Dismiss', 'top', '10000');
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.getUserList();
     }, error => {
       console.log('blockUser', error);
@@ -396,7 +401,7 @@ export class UsersListComponent implements OnInit {
   // Block User
   unBlockUser() {
     this.usersService.unBlockUser(this.userId).subscribe(data => {
-      this.commonServiceService.commonSnackBar('User UnBlocked', 'Dismiss', 'top', '10000');
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.getUserList();
     }, error => {
       console.log('blockUser', error);

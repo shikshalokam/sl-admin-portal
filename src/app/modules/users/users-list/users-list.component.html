@@ -72,7 +72,22 @@
     </div> -->
     <app-spinner *ngIf="listing == false"></app-spinner>
     <div class="custom-table-container">
+
       <mat-table [dataSource]="dataSource" matSort>
+
+        <!-- <ng-container *ngFor="let column of columns" matColumnDef="{{column.label}}">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.label}}</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column.key]}} </mat-cell>
+        </ng-container> -->
+
+        <!-- <ng-container *ngFor="let column of columns; let colIndex = index" [cdkColumnDef]="column.key">
+          <mat-header-cell *cdkHeaderCellDef>{{ column.label }}</mat-header-cell>
+          <mat-cell *cdkCellDef="let row">{{ row[column.label] }}</mat-cell>
+        </ng-container> -->
+
+        <!-- <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef style="padding-top: 10px;">
             <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
@@ -122,18 +137,18 @@
 
         <ng-container matColumnDef="status">
           <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
-          <mat-cell  *matCellDef="let row">
+          <mat-cell *matCellDef="let row">
             <span class="{{getItemCssClassByStatus(row.status)}}">{{getStatus(row.status)}}</span>
-            </mat-cell>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Action">
           <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
           <mat-cell *matCellDef="let user">
-              <button [disabled] = "user.status == 0" (click)="editUser(user)" matTooltip="Edit User" class="actions"
+            <button [disabled]="user.status == 0" (click)="editUser(user)" matTooltip="Edit User" class="actions"
               mat-button>Edit</button>
-              &nbsp;<button class="btnactive" *ngIf="user.status == 0" (click)="activateDialog(user.id)" matTooltip="Activate User"
-              class="actions" mat-button>Activate </button>
+            &nbsp;<button class="btnactive" *ngIf="user.status == 0" (click)="activateDialog(user.id)"
+              matTooltip="Activate User" class="actions btnactive" mat-button>Activate </button>
             <button *ngIf="user.status == 1" (click)="inActivateDialog(user.id)" matTooltip="Inactivate User"
               class="actions" mat-button> Inactivate</button>
           </mat-cell>
@@ -143,8 +158,10 @@
         </mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
         </mat-row>
-        <div class="message" *ngIf="recordCount == 0">No records found</div>
       </mat-table>
+
+
+
 
       <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
       <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
