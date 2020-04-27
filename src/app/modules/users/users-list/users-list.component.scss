@@ -84,6 +84,15 @@ td.mat-cell {
   width: 200px;
    word-wrap: break-word
 }
+.active {
+  color: $green-color;
+}
+.inactive {
+  color: $primary-color;
+}
+.btnactive {
+  width: 44%;
+}
 
 // ::ng-deep.mat-option.mat-active {
 //   // background-color:#A63936;

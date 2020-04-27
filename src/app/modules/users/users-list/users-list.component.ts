@@ -260,6 +260,16 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
   }
+ // get color based on the status
+ getItemCssClassByStatus(status): string {
+  switch (status) {
+    case 1:
+      return 'active';
+    case 0:
+      return 'inactive';
+  }
+  return '';
+}
 
   // Adding multiple users popup
   UploadUsers() {

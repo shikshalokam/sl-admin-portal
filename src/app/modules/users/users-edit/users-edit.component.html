@@ -70,28 +70,20 @@
           </mat-expansion-panel-header>
           <div *ngIf="editUserDetails" class="row">
             <div class="col-md-3">
-              <!-- <mat-form-field> -->
                 <label>First Name :{{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label>
-                <!-- <input matInput disabled value="{{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}"> -->
-              <!-- </mat-form-field> -->
             </div>
 
             <div class="col-md-3">
               <label>last Name:</label>
               {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
-              <!-- <input matInput disabled type="text"
-                value="{{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}"> -->
             </div>
 
             <div class="col-md-3">
               <label>Date of Birth: {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}</label>
-              <!-- <input matInput disabled value="{{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}"> -->
             </div>
 
             <div class="col-md-3">
               <label>Gender: {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}</label>
-              <!-- <input matInput disabled type="text"
-                value="{{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}"> -->
             </div>
           </div>
           <!-- <div class="row" style="padding-top:15px">
@@ -133,12 +125,10 @@
               <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>>
             </ng-container>
 
-            <!-- <ng-template> -->
             <ng-container matColumnDef="Roles">
               <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
               <mat-cell *matCellDef="let element">{{element.list}}</mat-cell>
             </ng-container>
-            <!-- </ng-template> -->
 
             <ng-container matColumnDef="Action">
               <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>

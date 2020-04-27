@@ -24,27 +24,14 @@ import { RolesEditComponent } from '../roles-edit/roles-edit.component';
 export class UsersEditComponent implements OnInit {
   displayedColumns: string[] = ['organisation', 'Roles', 'Action']
 
-  makeEnable: boolean = true;
-  // -------------------------------
-
-  productGroup: FormGroup;
-  variantsArray: FormArray;
-  typesOptionsArray: string[][] = [];
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  //---------------------------------------------
-
-
   editUserDetails: any;
   details: any;
-  panelOpenState: boolean = false;
   confirmPopupResult: any;
   visible = true;
   selectable = true;
   removable = true;
   load: boolean = false;
   makedisable: boolean = true;
-  // separatorKeysCodes: number[] = [ENTER, COMMA];
   roleCtrl = new FormControl();
   filteredRoles: Observable<string[]>;
   roles: string[] = [];
@@ -55,23 +42,12 @@ export class UsersEditComponent implements OnInit {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
     private _snackBar: MatSnackBar, private dialog: MatDialog,
-    private usersService: UsersService, private route: ActivatedRoute,
-    private fb: FormBuilder) {
+    private usersService: UsersService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getUserDetails();
-    this.productGroup = this.fb.group({
-      name: '',
-      variants: this.fb.array([
-        this.fb.group({
-          type: '',
-          options: ''
-        })
-      ]),
-    });
-
   }
 
   reset() {
@@ -82,6 +58,7 @@ export class UsersEditComponent implements OnInit {
   getUserDetails() {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
+      console.log('editUserDetails', this.editUserDetails);
       this.details = this.editUserDetails.organisations;
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
@@ -91,22 +68,9 @@ export class UsersEditComponent implements OnInit {
         }
       }
       this.load = true;
-      this.typesOptionsArray.push(this.editUserDetails.organisations[0].roles);
-      this.roles = this.editUserDetails.organisations[0].roles;
-      this.filteredRoles = this.roleCtrl.valueChanges.pipe(
-        startWith(null),
-        map((role: string | null) => role ? this._filter(role) : this.editUserDetails.roles.slice()));
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
     })
-  }
-
-  editPersonalData() {
-
-  }
-
-  editRoles(id) {
-    console.log('roles', id, this.roles);
   }
 
   // In activate
@@ -171,104 +135,7 @@ export class UsersEditComponent implements OnInit {
     })
   }
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our role
-    if ((value || '').trim()) {
-      this.roles.push(value.trim());
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    this.roleCtrl.setValue(null);
-  }
-
-  remove(role: string): void {
-    const index = this.roles.indexOf(role);
-    if (index >= 0) {
-      this.roles.splice(index, 1);
-    }
-  }
-
-  // remove(role: string, index: number): void {
-  //   const optIndex = this.roles[index].indexOf(role);
-  //   // const index = this.roles.indexOf(role);
-
-  //   if (optIndex >= 0) {
-  //     this.roles.splice(index, 1);
-  //   }
-  // }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    console.log('seeeeeee', event);
-    this.roles.push(event.option.value);
-    this.roleInput.nativeElement.value = '';
-    this.roleCtrl.setValue(null);
-  }
-
-  private _filter(value) {
-    if (typeof (value) == 'object') {
-      this.filterValue = value.label.toLowerCase();
-    } else {
-      this.filterValue = value.toLowerCase();
-    }
-
-    return this.editUserDetails.roles.filter(role => role.label.toLowerCase().indexOf(this.filterValue) === 0);
-  }
-
-
-  // ---------------------------------------
-  saveProduct(form: FormGroup) {
-    console.log('1111111111111111111', form);
-  }
-
-  // Add new item to FormArray
-  addItem(): void {
-    this.variantsArray = this.productGroup.get('variants') as FormArray;
-    this.variantsArray.push(this.fb.group({
-      type: '',
-      options: ''
-    }));
-
-    this.typesOptionsArray.push([]);
-  }
-
-  removeItem(index: number) {
-    this.variantsArray.removeAt(index);
-  }
-
-  addOpt(event: MatChipInputEvent, index: number): void {
-    console.log('aaaadopt', index);
-    const input = event.input;
-    const value = event.value;
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.typesOptionsArray[index].push(value.trim());
-
-    }
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  removeOpt(opt: string, index: number): void {
-    const optIndex = this.typesOptionsArray[index].indexOf(opt);
-    if (optIndex >= 0) {
-      this.typesOptionsArray[index].splice(optIndex, 1);
-    }
-  }
-
-
-
-  // --------------------------------------------------------
-
-
+// Edit popup
   Edit(data) {
     const finaldata = []
     finaldata.push(this.editUserDetails);
@@ -280,6 +147,7 @@ export class UsersEditComponent implements OnInit {
     });
   }
 
+  // Add New Organisation 
   newOrganisation() {
     this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', '1000')
   }
