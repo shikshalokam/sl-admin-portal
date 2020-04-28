@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +21,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     CdkTableModule,
     AdminSharedModule,
     UsersRoutingModule],
+    schemas: [
+      CUSTOM_ELEMENTS_SCHEMA
+  ],
   entryComponents: [AddUserComponent, AddMultipleUsersComponent,RolesEditComponent],
   declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent,  RolesEditComponent],
 })

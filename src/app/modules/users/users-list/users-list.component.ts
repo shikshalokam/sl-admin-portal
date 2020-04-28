@@ -103,7 +103,7 @@ export class UsersListComponent implements OnInit {
       // this.displayedColumns = this.columns.map(column => column.label);
       this.dataSource.sort = this.sort;
       this.recordCount = data['result'].count;
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
       this.listing = true;
     }, error => {
       this.listing = true;
@@ -164,7 +164,7 @@ export class UsersListComponent implements OnInit {
   onKey(value) {
     if (value) {
       this.organisations = this.selectSearch(value);
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
     } else {
       this.organisations = this.organisationsList;
     }
@@ -239,7 +239,7 @@ export class UsersListComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(() => {
       this.getUserList();
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
     }, 3000)
   }
 

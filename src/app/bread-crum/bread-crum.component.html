@@ -1,3 +1,6 @@
 <div class="pageName">
- {{crumData.title}}
+    <span *ngFor="let data of crumData['title']">
+        <a class="negative" [routerLink]="data.link"> {{data.name}}</a>
+    </span>
+
 </div>

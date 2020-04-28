@@ -114,11 +114,7 @@ export class UsersEditComponent implements OnInit {
     let dialogRef = this.dialog.open(RolesEditComponent, {
       disableClose: true,
       width: '40%',
-      data: finaldata
-      // data: {
-      //   first: finaldata,
-      //   second: finaldata
-      // }
+      data: JSON.parse(JSON.stringify(finaldata))
     });
   }
 

@@ -17,8 +17,6 @@ export class RolesEditComponent implements OnInit {
   roleFormArray: any;
   selecteddata: any;
   data: any;
-
-  visible = true;
   selectable = true;
   removable = true;
   filterValue: any;
@@ -27,41 +25,21 @@ export class RolesEditComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   roles: any;
   allRoles: any;
-  ids: any;
-  selectedRows: any;
   finalOutput: any;
-  mydata: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(@Inject(MAT_DIALOG_DATA) public rolesData: any,
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<RolesEditComponent>) {
-      console.log('MAT_DIALOG_DATA', this.rolesData);
-      // this.rolesData = this.rolesData.first;
     this.allRoles = this.rolesData[0]['roles'];
     this.roles = this.rolesData[1]['roles'];
-    this.mydata = this.rolesData[1]['roles'];
-   
-    
   }
 
   ngOnInit() {
     this.data = this.rolesData[0];
     this.selecteddata = this.rolesData[1];
-
-    const compareLabel = (obj1, obj2) => {
-      return (obj1.label === obj2.label);
-    }
-
-    this.finalOutput = this.allRoles.filter(b => {
-      let indexFound = this.roles.findIndex(a => compareLabel(a, b));
-      return indexFound == -1;
-    });
-
-    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
-      startWith(null),
-      map((role: string | null) => role ? this._filter(role) : this.finalOutput.slice()));
+    this.filteringData();
   }
 
 
@@ -70,10 +48,10 @@ export class RolesEditComponent implements OnInit {
       duration: 10000,
       verticalPosition: 'top'
     });
+    console.log('confirm', this.roles)
   }
 
   onCancel() {
-    this.roles = this.mydata;
     this.dialogRef.close();
   }
 
@@ -82,9 +60,9 @@ export class RolesEditComponent implements OnInit {
     const input = event.input;
     const value = event.value;
 
-    if ((value || '').trim()) {
-      this.roles.push(value.trim());
-    }
+    // if ((value || '').trim()) {
+    //   this.roles.push(value.trim());
+    // }
 
     // Reset the input value
     if (input) {
@@ -104,6 +82,7 @@ export class RolesEditComponent implements OnInit {
     this.roles.push(event.option.value);
     this.roleInput.nativeElement.value = '';
     this.roleCtrl.setValue(null);
+    this.filteringData();
   }
 
   private _filter(value: any): string[] {
@@ -113,6 +92,23 @@ export class RolesEditComponent implements OnInit {
       this.filterValue = value.toLowerCase();
     }
     return this.finalOutput.filter(role => role.label.toLowerCase().indexOf(this.filterValue) === 0);
+  }
+
+
+  // Remove the selected object
+  filteringData() {
+    const compareLabel = (obj1, obj2) => {
+      return (obj1.label === obj2.label);
+    }
+
+    this.finalOutput = this.allRoles.filter(b => {
+      let indexFound = this.roles.findIndex(a => compareLabel(a, b));
+      return indexFound == -1;
+    });
+
+    this.filteredRoles = this.roleCtrl.valueChanges.pipe(
+      startWith(null),
+      map((role: string | null) => role ? this._filter(role) : this.finalOutput.slice()));
   }
 
 }

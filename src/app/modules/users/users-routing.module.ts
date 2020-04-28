@@ -10,11 +10,11 @@ const routes: Routes = [
     path: '',
     data: { title: 'Home' },
     children: [
-      { path: 'users', component: UsersComponent, data: { title: 'users' }, pathMatch: 'full' },
+      { path: 'users', component: UsersComponent,  pathMatch: 'full' },
       {
-        path: 'list', component: UsersListComponent,  data: { title: 'users', pathMatch: 'full' }
+        path: 'list', component: UsersListComponent,
       },
-      { path: 'edit/:id', component: UsersEditComponent,data: { title: 'users' }}
+      { path: 'edit/:id', component: UsersEditComponent }
     ]
   }
 ];
