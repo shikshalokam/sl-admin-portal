@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService, keyCloakService } from '../modules/admin-core';
-import { MatDialog, MatSnackBar} from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { UnauthorizedComponent } from '../modules/admin-shared';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,13 +16,13 @@ export class HomeComponent implements OnInit {
   rolesArray: any;
   response: boolean = true;
   constructor(private usersService: UsersService, public dialog: MatDialog,
-    private KeycloakService: keyCloakService,private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private KeycloakService: keyCloakService, private _snackBar: MatSnackBar,
+    private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.promiseRowData = await this.usersService.getUserRoles();
-    if(this.promiseRowData['result']) {
-     this.rolesArray = this.promiseRowData['result'].roles;
+    if (this.promiseRowData['result']) {
+      this.rolesArray = this.promiseRowData['result'].roles;
     }
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
@@ -78,8 +78,8 @@ export class HomeComponent implements OnInit {
   ]
 
   // To Redirect the page
-  pageReDirect(data){
-    if(data === '/home'){
+  pageReDirect(data) {
+    if (data === '/home') {
       this._snackBar.open('Comming soon', 'Dismiss', {
         duration: 10000,
         verticalPosition: 'top'
@@ -87,6 +87,6 @@ export class HomeComponent implements OnInit {
     } else {
       this.router.navigateByUrl('/users/list')
     }
-   
+
   }
 }

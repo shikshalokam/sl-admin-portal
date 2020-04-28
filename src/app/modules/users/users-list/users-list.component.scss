@@ -39,11 +39,11 @@ td.mat-cell {
   cursor: pointer;
   padding-top: 8px;
 }
-.pageName {
-  background-color: white;
-  padding: 6px 10px 4px 25px;
-  color: $primary-color;
-}
+// .pageName {
+//   background-color: white;
+//   padding: 6px 10px 4px 25px;
+//   color: $primary-color;
+// }
 
 .actions {
   color: $primary-color;
@@ -91,7 +91,7 @@ td.mat-cell {
   color: $primary-color;
 }
 .btnactive {
-  width: 44%;
+  width: 47%;
 }
 
 // ::ng-deep.mat-option.mat-active {

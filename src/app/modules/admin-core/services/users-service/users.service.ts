@@ -40,14 +40,16 @@ export class UsersService {
     return this.Http.post(environment.base_url + UsersConfig.createUser, data)
   }
 
-  // Block user
-  blockUser(userid) {
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid + '?status=0')
-  }
+ 
 
-   // Block user
-  unBlockUser(userid) {
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userid + '?status=1')
+  // Active and deActivate user
+  active_deActive_User(userId, user) {
+    if (user.status === 0) {
+      user.status = 1;
+    } else {
+      user.status = 0;
+    }
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId+ '?status=' + user.status)
   }
 
   // get details to Edit

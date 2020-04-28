@@ -11,11 +11,12 @@ const routes: Routes = [
     path: 'users',
     canActivate: [RouteGuard],
     loadChildren: './modules/users/users.module#UsersModule',
+    data : {title : 'Users'}
   },
-  { path: 'home', component: HomeComponent },
-  { path: 'unauthorized', component: UnauthorizedComponent },
+  { path: 'home', component: HomeComponent, data : {title : 'Admin Console'} },
+  { path: 'unauthorized', component: UnauthorizedComponent, data : {title : 'Unauthorized User'} },
   {
-    path: 'comming-soon', component: CommingSoonComponent
+    path: 'comming-soon', component: CommingSoonComponent, data : {title : 'Comming soon'}
   },
   {
     path: '',

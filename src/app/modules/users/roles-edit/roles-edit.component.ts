@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -14,7 +14,6 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material
   styleUrls: ['./roles-edit.component.scss']
 })
 export class RolesEditComponent implements OnInit {
-  // myForm: FormGroup;
   roleFormArray: any;
   selecteddata: any;
   data: any;
@@ -31,15 +30,20 @@ export class RolesEditComponent implements OnInit {
   ids: any;
   selectedRows: any;
   finalOutput: any;
+  mydata: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(@Inject(MAT_DIALOG_DATA) public rolesData: any,
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<RolesEditComponent>) {
+      console.log('MAT_DIALOG_DATA', this.rolesData);
+      // this.rolesData = this.rolesData.first;
     this.allRoles = this.rolesData[0]['roles'];
     this.roles = this.rolesData[1]['roles'];
-
+    this.mydata = this.rolesData[1]['roles'];
+   
+    
   }
 
   ngOnInit() {
@@ -61,15 +65,16 @@ export class RolesEditComponent implements OnInit {
   }
 
 
-  onDismiss() {
-    this.roles = this.selecteddata.roles;
-    // this.dialogRef.close();
-  }
   onConfirm() {
     this._snackBar.open('Comming soon', 'Dismiss', {
       duration: 10000,
       verticalPosition: 'top'
     });
+  }
+
+  onCancel() {
+    this.roles = this.mydata;
+    this.dialogRef.close();
   }
 
 

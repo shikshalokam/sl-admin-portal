@@ -43,7 +43,7 @@ export class UsersListComponent implements OnInit {
   usersId: any[];
   dataArray: any[];
   status: any = '';
-  userId: any;
+  userObject: any;
   confirmPopupResult: any;
   queryParams = {
     page: 1,
@@ -97,7 +97,6 @@ export class UsersListComponent implements OnInit {
   getUserList() {
     this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
-      console.log('lllllllllllll', this.options);
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
       this.columns = new MatTableDataSource(data['result'].columns);
@@ -346,32 +345,11 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  // In activate
-  inActivateDialog(id): void {
-    this.userId = id;
-    const message = `Are you sure you want to do this action?`;
+  
 
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
-    });
-
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      this.confirmPopupResult = dialogResult;
-      if (this.confirmPopupResult) {
-        this.blockUser();
-      } else {
-        this.dialog.closeAll();
-      }
-
-    });
-  }
-
-  // activate
-  activateDialog(id) {
-    this.userId = id;
+  // confirmDialog
+  confirmDialog(user) {
+    this.userObject = user;
     const message = `Are you sure you want to do this?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
@@ -384,7 +362,7 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.unBlockUser();
+        this.activate_deActivate_User();
       } else {
         this.dialog.closeAll();
       }
@@ -392,26 +370,15 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  // Block User
-  blockUser() {
-    this.usersService.blockUser(this.userId).subscribe(data => {
+ 
+
+  // Activate and Deactivate User
+  activate_deActivate_User() {
+    this.usersService.active_deActive_User(this.userObject.id, this.userObject).subscribe(data => {
       setTimeout(() => {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getUserList();
-      }, 500);
-
-    }, error => {
-      console.log('blockUser', error);
-    })
-  }
-
-  // Block User
-  unBlockUser() {
-    this.usersService.unBlockUser(this.userId).subscribe(data => {
-      setTimeout(() => {
-        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-        this.getUserList();
-      }, 500);
+      }, 1000);
 
     }, error => {
       console.log('blockUser', error);

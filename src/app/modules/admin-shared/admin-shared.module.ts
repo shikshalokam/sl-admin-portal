@@ -45,7 +45,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, 
+    CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     MatMenuModule,

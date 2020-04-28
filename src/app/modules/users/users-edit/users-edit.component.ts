@@ -60,7 +60,7 @@ export class UsersEditComponent implements OnInit {
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
         this.details[i].list = [];
-        for (let j = 0; j< this.details[i].roles.length; j++){
+        for (let j = 0; j < this.details[i].roles.length; j++) {
           this.details[i].list.push(this.details[i].roles[j].label);
         }
       }
@@ -70,8 +70,8 @@ export class UsersEditComponent implements OnInit {
     })
   }
 
-  // In activate
-  inActivateDialog(): void {
+  // confirmDialog
+  confirmDialog(): void {
     const message = `Are you sure you want to do this?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
@@ -84,7 +84,7 @@ export class UsersEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.blockUser();
+        this.activate_deActivate_User();
       } else {
         this.dialog.closeAll();
       }
@@ -92,31 +92,11 @@ export class UsersEditComponent implements OnInit {
     });
   }
 
-  // activate
-  // activateDialog() {
-  //   const message = `Are you sure you want to do this?`;
 
-  //   const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
-  //   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-  //     maxWidth: "400px",
-  //     data: dialogData
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(dialogResult => {
-  //     this.confirmPopupResult = dialogResult;
-  //     if (this.confirmPopupResult) {
-  //       this.unBlockUser();
-  //     } else {
-  //       this.dialog.closeAll();
-  //     }
-
-  //   });
-  // }
-
-  // Block User
-  blockUser() {
-    this.usersService.blockUser(this.userId).subscribe(data => {
+  // activate and deActivate User
+  activate_deActivate_User() {
+    this.usersService.active_deActive_User(this.userId, this.editUserDetails).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.router.navigateByUrl('users/list');
     }, error => {
@@ -124,25 +104,21 @@ export class UsersEditComponent implements OnInit {
     })
   }
 
-  // Block User
-  // unBlockUser() {
-  //   this.usersService.unBlockUser(this.userId).subscribe(data => {
-  //     this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
-  //      this.getUserDetails();
-  //   }, error => {
-  //     console.log('blockUser', error);
-  //   })
-  // }
 
-// Edit popup
-  Edit(data) {
+
+  // Edit popup
+  editRoles(data) {
     const finaldata = []
     finaldata.push(this.editUserDetails);
     finaldata.push(data);
-    const dialogRef = this.dialog.open(RolesEditComponent, {
+    let dialogRef = this.dialog.open(RolesEditComponent, {
       disableClose: true,
       width: '40%',
       data: finaldata
+      // data: {
+      //   first: finaldata,
+      //   second: finaldata
+      // }
     });
   }
 
