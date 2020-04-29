@@ -10,10 +10,9 @@ const routes: Routes = [
   {
     path: 'users',
     canActivate: [RouteGuard],
-    loadChildren: './modules/users/users.module#UsersModule',
-    data: [{ title: 'Users' }, { link: '/home' }]
+    loadChildren: './modules/users/users.module#UsersModule'
   },
-  { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: ['/users/list']}]} },
+  { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },
   { path: 'unauthorized', component: UnauthorizedComponent, data: { title: 'Unauthorized User' } },
   {
     path: 'comming-soon', component: CommingSoonComponent, data: { title: 'Comming soon' }

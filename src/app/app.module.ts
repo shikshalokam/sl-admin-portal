@@ -45,9 +45,9 @@ export function tokenGetter() {
     }),
     AdminCoreModule,
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  // schemas: [
+  //   CUSTOM_ELEMENTS_SCHEMA
+  // ],
   entryComponents: [
     AppComponent
   ],

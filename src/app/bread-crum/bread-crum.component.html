@@ -1,6 +1,5 @@
-<div class="pageName">
+<div *ngIf="edit != 'edit/:id'" class="pageName">
     <span *ngFor="let data of crumData['title']">
-        <a class="negative" [routerLink]="data.link"> {{data.name}}</a>
+        <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> >
     </span>
-
 </div>

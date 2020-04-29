@@ -33,6 +33,7 @@ export class UsersEditComponent implements OnInit {
   roles: string[] = [];
   filterValue: any;
   userId: any;
+  crumData: any;
 
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -45,6 +46,13 @@ export class UsersEditComponent implements OnInit {
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getUserDetails();
+    this.route
+    .data
+    .subscribe(data => {
+      this.crumData = data;
+      console.log('BreadCrumComponent', this.crumData);
+    });
+  
   }
 
   reset() {

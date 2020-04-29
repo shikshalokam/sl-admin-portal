@@ -1,6 +1,8 @@
 <div class="pageName">
-  <a class="negative" [routerLink]="['/users/list']">Users</a> > <span
-    class="text-capital">{{editUserDetails?.firstName}}
+  <span *ngFor="let data of crumData['title']">
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> >
+  </span>
+  <span class="text-capital">{{editUserDetails?.firstName}}
     {{editUserDetails?.lastName}}</span>
 </div>
 
@@ -138,7 +140,7 @@
                 Organisations and Roles
               </mat-panel-title>
             </div>
-            <div>
+            <div *ngIf="editUserDetails?.organisations.length < editUserDetails?.organisationsList.length">
               <button mat-button class="actions" (click)="newOrganisation()" cdkFocusInitial>Add New
                 organisation</button>
             </div>

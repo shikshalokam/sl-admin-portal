@@ -11,9 +11,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class UsersListComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   columns: any;
   selected: any;
-  date = new Date();
+
   fileName: any;
   options: any[];
   organisations: any;
@@ -51,18 +52,18 @@ export class UsersListComponent implements OnInit {
   };
   firstorganisationValue: any;
   filteredOptions: any;
-
+  crumData: any;
   selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   filterStatus: string = '';
   filterType: string = '';
-
+  datePipe: any;
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
-    private commonServiceService: CommonServiceService) {
+    private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -88,7 +89,8 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
     this.createForm();
-    this.fileName = this.date.toLocaleDateString() + '-' + this.date.toLocaleTimeString();
+
+
   }
 
   /**
@@ -145,13 +147,6 @@ export class UsersListComponent implements OnInit {
     this.getUserList();
   }
 
-  activeUsers() {
-
-  }
-
-  inActiveUsers() {
-
-  }
 
   // change of organisation
   selectorganisation() {
@@ -303,6 +298,10 @@ export class UsersListComponent implements OnInit {
   }
 
   downloadapi() {
+    // this.fileName = '';
+    const date = new Date();
+    this.datePipe = new DatePipe("en-US");
+    this.fileName = 'Users' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
     const selectedData = this.selection.selected
     this.usersId = [];
     for (let i = 0; i < selectedData.length; i++) {
@@ -345,7 +344,7 @@ export class UsersListComponent implements OnInit {
     });
   }
 
-  
+
 
   // confirmDialog
   confirmDialog(user) {
@@ -370,7 +369,7 @@ export class UsersListComponent implements OnInit {
     });
   }
 
- 
+
 
   // Activate and Deactivate User
   activate_deActivate_User() {

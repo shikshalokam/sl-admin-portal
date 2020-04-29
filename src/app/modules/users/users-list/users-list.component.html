@@ -1,16 +1,11 @@
-<div class="pageName">
-  Users
-</div>
-<!-- <app-bread-crum></app-bread-crum> -->
 <div class="dashboard-content">
-
   <div class="c-toolbar">
     <div class="row" style="padding-top: 5px;">
-      <a style="padding-left: 30px;" [routerLink]="['/home']">
+      <a class="list-menu " [routerLink]="['/home']">
         <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
         </mat-icon>
       </a>
-      <div style="padding-left: 30px;">
+      <div class="list-menu ">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
           <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
@@ -21,7 +16,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div style="padding-left: 30px;">
+      <div class="list-menu ">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
           <input matInput #searchInput>

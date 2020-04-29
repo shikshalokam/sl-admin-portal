@@ -35,9 +35,15 @@ td.mat-cell {
 .mat-button {
   font-weight: 600;
 }
+.list-menu {
+  padding-left: 30px;
+}
 .home {
   cursor: pointer;
   padding-top: 8px;
+}
+.negative {
+  color: $primary-color;
 }
 // .pageName {
 //   background-color: white;
@@ -80,9 +86,9 @@ td.mat-cell {
 ::ng-deep.mat-select-panel-wrap {
   padding: 25px 15px 10px 16px;
 }
-.list-content{
+.list-content {
   width: 200px;
-   word-wrap: break-word
+  word-wrap: break-word;
 }
 .active {
   color: $green-color;
