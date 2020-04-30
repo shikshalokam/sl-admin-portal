@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
-        width: '25%',
+        // width: '25%',
+        // height: '20%',
         data: {}
       });
 
