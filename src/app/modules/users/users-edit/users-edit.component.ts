@@ -9,6 +9,7 @@ import { MatAutocomplete } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { RolesEditComponent } from '../roles-edit/roles-edit.component';
 import { DatePipe } from '@angular/common';
+import { AddOrganisationComponent } from '../add-organisation/add-organisation.component';
 
 
 
@@ -19,7 +20,6 @@ import { DatePipe } from '@angular/common';
 })
 export class UsersEditComponent implements OnInit {
   displayedColumns: string[] = ['Organisation', 'Roles', 'Action']
-
   editUserDetails: any;
   details: any;
   confirmPopupResult: any;
@@ -47,12 +47,12 @@ export class UsersEditComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('id');
     this.getUserDetails();
     this.route
-    .data
-    .subscribe(data => {
-      this.crumData = data;
-      console.log('BreadCrumComponent', this.crumData);
-    });
-  
+      .data
+      .subscribe(data => {
+        this.crumData = data;
+        console.log('BreadCrumComponent', this.crumData);
+      });
+
   }
 
   reset() {
@@ -72,6 +72,7 @@ export class UsersEditComponent implements OnInit {
           this.details[i].list.push(this.details[i].roles[j].label);
         }
       }
+      this.editUserDetails.userId = this.userId;
       this.load = true;
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
@@ -125,6 +126,29 @@ export class UsersEditComponent implements OnInit {
       width: '40%',
       data: JSON.parse(JSON.stringify(finaldata))
     });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+     console.log('confirmPopupResult', dialogResult)
+
+      // if (this.confirmPopupResult) {
+      //   this.activate_deActivate_User();
+      // } else {
+      //   this.dialog.closeAll();
+      // }
+
+    });
+  }
+
+  // Add organisation and roles to the user
+  addOrganisation(data) {
+    // let dialogRef = this.dialog.open(AddOrganisationComponent, {
+    //   disableClose: true,
+    //   width: '40%',
+    //   data: this.editUserDetails
+    // });
+    // dialogRef.afterClosed().subscribe(dialogResult => {
+    //  console.log('confirmPopupResult', dialogResult)
+    // });
+    this.newOrganisation();
   }
 
   // Add New Organisation 

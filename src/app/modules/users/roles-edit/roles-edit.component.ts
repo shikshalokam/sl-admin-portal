@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { UsersService } from '../../admin-core';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,18 +27,22 @@ export class RolesEditComponent implements OnInit {
   filteredRoles: Observable<string[]>;
   roles: any;
   allRoles: any;
+  userId: any;
   finalOutput: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(@Inject(MAT_DIALOG_DATA) public rolesData: any,
     private _snackBar: MatSnackBar,
+    private usersService: UsersService,
+    private route: ActivatedRoute,
     public dialogRef: MatDialogRef<RolesEditComponent>) {
     this.allRoles = this.rolesData[0]['roles'];
     this.roles = this.rolesData[1]['roles'];
   }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.paramMap.get('id');
     this.data = this.rolesData[0];
     this.selecteddata = this.rolesData[1];
     this.filteringData();
@@ -44,11 +50,28 @@ export class RolesEditComponent implements OnInit {
 
 
   onConfirm() {
-    this._snackBar.open('Comming soon', 'Dismiss', {
-      duration: 10000,
-      verticalPosition: 'top'
-    });
     console.log('confirm', this.roles)
+    this.dialogRef.close(true);
+    this.updateRoles();
+  }
+
+  // update existing roles
+  updateRoles() {
+    let data = {
+      userId: this.rolesData[0]['userId'],
+      organisationId: this.rolesData[1]['value'],
+      roles: this.roles
+    }
+    this.usersService.updateRoles(data).subscribe(data => {
+      console.log('role sucess', data);
+    }, error => {
+      console.log('error error', error);
+      this._snackBar.open(error.message, 'Dismiss', {
+        duration: 10000,
+        verticalPosition: 'top'
+      });
+
+    })
   }
 
   onCancel() {

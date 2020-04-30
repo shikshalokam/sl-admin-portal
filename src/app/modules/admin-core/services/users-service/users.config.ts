@@ -7,5 +7,6 @@ export const UsersConfig = {
     usersList: 'v1/organisations/users/',
     downloadUsers: 'v1/organisations/downloadUsers/',
     blockUser: 'v1/userExtension/statusUpdate/',
-    singleUser: 'v1/userExtension/details/'
+    singleUser: 'v1/userExtension/details/',
+    updateRoles: 'v1/organisations/assignRoles'
 }

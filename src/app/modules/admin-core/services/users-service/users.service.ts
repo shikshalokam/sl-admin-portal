@@ -40,7 +40,14 @@ export class UsersService {
     return this.Http.post(environment.base_url + UsersConfig.createUser, data)
   }
 
- 
+
+  // Roles Update
+  updateRoles(data) {
+    console.log('update service', data);
+    return this.Http.post(environment.base_url + UsersConfig.updateRoles, data)
+  }
+
+
 
   // Active and deActivate user
   active_deActive_User(userId, user) {
@@ -49,7 +56,7 @@ export class UsersService {
     } else {
       user.status = 0;
     }
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId+ '?status=' + user.status)
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
   }
 
   // get details to Edit

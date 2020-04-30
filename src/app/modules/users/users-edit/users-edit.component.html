@@ -141,7 +141,7 @@
               </mat-panel-title>
             </div>
             <div *ngIf="editUserDetails?.organisations.length < editUserDetails?.organisationsList.length">
-              <button mat-button class="actions" (click)="newOrganisation()" cdkFocusInitial>Add New
+              <button mat-button class="actions" (click)="addOrganisation(details)" cdkFocusInitial>Add New
                 organisation</button>
             </div>
           </div>
