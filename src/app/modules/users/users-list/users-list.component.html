@@ -61,13 +61,7 @@
   </div>
 
   <div class="example-container mat-elevation-z8">
-    <!-- <div *ngIf="listing == false" class="page-loading-shade">
-      <mat-spinner></mat-spinner>
-
-    </div> -->
     <app-spinner *ngIf="listing == false"></app-spinner>
-    <div class="custom-table-container">
-
       <mat-table [dataSource]="dataSource" matSort>
 
         <!-- <ng-container *ngFor="let column of columns" matColumnDef="{{column.label}}">
@@ -162,6 +156,5 @@
       <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
         [pageSizeOptions]="[5, 10, 25, 100]">
       </mat-paginator>
-    </div>
   </div>
 </div>

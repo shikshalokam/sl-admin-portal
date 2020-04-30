@@ -1,11 +1,6 @@
-<!-- <div class="form-full-width margin-top" [formGroup]="group">
-    <label>{{field.label}}</label>
+<mat-form-field class="form-full-width" [formGroup]="group">
+    <mat-label>{{field.label}}</mat-label>
+    <input matInput [formControlName]="field.field" [matDatepicker]="picker">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <input class="form-control custom-form" [matDatepicker]="picker" [formControlName]="field.name"
-        [placeholder]="field.label">
-    <mat-hint></mat-hint>
-    <ng-container *ngFor="let validation of field.validations;" ngProjectAs="mat-error">
-        <mat-error *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message}}</mat-error>
-    </ng-container>
-</div> -->
+</mat-form-field>

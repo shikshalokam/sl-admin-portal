@@ -80,13 +80,14 @@ export class UsersEditComponent implements OnInit {
 
   // confirmDialog
   confirmDialog(): void {
-    const message = `Are you sure you want to do this?`;
+    const message = `Are you sure you want to do this action ?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
-      data: dialogData
+      width: "310px",
+      height: "200px",
+      data: dialogData,
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {

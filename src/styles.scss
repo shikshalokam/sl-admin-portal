@@ -2603,6 +2603,41 @@ body {
   color: $primary-color;
 }
 
+.mat-dialog-container {
+  padding: 0px !important;
+  overflow: hidden !important;
+}
+
+.mat-dialog-content {
+  margin: 0px !important;
+ 
+}
+
+.mat-header-cell {
+  color: $black-color;
+  font-weight: 600;
+}
+
+th.mat-header-cell {
+  border-bottom-style: none !important;
+}
+td.mat-cell {
+  border-bottom-style: none !important;
+}
+th.mat-sort-header-sorted {
+  color: black !important;
+}
+
+.mat-button {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+// .mat-table {
+//   overflow: auto;
+//   height: 550px;
+// }
+
 
 
 

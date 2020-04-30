@@ -349,12 +349,13 @@ export class UsersListComponent implements OnInit {
   // confirmDialog
   confirmDialog(user) {
     this.userObject = user;
-    const message = `Are you sure you want to do this?`;
+    const message = `Are you sure you want to do this action ?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      maxWidth: "400px",
+      width: "310px",
+      height: "200px",
       data: dialogData
     });
 

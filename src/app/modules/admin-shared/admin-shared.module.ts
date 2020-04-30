@@ -29,7 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from './components/input/input.component';
 // import { ButtonComponent } from './components/button/button.component';
 import { SelectComponent } from './components/select/select.component';
-// import { DateComponent } from './components/date/date.component';
+import { DateComponent } from './components/date/date.component';
 import { RadiobuttonComponent } from './components/radiobutton/radiobutton.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './components/dynamic-field/dynamic-field.directive';
@@ -46,7 +46,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
     InputComponent, SelectComponent, RadiobuttonComponent, 
-    CheckboxComponent,MultiSelectComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -104,7 +104,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     InputComponent,
     // ButtonComponent,
     SelectComponent,
-    // DateComponent,
+    DateComponent,
     RadiobuttonComponent,
     PasswordComponent,
     CheckboxComponent,

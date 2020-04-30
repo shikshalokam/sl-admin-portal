@@ -10,7 +10,7 @@ import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-use
 import { UsersEditComponent } from './users-edit/users-edit.component';
 import { RolesEditComponent } from './roles-edit/roles-edit.component';
 import { CdkTableModule } from '@angular/cdk/table';
-
+import { DatePipe } from '@angular/common';
 
 
 
@@ -24,6 +24,7 @@ import { CdkTableModule } from '@angular/cdk/table';
     schemas: [
       CUSTOM_ELEMENTS_SCHEMA
   ],
+  providers: [ DatePipe],
   entryComponents: [AddUserComponent, AddMultipleUsersComponent,RolesEditComponent],
   declarations: [UsersComponent, DynamicFormComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent,  RolesEditComponent],
 })

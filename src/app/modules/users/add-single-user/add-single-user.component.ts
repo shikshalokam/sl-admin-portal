@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { UsersService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
-
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class AddUserComponent implements OnInit {
   loading: boolean = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
+    private datePipe : DatePipe,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
@@ -31,6 +32,7 @@ export class AddUserComponent implements OnInit {
 
   // Form Submit
   onSubmit() {
+    this.form.value.dateOfBirth = this.datePipe.transform(this.form.value.dateOfBirth, 'yyyy-MM-dd');
     console.log('form', JSON.stringify(this.form.value));
     if (this.form.form.valid) {
       if (this.form.value.email || this.form.value.phoneNumber) {
@@ -63,6 +65,8 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
+    console.log('')
+    userdata.dateOfBirth = this.datePipe.transform(userdata.dateOfBirth, 'yyyy-MM-dd');
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this._snackBar.open('User Created Successfully', 'Dismiss', {
