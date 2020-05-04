@@ -84,11 +84,14 @@
 
 .roles-head {
   display: flex;
-   justify-content: space-between;
-   padding: 15px;
+  justify-content: space-between;
+  padding: 15px;
 }
 .actions {
   color: $primary-color;
   background-color: #f3f4f5;
 }
-
+.c-mat-icon {
+  font-size: 70px;
+  padding-right: 80px !important;
+}

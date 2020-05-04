@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
       "data": "Add or Manage Users"
     },
     {
-      "routerlink": "/home",
+      "routerlink": "/organisations/list",
       "icon": "account_balance",
       "title": "Organisations",
       "data": "Add or Manage Organisations"
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
         verticalPosition: 'top'
       });
     } else {
-      this.router.navigateByUrl('/users/list')
+      this.router.navigateByUrl(data);
     }
 
   }

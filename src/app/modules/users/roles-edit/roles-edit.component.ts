@@ -4,7 +4,6 @@ import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { UsersService } from '../../admin-core';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +21,6 @@ export class RolesEditComponent implements OnInit {
   selectable = true;
   removable = true;
   filterValue: any;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
   roleCtrl = new FormControl();
   filteredRoles: Observable<string[]>;
   roles: any;

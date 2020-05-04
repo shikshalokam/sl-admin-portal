@@ -75,7 +75,6 @@ export class AddUserComponent implements OnInit {
         this.form.form.reset();
         this.dialogRef.close();
       }
-      this.dialogRef.close();
     }, error => {
       this._snackBar.open(error.error.message.params.errmsg, 'error', {
         duration: 10000,

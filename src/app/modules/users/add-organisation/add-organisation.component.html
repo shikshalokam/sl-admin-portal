@@ -29,8 +29,7 @@
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input placeholder="Roles" formControlName="addRoles" #roleInput [formControl]="roleCtrl"
-            [matAutocomplete]="auto1" [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+            [matAutocomplete]="auto1" [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
         <mat-error *ngIf="errorHandling('addRoles', 'required')">
           You must select Roles

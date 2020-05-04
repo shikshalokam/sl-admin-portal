@@ -3,7 +3,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatChipInputEvent, } from '@angular/material/chips';
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -27,7 +26,6 @@ export class AddOrganisationComponent implements OnInit {
   roleCtrl = new FormControl();
   addedRoles: any;
   roleValues: any = [];
-  separatorKeysCodes: number[] = [ENTER, COMMA];
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto1') matAutocomplete1: MatAutocomplete;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;

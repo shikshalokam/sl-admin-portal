@@ -1,0 +1,66 @@
+@import "../../../../assets/scss/variables.scss";
+
+
+.custom-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.c-toolbar {
+  color: $primary-color;
+  font-size: initial;
+  display: flex;
+  align-items: center;
+  background: whitesmoke;
+  justify-content: space-between;
+}
+
+.list-menu {
+  padding-left: 30px;
+}
+.home {
+  cursor: pointer;
+  padding-top: 8px;
+}
+.negative {
+  color: $primary-color;
+}
+
+.actions {
+  color: $primary-color;
+  background-color:$body-background;
+}
+
+.filter {
+  color: $primary-color;
+}
+
+.message {
+  text-align: center;
+  background-color: $white-color;
+}
+.mat-table {
+  overflow: auto;
+  height: 550px;
+}
+
+.dashboard-content {
+  padding: 30px 40px 15px 50px;
+}
+
+::ng-deep.mat-select-panel-wrap {
+  padding: 25px 15px 10px 16px;
+}
+.list-content {
+  width: 200px;
+  word-wrap: break-word;
+}
+.active {
+  color: $green-color;
+}
+.inactive {
+  color: $primary-color;
+}
+.btnactive {
+  width: 47%;
+}

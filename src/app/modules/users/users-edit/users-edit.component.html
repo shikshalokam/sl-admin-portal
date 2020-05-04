@@ -11,7 +11,7 @@
     <mat-card class="profile-card" style="border-radius: 0px;">
       <mat-card-content>
         <div style="display: flex;">
-          <mat-icon style="font-size: 70px;padding-right: 80px;">account_circle</mat-icon>
+          <mat-icon class="c-mat-icon">account_circle</mat-icon>
           <div>
             <div class="text-capital">
               <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
@@ -26,13 +26,10 @@
             <!-- <div *ngIf="editUserDetails?.status === 0" class="negative">
               In active
             </div> -->
-            <div *ngIf="editUserDetails?.lastLoginTime ==0" class="text-color">
-              Last Sign in : {{ editUserDetails?.lastLoginTime}} hours ago
+            <div class="text-color">
+              Last Sign in : {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }} hours ago
             </div>
-
-            <div *ngIf="editUserDetails?.lastLoginTime !=0" class="text-color">
-              Last Sign in : {{ editUserDetails?.lastLoginTime | date: 'medium'}}
-            </div>
+           
             <div class="text-color">
               Created on: {{editUserDetails?.createdDate | date:'medium'}}
             </div>
@@ -82,7 +79,6 @@
               <div>
                 {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}
               </div>
-              <!-- <label>First Name: {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}</label> -->
             </div>
 
             <div class="col-md-3">

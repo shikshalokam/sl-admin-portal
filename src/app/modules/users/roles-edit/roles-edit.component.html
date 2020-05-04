@@ -14,7 +14,7 @@
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input placeholder="Roles" #roleInput [formControl]="roleCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+          [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let role of filteredRoles | async" [value]="role">

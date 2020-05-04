@@ -12,6 +12,11 @@ const routes: Routes = [
     canActivate: [RouteGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
+  {
+    path: 'organisations',
+    // canActivate: [RouteGuard],
+    loadChildren: './modules/organisations/organisations.module#OrganisationsModule'
+  },
   { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },
   { path: 'unauthorized', component: UnauthorizedComponent, data: { title: 'Unauthorized User' } },
   {
