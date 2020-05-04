@@ -22,7 +22,7 @@ export class AddUserComponent implements OnInit {
   loading: boolean = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
-    private datePipe : DatePipe,
+    private datePipe: DatePipe,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
@@ -65,7 +65,6 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
-    console.log('')
     userdata.dateOfBirth = this.datePipe.transform(userdata.dateOfBirth, 'yyyy-MM-dd');
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
@@ -76,11 +75,13 @@ export class AddUserComponent implements OnInit {
         this.form.form.reset();
         this.dialogRef.close();
       }
+      this.dialogRef.close();
     }, error => {
       this._snackBar.open(error.error.message.params.errmsg, 'error', {
         duration: 10000,
         verticalPosition: 'top'
       });
+      this.dialogRef.close();
     });
   }
 

@@ -8,7 +8,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { UsersService } from '../../admin-core';
 import { ActivatedRoute } from '@angular/router';
-
+import { CommonServiceService } from '../../admin-core/services/common-service.service';
 
 @Component({
   selector: 'app-roles-edit',
@@ -28,7 +28,9 @@ export class RolesEditComponent implements OnInit {
   roles: any;
   allRoles: any;
   userId: any;
+  roleValues: any = [];
   finalOutput: any;
+  updateResponse: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -36,6 +38,7 @@ export class RolesEditComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private usersService: UsersService,
     private route: ActivatedRoute,
+    private commonServiceService: CommonServiceService,
     public dialogRef: MatDialogRef<RolesEditComponent>) {
     this.allRoles = this.rolesData[0]['roles'];
     this.roles = this.rolesData[1]['roles'];
@@ -57,13 +60,21 @@ export class RolesEditComponent implements OnInit {
 
   // update existing roles
   updateRoles() {
+
+    this.roles.forEach(element => {
+      this.roleValues.push(element.value);
+    });
     let data = {
       userId: this.rolesData[0]['userId'],
       organisationId: this.rolesData[1]['value'],
-      roles: this.roles
+      roles: this.roleValues
     }
     this.usersService.updateRoles(data).subscribe(data => {
       console.log('role sucess', data);
+      this.updateResponse = data;
+      this.dialogRef.close(true);
+      this.commonServiceService.commonSnackBar(this.updateResponse.message, 'success', 'top', 1000)
+
     }, error => {
       console.log('error error', error);
       this._snackBar.open(error.message, 'Dismiss', {

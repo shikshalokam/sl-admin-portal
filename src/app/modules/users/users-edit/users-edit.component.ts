@@ -50,7 +50,6 @@ export class UsersEditComponent implements OnInit {
       .data
       .subscribe(data => {
         this.crumData = data;
-        console.log('BreadCrumComponent', this.crumData);
       });
 
   }
@@ -63,7 +62,6 @@ export class UsersEditComponent implements OnInit {
   getUserDetails() {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
-      console.log('editUserDetails', this.editUserDetails);
       this.details = this.editUserDetails.organisations;
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
@@ -127,28 +125,27 @@ export class UsersEditComponent implements OnInit {
       data: JSON.parse(JSON.stringify(finaldata))
     });
     dialogRef.afterClosed().subscribe(dialogResult => {
-     console.log('confirmPopupResult', dialogResult)
-
-      // if (this.confirmPopupResult) {
-      //   this.activate_deActivate_User();
-      // } else {
-      //   this.dialog.closeAll();
-      // }
+      if (dialogResult) {
+        this.getUserDetails();
+      } else {
+        this.dialog.closeAll();
+      }
 
     });
   }
 
   // Add organisation and roles to the user
   addOrganisation(data) {
-    // let dialogRef = this.dialog.open(AddOrganisationComponent, {
-    //   disableClose: true,
-    //   width: '40%',
-    //   data: this.editUserDetails
-    // });
-    // dialogRef.afterClosed().subscribe(dialogResult => {
-    //  console.log('confirmPopupResult', dialogResult)
-    // });
-    this.newOrganisation();
+    let dialogRef = this.dialog.open(AddOrganisationComponent, {
+      disableClose: true,
+      width: '40%',
+      data: this.editUserDetails
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if (dialogResult) {
+        this.getUserDetails();
+      }
+    });
   }
 
   // Add New Organisation 

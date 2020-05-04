@@ -8,5 +8,6 @@ export const UsersConfig = {
     downloadUsers: 'v1/organisations/downloadUsers/',
     blockUser: 'v1/userExtension/statusUpdate/',
     singleUser: 'v1/userExtension/details/',
-    updateRoles: 'v1/organisations/assignRoles'
+    updateRoles: 'v1/organisations/assignRoles',
+    addRoles: 'v1/organisations/addUser'
 }

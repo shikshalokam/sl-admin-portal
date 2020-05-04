@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER, DoBootstrap, CUSTOM_ELEMENTS_SCHEMA, ApplicationRef } from '@angular/core';
+import { NgModule, APP_INITIALIZER, DoBootstrap, ApplicationRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule, TranslateService, SharedModule } from 'shikshalokam';
@@ -45,9 +45,6 @@ export function tokenGetter() {
     }),
     AdminCoreModule,
   ],
-  // schemas: [
-  //   CUSTOM_ELEMENTS_SCHEMA
-  // ],
   entryComponents: [
     AppComponent
   ],
