@@ -14,6 +14,7 @@ import { AdminSharedModule } from './modules/admin-shared';
 import { environment } from 'src/environments/environment';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { HomeComponent } from './home/home.component';
+import { BreadCrumComponent } from './bread-crum/bread-crum.component';
 
 
 export function tokenGetter() {
@@ -26,6 +27,7 @@ export function tokenGetter() {
     // FooterComponent,
     LoginComponent,
     HomeComponent,
+    BreadCrumComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ export function tokenGetter() {
     }),
     AdminCoreModule,
   ],
-  entryComponents:[
+  entryComponents: [
     AppComponent
   ],
   providers: [TranslateService,

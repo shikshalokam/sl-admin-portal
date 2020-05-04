@@ -11,6 +11,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
+import { Router, ActivatedRoute } from '@angular/router';
+import { CommonServiceService } from '../../admin-core/services/common-service.service';
+import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-users-list',
@@ -18,11 +23,13 @@ import { saveAs as importedSaveAs } from "file-saver";
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'role', 'Action'];
+  // displayedColumns: any;
+  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
+  columns: any;
   selected: any;
-  date = new Date();
+
   fileName: any;
   options: any[];
   organisations: any;
@@ -36,22 +43,27 @@ export class UsersListComponent implements OnInit {
   loading: boolean = false;
   usersId: any[];
   dataArray: any[];
+  status: any = '';
+  userObject: any;
+  confirmPopupResult: any;
   queryParams = {
     page: 1,
     size: 10,
   };
   firstorganisationValue: any;
   filteredOptions: any;
-
+  crumData: any;
   selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   filterStatus: string = '';
   filterType: string = '';
+  datePipe: any;
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
-    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, ) {
+    public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
+    private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -77,20 +89,23 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
     this.createForm();
-    this.fileName = this.date.toLocaleDateString() + '-' + this.date.toLocaleTimeString();
+
+
   }
 
   /**
 * To get Userslist
 */
   getUserList() {
-    this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value).subscribe(data => {
+    this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
       this.refreshDatasource(data['result'].data);
       this.dataSource = new MatTableDataSource(data['result'].data);
+      this.columns = new MatTableDataSource(data['result'].columns);
+      // this.displayedColumns = this.columns.map(column => column.label);
       this.dataSource.sort = this.sort;
       this.recordCount = data['result'].count;
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
       this.listing = true;
     }, error => {
       this.listing = true;
@@ -104,6 +119,35 @@ export class UsersListComponent implements OnInit {
     this.dataSource = data;
   }
 
+
+  // Display the status based on id
+  getStatus(status): string {
+    switch (status) {
+      case 0:
+        return 'Inactive';
+      case 1:
+        return 'Active';
+    }
+    return '-- --';
+  }
+
+  // Filtering the data on status
+  allUsers(value) {
+    switch (value) {
+      case 'Inactive':
+        this.status = 0;
+        break;
+      case 'Active':
+        this.status = 1;
+        break;
+      case 'All':
+        this.status = '';
+        break;
+    }
+    this.getUserList();
+  }
+
+
   // change of organisation
   selectorganisation() {
     this.orgnsationId = this.selected;
@@ -115,7 +159,7 @@ export class UsersListComponent implements OnInit {
   onKey(value) {
     if (value) {
       this.organisations = this.selectSearch(value);
-      this.cdr.detectChanges();
+      // this.cdr.detectChanges();
     } else {
       this.organisations = this.organisationsList;
     }
@@ -176,6 +220,7 @@ export class UsersListComponent implements OnInit {
           duration: 10000,
           verticalPosition: 'top'
         });
+        this.listing = true;
       }
     }, error => {
       this._snackBar.open('No Organisations Found', 'Dismiss', {
@@ -187,6 +232,10 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
+    setTimeout(() => {
+      this.getUserList();
+      // this.cdr.detectChanges();
+    }, 3000)
   }
 
   createForm() {
@@ -214,6 +263,16 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
   }
+  // get color based on the status
+  getItemCssClassByStatus(status): string {
+    switch (status) {
+      case 1:
+        return 'active';
+      case 0:
+        return 'inactive';
+    }
+    return '';
+  }
 
   // Adding multiple users popup
   UploadUsers() {
@@ -239,6 +298,10 @@ export class UsersListComponent implements OnInit {
   }
 
   downloadapi() {
+    // this.fileName = '';
+    const date = new Date();
+    this.datePipe = new DatePipe("en-US");
+    this.fileName = 'Users' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
     const selectedData = this.selection.selected
     this.usersId = [];
     for (let i = 0; i < selectedData.length; i++) {
@@ -273,15 +336,6 @@ export class UsersListComponent implements OnInit {
   }
 
 
-  // To Edit the user
-  editUser(user) {
-
-  }
-
-  ViewUser(user) {
-
-  }
-
   commingsoon() {
     this._snackBar.open('Comming soon', 'Dismiss', {
       duration: 10000,
@@ -289,6 +343,52 @@ export class UsersListComponent implements OnInit {
       // horizontalPosition: 'end',
     });
   }
+
+
+
+  // confirmDialog
+  confirmDialog(user) {
+    this.userObject = user;
+    const message = `Are you sure you want to do this action ?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "310px",
+      height: "200px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.activate_deActivate_User();
+      } else {
+        this.dialog.closeAll();
+      }
+
+    });
+  }
+
+
+
+  // Activate and Deactivate User
+  activate_deActivate_User() {
+    this.usersService.active_deActive_User(this.userObject.id, this.userObject).subscribe(data => {
+      setTimeout(() => {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+        this.getUserList();
+      }, 1000);
+
+    }, error => {
+      console.log('blockUser', error);
+    })
+  }
+
+  editUser(user) {
+    this.router.navigate(['/users/edit', user.id])
+  }
+
 
 
 }

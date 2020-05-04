@@ -10,12 +10,17 @@ const routes: Routes = [
   {
     path: 'users',
     canActivate: [RouteGuard],
-    loadChildren: './modules/users/users.module#UsersModule',
+    loadChildren: './modules/users/users.module#UsersModule'
   },
-  { path: 'home', component: HomeComponent },
-  { path: 'unauthorized', component: UnauthorizedComponent },
   {
-    path: 'comming-soon', component: CommingSoonComponent
+    path: 'organisations',
+    // canActivate: [RouteGuard],
+    loadChildren: './modules/organisations/organisations.module#OrganisationsModule'
+  },
+  { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },
+  { path: 'unauthorized', component: UnauthorizedComponent, data: { title: 'Unauthorized User' } },
+  {
+    path: 'comming-soon', component: CommingSoonComponent, data: { title: 'Comming soon' }
   },
   {
     path: '',

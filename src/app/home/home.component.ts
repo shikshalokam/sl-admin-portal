@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService, keyCloakService } from '../modules/admin-core';
-import { MatDialog, MatSnackBar} from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { UnauthorizedComponent } from '../modules/admin-shared';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -16,13 +16,13 @@ export class HomeComponent implements OnInit {
   rolesArray: any;
   response: boolean = true;
   constructor(private usersService: UsersService, public dialog: MatDialog,
-    private KeycloakService: keyCloakService,private _snackBar: MatSnackBar,
-    private router: Router) { }
+    private KeycloakService: keyCloakService, private _snackBar: MatSnackBar,
+    private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit() {
     this.promiseRowData = await this.usersService.getUserRoles();
-    if(this.promiseRowData['result']) {
-     this.rolesArray = this.promiseRowData['result'].roles;
+    if (this.promiseRowData['result']) {
+      this.rolesArray = this.promiseRowData['result'].roles;
     }
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
@@ -40,7 +40,8 @@ export class HomeComponent implements OnInit {
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
-        width: '25%',
+        // width: '25%',
+        // height: '20%',
         data: {}
       });
 
@@ -58,13 +59,13 @@ export class HomeComponent implements OnInit {
       "data": "See Relevant data of organisation"
     },
     {
-      "routerlink": "/users/users-list",
+      "routerlink": "/users/list",
       "icon": "person",
       "title": "Users",
       "data": "Add or Manage Users"
     },
     {
-      "routerlink": "/home",
+      "routerlink": "/organisations/list",
       "icon": "account_balance",
       "title": "Organisations",
       "data": "Add or Manage Organisations"
@@ -78,15 +79,15 @@ export class HomeComponent implements OnInit {
   ]
 
   // To Redirect the page
-  pageReDirect(data){
-    if(data === '/home'){
+  pageReDirect(data) {
+    if (data === '/home') {
       this._snackBar.open('Comming soon', 'Dismiss', {
         duration: 10000,
         verticalPosition: 'top'
       });
     } else {
-      this.router.navigateByUrl('/users/users-list')
+      this.router.navigateByUrl(data);
     }
-   
+
   }
 }

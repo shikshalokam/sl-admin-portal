@@ -1,0 +1,17 @@
+@import "../../../../assets/scss/variables.scss";
+.task-header {
+  background-color: $primary-color;
+}
+.mat-dialog-actions {
+  padding-right: 42px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-weight: 600;
+  color: $white-color;
+  text-align: center;
+  margin-right: 12%;
+  padding: 5px 0px 0px 12px;
+}
+

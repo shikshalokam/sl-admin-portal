@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-BehaviorSubject
+import { MatSnackBar } from '@angular/material';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,9 @@ export class CommonServiceService {
   private message = new BehaviorSubject('First Message');
   sharedMessage = this.message.asObservable();
   details: any;
+  editUserDetails: any;
 
-  constructor() { }
+  constructor(private _snackBar: MatSnackBar) { }
 
   nextMessage(message: string) {
     this.message.next(message)
@@ -25,4 +27,13 @@ export class CommonServiceService {
   getUserDetails() {
     return this.details;
   }
+
+  // Commonly used in all pages
+  commonSnackBar(message, action, position, time) {
+    this._snackBar.open(message, action, {
+      duration: time,
+      verticalPosition: position
+    });
+  }
+
 }

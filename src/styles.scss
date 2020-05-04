@@ -335,7 +335,7 @@ display: flex;
 
 
 .dashboard-wrapper{
-  background: white;
+  // background: white;
   min-height: calc(100vh);
   width: 100%;
  box-shadow: 0 0 35px rgba(101, 113, 164, 0.1);
@@ -2580,8 +2580,8 @@ body {
 }
 
 .pageName {
-  background-color: #f3f4f5;
-  padding: 6px 10px 4px 25px;
+  background-color: $white-color;
+  padding: 1px 3px 3px 10px;
   color: $primary-color;
 }
 
@@ -2595,6 +2595,49 @@ body {
 .mat-simple-snackbar-action button {
   color:rgb(233, 228, 221);
 }
+
+.postive {
+  color: $green-color;
+}
+.negative {
+  color: $primary-color;
+}
+
+.mat-dialog-container {
+  padding: 0px !important;
+  overflow: hidden !important;
+}
+
+.mat-dialog-content {
+  margin: 0px !important;
+ 
+}
+
+.mat-header-cell {
+  color: $black-color;
+  font-weight: 600;
+}
+
+th.mat-header-cell {
+  border-bottom-style: none !important;
+}
+td.mat-cell {
+  border-bottom-style: none !important;
+}
+th.mat-sort-header-sorted {
+  color: black !important;
+}
+
+.mat-button {
+  font-weight: 600;
+  color: $primary-color;
+}
+
+// .mat-table {
+//   overflow: auto;
+//   height: 550px;
+// }
+
 
 
 

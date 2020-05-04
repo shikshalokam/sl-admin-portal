@@ -14,6 +14,7 @@ export class UsersService {
   private subject = new Subject<any>();
   constructor(private Http: HttpClient) { }
 
+  // To get the dynamic form
   getUserForm() {
     return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
@@ -30,12 +31,43 @@ export class UsersService {
 
 
   // To get the orginsations based on the user logged in
-  getUsers(data, orgid, searchfield) {
-    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
+  getUsers(data, orgid, searchfield, status) {
+    return this.Http.get(environment.base_url + UsersConfig.usersList + orgid + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield + '&status=' + status);
   }
 
+  // User creation
   createUser(data) {
     return this.Http.post(environment.base_url + UsersConfig.createUser, data)
+  }
+
+
+  // Roles Update
+  updateRoles(data) {
+    console.log('update service', data);
+    return this.Http.post(environment.base_url + UsersConfig.updateRoles, data)
+  }
+
+  // Roles Update
+  addOrganisation_Roles(data) {
+    console.log('addOrganisation_Roles service', data);
+    return this.Http.post(environment.base_url + UsersConfig.addRoles, data)
+  }
+
+
+
+  // Active and deActivate user
+  active_deActive_User(userId, user) {
+    if (user.status === 0) {
+      user.status = 1;
+    } else {
+      user.status = 0;
+    }
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
+  }
+
+  // get details to Edit
+  singleUserDetails(id) {
+    return this.Http.get(environment.base_url + UsersConfig.singleUser + id)
   }
 
   async getUserRoles() {
