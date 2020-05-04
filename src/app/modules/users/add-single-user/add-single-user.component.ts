@@ -80,7 +80,6 @@ export class AddUserComponent implements OnInit {
         duration: 10000,
         verticalPosition: 'top'
       });
-      this.dialogRef.close();
     });
   }
 

@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
     if (this.promiseRowData['result']) {
       this.rolesArray = this.promiseRowData['result'].roles;
     }
+    console.log(' this.rolesArray', this.rolesArray);
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
       this.response = false
@@ -85,7 +86,11 @@ export class HomeComponent implements OnInit {
         duration: 10000,
         verticalPosition: 'top'
       });
-    } else {
+    }
+    // else if (this.rolesArray.includes("PLATFORM_ADMIN")) {
+    //   this.router.navigateByUrl(data);
+    // }
+    else {
       this.router.navigateByUrl(data);
     }
 

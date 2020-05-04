@@ -9,12 +9,12 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: 'users',
-    canActivate: [RouteGuard],
+    // canActivate: [RouteGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
   {
     path: 'organisations',
-    // canActivate: [RouteGuard],
+    canActivate: [RouteGuard],
     loadChildren: './modules/organisations/organisations.module#OrganisationsModule'
   },
   { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },

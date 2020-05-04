@@ -108,6 +108,7 @@ export class RolesEditComponent implements OnInit {
     if (index >= 0) {
       this.roles.splice(index, 1);
     }
+    this.filteringData();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {

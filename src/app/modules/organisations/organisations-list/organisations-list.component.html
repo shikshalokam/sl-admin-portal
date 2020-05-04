@@ -77,8 +77,13 @@
         </td>
       </ng-container>
 
-       <ng-container matColumnDef="Organisation">
+      <ng-container matColumnDef="Organisation">
         <mat-header-cell *matHeaderCellDef> Organisation</mat-header-cell>
+        <mat-cell class="text-capital" *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
         <mat-cell class="text-capital" *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
       </ng-container>
 
@@ -99,16 +104,7 @@
         <mat-cell class="text-capital" *matCellDef="let row"> {{row.lastName ? row.lastName: '-- --'}}</mat-cell>
       </ng-container> -->
 
-      <!-- Role Column -->
-      <ng-container matColumnDef="role">
-        <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <div class="list-content">
-            {{row?.role ? row?.role : '-- --'}}
-          </div>
 
-        </mat-cell>
-      </ng-container>
 
       <!-- gender Column -->
       <!-- <ng-container matColumnDef="gender">
@@ -120,6 +116,16 @@
         <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <span class="{{getItemCssClassByStatus(row.status)}}">{{getStatus(row.status)}}</span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Role Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef> Count </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <div class="list-content">
+            {{row?.role ? row?.role : '-- --'}}
+          </div>
         </mat-cell>
       </ng-container>
 
