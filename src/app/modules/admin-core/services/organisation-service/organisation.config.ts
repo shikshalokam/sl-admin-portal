@@ -1,4 +1,6 @@
 
 export const OrganisationConfig = {
-    usersList: 'v1/organisations/users/',
+    organisationList: 'v1/organisations/detailList',
+    organisationForm: ''
+
 }

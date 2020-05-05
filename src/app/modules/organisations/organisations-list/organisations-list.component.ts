@@ -1,9 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fromEvent } from 'rxjs';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { OrganisationService } from '../../admin-core';
+import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
+import { CommonServiceService } from '../../admin-core/services/common-service.service';
+
 
 
 @Component({
@@ -12,13 +15,15 @@ import { OrganisationService } from '../../admin-core';
   styleUrls: ['./organisations-list.component.scss']
 })
 export class OrganisationsListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'Organisation', 'description', 'status', 'role', 'Action'];
+  displayedColumns: string[] = ['select', 'organisationName', 'description', 'status', 'noOfMembers', 'Action'];
   dataSource: MatTableDataSource<any>;
   selection = new SelectionModel(true, []);
   listing: boolean = true;
   recordCount: any;
   columns: any;
-  usersListData: any;
+  organisationListData: any;
+  fieldsForOrganisation: any;
+  formdata: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -26,7 +31,8 @@ export class OrganisationsListComponent implements OnInit {
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private organisationService: OrganisationService) { }
+  constructor(private organisationService: OrganisationService,
+    private dialog: MatDialog, private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
@@ -42,24 +48,36 @@ export class OrganisationsListComponent implements OnInit {
       , distinctUntilChanged()
       // subscription for response
     ).subscribe((text: string) => {
-      this.getUserList();
+      this.getOrganisationList();
     });
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
       this.queryParams.size = page.pageSize;
-      this.getUserList();
+      this.getOrganisationList();
     });
+    this.getOrganisationList();
+  }
+
+  // get color based on the status
+  getItemCssClassByStatus(status): string {
+    switch (status) {
+      case 'Active':
+        return 'active';
+      case 'Inactive':
+        return 'inactive';
+    }
+    return '';
   }
 
   /**
-* To get Userslist
+* To get OrganisationList
 */
-  getUserList() {
-    this.organisationService.getOrganisationList().subscribe(data => {
-      this.usersListData = data['result'];
-      this.refreshDatasource(data['result'].data);
-      this.dataSource = new MatTableDataSource(data['result'].data);
-      this.columns = new MatTableDataSource(data['result'].columns);
+  getOrganisationList() {
+    this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value).subscribe(data => {
+      this.organisationListData = data['result'];
+      this.refreshDatasource(data['result']['data']);
+      this.dataSource = new MatTableDataSource(data['result']['data']);
+      // this.columns = new MatTableDataSource(data['result'].columns);
       this.dataSource.sort = this.sort;
       this.recordCount = data['result'].count;
       this.listing = true;
@@ -69,18 +87,49 @@ export class OrganisationsListComponent implements OnInit {
     });
   }
 
+  // Organisation Form
+  createOrganisationForm() {
+    this.organisationService.getOrganisationForm().subscribe(data => {
+      this.formdata = data['result'];
+      this.fieldsForOrganisation = this.formdata.form;
+    }, error => {
+
+    });
+  }
+
+  editOrganisation(data) {
+    console.log('editOrganisation', data);
+    this.commingSoon();
+  }
+
   refreshDatasource(data) {
     this.dataSource = data;
   }
 
   // For adding new organisation
   addNewOrganisation() {
+    this.openDialog(this.fieldsForOrganisation);
 
+  }
+
+  // Adding Organisation popup
+  openDialog(fieldsForOrganisation): void {
+    const dialogRef = this.dialog.open(CreateOrganisationComponent
+      , {
+        disableClose: true,
+        width: '50%',
+        data: { fieldsForOrganisation }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getOrganisationList();
+    });
   }
 
   // To download organisations
   downloadOrganisations() {
-
+    this.commingSoon();
   }
 
 
@@ -108,4 +157,7 @@ export class OrganisationsListComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
   }
 
+  commingSoon() {
+    this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);
+  }
 }

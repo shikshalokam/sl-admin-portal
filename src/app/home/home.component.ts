@@ -87,10 +87,7 @@ export class HomeComponent implements OnInit {
         verticalPosition: 'top'
       });
     }
-    // else if (this.rolesArray.includes("PLATFORM_ADMIN")) {
-    //   this.router.navigateByUrl(data);
-    // }
-    else {
+     else {
       this.router.navigateByUrl(data);
     }
 

@@ -15,7 +15,7 @@ export class RouteGuard implements CanActivate {
   tokendetails: any;
   constructor(private usersService: UsersService, private route: Router,
     private keycloakService: keyCloakService, private commonServiceService: CommonServiceService) {
-    
+
   }
   async canActivate(
     next: ActivatedRouteSnapshot,
@@ -28,8 +28,8 @@ export class RouteGuard implements CanActivate {
     if (this.tokendetails.token && this.rolesArray.includes("PLATFORM_ADMIN")) {
       return true;
     } else {
-      // this.route.navigate(['/unauthorized']);
-      this.commonServiceService.commonSnackBar('unauthorized', 'error', 'top', 1000)
+      this.route.navigate(['/home']);
+      this.commonServiceService.commonSnackBar('Unauthorized user', 'error', 'top', 1000)
       return false;
     }
 

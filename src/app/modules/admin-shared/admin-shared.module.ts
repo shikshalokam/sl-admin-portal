@@ -38,6 +38,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordComponent } from './components/password/password.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 
 
 
@@ -45,7 +46,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, 
+    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
     CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
@@ -98,6 +99,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatChipsModule,
     MatRadioModule,
     MatButtonToggleModule,
+    DynamicFormComponent,
     NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

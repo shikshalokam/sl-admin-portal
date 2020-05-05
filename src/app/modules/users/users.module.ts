@@ -1,7 +1,7 @@
 import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminSharedModule, DynamicFormComponent } from '../admin-shared';
+import { AdminSharedModule } from '../admin-shared';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-single-user/add-single-user.component';
@@ -26,6 +26,6 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
   ],
   providers: [ DatePipe],
   entryComponents: [AddUserComponent,AddOrganisationComponent, AddMultipleUsersComponent,RolesEditComponent],
-  declarations: [DynamicFormComponent, AddOrganisationComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent,  RolesEditComponent, AddOrganisationComponent],
+  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent,  RolesEditComponent, AddOrganisationComponent],
 })
 export class UsersModule { }

@@ -42,7 +42,7 @@ export class AddOrganisationComponent implements OnInit {
 
     this.filteredRoles = this.roleCtrl.valueChanges.pipe(
       startWith(null),
-      map((role: string | null) => role ? this._filter1(role) : this.organisationData.roles.slice()));
+      map((role: string | null) => role ? this._filterRoles(role) : this.organisationData.roles.slice()));
   }
 
   onCancel() {
@@ -150,7 +150,7 @@ export class AddOrganisationComponent implements OnInit {
   }
 
 
-  private _filter1(value: any) {
+  private _filterRoles(value: any) {
     if (typeof (value) == 'object') {
       this.filterValue = value.label.toLowerCase();
     } else {
