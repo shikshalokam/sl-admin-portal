@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { fromEvent } from 'rxjs';
+import { fromEvent, of, Observable } from 'rxjs';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { OrganisationService } from '../../admin-core';
 import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,10 +15,11 @@ import { CommonServiceService } from '../../admin-core/services/common-service.s
   styleUrls: ['./organisations-list.component.scss']
 })
 export class OrganisationsListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'organisationName', 'description', 'status', 'noOfMembers', 'Action'];
+
   dataSource: MatTableDataSource<any>;
+  displayedColumns: any = [];
   selection = new SelectionModel(true, []);
-  listing: boolean = true;
+  listing: boolean = false;
   recordCount: any;
   columns: any;
   organisationListData: any;
@@ -30,11 +31,11 @@ export class OrganisationsListComponent implements OnInit {
   };
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-  constructor(private organisationService: OrganisationService,
+  constructor(private organisationService: OrganisationService, private router: Router,
     private dialog: MatDialog, private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
+
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -69,6 +70,10 @@ export class OrganisationsListComponent implements OnInit {
     return '';
   }
 
+  allOrganisation() {
+
+  }
+
   /**
 * To get OrganisationList
 */
@@ -76,9 +81,17 @@ export class OrganisationsListComponent implements OnInit {
     this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value).subscribe(data => {
       this.organisationListData = data['result'];
       this.refreshDatasource(data['result']['data']);
+      this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result']['data']);
-      // this.columns = new MatTableDataSource(data['result'].columns);
-      this.dataSource.sort = this.sort;
+      this.columns = data['result']['columns'];
+      if (this.organisationListData) {
+        this.columns.forEach(element => {
+          if (element.visible) {
+            this.displayedColumns.push(element.key)
+          }
+        });
+      }
+      // this.displayedColumns = this.columns.concat([{key:'myExtraColumn'}]);
       this.recordCount = data['result'].count;
       this.listing = true;
     }, error => {
@@ -99,6 +112,7 @@ export class OrganisationsListComponent implements OnInit {
 
   editOrganisation(data) {
     console.log('editOrganisation', data);
+    this.router.navigate(['/organisations/edit', data._id])
     this.commingSoon();
   }
 
@@ -161,3 +175,8 @@ export class OrganisationsListComponent implements OnInit {
     this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);
   }
 }
+
+
+
+
+

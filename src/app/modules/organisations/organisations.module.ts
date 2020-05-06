@@ -6,9 +6,10 @@ import { OrganisationsListComponent } from './organisations-list/organisations-l
 import { CreateOrganisationComponent } from './create-organisation/create-organisation.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
+import { OrganisationEditComponent } from './organisation-edit/organisation-edit.component';
 
 @NgModule({
-  declarations: [OrganisationsListComponent, CreateOrganisationComponent],
+  declarations: [OrganisationsListComponent, CreateOrganisationComponent, OrganisationEditComponent],
   imports: [
     CommonModule,
     AdminSharedModule,

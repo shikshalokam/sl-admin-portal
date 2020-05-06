@@ -1,9 +1,9 @@
 <div class="pageName">
   <span *ngFor="let data of crumData['title']">
-    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> >
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> 
   </span>
-  <span class="text-capital">{{editUserDetails?.firstName}}
-    {{editUserDetails?.lastName}}</span>
+  <!-- <span class="text-capital">{{editUserDetails?.firstName}}
+    {{editUserDetails?.lastName}}</span> -->
 </div>
 
 <div class="dashboard-content">
@@ -11,25 +11,27 @@
     <mat-card class="profile-card" style="border-radius: 0px;">
       <mat-card-content>
         <div style="display: flex;">
-          <mat-icon class="c-mat-icon">account_circle</mat-icon>
+          <mat-icon class="c-mat-icon">account_balance</mat-icon>
           <div>
-            <div class="text-capital">
+            <!-- <div class="text-capital">
               <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
-            </div>
-            <!-- <div>
-              a1@shikshalokamdev
             </div> -->
+            <div>
+                a1@shikshalokamdev
+              </div>
             <div class="positive">
               Active
             </div>
 
             <!-- <div *ngIf="editUserDetails?.status === 0" class="negative">
-              In active
+                In active
+              </div> -->
+            <!-- <div class="text-color">
+              Last Sign in :
+              {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }}
+              hours ago
             </div> -->
-            <div class="text-color">
-              Last Sign in : {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }} hours ago
-            </div>
-           
+
             <div class="text-color">
               Created on: {{editUserDetails?.createdDate | date:'medium'}}
             </div>
@@ -39,27 +41,27 @@
       </mat-card-content>
       <div class=" row c-line"></div>
       <div class="row" style="padding:10px">
-        <div matTooltip="Reset Password" class="col-md-9 profile-actions-icon" (click)="reset()">
+        <!-- <div matTooltip="Reset Password" class="col-md-9 profile-actions-icon" (click)="reset()">
           <span>
             <mat-icon>lock</mat-icon>
           </span>
           <span class="profile-actions-text"> RESET PASSWORD</span>
-        </div>
-        <div *ngIf="editUserDetails?.status === 1" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
+        </div> -->
+        <div  matTooltip="Deactivate Organisation" class="col-md-12 profile-actions-icon"
           (click)="confirmDialog()">
           <span>
             <mat-icon class="negative">edit</mat-icon>
           </span>
-          <span class="profile-actions-text negative">DEACTIVATE USER</span>
+          <span class="profile-actions-text negative">DEACTIVATE ORGANISATION</span>
         </div>
 
         <!-- <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
-          (click)="activateDialog()">
-          <span>
-            <mat-icon class="positive">edit</mat-icon>
-          </span>
-          <span class="profile-actions-text positive">ACTIVATE USER</span>
-        </div> -->
+            (click)="activateDialog()">
+            <span>
+              <mat-icon class="positive">edit</mat-icon>
+            </span>
+            <span class="profile-actions-text positive">ACTIVATE USER</span>
+          </div> -->
 
       </div>
     </mat-card>
@@ -68,7 +70,7 @@
         <mat-expansion-panel class="c-accordian-width" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="c-font">
-              User information
+              Organisation information
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="editUserDetails" class="row">
@@ -109,25 +111,86 @@
             </div>
           </div>
           <!-- <div class="row" style="padding-top:15px">
-            <div class="col-md-3">
-              <label>User Name</label>
-              <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
-            </div>
-
-            <div class="col-md-3">
-              <label>Email</label>
-              <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
-            </div>
-
-            <div class="col-md-3">
-              <label>Phone Number</label>
-              <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
-            </div>
-          </div> -->
+              <div class="col-md-3">
+                <label>User Name</label>
+                <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
+              </div>
+  
+              <div class="col-md-3">
+                <label>Email</label>
+                <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
+              </div>
+  
+              <div class="col-md-3">
+                <label>Phone Number</label>
+                <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
+              </div>
+            </div> -->
 
         </mat-expansion-panel>
+        <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="c-font">
+                Organisation Details
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="editUserDetails" class="row">
+              <div class="col-md-3">
+                <div class="text-color">
+                  <mat-label>First Name</mat-label>
+                </div>
+                <div>
+                  {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}
+                </div>
+              </div>
+  
+              <div class="col-md-3">
+                <div class="text-color">
+                  <label>Last Name</label>
+                </div>
+                <div>
+                  {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
+                </div>
+  
+              </div>
+  
+              <div class="col-md-3">
+                <div class="text-color"> <label>Date of Birth </label></div>
+                <div>
+                  {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}
+                </div>
+              </div>
+  
+              <div class="col-md-3">
+                <div class="text-color">
+                  <label>Gender </label>
+                </div>
+                <div>
+                  {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}
+                </div>
+  
+              </div>
+            </div>
+            <!-- <div class="row" style="padding-top:15px">
+                <div class="col-md-3">
+                  <label>User Name</label>
+                  <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
+                </div>
+    
+                <div class="col-md-3">
+                  <label>Email</label>
+                  <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
+                </div>
+    
+                <div class="col-md-3">
+                  <label>Phone Number</label>
+                  <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
+                </div>
+              </div> -->
+  
+          </mat-expansion-panel>
       </mat-accordion>
-      <div class="user-details-card">
+      <!-- <div class="user-details-card">
 
         <mat-card>
           <div class="roles-head">
@@ -166,7 +229,7 @@
 
 
         </mat-card>
-      </div>
+      </div> -->
 
     </div>
   </div>

@@ -39,6 +39,7 @@ import { PasswordComponent } from './components/password/password.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { TextAreaComponent } from './components/text-area/text-area.component';
 
 
 
@@ -47,7 +48,7 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
     InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -112,7 +113,8 @@ import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.com
     CheckboxComponent,
     MultiSelectComponent,
     CommingSoonComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TextAreaComponent
   ]
 })
 export class AdminSharedModule { }
