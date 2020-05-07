@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UsersService } from '../services/users-service/users.service';
 import { keyCloakService } from '../services/auth-service/auth.service';
 import { CommonServiceService } from '../services/common-service.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class RouteGuard implements CanActivate {
+export class OrganisationGuard implements CanActivate {
   promiseRowData: any;
   rolesArray: any;
   tokendetails: any;
@@ -33,5 +32,4 @@ export class RouteGuard implements CanActivate {
       return false;
     }
   }
-
 }

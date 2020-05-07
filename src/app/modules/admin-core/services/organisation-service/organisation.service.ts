@@ -13,7 +13,7 @@ export class OrganisationService {
 
   // getting Organisation list 
   organisationList(data, search) {
-    return this.Http.get(environment.base_url + OrganisationConfig.organisationList + '?limit=' + data.size + '&page=' + data.page + '&search=' + search);
+    return this.Http.get(environment.base_url + OrganisationConfig.organisationList + '?limit=' + data.size + '&page=' + data.page + '&search=' + search + '&status=' + status);
   }
 
   // getting Organisation form 

@@ -112,9 +112,7 @@ export class OrganisationsListComponent implements OnInit {
   }
 
   editOrganisation(data) {
-    console.log('editOrganisation', data);
     this.router.navigate(['/organisations/edit', data._id])
-    this.commingSoon();
   }
 
   refreshDatasource(data) {
