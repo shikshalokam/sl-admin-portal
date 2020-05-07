@@ -30,6 +30,9 @@
             <div class="text-color">
               Created on: {{editOrganisationDetails?.createdDate | date:'medium'}}
             </div>
+            <div class="text-color">
+              Updated on: {{editOrganisationDetails?.updatedDate | date:'medium'}}
+            </div>
           </div>
 
         </div>
@@ -40,7 +43,7 @@
           <span>
             <mat-icon class="negative">edit</mat-icon>
           </span>
-          <span class="profile-actions-text negative">DEACTIVATE ORGANISATION</span>
+          <span class="profile-actions-text negative">DEACTIVATE</span>
         </div>
 
         <!-- <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
@@ -104,7 +107,6 @@
               <div>
                 {{editOrganisationDetails?.externalId ? editOrganisationDetails.externalId: '-- --'}}
               </div>
-              <!-- <input matInput disabled value="{{editOrganisationDetails?.externalId ? editOrganisationDetails.externalId: '-- --'}}"> -->
             </div>
 
             <div class="col-md-3">
@@ -112,7 +114,6 @@
               <div>
                 {{editOrganisationDetails?.noOfMembers ? editOrganisationDetails.noOfMembers: '-- --'}}
               </div>
-              <!-- <input matInput disabled type="text" value="{{editOrganisationDetails?.noOfMembers ? editOrganisationDetails.noOfMembers: '-- --'}}"> -->
             </div>
 
             <div class="col-md-3">
@@ -120,72 +121,17 @@
               <div>
                 {{editOrganisationDetails?.email ? editOrganisationDetails.email: '-- --'}}
               </div>
-              <!-- <input matInput disabled value="{{editOrganisationDetails?.phoneNumber ? editOrganisationDetails.phoneNumber: '-- --'}}"> -->
             </div>
           </div>
 
         </mat-expansion-panel>
-        <mat-expansion-panel class="c-accordian-width" [expanded]="false">
+        <!-- <mat-expansion-panel class="c-accordian-width" [expanded]="false">
           <mat-expansion-panel-header>
             <mat-panel-title class="c-font">
               Organisation Details
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <!-- <div *ngIf="editUserDetails" class="row">
-            <div class="col-md-3">
-              <div class="text-color">
-                <mat-label>First Name</mat-label>
-              </div>
-              <div>
-                {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="text-color">
-                <label>Last Name</label>
-              </div>
-              <div>
-                {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
-              </div>
-
-            </div>
-
-            <div class="col-md-3">
-              <div class="text-color"> <label>Date of Birth </label></div>
-              <div>
-                {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}
-              </div>
-            </div>
-
-            <div class="col-md-3">
-              <div class="text-color">
-                <label>Gender </label>
-              </div>
-              <div>
-                {{editUserDetails?.gender ? editUserDetails.gender: '-- --'}}
-              </div>
-
-            </div>
-          </div> -->
-          <!-- <div class="row" style="padding-top:15px">
-                <div class="col-md-3">
-                  <label>User Name</label>
-                  <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
-                </div>
-    
-                <div class="col-md-3">
-                  <label>Email</label>
-                  <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
-                </div>
-    
-                <div class="col-md-3">
-                  <label>Phone Number</label>
-                  <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
-                </div>
-              </div> -->
-
-        </mat-expansion-panel>
+        </mat-expansion-panel> -->
       </mat-accordion>
     </div>
   </div>

@@ -30,7 +30,7 @@
     <div>
       <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
         <mat-button-toggle matTooltip="All organisations" checked (click)="allOrganisation(toggleGroup.value)"
-          class="filter" value="All">All
+          class="filter" value=" ">All
         </mat-button-toggle>
         <mat-button-toggle matTooltip="Active organisations" (click)="allOrganisation(toggleGroup.value)" class="filter"
           value="Active">Active
@@ -43,8 +43,8 @@
 
     <div class="row" style="padding-right: 3%;">
       <div class="btn-gap">
-        <button mat-button (click)="addNewOrganisation()" matTooltip="Add New Organisation">
-          Add New Organisation
+        <button mat-button (click)="addNewOrganisation()" matTooltip="Add Organisation">
+          Add Organisation
         </button>
       </div>
       <!-- <div class="btn-gap">
@@ -83,12 +83,19 @@
         <ng-container [matColumnDef]="column.key">
           <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
           <span *ngIf="column.type == 'column'">
-            <mat-cell *matCellDef="let row">{{row[column.key] ? row[column.key]: '-- --'}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              <span class="{{getItemCssClassByStatus(row[column.key])}}"> {{row[column.key] ? row[column.key]: '-- --'}}
+              </span>
+            </mat-cell>
           </span>
           <span *ngIf="column.type == 'action'">
             <mat-cell *matCellDef="let user">
               <button (click)="editOrganisation(user)" matTooltip="Edit Organisation" class="actions"
-                mat-button>Edit</button>
+                mat-button>Edit</button> &nbsp;
+              <button *ngIf ="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
+                class="actions" mat-button> Deactivate</button>
+                <button *ngIf ="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
+                class="actions" mat-button>Activate</button>
             </mat-cell>
           </span>
         </ng-container>

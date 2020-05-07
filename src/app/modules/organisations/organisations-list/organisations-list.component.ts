@@ -7,6 +7,7 @@ import { OrganisationService } from '../../admin-core';
 import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
+import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 
 
 @Component({
@@ -25,6 +26,9 @@ export class OrganisationsListComponent implements OnInit {
   organisationListData: any;
   fieldsForOrganisation: any;
   formdata: any;
+  confirmPopupResult: any;
+  status: any = '';
+  orgObject: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -71,15 +75,28 @@ export class OrganisationsListComponent implements OnInit {
     return '';
   }
 
-  allOrganisation(data) {
-
+  // Filtering the data on status
+  allOrganisation(value) {
+    this.status = value;
+    // switch (value) {
+    //   case 'Inactive':
+    //     this.status = 0;
+    //     break;
+    //   case 'Active':
+    //     this.status = 1;
+    //     break;
+    //   case 'All':
+    //     this.status = '';
+    //     break;
+    // }
+    this.getOrganisationList();
   }
 
   /**
 * To get OrganisationList
 */
   getOrganisationList() {
-    this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value).subscribe(data => {
+    this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.organisationListData = data['result'];
       this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
@@ -111,7 +128,47 @@ export class OrganisationsListComponent implements OnInit {
     });
   }
 
+  // confirmDialog
+  confirmDialog(data) {
+    this.orgObject = data;
+    const message = `Are you sure you want to do this action ?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "310px",
+      height: "200px",
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.activate_deActivate_Organisation(this.orgObject);
+      } else {
+        this.dialog.closeAll();
+      }
+
+    });
+  }
+
+
+  // Activate and Deactivate User
+  activate_deActivate_Organisation(data) {
+    this.organisationService.activate_deActivate_Organisation(this.orgObject._id, this.orgObject).subscribe(data => {
+      setTimeout(() => {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+        this.getOrganisationList();
+      }, 1000);
+
+    }, error => {
+      console.log('blockUser', error);
+    })
+  }
+
   editOrganisation(data) {
+    console.log('edit', data);
+
     this.router.navigate(['/organisations/edit', data._id])
   }
 

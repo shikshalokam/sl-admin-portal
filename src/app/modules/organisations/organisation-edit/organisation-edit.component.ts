@@ -33,16 +33,7 @@ export class OrganisationEditComponent implements OnInit {
     this.organisationService.organisationDetails(this.organisationId).subscribe(data => {
       this.editOrganisationDetails = data['result'];
       console.log(' this.editOrganisationDetails', this.editOrganisationDetails);
-      // this.details = this.editUserDetails.organisations;
-      // this.editUserDetails.roleslist = []
-      // for (let i = 0; i < this.details.length; i++) {
-      //   this.details[i].list = [];
-      //   for (let j = 0; j < this.details[i].roles.length; j++) {
-      //     this.details[i].list.push(this.details[i].roles[j].label);
-      //   }
-      // }
-      // this.editUserDetails.userId = this.userId;
-      // this.load = true;
+      
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
     })
@@ -50,7 +41,6 @@ export class OrganisationEditComponent implements OnInit {
 
   // confirmDialog
   confirmDialog(): void {
-    console.log('cccccccccccccccc');
     const message = `Are you sure you want to do this action ?`;
 
     const dialogData = new ConfirmDialogModel("Confirm Action", message);
