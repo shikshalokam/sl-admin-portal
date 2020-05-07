@@ -9,7 +9,6 @@ import { HomeComponent } from './home/home.component';
 const routes: Routes = [
   {
     path: 'users',
-    // canActivate: [RouteGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
   {

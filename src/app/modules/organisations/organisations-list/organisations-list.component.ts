@@ -57,6 +57,7 @@ export class OrganisationsListComponent implements OnInit {
       this.getOrganisationList();
     });
     this.getOrganisationList();
+    this.createOrganisationForm();
   }
 
   // get color based on the status
@@ -70,7 +71,7 @@ export class OrganisationsListComponent implements OnInit {
     return '';
   }
 
-  allOrganisation() {
+  allOrganisation(data) {
 
   }
 
@@ -104,7 +105,7 @@ export class OrganisationsListComponent implements OnInit {
   createOrganisationForm() {
     this.organisationService.getOrganisationForm().subscribe(data => {
       this.formdata = data['result'];
-      this.fieldsForOrganisation = this.formdata.form;
+      this.fieldsForOrganisation = this.formdata;
     }, error => {
 
     });
@@ -164,12 +165,12 @@ export class OrganisationsListComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
-  }
+  // checkboxLabel(row): string {
+  //   if (!row) {
+  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+  //   }
+  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
+  // }
 
   commingSoon() {
     this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);

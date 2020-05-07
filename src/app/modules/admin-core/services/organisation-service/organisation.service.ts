@@ -13,13 +13,21 @@ export class OrganisationService {
 
   // getting Organisation list 
   organisationList(data, search) {
-    console.log('organisationList', data);
-    // admin-service/api/v1/organisations/detailList?limit=10&offset=1
-    return this.Http.get(environment.base_url + OrganisationConfig.organisationList + '?limit=' + data.size + '&offset=' + data.page + '&search='+ search);
+    return this.Http.get(environment.base_url + OrganisationConfig.organisationList + '?limit=' + data.size + '&page=' + data.page + '&search=' + search);
   }
 
   // getting Organisation form 
   getOrganisationForm() {
     return this.Http.get(environment.base_url + OrganisationConfig.organisationForm);
+  }
+
+  // create Organisation
+  createOrganisation(data) {
+    return this.Http.post(environment.base_url + OrganisationConfig.createOrganisation, data)
+  }
+
+  // get details to Edit
+  organisationDetails(id) {
+    return this.Http.get(environment.base_url + OrganisationConfig.organisationDetails + id)
   }
 }
