@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UsersService } from '../services/users-service/users.service';
 import { keyCloakService } from '../services/auth-service/auth.service';
 import { CommonServiceService } from '../services/common-service.service';
-
+import { UnauthorizedComponent } from '../../admin-shared';
+import { MatDialog } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RouteGuard implements CanActivate {
+export class UsersGuard implements CanActivate {
   promiseRowData: any;
   rolesArray: any;
   tokendetails: any;
   constructor(private usersService: UsersService, private route: Router,
-    private keycloakService: keyCloakService, private commonServiceService: CommonServiceService) {
+    private keycloakService: keyCloakService, private commonServiceService: CommonServiceService,
+    private dialog: MatDialog) {
 
   }
   async canActivate(
@@ -25,13 +27,25 @@ export class RouteGuard implements CanActivate {
       this.rolesArray = this.promiseRowData['result'].roles;
     }
     this.tokendetails = this.keycloakService.sendToken();
-    if (this.tokendetails.token && this.rolesArray.includes("PLATFORM_ADMIN")) {
+    if (this.rolesArray.includes("PLATFORM_ADMIN") || this.rolesArray.includes("ORG_ADMIN")) {
       return true;
     } else {
-      this.route.navigate(['/home']);
-      this.commonServiceService.commonSnackBar('Unauthorized user', 'error', 'top', 1000)
+      this.openDialog();
       return false;
     }
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(UnauthorizedComponent
+      , {
+        disableClose: true,
+         data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.keycloakService.logout();
+    });
   }
 
 }

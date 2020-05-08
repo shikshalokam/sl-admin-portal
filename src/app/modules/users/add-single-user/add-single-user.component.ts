@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
 })
 export class AddUserComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
-  questions: any[];
   field: FieldConfig;
   group: FormGroup;
   formdata: any;
@@ -80,7 +79,6 @@ export class AddUserComponent implements OnInit {
         duration: 10000,
         verticalPosition: 'top'
       });
-      this.dialogRef.close();
     });
   }
 

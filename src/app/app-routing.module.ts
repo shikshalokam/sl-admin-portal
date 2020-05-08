@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommingSoonComponent, UnauthorizedComponent } from './modules/admin-shared';
-import { RouteGuard } from './modules/admin-core/guards/route.guard';
 import { HomeComponent } from './home/home.component';
+import { UsersGuard, RouteGuard } from './modules/admin-core';
+
 
 
 
 const routes: Routes = [
   {
     path: 'users',
-    canActivate: [RouteGuard],
+    canActivate: [UsersGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
   {
     path: 'organisations',
-    // canActivate: [RouteGuard],
+    canActivate: [RouteGuard],
     loadChildren: './modules/organisations/organisations.module#OrganisationsModule'
   },
   { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },

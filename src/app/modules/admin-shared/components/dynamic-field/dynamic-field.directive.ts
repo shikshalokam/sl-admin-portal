@@ -12,6 +12,7 @@ import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { MultiSelectComponent } from "../multi-select/multi-select.component";
 import { PasswordComponent } from "../password/password.component";
+import { TextAreaComponent } from "../text-area/text-area.component";
 
 
 
@@ -19,6 +20,7 @@ import { PasswordComponent } from "../password/password.component";
 const componentMapper = {
   text: InputComponent,
   password: PasswordComponent,
+  textarea: TextAreaComponent,
   // button: ButtonComponent,
   select: SelectComponent,
   date: DateComponent,

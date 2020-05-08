@@ -1,7 +1,7 @@
 <div class="pageName">
   <span *ngFor="let data of crumData['title']">
-    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> >
-  </span>
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> 
+  </span> >
   <span class="text-capital">{{editUserDetails?.firstName}}
     {{editUserDetails?.lastName}}</span>
 </div>
@@ -160,8 +160,8 @@
               </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
 
 

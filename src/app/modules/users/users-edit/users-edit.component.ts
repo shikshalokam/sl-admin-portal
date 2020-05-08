@@ -38,7 +38,7 @@ export class UsersEditComponent implements OnInit {
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
-    private _snackBar: MatSnackBar, private dialog: MatDialog,
+    private dialog: MatDialog,
     private router: Router,
     private usersService: UsersService, private route: ActivatedRoute) {
   }

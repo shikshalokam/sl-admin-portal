@@ -38,6 +38,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordComponent } from './components/password/password.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
+import { TextAreaComponent } from './components/text-area/text-area.component';
 
 
 
@@ -45,8 +47,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 @NgModule({
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, 
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent],
+    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -98,6 +100,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatChipsModule,
     MatRadioModule,
     MatButtonToggleModule,
+    DynamicFormComponent,
     NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -110,7 +113,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     CheckboxComponent,
     MultiSelectComponent,
     CommingSoonComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TextAreaComponent
   ]
 })
 export class AdminSharedModule { }
