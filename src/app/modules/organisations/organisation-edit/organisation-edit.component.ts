@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { OrganisationService, CommonServiceService } from '../../admin-core';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 import { MatDialog } from '@angular/material';
+import { OrganisationEditModalComponent } from '../organisation-edit-modal/organisation-edit-modal.component';
+
 
 @Component({
   selector: 'app-organisation-edit',
@@ -14,6 +16,9 @@ export class OrganisationEditComponent implements OnInit {
   organisationId: any;
   editOrganisationDetails: any;
   confirmPopupResult: any;
+  assignedStatus: any;
+  formdata: any;
+  fieldsForOrganisation: any;
   constructor(private route: ActivatedRoute, private organisationService: OrganisationService,
     private commonServiceService: CommonServiceService,
     private dialog: MatDialog) { }
@@ -26,6 +31,7 @@ export class OrganisationEditComponent implements OnInit {
       .subscribe(data => {
         this.crumData = data;
       });
+    this.createOrganisationForm();
   }
 
   // User Details
@@ -33,7 +39,7 @@ export class OrganisationEditComponent implements OnInit {
     this.organisationService.organisationDetails(this.organisationId).subscribe(data => {
       this.editOrganisationDetails = data['result'];
       console.log(' this.editOrganisationDetails', this.editOrganisationDetails);
-      
+
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
     })
@@ -53,8 +59,70 @@ export class OrganisationEditComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.activate_deActivate_Organisation(this.editOrganisationDetails);
+      } else {
+        this.dialog.closeAll();
+      }
+    });
+  }
 
-      console.log('confirmPopupResult', this.confirmPopupResult);
+  // activate and deActivate User
+  activate_deActivate_Organisation(data) {
+    if (data.status === 'Active') {
+      this.assignedStatus = 0;
+    } else {
+      this.assignedStatus = 1;
+    }
+    let updateData = {
+      organisationId: this.organisationId,
+      status: this.assignedStatus
+    }
+    this.organisationService.activate_deActivate_Organisation(updateData).subscribe(data => {
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+      // this.router.navigateByUrl('users/list');
+      this.getOrganisationDetails();
+    }, error => {
+      console.log('blockUser', error);
+    })
+  }
+
+  // Organisation Form
+  createOrganisationForm() {
+    this.organisationService.getOrganisationForm().subscribe(data => {
+      this.formdata = data['result'];
+      this.fieldsForOrganisation = this.formdata;
+
+    }, error => {
+
+    });
+  }
+
+  editOrganisation(data) {
+    this.fieldsForOrganisation.forEach(element => {
+      if (data[element.field]) {
+        element.value = data[element.field]
+      } else {
+        element.value = '';
+      }
+    });
+    this.fieldsForOrganisation.organisationId = this.organisationId;
+    this.openDialog(this.fieldsForOrganisation);
+
+  }
+
+  // Adding Organisation popup
+  openDialog(fieldsForOrganisation): void {
+    const dialogRef = this.dialog.open(OrganisationEditModalComponent
+      , {
+        disableClose: true,
+        width: '50%',
+        data: { fieldsForOrganisation }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getOrganisationDetails();
     });
   }
 

@@ -19,13 +19,13 @@
             <div>
               {{editOrganisationDetails?.channel}}
             </div>
-            <div class="positive">
+            <div *ngIf="editOrganisationDetails?.status === 'Active'" class="positive">
               Active
             </div>
 
-            <!-- <div *ngIf="editUserDetails?.status === 0" class="negative">
-                In active
-              </div> -->
+            <div *ngIf="editOrganisationDetails?.status === 'Inactive'" class="negative">
+              In active
+            </div>
 
             <div class="text-color">
               Created on: {{editOrganisationDetails?.createdDate | date:'medium'}}
@@ -39,20 +39,21 @@
       </mat-card-content>
       <div class=" row c-line"></div>
       <div class="row" style="padding:10px">
-        <div matTooltip="Deactivate Organisation" class="col-md-12 profile-actions-icon" (click)="confirmDialog()">
+        <div *ngIf="editOrganisationDetails?.status === 'Active'" matTooltip="Deactivate Organisation"
+          class="col-md-12 profile-actions-icon" (click)="confirmDialog()">
           <span>
             <mat-icon class="negative">edit</mat-icon>
           </span>
           <span class="profile-actions-text negative">DEACTIVATE</span>
         </div>
 
-        <!-- <div *ngIf="editUserDetails?.status === 0" matTooltip="Activate user" class="col-md-9 profile-actions-icon"
-            (click)="activateDialog()">
-            <span>
-              <mat-icon class="positive">edit</mat-icon>
-            </span>
-            <span class="profile-actions-text positive">ACTIVATE USER</span>
-          </div> -->
+        <div *ngIf="editOrganisationDetails?.status === 'Inactive'" matTooltip="Activate Organisation"
+          class="col-md-12 profile-actions-icon" (click)="confirmDialog()">
+          <span>
+            <mat-icon class="positive">edit</mat-icon>
+          </span>
+          <span class="profile-actions-text positive">ACTIVATE</span>
+        </div>
 
       </div>
     </mat-card>
@@ -92,22 +93,13 @@
             </div>
 
             <div class="col-md-3">
-              <div class="text-color">
-                <label>Provider </label>
-              </div>
-              <div>
-                {{editOrganisationDetails?.provider ? editOrganisationDetails.provider: '-- --'}}
-              </div>
-
-            </div>
-          </div>
-          <div class="row" style="padding-top:15px">
-            <div class="col-md-3">
               <label class="text-color">External Id</label>
               <div>
                 {{editOrganisationDetails?.externalId ? editOrganisationDetails.externalId: '-- --'}}
               </div>
             </div>
+          </div>
+          <div class="row" style="padding-top:15px">
 
             <div class="col-md-3">
               <label class="text-color">No.Of Members</label>
@@ -122,6 +114,11 @@
                 {{editOrganisationDetails?.email ? editOrganisationDetails.email: '-- --'}}
               </div>
             </div>
+          </div>
+          <div style="float: right;">
+            <button (click)="editOrganisation(editOrganisationDetails)" matTooltip="Edit Organisation" class="actions"
+              mat-button>Edit
+            </button>
           </div>
 
         </mat-expansion-panel>

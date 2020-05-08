@@ -29,6 +29,7 @@ export class OrganisationsListComponent implements OnInit {
   confirmPopupResult: any;
   status: any = '';
   orgObject: any;
+  assignedStatus: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -77,18 +78,18 @@ export class OrganisationsListComponent implements OnInit {
 
   // Filtering the data on status
   allOrganisation(value) {
-    this.status = value;
-    // switch (value) {
-    //   case 'Inactive':
-    //     this.status = 0;
-    //     break;
-    //   case 'Active':
-    //     this.status = 1;
-    //     break;
-    //   case 'All':
-    //     this.status = '';
-    //     break;
-    // }
+    // this.status = value;
+    switch (value) {
+      case 'Inactive':
+        this.status = 0;
+        break;
+      case 'Active':
+        this.status = 1;
+        break;
+      case 'All':
+        this.status = '';
+        break;
+    }
     this.getOrganisationList();
   }
 
@@ -109,7 +110,6 @@ export class OrganisationsListComponent implements OnInit {
           }
         });
       }
-      // this.displayedColumns = this.columns.concat([{key:'myExtraColumn'}]);
       this.recordCount = data['result'].count;
       this.listing = true;
     }, error => {
@@ -155,7 +155,16 @@ export class OrganisationsListComponent implements OnInit {
 
   // Activate and Deactivate User
   activate_deActivate_Organisation(data) {
-    this.organisationService.activate_deActivate_Organisation(this.orgObject._id, this.orgObject).subscribe(data => {
+    if (data.status === 'Active') {
+      this.assignedStatus = 0;
+    } else {
+      this.assignedStatus = 1;
+    }
+    let updateData = {
+      organisationId: data._id,
+      status: this.assignedStatus
+    }
+    this.organisationService.activate_deActivate_Organisation(updateData).subscribe(data => {
       setTimeout(() => {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getOrganisationList();

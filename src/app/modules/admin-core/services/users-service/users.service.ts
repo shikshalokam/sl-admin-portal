@@ -43,14 +43,17 @@ export class UsersService {
 
   // Roles Update
   updateRoles(data) {
-    console.log('update service', data);
     return this.Http.post(environment.base_url + UsersConfig.updateRoles, data)
   }
 
   // Roles Update
   addOrganisation_Roles(data) {
-    console.log('addOrganisation_Roles service', data);
     return this.Http.post(environment.base_url + UsersConfig.addRoles, data)
+  }
+
+  // Remove User From Organisation
+  removeUserFromOrganisation(data) {
+    return this.Http.post(environment.base_url + UsersConfig.removeUser, data)
   }
 
 

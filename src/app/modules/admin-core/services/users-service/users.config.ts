@@ -9,5 +9,6 @@ export const UsersConfig = {
     blockUser: 'v1/userExtension/statusUpdate/',
     singleUser: 'v1/userExtension/details/',
     updateRoles: 'v1/organisations/assignRoles',
-    addRoles: 'v1/organisations/addUser'
+    addRoles: 'v1/organisations/addUser',
+    removeUser: 'v1/organisations/removeUser'
 }

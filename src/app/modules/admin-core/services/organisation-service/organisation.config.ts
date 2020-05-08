@@ -4,5 +4,6 @@ export const OrganisationConfig = {
     organisationForm: 'v1/organisations/getForm',
     createOrganisation: 'v1/organisations/create',
     organisationDetails: 'v1/organisations/details/',
-    blockOrganisation: ''
+    blockOrganisation: 'v1/organisations/updateStatus',
+    updateorganisationDetails: 'v1/organisations/update'
 }

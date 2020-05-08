@@ -30,7 +30,7 @@
     <div>
       <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
         <mat-button-toggle matTooltip="All organisations" checked (click)="allOrganisation(toggleGroup.value)"
-          class="filter" value=" ">All
+          class="filter" value="All">All
         </mat-button-toggle>
         <mat-button-toggle matTooltip="Active organisations" (click)="allOrganisation(toggleGroup.value)" class="filter"
           value="Active">Active
@@ -83,7 +83,7 @@
         <ng-container [matColumnDef]="column.key">
           <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
           <span *ngIf="column.type == 'column'">
-            <mat-cell *matCellDef="let row">
+            <mat-cell *matCellDef="let row" class="text-capital">
               <span class="{{getItemCssClassByStatus(row[column.key])}}"> {{row[column.key] ? row[column.key]: '-- --'}}
               </span>
             </mat-cell>
@@ -95,7 +95,7 @@
               <button *ngIf ="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
                 class="actions" mat-button> Deactivate</button>
                 <button *ngIf ="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
-                class="actions" mat-button>Activate</button>
+                class="actions btnactive" mat-button>Activate</button>
             </mat-cell>
           </span>
         </ng-container>

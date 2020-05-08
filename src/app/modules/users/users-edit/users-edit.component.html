@@ -1,6 +1,6 @@
 <div class="pageName">
   <span *ngFor="let data of crumData['title']">
-    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a> 
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
   </span> >
   <span class="text-capital">{{editUserDetails?.firstName}}
     {{editUserDetails?.lastName}}</span>
@@ -16,20 +16,18 @@
             <div class="text-capital">
               <h3> {{editUserDetails?.firstName}} {{editUserDetails?.lastName}}</h3>
             </div>
-            <!-- <div>
-              a1@shikshalokamdev
-            </div> -->
             <div class="positive">
               Active
             </div>
-
             <!-- <div *ngIf="editUserDetails?.status === 0" class="negative">
               In active
             </div> -->
             <div class="text-color">
-              Last Sign in : {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }} hours ago
+              Last Sign in :
+              {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }}
+              hours ago
             </div>
-           
+
             <div class="text-color">
               Created on: {{editUserDetails?.createdDate | date:'medium'}}
             </div>
@@ -144,8 +142,8 @@
           <mat-table [dataSource]="details" class="mat-elevation-z8">
 
             <ng-container matColumnDef="Organisation">
-              <mat-header-cell *matHeaderCellDef> Organisation </mat-header-cell>>
-              <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>>
+              <mat-header-cell *matHeaderCellDef> Organisation </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Roles">
@@ -156,7 +154,10 @@
             <ng-container matColumnDef="Action">
               <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button (click)="editRoles(element)" matTooltip="Edit Roles" class="actions" mat-button> Edit</button>
+                <button (click)="editRoles(element)" matTooltip="Edit Roles" class="actions" mat-button>
+                  Edit</button>&nbsp;
+                <button (click)="confirmForUserDelete(element)" matTooltip="Delete User from Organisation" class="actions"
+                  mat-button>Delete</button>
               </mat-cell>
             </ng-container>
 

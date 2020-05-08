@@ -176,7 +176,7 @@ export class AddOrganisationComponent implements OnInit {
     this.usersService.addOrganisation_Roles(data).subscribe(data => {
       this.addedRoles = data;
       this.dialogRef.close(true);
-      this.commonServiceService.commonSnackBar(this.addedRoles.message, 'success', 'top', 1000)
+      this.commonServiceService.commonSnackBar(this.addedRoles.message, 'success', 'top', 10000)
     }, error => {
 
     })

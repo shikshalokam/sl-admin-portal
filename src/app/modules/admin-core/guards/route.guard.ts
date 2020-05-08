@@ -29,7 +29,7 @@ export class RouteGuard implements CanActivate {
       return true;
     } else {
       this.route.navigate(['/home']);
-      this.commonServiceService.commonSnackBar('Unauthorized user', 'error', 'top', 1000)
+      this.commonServiceService.commonSnackBar('Unauthorized user', 'error', 'top', 10000)
       return false;
     }
   }
