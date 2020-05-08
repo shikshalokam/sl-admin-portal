@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommingSoonComponent, UnauthorizedComponent } from './modules/admin-shared';
 import { HomeComponent } from './home/home.component';
-import { OrganisationGuard, RouteGuard } from './modules/admin-core';
+import { UsersGuard, RouteGuard } from './modules/admin-core';
 
 
 
@@ -10,7 +10,7 @@ import { OrganisationGuard, RouteGuard } from './modules/admin-core';
 const routes: Routes = [
   {
     path: 'users',
-    canActivate: [OrganisationGuard],
+    canActivate: [UsersGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
   {

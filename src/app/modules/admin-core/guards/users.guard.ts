@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationGuard implements CanActivate {
+export class UsersGuard implements CanActivate {
   promiseRowData: any;
   rolesArray: any;
   tokendetails: any;
