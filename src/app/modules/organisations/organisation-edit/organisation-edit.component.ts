@@ -83,7 +83,7 @@ export class OrganisationEditComponent implements OnInit {
       // this.router.navigateByUrl('users/list');
       this.getOrganisationDetails();
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 
@@ -92,9 +92,8 @@ export class OrganisationEditComponent implements OnInit {
     this.organisationService.getOrganisationForm().subscribe(data => {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
-
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 

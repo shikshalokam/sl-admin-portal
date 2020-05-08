@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
 import { DynamicFormComponent } from '../../admin-shared';
 import { FieldConfig } from "../../admin-shared/field.interface";
 import { FormGroup } from '@angular/forms';
-import { UsersService } from '../../admin-core';
+import { UsersService, CommonServiceService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { DatePipe } from '@angular/common';
@@ -21,7 +21,7 @@ export class AddUserComponent implements OnInit {
   loading: boolean = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe,private commonServiceService: CommonServiceService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
@@ -75,10 +75,7 @@ export class AddUserComponent implements OnInit {
         this.dialogRef.close();
       }
     }, error => {
-      this._snackBar.open(error.error.message.params.errmsg, 'error', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 

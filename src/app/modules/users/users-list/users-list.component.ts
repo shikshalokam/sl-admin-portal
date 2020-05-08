@@ -109,10 +109,7 @@ export class UsersListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this._snackBar.open(error.error.message, 'Dismiss', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
   refreshDatasource(data) {
@@ -243,7 +240,7 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsBackend = this.formdata.form;
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
   addNewUser() {
@@ -317,7 +314,6 @@ export class UsersListComponent implements OnInit {
       console.log('downloadapi', data);
     },
       error => {
-        console.log('error', error);
         this.downLoadFile(error.error.text, "text/csv");
       }
     )
@@ -381,7 +377,7 @@ export class UsersListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 

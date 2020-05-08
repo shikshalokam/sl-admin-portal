@@ -178,7 +178,7 @@ export class AddOrganisationComponent implements OnInit {
       this.dialogRef.close(true);
       this.commonServiceService.commonSnackBar(this.addedRoles.message, 'success', 'top', 10000)
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 

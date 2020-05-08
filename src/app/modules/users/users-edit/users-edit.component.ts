@@ -108,7 +108,7 @@ export class UsersEditComponent implements OnInit {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.router.navigateByUrl('users/list');
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 
@@ -169,7 +169,7 @@ export class UsersEditComponent implements OnInit {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000)
       this.getUserDetails();
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
 
   }

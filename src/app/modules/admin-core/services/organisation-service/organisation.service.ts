@@ -38,7 +38,6 @@ export class OrganisationService {
 
   // Update Organisation
   updateOrganisation(data) {
-    console.log('uuuuuuuuuuuuu', data);
     return this.Http.post(environment.base_url + OrganisationConfig.updateorganisationDetails, data);
   }
 

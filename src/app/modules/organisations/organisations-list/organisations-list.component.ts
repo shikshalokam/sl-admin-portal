@@ -114,7 +114,7 @@ export class OrganisationsListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 
@@ -124,7 +124,7 @@ export class OrganisationsListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 
@@ -171,7 +171,7 @@ export class OrganisationsListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 
