@@ -32,7 +32,7 @@ export class OrganisationService {
   }
 
   // Active and deActivate organisation
-  activate_deActivate_Organisation(data) {
+  activateDeActivateOrganisation(data) {
     return this.Http.post(environment.base_url + OrganisationConfig.blockOrganisation, data);
   }
 

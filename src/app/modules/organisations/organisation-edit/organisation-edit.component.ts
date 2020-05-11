@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrganisationService, CommonServiceService } from '../../admin-core';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 import { MatDialog } from '@angular/material';
-import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
+import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 
 
 @Component({
@@ -60,7 +60,7 @@ export class OrganisationEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activate_deActivate_Organisation(this.editOrganisationDetails);
+        this.activateDeActivateOrganisation(this.editOrganisationDetails);
       } else {
         this.dialog.closeAll();
       }
@@ -68,7 +68,7 @@ export class OrganisationEditComponent implements OnInit {
   }
 
   // activate and deActivate User
-  activate_deActivate_Organisation(data) {
+  activateDeActivateOrganisation(data) {
     if (data.status === 'Active') {
       this.assignedStatus = 0;
     } else {
@@ -78,7 +78,7 @@ export class OrganisationEditComponent implements OnInit {
       organisationId: this.organisationId,
       status: this.assignedStatus
     }
-    this.organisationService.activate_deActivate_Organisation(updateData).subscribe(data => {
+    this.organisationService.activateDeActivateOrganisation(updateData).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       // this.router.navigateByUrl('users/list');
       this.getOrganisationDetails();
@@ -113,7 +113,7 @@ export class OrganisationEditComponent implements OnInit {
   // Adding Organisation popup
   openDialog(fieldsForOrganisation): void {
     fieldsForOrganisation.action = 'Edit';
-    const dialogRef = this.dialog.open(CreateOrganisationComponent
+    const dialogRef = this.dialog.open(CreateandEditOrganisationComponent
       , {
         disableClose: true,
         width: '50%',
@@ -121,8 +121,9 @@ export class OrganisationEditComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if(result) {
       this.getOrganisationDetails();
+      }
     });
   }
 

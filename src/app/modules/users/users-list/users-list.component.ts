@@ -23,8 +23,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  // displayedColumns: any;
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
+  displayedColumns: any;
+  // displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   columns: any;
@@ -99,11 +99,19 @@ export class UsersListComponent implements OnInit {
   getUserList() {
     this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
+      console.log('uuuuuuuuuuuu', this.options);
       this.refreshDatasource(data['result'].data);
+      this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result'].data);
-      this.columns = new MatTableDataSource(data['result'].columns);
-      // this.displayedColumns = this.columns.map(column => column.label);
-      this.dataSource.sort = this.sort;
+      this.columns = data['result']['columns'];
+      if (this.options) {
+        this.columns.forEach(element => {
+          if (element.visible) {
+            this.displayedColumns.push(element.key)
+          }
+        });
+      }
+      console.log('displayedColumns', this.displayedColumns);
       this.recordCount = data['result'].count;
       // this.cdr.detectChanges();
       this.listing = true;
@@ -263,9 +271,9 @@ export class UsersListComponent implements OnInit {
   // get color based on the status
   getItemCssClassByStatus(status): string {
     switch (status) {
-      case 1:
+      case 'Active':
         return 'active';
-      case 0:
+      case 'Inactive':
         return 'inactive';
     }
     return '';

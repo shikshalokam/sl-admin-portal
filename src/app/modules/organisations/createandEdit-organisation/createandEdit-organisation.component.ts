@@ -7,25 +7,30 @@ import { OrganisationService, CommonServiceService } from '../../admin-core';
 
 @Component({
   selector: 'app-create-organisation',
-  templateUrl: './create-organisation.component.html',
-  styleUrls: ['./create-organisation.component.scss']
+  templateUrl: './createandEdit-organisation.component.html',
+  styleUrls: ['./createandEdit-organisation.component.scss']
 })
-export class CreateOrganisationComponent implements OnInit {
+export class CreateandEditOrganisationComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   field: FieldConfig;
   formdata: any;
   action: any;
+  title: any;
   orgId: any;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<CreateOrganisationComponent>,
+    public dialogRef: MatDialogRef<CreateandEditOrganisationComponent>,
     private organisationService: OrganisationService,
     private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
     this.formdata = this.data.fieldsForOrganisation;
     this.action = this.formdata.action;
+    if( this.action === 'Add'){
+      this.title = 'Add Organisation';
+    } else {
+      this.title = 'Update Organisation';
+    }
     this.orgId = this.data.fieldsForOrganisation.organisationId;
-    console.log('ccccccccccccc', this.formdata, 'orgid', this.orgId);
   }
 
   // On submitting the form
@@ -52,7 +57,7 @@ export class CreateOrganisationComponent implements OnInit {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
         this.form.form.reset();
-        this.dialogRef.close();
+        this.dialogRef.close('true');
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
@@ -66,7 +71,7 @@ export class CreateOrganisationComponent implements OnInit {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
         this.form.form.reset();
-        this.dialogRef.close();
+        this.dialogRef.close('true');
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
