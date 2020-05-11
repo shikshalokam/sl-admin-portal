@@ -17,6 +17,7 @@ export class CreateandEditOrganisationComponent implements OnInit {
   action: any;
   title: any;
   orgId: any;
+  submitButton: any;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<CreateandEditOrganisationComponent>,
     private organisationService: OrganisationService,
@@ -27,14 +28,17 @@ export class CreateandEditOrganisationComponent implements OnInit {
     this.action = this.formdata.action;
     if( this.action === 'Add'){
       this.title = 'Add Organisation';
+      this.submitButton = 'ADD ORGANISATION';
     } else {
       this.title = 'Update Organisation';
+      this.submitButton = 'UPDATE ORGANISATION';
     }
     this.orgId = this.data.fieldsForOrganisation.organisationId;
   }
 
   // On submitting the form
   onSubmit() {
+
     if (this.form.form.valid) {
       this.createOrganisation(this.form.value);
     } else {

@@ -99,7 +99,6 @@ export class UsersListComponent implements OnInit {
   getUserList() {
     this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
-      console.log('uuuuuuuuuuuu', this.options);
       this.refreshDatasource(data['result'].data);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result'].data);
@@ -111,7 +110,6 @@ export class UsersListComponent implements OnInit {
           }
         });
       }
-      console.log('displayedColumns', this.displayedColumns);
       this.recordCount = data['result'].count;
       // this.cdr.detectChanges();
       this.listing = true;
@@ -366,7 +364,7 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activate_deActivate_User();
+        this.activateDeActivateUser();
       } else {
         this.dialog.closeAll();
       }
@@ -377,8 +375,8 @@ export class UsersListComponent implements OnInit {
 
 
   // Activate and Deactivate User
-  activate_deActivate_User() {
-    this.usersService.active_deActive_User(this.userObject.id, this.userObject).subscribe(data => {
+  activateDeActivateUser() {
+    this.usersService.activateDeActivateUser(this.userObject.id, this.userObject).subscribe(data => {
       setTimeout(() => {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getUserList();

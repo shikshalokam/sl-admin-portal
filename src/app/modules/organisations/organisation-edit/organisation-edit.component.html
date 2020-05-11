@@ -31,7 +31,7 @@
               Created on: {{editOrganisationDetails?.createdDate | date:'mediumDate'}}
             </div>
             <div *ngIf="editOrganisationDetails?.updatedDate" class="text-color">
-              Updated on: {{editOrganisationDetails?.updatedDate | date:'medium'}}
+              Updated on: {{editOrganisationDetails?.updatedDate | date:'mediumDate'}}
             </div>
           </div>
 
@@ -62,13 +62,13 @@
         <mat-expansion-panel class="c-accordian-width" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="c-font">
-              Organisation information
+              Organisation Information
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="editOrganisationDetails" class="row">
             <div class="col-md-3">
               <div class="text-color">
-                <mat-label>Organisation Name</mat-label>
+                <mat-label>Name</mat-label>
               </div>
               <div>
                 {{editOrganisationDetails?.name ? editOrganisationDetails.name : '-- --'}}

@@ -24,12 +24,12 @@
             </div> -->
             <div class="text-color">
               Last Sign in :
-              {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'medium' }}
+              {{ editUserDetails?.lastLoginTime ==0 ? editUserDetails?.lastLoginTime:editUserDetails?.lastLoginTime | date: 'mediumDate' }}
               hours ago
             </div>
 
             <div class="text-color">
-              Created on: {{editUserDetails?.createdDate | date:'medium'}}
+              Created on: {{editUserDetails?.createdDate | date:'mediumDate'}}
             </div>
           </div>
 
@@ -66,7 +66,7 @@
         <mat-expansion-panel class="c-accordian-width" [expanded]="true">
           <mat-expansion-panel-header>
             <mat-panel-title class="c-font">
-              User information
+              User Information
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="editUserDetails" class="row">

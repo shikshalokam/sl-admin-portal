@@ -170,7 +170,7 @@ export class AddOrganisationComponent implements OnInit {
     });
     let data = {
       userId: this.organisationData.userId,
-      organisationId: orgData.organisation.value,
+      organisation: orgData.organisation,
       roles: this.roleValues
     }
     this.usersService.addOrganisation_Roles(data).subscribe(data => {

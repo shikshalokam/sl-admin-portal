@@ -92,11 +92,11 @@
             </span>
             <span *ngIf="column.type == 'action'">
               <mat-cell *matCellDef="let user">
-                <button [disabled]="user.status == 0" (click)="editUser(user)" matTooltip="Edit User" class="actions"
+                <button [disabled]="user.status == 'Inactive'" (click)="editUser(user)" matTooltip="Edit User" class="actions"
                   mat-button>Edit</button>
-                &nbsp;<button class="btnactive" *ngIf="user.status == 0" (click)="confirmDialog(user)"
+                &nbsp;<button class="btnactive" *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)"
                   matTooltip="Activate User" class="actions btnactive" mat-button>Activate </button>
-                <button *ngIf="user.status == 1" (click)="confirmDialog(user)" matTooltip="Deactivate User"
+                <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate User"
                   class="actions" mat-button> Deactivate</button>
               </mat-cell>
             </span>

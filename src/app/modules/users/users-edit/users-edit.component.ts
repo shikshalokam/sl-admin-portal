@@ -104,7 +104,7 @@ export class UsersEditComponent implements OnInit {
 
   // activate and deActivate User
   activate_deActivate_User() {
-    this.usersService.active_deActive_User(this.userId, this.editUserDetails).subscribe(data => {
+    this.usersService.activateDeActivateUser(this.userId, this.editUserDetails).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.router.navigateByUrl('users/list');
     }, error => {

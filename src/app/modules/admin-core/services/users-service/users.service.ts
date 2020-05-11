@@ -59,12 +59,13 @@ export class UsersService {
 
 
   // Active and deActivate user
-  active_deActive_User(userId, user) {
-    if (user.status === 0) {
-      user.status = 1;
+  activateDeActivateUser(userId, user) {
+    if (user.status === 'Inactive') {
+      user.status = 'Active';
     } else {
-      user.status = 0;
+      user.status = 'Inactive';
     }
+    console.log('activateDeActivateUser', user)
     return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
   }
 
