@@ -14,6 +14,8 @@ export class CreateOrganisationComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   field: FieldConfig;
   formdata: any;
+  action: any;
+  orgId: any;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<CreateOrganisationComponent>,
     private organisationService: OrganisationService,
@@ -21,6 +23,9 @@ export class CreateOrganisationComponent implements OnInit {
 
   ngOnInit() {
     this.formdata = this.data.fieldsForOrganisation;
+    this.action = this.formdata.action;
+    this.orgId = this.data.fieldsForOrganisation.organisationId;
+    console.log('ccccccccccccc', this.formdata, 'orgid', this.orgId);
   }
 
   // On submitting the form
@@ -33,9 +38,38 @@ export class CreateOrganisationComponent implements OnInit {
 
   }
 
+  onEditSubmit() {
+    if (this.form.form.valid) {
+      this.updateOrganisation(this.form.value);
+    } else {
+      this.form.validateAllFormFields(this.form.form);
+    }
+  }
+
   // Create Organisation
   createOrganisation(organisationData) {
     this.organisationService.createOrganisation(organisationData).subscribe(data => {
+      if (data['result'].response === 'SUCCESS') {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
+        this.form.form.reset();
+        this.dialogRef.close();
+      }
+    }, error => {
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+    });
+  }
+
+  // Update Organisation
+  updateOrganisation(organisationData) {
+    organisationData.organisationId = this.orgId;
+    // let data = {
+    //   name: organisationData.name,
+    //   description: organisationData.description,
+    //   email: organisationData.email,
+    //   address: organisationData.address,
+    //   organisationId: this.orgId
+    // }
+    this.organisationService.updateOrganisation(organisationData).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
         this.form.form.reset();

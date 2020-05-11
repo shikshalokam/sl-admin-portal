@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { OrganisationService, CommonServiceService } from '../../admin-core';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 import { MatDialog } from '@angular/material';
-import { OrganisationEditModalComponent } from '../organisation-edit-modal/organisation-edit-modal.component';
+import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
 
 
 @Component({
@@ -112,7 +112,8 @@ export class OrganisationEditComponent implements OnInit {
 
   // Adding Organisation popup
   openDialog(fieldsForOrganisation): void {
-    const dialogRef = this.dialog.open(OrganisationEditModalComponent
+    fieldsForOrganisation.action = 'Edit';
+    const dialogRef = this.dialog.open(CreateOrganisationComponent
       , {
         disableClose: true,
         width: '50%',

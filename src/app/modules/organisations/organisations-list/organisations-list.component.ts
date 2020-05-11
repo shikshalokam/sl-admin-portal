@@ -193,6 +193,7 @@ export class OrganisationsListComponent implements OnInit {
 
   // Adding Organisation popup
   openDialog(fieldsForOrganisation): void {
+    fieldsForOrganisation.action = 'Add'
     const dialogRef = this.dialog.open(CreateOrganisationComponent
       , {
         disableClose: true,

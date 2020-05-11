@@ -7,10 +7,9 @@ import { CreateOrganisationComponent } from './create-organisation/create-organi
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTableModule } from '@angular/cdk/table';
 import { OrganisationEditComponent } from './organisation-edit/organisation-edit.component';
-import { OrganisationEditModalComponent } from './organisation-edit-modal/organisation-edit-modal.component';
 
 @NgModule({
-  declarations: [OrganisationsListComponent, CreateOrganisationComponent, OrganisationEditComponent, OrganisationEditModalComponent],
+  declarations: [OrganisationsListComponent, CreateOrganisationComponent, OrganisationEditComponent],
   imports: [
     CommonModule,
     AdminSharedModule,
@@ -18,6 +17,6 @@ import { OrganisationEditModalComponent } from './organisation-edit-modal/organi
     OrganisationsRoutingModule,
     FormsModule, ReactiveFormsModule
   ],
-  entryComponents:[CreateOrganisationComponent, OrganisationEditModalComponent]
+  entryComponents:[CreateOrganisationComponent]
 })
 export class OrganisationsModule { }
