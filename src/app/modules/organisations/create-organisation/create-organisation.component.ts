@@ -62,13 +62,6 @@ export class CreateOrganisationComponent implements OnInit {
   // Update Organisation
   updateOrganisation(organisationData) {
     organisationData.organisationId = this.orgId;
-    // let data = {
-    //   name: organisationData.name,
-    //   description: organisationData.description,
-    //   email: organisationData.email,
-    //   address: organisationData.address,
-    //   organisationId: this.orgId
-    // }
     this.organisationService.updateOrganisation(organisationData).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
