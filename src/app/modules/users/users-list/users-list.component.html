@@ -9,9 +9,9 @@
       <div class="list-menu ">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <input type="text" (keyup)="OnInput($event)" [(ngModel)]="searchField" aria-label="Number" matInput
+          <input (keyup)="OnInput($event)" [(ngModel)]="searchField"  matInput
             [formControl]="myControl" [ngModelOptions]="{standalone: true}"  [matAutocomplete]="auto">
-          <button mat-button mat-icon-button matSuffix (click)="clearSearchField()" *ngIf="searchField">
+          <button mat-icon-button matSuffix (click)="clearSearchField()">
             <mat-icon>close</mat-icon>
           </button>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"

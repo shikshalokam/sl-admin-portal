@@ -14,6 +14,8 @@ export class PasswordComponent implements OnInit {
   mismatch: boolean = false;
   constructor() { }
   ngOnInit() {
+    console.log('1111111111111', this.field);
+
   }
 
   onKey(data) {

@@ -151,6 +151,7 @@ export class UsersListComponent implements OnInit {
         break;
     }
     this.getUserList();
+    this.paginator.firstPage();
   }
 
 
