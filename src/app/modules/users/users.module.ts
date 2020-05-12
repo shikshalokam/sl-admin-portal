@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminSharedModule } from '../admin-shared';
@@ -22,7 +22,8 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
     AdminSharedModule,
     UsersRoutingModule],
     schemas: [
-      CUSTOM_ELEMENTS_SCHEMA
+      CUSTOM_ELEMENTS_SCHEMA,
+      NO_ERRORS_SCHEMA
   ],
   providers: [ DatePipe],
   entryComponents: [AddUserComponent,AddOrganisationComponent, AddMultipleUsersComponent,RolesEditComponent],
