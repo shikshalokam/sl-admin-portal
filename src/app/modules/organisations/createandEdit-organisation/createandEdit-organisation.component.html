@@ -1,7 +1,7 @@
 <div>
   <mat-toolbar role="toolbar" class="task-header">
     <mat-icon style="color: white;">account_balance</mat-icon>
-    <h5 class="title">Add Organisation</h5>
+    <h5 class="title">{{title}}</h5>
   </mat-toolbar>
 </div>
 <mat-dialog-content class="mat-typography custom-dialog-content">
@@ -12,5 +12,9 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button mat-button style="background: #bababa;" (click)="onSubmit()" cdkFocusInitial>ADD ORGANISATION</button>
+  <button *ngIf="action == 'Add'" mat-button class="p-button" (click)="onSubmit()" cdkFocusInitial>ADD
+    ORGANISATION</button>
+  <button *ngIf="action == 'Edit'" mat-button class="p-button" (click)="onEditSubmit()" cdkFocusInitial>UPDATE
+    ORGANISATION</button>
+
 </mat-dialog-actions>

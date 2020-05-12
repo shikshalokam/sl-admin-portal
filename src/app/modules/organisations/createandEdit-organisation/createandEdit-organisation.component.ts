@@ -7,24 +7,38 @@ import { OrganisationService, CommonServiceService } from '../../admin-core';
 
 @Component({
   selector: 'app-create-organisation',
-  templateUrl: './create-organisation.component.html',
-  styleUrls: ['./create-organisation.component.scss']
+  templateUrl: './createandEdit-organisation.component.html',
+  styleUrls: ['./createandEdit-organisation.component.scss']
 })
-export class CreateOrganisationComponent implements OnInit {
+export class CreateandEditOrganisationComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
   field: FieldConfig;
   formdata: any;
+  action: any;
+  title: any;
+  orgId: any;
+  submitButton: any;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data,
-    public dialogRef: MatDialogRef<CreateOrganisationComponent>,
+    public dialogRef: MatDialogRef<CreateandEditOrganisationComponent>,
     private organisationService: OrganisationService,
     private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
     this.formdata = this.data.fieldsForOrganisation;
+    this.action = this.formdata.action;
+    if( this.action === 'Add'){
+      this.title = 'Add Organisation';
+      this.submitButton = 'ADD ORGANISATION';
+    } else {
+      this.title = 'Update Organisation';
+      this.submitButton = 'UPDATE ORGANISATION';
+    }
+    this.orgId = this.data.fieldsForOrganisation.organisationId;
   }
 
   // On submitting the form
   onSubmit() {
+
     if (this.form.form.valid) {
       this.createOrganisation(this.form.value);
     } else {
@@ -33,13 +47,35 @@ export class CreateOrganisationComponent implements OnInit {
 
   }
 
+  onEditSubmit() {
+    if (this.form.form.valid) {
+      this.updateOrganisation(this.form.value);
+    } else {
+      this.form.validateAllFormFields(this.form.form);
+    }
+  }
+
   // Create Organisation
   createOrganisation(organisationData) {
     this.organisationService.createOrganisation(organisationData).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
         this.form.form.reset();
-        this.dialogRef.close();
+        this.dialogRef.close('true');
+      }
+    }, error => {
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+    });
+  }
+
+  // Update Organisation
+  updateOrganisation(organisationData) {
+    organisationData.organisationId = this.orgId;
+    this.organisationService.updateOrganisation(organisationData).subscribe(data => {
+      if (data['result'].response === 'SUCCESS') {
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
+        this.form.form.reset();
+        this.dialogRef.close('true');
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);

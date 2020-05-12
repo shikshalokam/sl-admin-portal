@@ -34,7 +34,7 @@ export class UsersEditComponent implements OnInit {
   filterValue: any;
   userId: any;
   crumData: any;
-
+  deleteUserDetails: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
@@ -104,14 +104,37 @@ export class UsersEditComponent implements OnInit {
 
   // activate and deActivate User
   activate_deActivate_User() {
-    this.usersService.active_deActive_User(this.userId, this.editUserDetails).subscribe(data => {
+    this.usersService.activateDeActivateUser(this.userId, this.editUserDetails).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.router.navigateByUrl('users/list');
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 
+
+  confirmForUserDelete(data): void {
+    this.deleteUserDetails = data;
+    const message = `Are you sure you want to do this action ?`;
+
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: "310px",
+      height: "200px",
+      data: dialogData,
+    });
+
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      this.confirmPopupResult = dialogResult;
+      if (this.confirmPopupResult) {
+        this.deleteUser(this.deleteUserDetails);
+      } else {
+        this.dialog.closeAll();
+      }
+
+    });
+  }
 
 
   // Edit popup
@@ -132,6 +155,23 @@ export class UsersEditComponent implements OnInit {
       }
 
     });
+  }
+
+
+
+  // Delete User from the Organisation
+  deleteUser(data) {
+    let removeUser = {
+      userId: this.userId,
+      organisationId: data.value
+    }
+    this.usersService.removeUserFromOrganisation(removeUser).subscribe(data => {
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000)
+      this.getUserDetails();
+    }, error => {
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+    })
+
   }
 
   // Add organisation and roles to the user

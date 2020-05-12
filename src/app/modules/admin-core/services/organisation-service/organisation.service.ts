@@ -32,12 +32,13 @@ export class OrganisationService {
   }
 
   // Active and deActivate organisation
-  activate_deActivate_Organisation(orgid, data) {
-    if (data.status === 'Active') {
-      data.status = 'Inactive';
-    } else {
-      data.status = 'Active';
-    }
-    return this.Http.get(environment.base_url + OrganisationConfig.blockOrganisation + orgid + '?status=' + data.status)
+  activateDeActivateOrganisation(data) {
+    return this.Http.post(environment.base_url + OrganisationConfig.blockOrganisation, data);
   }
+
+  // Update Organisation
+  updateOrganisation(data) {
+    return this.Http.post(environment.base_url + OrganisationConfig.updateorganisationDetails, data);
+  }
+
 }

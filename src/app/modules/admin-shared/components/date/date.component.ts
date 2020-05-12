@@ -11,6 +11,7 @@ import { MatDateFormats,DateAdapter, MAT_DATE_FORMATS } from "@angular/material/
 export class DateComponent implements OnInit {
     field: FieldConfig;
     group: FormGroup;
+    yesterday = new Date(); 
     format(date: Date, displayFormat: Object): string {
         if (displayFormat === 'input') {
             let day: string = date.getDate().toString();
@@ -22,7 +23,9 @@ export class DateComponent implements OnInit {
         }
         return date.toDateString();
     }
-    constructor() { }
+    constructor() {
+        this.yesterday.setDate(this.yesterday.getDate() - 1);
+     }
     ngOnInit() { }
 
     

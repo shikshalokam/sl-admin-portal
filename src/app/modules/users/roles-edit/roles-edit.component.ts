@@ -74,12 +74,7 @@ export class RolesEditComponent implements OnInit {
       this.commonServiceService.commonSnackBar(this.updateResponse.message, 'success', 'top', 1000)
 
     }, error => {
-      console.log('error error', error);
-      this._snackBar.open(error.message, 'Dismiss', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 

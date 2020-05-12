@@ -1,19 +1,21 @@
-  <app-spinner *ngIf = "response"></app-spinner>
-  <div *ngIf="admin" class="dashboard-content">
-    <div class="row">
-      <div class="col-md-2" *ngFor="let info of homedisplayArray">
-        <mat-card class="product">
-          <mat-card-content matTooltip ="{{info.title}}" class="c-click"  (click) = "pageReDirect(info.routerlink)">
-            <div class="roundimg">
-              <mat-icon class="mat-icon-custom"><a
-                  routerLink="{{info.routerlink}}">{{info.icon}}</a></mat-icon>
-            </div>
-            <div class="text-center">
-              <span style="font-weight:600;">{{info.title}}</span>
-              <div style="color: gray;" (click)="singleuser()">{{info.data}}</div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </div>
+<div class="table-container">
+  <app-spinner *ngIf="response"></app-spinner>
+</div>
+
+<div *ngIf="admin" class="dashboard-content">
+  <div class="row">
+    <div class="col-md-2" *ngFor="let info of homedisplayArray">
+      <mat-card class="product">
+        <mat-card-content matTooltip="{{info.title}}" class="c-click" (click)="pageReDirect(info.routerlink)">
+          <div class="roundimg">
+            <mat-icon class="mat-icon-custom"><a routerLink="{{info.routerlink}}">{{info.icon}}</a></mat-icon>
+          </div>
+          <div class="text-center">
+            <span style="font-weight:600;">{{info.title}}</span>
+            <div style="color: gray;" (click)="singleuser()">{{info.data}}</div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
+</div>

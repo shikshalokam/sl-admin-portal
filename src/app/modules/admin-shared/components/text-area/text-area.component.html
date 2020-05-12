@@ -1,7 +1,7 @@
 <mat-form-field class="form-full-width" [formGroup]="group">
   <mat-label *ngIf="field.validation[0].name === 'required'" class="required">{{field.label}}</mat-label>
   <mat-label *ngIf="field.validation[0].name === 'pattern'">{{field.label}}</mat-label>
-  <input matInput [formControlName]="field.field" [type]="field.input">
+  <textarea matInput [formControlName]="field.field" [type]="field.input"></textarea>
   <ng-container *ngFor="let validation of field.validation;" ngProjectAs="mat-error">
     <mat-error *ngIf="group.get(field.field).hasError(validation.name)">{{validation.message}}</mat-error>
   </ng-container>

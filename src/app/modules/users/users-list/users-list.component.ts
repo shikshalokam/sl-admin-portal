@@ -23,8 +23,8 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
-  // displayedColumns: any;
-  displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
+  displayedColumns: any;
+  // displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   columns: any;
@@ -100,19 +100,22 @@ export class UsersListComponent implements OnInit {
     this.usersService.getUsers(this.queryParams, this.orgnsationId, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.options = data['result'];
       this.refreshDatasource(data['result'].data);
+      this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result'].data);
-      this.columns = new MatTableDataSource(data['result'].columns);
-      // this.displayedColumns = this.columns.map(column => column.label);
-      this.dataSource.sort = this.sort;
+      this.columns = data['result']['columns'];
+      if (this.options) {
+        this.columns.forEach(element => {
+          if (element.visible) {
+            this.displayedColumns.push(element.key)
+          }
+        });
+      }
       this.recordCount = data['result'].count;
       // this.cdr.detectChanges();
       this.listing = true;
     }, error => {
       this.listing = true;
-      this._snackBar.open(error.error.message, 'Dismiss', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
   refreshDatasource(data) {
@@ -243,7 +246,7 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsBackend = this.formdata.form;
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
   addNewUser() {
@@ -266,9 +269,9 @@ export class UsersListComponent implements OnInit {
   // get color based on the status
   getItemCssClassByStatus(status): string {
     switch (status) {
-      case 1:
+      case 'Active':
         return 'active';
-      case 0:
+      case 'Inactive':
         return 'inactive';
     }
     return '';
@@ -317,7 +320,6 @@ export class UsersListComponent implements OnInit {
       console.log('downloadapi', data);
     },
       error => {
-        console.log('error', error);
         this.downLoadFile(error.error.text, "text/csv");
       }
     )
@@ -362,7 +364,7 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activate_deActivate_User();
+        this.activateDeActivateUser();
       } else {
         this.dialog.closeAll();
       }
@@ -373,15 +375,15 @@ export class UsersListComponent implements OnInit {
 
 
   // Activate and Deactivate User
-  activate_deActivate_User() {
-    this.usersService.active_deActive_User(this.userObject.id, this.userObject).subscribe(data => {
+  activateDeActivateUser() {
+    this.usersService.activateDeActivateUser(this.userObject.id, this.userObject).subscribe(data => {
       setTimeout(() => {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getUserList();
       }, 1000);
 
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 

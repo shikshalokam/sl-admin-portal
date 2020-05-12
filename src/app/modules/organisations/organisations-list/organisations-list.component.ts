@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { fromEvent, of, Observable } from 'rxjs';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { OrganisationService } from '../../admin-core';
-import { CreateOrganisationComponent } from '../create-organisation/create-organisation.component';
+import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
@@ -29,6 +29,7 @@ export class OrganisationsListComponent implements OnInit {
   confirmPopupResult: any;
   status: any = '';
   orgObject: any;
+  assignedStatus: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -77,18 +78,18 @@ export class OrganisationsListComponent implements OnInit {
 
   // Filtering the data on status
   allOrganisation(value) {
-    this.status = value;
-    // switch (value) {
-    //   case 'Inactive':
-    //     this.status = 0;
-    //     break;
-    //   case 'Active':
-    //     this.status = 1;
-    //     break;
-    //   case 'All':
-    //     this.status = '';
-    //     break;
-    // }
+    // this.status = value;
+    switch (value) {
+      case 'Inactive':
+        this.status = 0;
+        break;
+      case 'Active':
+        this.status = 1;
+        break;
+      case 'All':
+        this.status = '';
+        break;
+    }
     this.getOrganisationList();
   }
 
@@ -109,12 +110,11 @@ export class OrganisationsListComponent implements OnInit {
           }
         });
       }
-      // this.displayedColumns = this.columns.concat([{key:'myExtraColumn'}]);
       this.recordCount = data['result'].count;
       this.listing = true;
     }, error => {
       this.listing = true;
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 
@@ -124,7 +124,7 @@ export class OrganisationsListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
 
@@ -144,7 +144,7 @@ export class OrganisationsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activate_deActivate_Organisation(this.orgObject);
+        this.activateDeActivateOrganisation(this.orgObject);
       } else {
         this.dialog.closeAll();
       }
@@ -154,15 +154,24 @@ export class OrganisationsListComponent implements OnInit {
 
 
   // Activate and Deactivate User
-  activate_deActivate_Organisation(data) {
-    this.organisationService.activate_deActivate_Organisation(this.orgObject._id, this.orgObject).subscribe(data => {
+  activateDeActivateOrganisation(data) {
+    if (data.status === 'Active') {
+      this.assignedStatus = 0;
+    } else {
+      this.assignedStatus = 1;
+    }
+    let updateData = {
+      organisationId: data._id,
+      status: this.assignedStatus
+    }
+    this.organisationService.activateDeActivateOrganisation(updateData).subscribe(data => {
       setTimeout(() => {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getOrganisationList();
       }, 1000);
 
     }, error => {
-      console.log('blockUser', error);
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 
@@ -184,7 +193,8 @@ export class OrganisationsListComponent implements OnInit {
 
   // Adding Organisation popup
   openDialog(fieldsForOrganisation): void {
-    const dialogRef = this.dialog.open(CreateOrganisationComponent
+    fieldsForOrganisation.action = 'Add'
+    const dialogRef = this.dialog.open(CreateandEditOrganisationComponent
       , {
         disableClose: true,
         width: '50%',

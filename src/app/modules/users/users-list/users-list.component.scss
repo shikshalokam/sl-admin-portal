@@ -1,6 +1,5 @@
 @import "../../../../assets/scss/variables.scss";
 
-
 .custom-form-field {
   font-size: 14px;
   width: 100%;
@@ -28,17 +27,13 @@
 
 .actions {
   color: $primary-color;
-  background-color:$body-background;
+  background-color: $body-background;
 }
 
 .filter {
   color: $primary-color;
 }
 
-.message {
-  text-align: center;
-  background-color: $white-color;
-}
 .mat-table {
   overflow: auto;
   height: 550px;

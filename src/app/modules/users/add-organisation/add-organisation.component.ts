@@ -170,15 +170,15 @@ export class AddOrganisationComponent implements OnInit {
     });
     let data = {
       userId: this.organisationData.userId,
-      organisationId: orgData.organisation.value,
+      organisation: orgData.organisation,
       roles: this.roleValues
     }
     this.usersService.addOrganisation_Roles(data).subscribe(data => {
       this.addedRoles = data;
       this.dialogRef.close(true);
-      this.commonServiceService.commonSnackBar(this.addedRoles.message, 'success', 'top', 1000)
+      this.commonServiceService.commonSnackBar(this.addedRoles.message, 'success', 'top', 10000)
     }, error => {
-
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     })
   }
 

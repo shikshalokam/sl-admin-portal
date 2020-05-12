@@ -2638,6 +2638,23 @@ th.mat-sort-header-sorted {
 //   height: 550px;
 // }
 
+.table-container {
+  position: relative;
+}
+
+.message {
+  text-align: center;
+  background-color: $white-color;
+  color: $text-color;
+   position: absolute;
+  top: 10%;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 

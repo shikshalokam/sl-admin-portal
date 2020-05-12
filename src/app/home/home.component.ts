@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
       this.response = false
     } else {
       this.admin = false;
+      this.response = false
       this.openDialog();
     }
   }
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(): void {
+    
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
@@ -46,7 +48,6 @@ export class HomeComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.KeycloakService.logout();
     });
   }
