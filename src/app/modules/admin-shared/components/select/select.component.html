@@ -13,7 +13,7 @@
 
 <mat-form-field *ngIf="field.visible" class="form-full-width margin-top" [formGroup]="group">
     <mat-label>{{field.label}}</mat-label>
-    <input type="text" aria-label="Number" (keyup)="OnInput($event)" matInput [formControlName]="field.field"
+    <input type="text" autocomplete="false" aria-label="Number" (keyup)="OnInput($event)" matInput [formControlName]="field.field"
         [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option *ngFor="let item of finaldata" [value]="item">{{item.label}}</mat-option>

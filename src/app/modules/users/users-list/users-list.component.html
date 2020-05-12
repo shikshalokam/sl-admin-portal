@@ -5,17 +5,24 @@
         <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
         </mat-icon>
       </a>
+
       <div class="list-menu ">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
+          <input type="text" (keyup)="OnInput($event)" [(ngModel)]="searchField" aria-label="Number" matInput
+            [formControl]="myControl" [ngModelOptions]="{standalone: true}"  [matAutocomplete]="auto">
+          <button mat-button mat-icon-button matSuffix (click)="clearSearchField()" *ngIf="searchField">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+            (optionSelected)='getSelected($event.option.value)' [displayWith]="displayFn">
+            <mat-option *ngFor="let option of organisations" [value]="option">
+              {{option.label}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </div>
+
       <div class="list-menu ">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
@@ -92,8 +99,8 @@
             </span>
             <span *ngIf="column.type == 'action'">
               <mat-cell *matCellDef="let user">
-                <button [disabled]="user.status == 'Inactive'" (click)="editUser(user)" matTooltip="Edit User" class="actions"
-                  mat-button>Edit</button>
+                <button [disabled]="user.status == 'Inactive'" (click)="editUser(user)" matTooltip="Edit User"
+                  class="actions" mat-button>Edit</button>
                 &nbsp;<button class="btnactive" *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)"
                   matTooltip="Activate User" class="actions btnactive" mat-button>Activate </button>
                 <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate User"

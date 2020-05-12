@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog} from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
@@ -15,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
-
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users-list',
@@ -24,23 +23,22 @@ import { DatePipe } from '@angular/common';
 })
 export class UsersListComponent implements OnInit {
   displayedColumns: any;
-  // displayedColumns: string[] = ['select', 'firstName', 'lastName', 'gender', 'status', 'role', 'Action'];
+  serverName: any;
+  filterValue: any;
+  searchField: any;
   myControl = new FormControl();
   dataSource: MatTableDataSource<any>;
   columns: any;
   selected: any;
-
   fileName: any;
   options: any[];
   organisations: any;
   organisationsList: any;
-  spin: any;
   recordCount: any;
   formdata: any;
   fieldsBackend: any;
   listing: boolean = false;
   orgnsationId: any;
-  loading: boolean = false;
   usersId: any[];
   dataArray: any[];
   status: any = '';
@@ -51,14 +49,10 @@ export class UsersListComponent implements OnInit {
     size: 10,
   };
   firstorganisationValue: any;
-  filteredOptions: any;
-  crumData: any;
   selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
-  filterStatus: string = '';
-  filterType: string = '';
   datePipe: any;
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
@@ -67,6 +61,11 @@ export class UsersListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.organisations = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value))
+    // );
+
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -134,6 +133,10 @@ export class UsersListComponent implements OnInit {
     return '-- --';
   }
 
+  displayFn(org): string {
+    return org && org.label ? org.label : org;
+  }
+
   // Filtering the data on status
   allUsers(value) {
     switch (value) {
@@ -151,34 +154,27 @@ export class UsersListComponent implements OnInit {
   }
 
 
-  // change of organisation
-  selectorganisation() {
-    this.orgnsationId = this.selected;
-    this.getUserList();
-    this.paginator.firstPage();
-  }
+ 
 
-  // on search key
-  onKey(value) {
-    if (value) {
-      this.organisations = this.selectSearch(value);
-      // this.cdr.detectChanges();
+  OnInput(event: any) {
+    this.serverName = event.target.value;
+    if (this.serverName) {
+      this.organisations = this._filter(this.serverName);
     } else {
       this.organisations = this.organisationsList;
     }
   }
 
-  // To filter the data
-  selectSearch(value: string) {
-    this.dataArray = [];
-    let filter = value.toLowerCase();
-    for (let i = 0; i < this.organisationsList.length; i++) {
-      let option = this.organisationsList[i];
-      if (option.label.toLowerCase().indexOf(filter) >= 0) {
-        this.dataArray.push(option);
-      }
-    }
-    return this.dataArray;
+
+  getSelected(data) {
+    this.orgnsationId = data.value
+    this.getUserList();
+    this.paginator.firstPage();
+  }
+
+  clearSearchField() {
+    this.searchField = '';
+    this.organisations = this.organisationsList;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -205,6 +201,7 @@ export class UsersListComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
   }
 
+
   /**
    * To get the form from the backend
    */
@@ -216,7 +213,6 @@ export class UsersListComponent implements OnInit {
         this.myControl.setValue(this.organisations[0].label);
         this.firstorganisationValue = this.organisations[0].value;
         this.orgnsationId = this.firstorganisationValue
-        this.selected = this.firstorganisationValue;
         this.getUserList();
       } else {
         this._snackBar.open('No Organisations Found', 'Dismiss', {
@@ -231,13 +227,23 @@ export class UsersListComponent implements OnInit {
         verticalPosition: 'top'
       });
     });
+
+  }
+
+  private _filter(value) {
+    if (typeof (value) == 'object') {
+      this.filterValue = value.label.toLowerCase();
+    } else {
+      this.filterValue = value.toLowerCase();
+    }
+
+    return this.organisations.filter(option => option.label.toLowerCase().indexOf(this.filterValue) === 0);
   }
 
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.getUserList();
-      // this.cdr.detectChanges();
     }, 3000)
   }
 
