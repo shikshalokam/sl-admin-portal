@@ -66,7 +66,7 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <div *ngIf="editOrganisationDetails" class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="text-color">
                 <mat-label>Name</mat-label>
               </div>
@@ -74,30 +74,13 @@
                 {{editOrganisationDetails?.name ? editOrganisationDetails.name : '-- --'}}
               </div>
             </div>
-
-            <!-- <div class="col-md-3">
-              <div class="text-color">
-                <label>Channel</label>
-              </div>
-              <div>
-                {{editOrganisationDetails?.channel ? editOrganisationDetails.channel: '-- --'}}
-              </div>
-            </div> -->
-
-            <div class="col-md-3">
-              <div class="text-color"> <label>Description </label></div>
-              <div>
-                {{editOrganisationDetails?.description ? editOrganisationDetails.description: '-- --'}}
-              </div>
-            </div>
-
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="text-color">External Id</label>
               <div>
                 {{editOrganisationDetails?.externalId ? editOrganisationDetails.externalId: '-- --'}}
               </div>
             </div>
-            <div *ngIf="editOrganisationDetails?.address" class="col-md-3">
+            <div *ngIf="editOrganisationDetails?.address" class="col-md-4">
               <label class="text-color">Address</label>
               <div>
                 {{editOrganisationDetails?.address ? editOrganisationDetails.address: '-- --'}}
@@ -105,7 +88,12 @@
             </div>
           </div>
           <div class="row" style="padding-top:15px">
-
+            <div class="col-md-6">
+              <div class="text-color"> <label>Description </label></div>
+              <div>
+                {{editOrganisationDetails?.description ? editOrganisationDetails.description: '-- --'}}
+              </div>
+            </div>
             <!-- <div class="col-md-3">
               <label class="text-color">No.Of Members</label>
               <div>
