@@ -12,9 +12,9 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button *ngIf="action == 'Add'" mat-button class="p-button" (click)="onSubmit()" cdkFocusInitial>ADD
+  <button *ngIf="action == 'Add'" [disabled] = "submitClick" mat-button class="p-button" (click)="onSubmit()" cdkFocusInitial>ADD
     ORGANISATION</button>
-  <button *ngIf="action == 'Edit'" mat-button class="p-button" (click)="onEditSubmit()" cdkFocusInitial>UPDATE
+  <button *ngIf="action == 'Edit'" [disabled] = "submitClick" mat-button class="p-button" (click)="onEditSubmit()" cdkFocusInitial>UPDATE
     ORGANISATION</button>
 
 </mat-dialog-actions>

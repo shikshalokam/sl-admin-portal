@@ -2633,10 +2633,10 @@ th.mat-sort-header-sorted {
   color: $primary-color;
 }
 
-// .mat-table {
-//   overflow: auto;
-//   height: 550px;
-// }
+.mat-table {
+  overflow: auto;
+  height: 550px;
+}
 
 .table-container {
   position: relative;
@@ -2655,14 +2655,14 @@ th.mat-sort-header-sorted {
   justify-content: center;
 }
 
-// .mat-cell {
-//   display: inline-block;
-//   width: 180px;
-//   white-space: nowrap;
-//   overflow: hidden !important;
-//   text-overflow: ellipsis;
-//   // padding-top: 15px;
-// }
+.mat-cell {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  padding: 12px 0px 10px 0px;
+}
+
 
 
 

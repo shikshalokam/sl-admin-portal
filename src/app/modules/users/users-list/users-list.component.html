@@ -80,7 +80,7 @@
                 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
               </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row" style="padding-top: 10px;">
+            <td mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;"
                 [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
               </mat-checkbox>
@@ -97,8 +97,8 @@
                 </span>
               </mat-cell>
             </span>
-            <span *ngIf="column.type == 'action'">
-              <mat-cell *matCellDef="let user">
+            <span *ngIf="column.type == 'action'" >
+              <mat-cell  *matCellDef="let user">
                 <button [disabled]="user.status == 'Inactive'" (click)="editUser(user)" matTooltip="Edit User"
                   class="actions" mat-button>Edit</button>
                 &nbsp;<button class="btnactive" *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)"

@@ -270,7 +270,9 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getUserList();
+      setTimeout(() => {
+        this.getUserList();
+      }, 2000)
     });
   }
   // get color based on the status
