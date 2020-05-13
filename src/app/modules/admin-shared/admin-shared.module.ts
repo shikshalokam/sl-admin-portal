@@ -40,6 +40,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
+import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 
 
@@ -48,7 +49,7 @@ import { TextAreaComponent } from './components/text-area/text-area.component';
   // ButtonComponent
   declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
     InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent],
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -106,6 +107,7 @@ import { TextAreaComponent } from './components/text-area/text-area.component';
   entryComponents: [
     InputComponent,
     // ButtonComponent,
+    AutoCompleteComponent,
     SelectComponent,
     DateComponent,
     RadiobuttonComponent,

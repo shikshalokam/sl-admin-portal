@@ -7,35 +7,23 @@ import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from "@angular/material";
 
 @Component({
-  selector: "app-select",
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  selector: 'app-auto-complete',
+  templateUrl: './auto-complete.component.html',
+  styleUrls: ['./auto-complete.component.scss']
 })
-export class SelectComponent implements OnInit {
+export class AutoCompleteComponent implements OnInit {
   field: FieldConfig;
   group: FormGroup;
   finaldata: any;
   serverName: any;
   myControl = new FormControl();
   filteredOptions: Observable<any[]>;
-  constructor() {
-   
-   }
+
+  constructor() { }
+
   ngOnInit() {
     this.finaldata = this.field.options;
-    this.myControl.setValidators(forbiddenNamesValidator( this.finaldata));
-    this.filteredOptions = this.group.get(this.field.field)!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
   }
-
-  public selectHandler(event : MatAutocompleteSelectedEvent) : void
-{
-    event.option.deselect()
-    // this.doStuffWith(event.option.value)
-}
 
   OnInput(event: any) {
     this.serverName = event.target.value;
@@ -50,14 +38,5 @@ export class SelectComponent implements OnInit {
   displayFn(user): string {
     return user && user.label ? user.label : user;
   }
-}
 
-export function forbiddenNamesValidator(names: string[]): ValidatorFn {
-  return (control: AbstractControl): { [key: string]: any } | null => {
-    // below findIndex will check if control.value is equal to one of our options or not
-    const index = names.findIndex(name => {
-      return (new RegExp('\^' + name + '\$')).test(control.value);
-    });
-    return index < 0 ? { 'forbiddenNames': { value: control.value } } : null;
-  };
 }
