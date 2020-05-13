@@ -90,8 +90,9 @@ export class OrganisationsListComponent implements OnInit {
         this.status = '';
         break;
     }
-    this.getOrganisationList();
     this.paginator.firstPage();
+    this.getOrganisationList();
+   
   }
 
   /**

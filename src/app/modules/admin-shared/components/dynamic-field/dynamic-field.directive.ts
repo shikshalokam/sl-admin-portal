@@ -13,6 +13,7 @@ import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { MultiSelectComponent } from "../multi-select/multi-select.component";
 import { PasswordComponent } from "../password/password.component";
 import { TextAreaComponent } from "../text-area/text-area.component";
+import { AutoCompleteComponent } from "../auto-complete/auto-complete.component";
 
 
 

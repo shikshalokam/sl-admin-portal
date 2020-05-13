@@ -14,24 +14,23 @@ export class PasswordComponent implements OnInit {
   mismatch: boolean = false;
   constructor() { }
   ngOnInit() {
-    console.log('1111111111111', this.field);
 
   }
 
   onKey(data) {
     if (this.group.controls.password.value === this.group.controls.confirmpassword.value) {
-        this.mismatch = false;
+      this.mismatch = false;
     } {
-        this.mismatch = true;
+      this.mismatch = true;
     }
-}
+  }
 
 
-checkPasswords(group: FormGroup) { // here we have the 'passwords' group
-  let pass = group.get('password').value;
-  let confirmPass = group.get('confirmpassword').value;
+  checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+    let pass = group.get('password').value;
+    let confirmPass = group.get('confirmpassword').value;
 
-  return pass === confirmPass ? null : { notSame: true }     
-}
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
 }

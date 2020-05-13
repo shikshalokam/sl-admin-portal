@@ -35,7 +35,7 @@ export class AddUserComponent implements OnInit {
     console.log('form', JSON.stringify(this.form.value));
     if (this.form.form.valid) {
       if (this.form.value.email || this.form.value.phoneNumber) {
-        if (this.form.value.password === this.form.value.confirmpassword) {
+        if (this.form.value.password === this.form.value.confirmPassword) {
           this.createUser(this.form.value)
         } else {
           this.form.validateAllFormFields(this.form.form);

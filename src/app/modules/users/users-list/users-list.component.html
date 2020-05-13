@@ -6,14 +6,14 @@
         </mat-icon>
       </a>
 
-      <div class="list-menu ">
+      <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <input (keyup)="OnInput($event)" [(ngModel)]="searchField"  matInput
-            [formControl]="myControl" [ngModelOptions]="{standalone: true}"  [matAutocomplete]="auto">
-          <button mat-icon-button matSuffix (click)="clearSearchField()">
-            <mat-icon>close</mat-icon>
-          </button>
+          <input (keyup)="OnInput($event)" [(ngModel)]="searchField" matInput [formControl]="myControl"
+            [ngModelOptions]="{standalone: true}" [matAutocomplete]="auto">
+            <button mat-icon-button matSuffix [style.visibility]="searchField ? 'visible' : 'hidden'" (click)="clearSearchField()">
+              <mat-icon>close</mat-icon>
+            </button>
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
             (optionSelected)='getSelected($event.option.value)' [displayWith]="displayFn">
             <mat-option *ngFor="let option of organisations" [value]="option">
@@ -23,7 +23,7 @@
         </mat-form-field>
       </div>
 
-      <div class="list-menu ">
+      <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
           <input matInput #searchInput>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="row">
       <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
         <mat-button-toggle matTooltip="All users" checked (click)="allUsers(toggleGroup.value)" class="filter"
           value="All">All
