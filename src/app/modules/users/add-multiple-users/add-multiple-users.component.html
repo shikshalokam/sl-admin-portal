@@ -1,8 +1,7 @@
-
-  <mat-toolbar role="toolbar" class="task-header">
-      <mat-icon style="color: white;">people</mat-icon>
-    <h5 class="title">Bulk Upload users</h5>
-  </mat-toolbar>
+<mat-toolbar role="toolbar" class="task-header">
+  <mat-icon style="color: white;">people</mat-icon>
+  <h5 class="title">Bulk Upload users</h5>
+</mat-toolbar>
 
 <mat-dialog-content class="mat-typography">
   <!-- <h3 class="titlehead">Bulk Upload users</h3> -->
@@ -29,9 +28,10 @@
       <div class="space">
         Download a CSV file, then edit and upload the file.
       </div>
-      <!-- <div class="space">
-        * Download blank <a href="{{downloadurl}}" download>CSV template</a>.
-      </div> -->
+      <div class="space">
+        <button mat-button color="primary" (click)="downloadSample()" cdkFocusInitial>SAMPLE CSV</button>
+        <!-- * Download blank <a href="{{downloadurl}}" download>CSV template</a>. -->
+      </div>
     </div>
   </div>
   <!-- </div> -->

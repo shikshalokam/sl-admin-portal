@@ -19,6 +19,10 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
 
+  sampleBulkUsers() {
+    return this.Http.get(environment.base_url + UsersConfig.sampleForm);
+  }
+
   // To get the orginsations based on the user logged in
   getOrganisations() {
     return this.Http.get(environment.base_url + UsersConfig.organisations + '?pageSize=20&pageNo=1');

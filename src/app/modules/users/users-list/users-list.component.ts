@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { fromEvent } from 'rxjs';
@@ -54,6 +54,7 @@ export class UsersListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   datePipe: any;
+  downloadedData: any;
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
@@ -88,8 +89,7 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
     this.createForm();
-
-
+    this.bulkUploadSample();
   }
 
   /**
@@ -255,6 +255,18 @@ export class UsersListComponent implements OnInit {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
+
+  bulkUploadSample() {
+    this.usersService.sampleBulkUsers().subscribe(data => {
+      this.formdata = data['result'];
+     console.log('bulkUploadSample', this.formdata);
+    }, error => {
+      console.log('error', error);
+      this.downloadedData = error.error.text;
+      // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+    });
+  }
+
   addNewUser() {
     this.openDialog(this.fieldsBackend);
   }
@@ -285,13 +297,17 @@ export class UsersListComponent implements OnInit {
     return '';
   }
 
+  bulkUploadModal(){
+    this.UploadUsers(this.downloadedData)
+  }
+
   // Adding multiple users popup
-  UploadUsers() {
+  UploadUsers(downloadedData) {
     const dialogRef = this.dialog.open(AddMultipleUsersComponent
       , {
         disableClose: true,
         width: '30%',
-        data: {}
+        data: { downloadedData }
       });
 
     dialogRef.afterClosed().subscribe(result => {

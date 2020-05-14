@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { RolesEditComponent } from '../roles-edit/roles-edit.component';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from '../add-organisation/add-organisation.component';
+import {Location} from '@angular/common';
 
 
 
@@ -38,6 +39,7 @@ export class UsersEditComponent implements OnInit {
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
+    private _location: Location,
     private dialog: MatDialog,
     private router: Router,
     private usersService: UsersService, private route: ActivatedRoute) {
@@ -51,7 +53,7 @@ export class UsersEditComponent implements OnInit {
       .subscribe(data => {
         this.crumData = data;
       });
-
+      // this._location.back();
   }
 
   reset() {

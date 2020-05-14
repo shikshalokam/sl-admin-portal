@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { UsersService } from '../../admin-core';
 import { saveAs } from 'file-saver';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
+import { saveAs as importedSaveAs } from "file-saver";
+
 
 
 @Component({
@@ -15,12 +17,28 @@ export class AddMultipleUsersComponent implements OnInit {
   downloadurl: 'download url from server';
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddMultipleUsersComponent>
   ) { }
 
   ngOnInit() {
   }
 
+  downloadSample() {
+    this.downLoadFile(this.data.downloadedData, '"text/csv"');
+  }
+
+  // To download selected records
+  downLoadFile(data: any, type: string) {
+    let blob = new Blob([data], { type: type });
+    importedSaveAs(blob, 'Sample.csv');
+    // let url = window.URL.createObjectURL(blob);
+    // let pwa = window.open(url);
+    this._snackBar.open('Sample File Downloaded Successfully', 'success', {
+      duration: 10000,
+      verticalPosition: 'top'
+    })
+  }
 
   // File Handling
   handleFileInput(files: Event) {
