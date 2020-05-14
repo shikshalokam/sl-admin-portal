@@ -155,8 +155,6 @@ export class UsersListComponent implements OnInit {
   }
 
 
- 
-
   OnInput(event: any) {
     this.serverName = event.target.value;
     if (this.serverName) {
@@ -168,6 +166,7 @@ export class UsersListComponent implements OnInit {
 
 
   getSelected(data) {
+    // this.fieldsBackend.selectedOption = data;
     this.orgnsationId = data.value
     this.getUserList();
     this.paginator.firstPage();

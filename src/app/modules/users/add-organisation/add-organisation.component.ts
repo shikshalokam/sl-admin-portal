@@ -82,14 +82,15 @@ export class AddOrganisationComponent implements OnInit {
   reactiveForm() {
     this.myForm = this.fb.group({
       organisation: ['', [Validators.required]],
-      addRoles: [this.roles, [Validators.required]],
+      addRoles: [this.roles],
     })
   }
 
   submitForm() {
-    // if (this.myForm.valid) {
+    console.log('this.myForm.value', this.myForm.value);
+    if (this.myForm.valid) {
     this.addNewOrganisation(this.myForm.value);
-    // }
+    }
 
   }
   /* Handle form errors in Angular 8 */
@@ -109,9 +110,6 @@ export class AddOrganisationComponent implements OnInit {
       return indexFound == -1;
     });
     this.finalData = this.finalOutput;
-
-    console.log('finalOutput', this.finalData);
-
   }
 
   filteringRolesData() {
@@ -145,7 +143,6 @@ export class AddOrganisationComponent implements OnInit {
     } else {
       this.filterValue = value.toLowerCase();
     }
-    // const filterValue = value.toLowerCase();
     return this.finalOutput.filter(option => option.label.toLowerCase().indexOf(this.filterValue) === 0);
   }
 

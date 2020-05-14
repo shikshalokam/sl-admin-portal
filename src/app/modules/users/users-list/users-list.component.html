@@ -9,14 +9,14 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <input (keyup)="OnInput($event)" [(ngModel)]="searchField" matInput [formControl]="myControl"
+          <input (keyup)="OnInput($event)" class="text-capital" [(ngModel)]="searchField" matInput [formControl]="myControl"
             [ngModelOptions]="{standalone: true}" [matAutocomplete]="auto">
             <button mat-icon-button matSuffix [style.visibility]="searchField ? 'visible' : 'hidden'" (click)="clearSearchField()">
               <mat-icon>close</mat-icon>
             </button>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+          <mat-autocomplete class="text-capital" autoActiveFirstOption #auto="matAutocomplete"
             (optionSelected)='getSelected($event.option.value)' [displayWith]="displayFn">
-            <mat-option *ngFor="let option of organisations" [value]="option">
+            <mat-option  class="text-capital" *ngFor="let option of organisations" [value]="option">
               {{option.label}}
             </mat-option>
           </mat-autocomplete>

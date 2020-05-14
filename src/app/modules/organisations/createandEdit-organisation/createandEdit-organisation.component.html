@@ -12,9 +12,30 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button *ngIf="action == 'Add'" [disabled] = "submitClick" mat-button class="p-button" (click)="onSubmit()" cdkFocusInitial>ADD
-    ORGANISATION</button>
-  <button *ngIf="action == 'Edit'" [disabled] = "submitClick" mat-button class="p-button" (click)="onEditSubmit()" cdkFocusInitial>UPDATE
-    ORGANISATION</button>
+  <!-- <button *ngIf="action == 'Add'" [disabled]="submitClick" mat-button class="p-button" (click)="onSubmit()"
+    cdkFocusInitial>ADD
+    ORGANISATION</button> -->
+  <button *ngIf="action == 'Add'" [disabled]="submitClick" cdkFocusInitial class="p-button"
+    (click)="onSubmit()" mat-button>
+    ADD
+    ORGANISATION
+    <mat-icon *ngIf="submitClick">
+      <mat-spinner diameter="20">
+      </mat-spinner>
+    </mat-icon>
+  </button>
+
+  <button *ngIf="action == 'Edit'" [disabled]="submitClick" cdkFocusInitial class="p-button" 
+    (click)="onEditSubmit()" mat-button>
+    UPDATE
+    ORGANISATION
+    <mat-icon *ngIf="submitClick">
+      <mat-spinner diameter="20">
+      </mat-spinner>
+    </mat-icon>
+  </button>
+  <!-- <button *ngIf="action == 'Edit'" [disabled]="submitClick" mat-button class="p-button" (click)="onEditSubmit()"
+    cdkFocusInitial>UPDATE
+    ORGANISATION</button> -->
 
 </mat-dialog-actions>

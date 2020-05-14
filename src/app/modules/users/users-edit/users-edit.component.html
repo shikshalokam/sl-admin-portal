@@ -74,7 +74,7 @@
               <div class="text-color">
                 <mat-label>First Name</mat-label>
               </div>
-              <div>
+              <div class="text-capital">
                 {{editUserDetails?.firstName ? editUserDetails.firstName : '-- --'}}
               </div>
             </div>
@@ -83,7 +83,7 @@
               <div class="text-color">
                 <label>Last Name</label>
               </div>
-              <div>
+              <div class="text-capital">
                 {{editUserDetails?.lastName ? editUserDetails.lastName: '-- --'}}
               </div>
 
@@ -139,11 +139,12 @@
                 organisation</button>
             </div>
           </div>
+         
           <mat-table [dataSource]="details" class="mat-elevation-z8">
 
             <ng-container matColumnDef="Organisation">
               <mat-header-cell *matHeaderCellDef> Organisation </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.label}} </mat-cell>
+              <mat-cell class="text-capital" *matCellDef="let element"> {{element.label}} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Roles">
@@ -156,14 +157,15 @@
               <mat-cell *matCellDef="let element">
                 <button (click)="editRoles(element)" matTooltip="Edit Roles" class="actions" mat-button>
                   Edit</button>&nbsp;
-                <button (click)="confirmForUserDelete(element)" matTooltip="Delete User from Organisation" class="actions"
-                  mat-button>Delete</button>
+                <button (click)="confirmForUserDelete(element)" matTooltip="Delete User from Organisation"
+                  class="actions" mat-button>Delete</button>
               </mat-cell>
             </ng-container>
-
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
+         
+        
 
 
         </mat-card>

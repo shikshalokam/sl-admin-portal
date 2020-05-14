@@ -12,5 +12,11 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button mat-button [disabled] = "submitClick" style="background: #bababa;" (click)="onSubmit()" cdkFocusInitial>ADD USER</button>
+  <button [disabled]="submitClick" style="background: #bababa;" color = 'primary' (click)="onSubmit()" mat-button>
+    ADD USER
+    <mat-icon *ngIf="submitClick">
+      <mat-spinner diameter="20">
+      </mat-spinner>
+    </mat-icon>
+  </button>
 </mat-dialog-actions>

@@ -63,6 +63,7 @@ export class UsersEditComponent implements OnInit {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
       this.details = this.editUserDetails.organisations;
+      console.log('details', this.details);
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
         this.details[i].list = [];
