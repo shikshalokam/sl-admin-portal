@@ -96,9 +96,10 @@ export class UsersService {
 
   // To upload the Users csv
   uploadUsersCsv(file): Observable<any> {
+    console.log('sssssssssssss', file);
     let fileData = new FormData();
-    fileData.append('files', file);
-    return this.Http.post(environment.base_url + '', fileData)
+    fileData.append('userCreationFile', file);
+    return this.Http.post(environment.base_url + UsersConfig.bulkUpload, fileData)
     // let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
     // headers.append('Content-Type', 'multipart/form-data');
     // const req = new HttpRequest('POST', environment.base_url + '',

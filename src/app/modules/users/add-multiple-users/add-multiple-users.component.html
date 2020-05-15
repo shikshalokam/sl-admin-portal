@@ -18,10 +18,10 @@
       </div>
       <div class="upload-btn-wrapper">
         <button mat-button class="btn">ATTACH CSV</button>
-        <input type="file" name="myfile" />
+         <input style="margin-top: 10px;cursor:pointer;" type="file" id="file" enctype="multipart/form-data"
+        (change)="handleFileInput($event.target.files)" accept=".csv">
+        <!-- <input type="file" name="myfile" (change)="handleFileInput($event.target.files)" accept=".csv" /> -->
       </div>
-      <!-- <input class="space" type="file" id="file" enctype="multipart/form-data"
-        (change)="handleFileInput($event.target.files)" accept=".csv"> -->
       <div class="space">
         <h3>Not sure how to get started?</h3>
       </div>
@@ -29,8 +29,7 @@
         Download a CSV file, then edit and upload the file.
       </div>
       <div class="space">
-        <button mat-button color="primary" (click)="downloadSample()" cdkFocusInitial>SAMPLE CSV</button>
-        <!-- * Download blank <a href="{{downloadurl}}" download>CSV template</a>. -->
+        <button mat-button class="p-button" (click)="downloadSample()" cdkFocusInitial>DOWNLOAD CSV</button>
       </div>
     </div>
   </div>
@@ -38,5 +37,11 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button mat-button color="primary" (click)="uploadUsersCSVFile()" cdkFocusInitial>UPLOAD</button>
+  <button [disabled]="submitClick" class="p-button" (click)="uploadUsersCSVFile()" mat-button>
+    UPLOAD
+    <mat-icon *ngIf="submitClick">
+      <mat-spinner diameter="20">
+      </mat-spinner>
+    </mat-icon>
+  </button>
 </mat-dialog-actions>

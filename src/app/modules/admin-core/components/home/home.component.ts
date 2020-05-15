@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService, keyCloakService } from '../modules/admin-core';
+import { UsersService, keyCloakService } from '../..';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { UnauthorizedComponent } from '../modules/admin-shared';
+import { UnauthorizedComponent } from '../../../admin-shared';
 import { Router, ActivatedRoute } from '@angular/router';
 
 

@@ -12,7 +12,7 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <button [disabled]="submitClick" style="background: #bababa;" color = 'primary' (click)="onSubmit()" mat-button>
+  <button [disabled]="submitClick" class="p-button" (click)="onSubmit()" mat-button>
     ADD USER
     <mat-icon *ngIf="submitClick">
       <mat-spinner diameter="20">

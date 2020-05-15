@@ -261,7 +261,6 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
      console.log('bulkUploadSample', this.formdata);
     }, error => {
-      console.log('error', error);
       this.downloadedData = error.error.text;
       // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });

@@ -43,7 +43,6 @@ export class AddMultipleUsersComponent implements OnInit {
   // File Handling
   handleFileInput(files: Event) {
     const file = files[0];
-    this.uploadUsersCSVFile();
     this.filecontent = file;
   }
 
