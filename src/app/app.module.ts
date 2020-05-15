@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { HomeComponent } from './home/home.component';
 import { BreadCrumComponent } from './bread-crum/bread-crum.component';
+import { AdminFooterComponent } from './admin-footer/admin-footer.component';
 
 
 export function tokenGetter() {
@@ -24,10 +25,10 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HeaderComponent,
-    // FooterComponent,
     LoginComponent,
     HomeComponent,
-    BreadCrumComponent
+    BreadCrumComponent,
+    AdminFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +49,7 @@ export function tokenGetter() {
   entryComponents: [
     AppComponent
   ],
-  providers: [TranslateService,
+  providers: [ TranslateService,
     keyCloakService
   ],
 })
