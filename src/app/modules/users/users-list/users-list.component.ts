@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { fromEvent } from 'rxjs';
-import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
@@ -261,7 +260,6 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
      console.log('bulkUploadSample', this.formdata);
     }, error => {
-      console.log('error', error);
       this.downloadedData = error.error.text;
       // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
@@ -298,23 +296,24 @@ export class UsersListComponent implements OnInit {
   }
 
   bulkUploadModal(){
-    this.UploadUsers(this.downloadedData)
+    // this.UploadUsers(this.downloadedData);
   }
 
   // Adding multiple users popup
-  UploadUsers(downloadedData) {
-    const dialogRef = this.dialog.open(AddMultipleUsersComponent
-      , {
-        disableClose: true,
-        width: '30%',
-        data: { downloadedData }
-      });
+  // UploadUsers(downloadedData) {
+  //   const dialogRef = this.dialog.open(AddMultipleUsersComponent
+  //     , {
+  //       disableClose: true,
+  //       width: '30%',
+  //       data: { downloadedData }
+  //     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getUserList();
-    });
-  }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     this.getUserList();
+  //   });
+  // }
+
   onRowClicked(row) {
   }
 

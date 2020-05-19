@@ -94,22 +94,6 @@ export class UsersService {
 
   }
 
-  // To upload the Users csv
-  uploadUsersCsv(file): Observable<any> {
-    let fileData = new FormData();
-    fileData.append('files', file);
-    return this.Http.post(environment.base_url + '', fileData)
-    // let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
-    // headers.append('Content-Type', 'multipart/form-data');
-    // const req = new HttpRequest('POST', environment.base_url + '',
-    //   formData, {
-    //   headers: headers
-    // });
-
-    // return this.Http.request(req);
-  }
-
-
   getCurrentUserRoles() {
     let promise = new Promise((resolve, reject) => {
       this.Http.get(environment.base_url + UsersConfig.userRoles)

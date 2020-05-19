@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { keyCloakService, UsersService } from '../modules/admin-core';
+import { keyCloakService, UsersService } from '../..';
 import { MatSnackBar } from '@angular/material';
-import { CommonServiceService } from '../modules/admin-core/services/common-service.service';
+import { CommonServiceService } from '../../services/common-service.service';
 
 
 
