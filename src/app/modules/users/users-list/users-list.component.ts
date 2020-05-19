@@ -297,6 +297,7 @@ export class UsersListComponent implements OnInit {
 
   bulkUploadModal(){
     // this.UploadUsers(this.downloadedData);
+    this.commingsoon();
   }
 
   // Adding multiple users popup
