@@ -19,9 +19,10 @@ export class AddUserComponent implements OnInit {
   group: FormGroup;
   formdata: any;
   loading: boolean = false;
+  submitClick = false;
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
-    private datePipe: DatePipe,private commonServiceService: CommonServiceService,
+    private datePipe: DatePipe, private commonServiceService: CommonServiceService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddUserComponent>) { }
 
@@ -32,7 +33,6 @@ export class AddUserComponent implements OnInit {
   // Form Submit
   onSubmit() {
     this.form.value.dateOfBirth = this.datePipe.transform(this.form.value.dateOfBirth, 'yyyy-MM-dd');
-    console.log('form', JSON.stringify(this.form.value));
     if (this.form.form.valid) {
       if (this.form.value.email || this.form.value.phoneNumber) {
         if (this.form.value.password === this.form.value.confirmPassword) {
@@ -64,6 +64,7 @@ export class AddUserComponent implements OnInit {
     * To Create the User
     */
   createUser(userdata) {
+    this.submitClick = true;
     userdata.dateOfBirth = this.datePipe.transform(userdata.dateOfBirth, 'yyyy-MM-dd');
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
@@ -73,9 +74,11 @@ export class AddUserComponent implements OnInit {
         });
         this.form.form.reset();
         this.dialogRef.close();
+        this.submitClick = false;
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.submitClick = false;
     });
   }
 

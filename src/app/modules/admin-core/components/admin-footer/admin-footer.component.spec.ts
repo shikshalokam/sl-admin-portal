@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddMultipleUsersComponent } from './add-multiple-users.component';
+import { AdminFooterComponent } from './admin-footer.component';
 
-describe('AddMultipleUsersComponent', () => {
-  let component: AddMultipleUsersComponent;
-  let fixture: ComponentFixture<AddMultipleUsersComponent>;
+describe('AdminFooterComponent', () => {
+  let component: AdminFooterComponent;
+  let fixture: ComponentFixture<AdminFooterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddMultipleUsersComponent ]
+      declarations: [ AdminFooterComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddMultipleUsersComponent);
+    fixture = TestBed.createComponent(AdminFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

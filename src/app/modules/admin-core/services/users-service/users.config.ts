@@ -10,5 +10,7 @@ export const UsersConfig = {
     singleUser: 'v1/userExtension/details/',
     updateRoles: 'v1/organisations/assignRoles',
     addRoles: 'v1/organisations/addUser',
-    removeUser: 'v1/organisations/removeUser'
+    removeUser: 'v1/organisations/removeUser',
+    sampleForm: 'v1/userExtension/bulkUserSampleCsvDwonload',
+    bulkUpload: 'v1/bulkUploadRequest/bulkUserUpload?requestType=userCreation'
 }

@@ -36,7 +36,7 @@
     "keycloak-angular": "^4.0.2",
     "keycloak-js": "^4.6.0",
     "ngx-mat-select-search": "^1.8.0",
-    "ngx-spinner": "^6.1.2",
+    "ngx-spinner": "^7.2.0",
     "popper.js": "^1.16.1",
     "rxjs": "~6.3.3",
     "shikshalokam": "file:../sl-portal-library/dist/shikshalokam/shikshalokam-0.0.1.tgz",

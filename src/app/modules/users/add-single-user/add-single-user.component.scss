@@ -11,11 +11,6 @@
   background-color: $primary-color;
 }
 
-.mat-spinner {
-  ::ng-deep circle {
-    stroke: $primary-color !important;
-  }
-}
 
 .custom-dialog-content {
   display: block;

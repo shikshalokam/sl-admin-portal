@@ -19,6 +19,10 @@ export class UsersService {
     return this.Http.get(environment.base_url + UsersConfig.usersForm);
   }
 
+  sampleBulkUsers() {
+    return this.Http.get(environment.base_url + UsersConfig.sampleForm);
+  }
+
   // To get the orginsations based on the user logged in
   getOrganisations() {
     return this.Http.get(environment.base_url + UsersConfig.organisations + '?pageSize=20&pageNo=1');
@@ -89,22 +93,6 @@ export class UsersService {
     });
 
   }
-
-  // To upload the Users csv
-  uploadUsersCsv(file): Observable<any> {
-    let fileData = new FormData();
-    fileData.append('files', file);
-    return this.Http.post(environment.base_url + '', fileData)
-    // let headers = new HttpHeaders({ 'Authorization': 'Bearer ' + 'token' });
-    // headers.append('Content-Type', 'multipart/form-data');
-    // const req = new HttpRequest('POST', environment.base_url + '',
-    //   formData, {
-    //   headers: headers
-    // });
-
-    // return this.Http.request(req);
-  }
-
 
   getCurrentUserRoles() {
     let promise = new Promise((resolve, reject) => {

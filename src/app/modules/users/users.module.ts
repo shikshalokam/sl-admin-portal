@@ -5,7 +5,6 @@ import { AdminSharedModule } from '../admin-shared';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AddUserComponent } from './add-single-user/add-single-user.component';
-import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 import { UsersEditComponent } from './users-edit/users-edit.component';
 import { RolesEditComponent } from './roles-edit/roles-edit.component';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -26,7 +25,7 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
       NO_ERRORS_SCHEMA
   ],
   providers: [ DatePipe],
-  entryComponents: [AddUserComponent,AddOrganisationComponent, AddMultipleUsersComponent,RolesEditComponent],
-  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent, AddMultipleUsersComponent, UsersEditComponent,  RolesEditComponent, AddOrganisationComponent],
+  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent],
+  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent,UsersEditComponent,  RolesEditComponent, AddOrganisationComponent],
 })
 export class UsersModule { }

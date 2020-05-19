@@ -17,6 +17,7 @@ export class CreateandEditOrganisationComponent implements OnInit {
   action: any;
   title: any;
   orgId: any;
+  submitClick: boolean = false;
   submitButton: any;
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<CreateandEditOrganisationComponent>,
@@ -26,7 +27,7 @@ export class CreateandEditOrganisationComponent implements OnInit {
   ngOnInit() {
     this.formdata = this.data.fieldsForOrganisation;
     this.action = this.formdata.action;
-    if( this.action === 'Add'){
+    if (this.action === 'Add') {
       this.title = 'Add Organisation';
       this.submitButton = 'ADD ORGANISATION';
     } else {
@@ -57,6 +58,7 @@ export class CreateandEditOrganisationComponent implements OnInit {
 
   // Create Organisation
   createOrganisation(organisationData) {
+    this.submitClick = true;
     this.organisationService.createOrganisation(organisationData).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
         this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
@@ -65,11 +67,13 @@ export class CreateandEditOrganisationComponent implements OnInit {
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.submitClick = false;
     });
   }
 
   // Update Organisation
   updateOrganisation(organisationData) {
+    this.submitClick = true;
     organisationData.organisationId = this.orgId;
     this.organisationService.updateOrganisation(organisationData).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
@@ -79,6 +83,7 @@ export class CreateandEditOrganisationComponent implements OnInit {
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.submitClick = false;
     });
   }
 

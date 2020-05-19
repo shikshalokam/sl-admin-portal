@@ -1,10 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
 import { fromEvent } from 'rxjs';
-import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { distinctUntilChanged, map, filter } from 'rxjs/operators';
@@ -54,6 +53,7 @@ export class UsersListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   datePipe: any;
+  downloadedData: any;
 
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
@@ -88,8 +88,7 @@ export class UsersListComponent implements OnInit {
       this.getUserList();
     });
     this.createForm();
-
-
+    this.bulkUploadSample();
   }
 
   /**
@@ -155,8 +154,6 @@ export class UsersListComponent implements OnInit {
   }
 
 
- 
-
   OnInput(event: any) {
     this.serverName = event.target.value;
     if (this.serverName) {
@@ -168,6 +165,7 @@ export class UsersListComponent implements OnInit {
 
 
   getSelected(data) {
+    // this.fieldsBackend.selectedOption = data;
     this.orgnsationId = data.value
     this.getUserList();
     this.paginator.firstPage();
@@ -256,6 +254,17 @@ export class UsersListComponent implements OnInit {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
   }
+
+  bulkUploadSample() {
+    this.usersService.sampleBulkUsers().subscribe(data => {
+      this.formdata = data['result'];
+     console.log('bulkUploadSample', this.formdata);
+    }, error => {
+      this.downloadedData = error.error.text;
+      // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+    });
+  }
+
   addNewUser() {
     this.openDialog(this.fieldsBackend);
   }
@@ -270,7 +279,9 @@ export class UsersListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getUserList();
+      setTimeout(() => {
+        this.getUserList();
+      }, 2000)
     });
   }
   // get color based on the status
@@ -284,20 +295,26 @@ export class UsersListComponent implements OnInit {
     return '';
   }
 
-  // Adding multiple users popup
-  UploadUsers() {
-    const dialogRef = this.dialog.open(AddMultipleUsersComponent
-      , {
-        disableClose: true,
-        width: '30%',
-        data: {}
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getUserList();
-    });
+  bulkUploadModal(){
+    // this.UploadUsers(this.downloadedData);
+    this.commingsoon();
   }
+
+  // Adding multiple users popup
+  // UploadUsers(downloadedData) {
+  //   const dialogRef = this.dialog.open(AddMultipleUsersComponent
+  //     , {
+  //       disableClose: true,
+  //       width: '30%',
+  //       data: { downloadedData }
+  //     });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //     this.getUserList();
+  //   });
+  // }
+
   onRowClicked(row) {
   }
 

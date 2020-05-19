@@ -9,14 +9,14 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Select Organisation</mat-label>
-          <input (keyup)="OnInput($event)" [(ngModel)]="searchField" matInput [formControl]="myControl"
+          <input (keyup)="OnInput($event)" class="text-capital" [(ngModel)]="searchField" matInput [formControl]="myControl"
             [ngModelOptions]="{standalone: true}" [matAutocomplete]="auto">
             <button mat-icon-button matSuffix [style.visibility]="searchField ? 'visible' : 'hidden'" (click)="clearSearchField()">
               <mat-icon>close</mat-icon>
             </button>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"
+          <mat-autocomplete class="text-capital" autoActiveFirstOption #auto="matAutocomplete"
             (optionSelected)='getSelected($event.option.value)' [displayWith]="displayFn">
-            <mat-option *ngFor="let option of organisations" [value]="option">
+            <mat-option  class="text-capital" *ngFor="let option of organisations" [value]="option">
               {{option.label}}
             </mat-option>
           </mat-autocomplete>
@@ -55,7 +55,7 @@
         </button>
       </div>
       <div class="btn-gap">
-        <button mat-button (click)="UploadUsers()" matTooltip="Upload Users">
+        <button mat-button (click)="bulkUploadModal()" matTooltip="Upload Users">
           Bulk Upload Users
         </button>
       </div>
@@ -80,7 +80,7 @@
                 [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
               </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row" style="padding-top: 10px;">
+            <td mat-cell *matCellDef="let row">
               <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;"
                 [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
               </mat-checkbox>
@@ -97,8 +97,8 @@
                 </span>
               </mat-cell>
             </span>
-            <span *ngIf="column.type == 'action'">
-              <mat-cell *matCellDef="let user">
+            <span *ngIf="column.type == 'action'" >
+              <mat-cell  *matCellDef="let user">
                 <button [disabled]="user.status == 'Inactive'" (click)="editUser(user)" matTooltip="Edit User"
                   class="actions" mat-button>Edit</button>
                 &nbsp;<button class="btnactive" *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)"
