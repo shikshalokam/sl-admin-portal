@@ -1,0 +1,36 @@
+@import "../../../../../assets/scss/variables.scss";
+.space {
+    padding: 15px;
+}
+.atext{
+  text-align: right;
+}
+
+.active {
+  border-bottom: 3px solid $primary-color;
+}
+
+.head {
+  // padding: 7px 10px 0px 10px;
+  border-bottom: 1px  solid $primary-color;
+  background-color: $white-color;
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 6% 2px 20px;
+}
+.b-color{
+background-color: $white-color;
+color: $white-color;
+
+}
+
+  //  .mat-form-field-underline {
+  //     display: none !important;
+  // }
+
+ 
+    // .mat-form-field-appearance-fill .mat-form-field-underline::before {
+    //   height: 0px !important;
+    // }
+    

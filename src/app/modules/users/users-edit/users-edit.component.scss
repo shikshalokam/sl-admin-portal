@@ -1,0 +1,95 @@
+@import "../../../../assets/scss/variables.scss";
+.profile {
+  font-size: 70px;
+  padding-right: 80px;
+}
+
+.profile-actions-icon {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  text-align: justify;
+  cursor: pointer;
+}
+.custom-dialog-container .mat-dialog-container {
+  /* add your styles */
+  padding: 0px;
+}
+
+.profile-actions-text {
+  padding-left: 15px;
+  font-weight: 600;
+  color: $text-color;
+}
+.text-color {
+  color: $text-color;
+}
+.mat-icon {
+  color: $text-color;
+  font-size: 25px;
+}
+.c-line {
+  border-bottom: 1px solid #c7c3c3;
+}
+
+.c-font {
+  font-weight: bold;
+}
+
+.profile-card {
+  width: 23%;
+  height: fit-content;
+}
+.thumbnail-image {
+  height: 35px;
+  width: 35px;
+}
+.user-details {
+  padding-left: 15px;
+  width: 77%;
+}
+
+.user-details-card {
+  padding-top: 15px;
+  height: auto;
+}
+
+.edit-button {
+  background: $black-color;
+  color: $white-color;
+}
+.user-name {
+  text-align: justify;
+  padding-left: 40px;
+}
+.back-edit {
+  background-color: $text-color;
+}
+.example-chip-list {
+  width: 100%;
+}
+.positive {
+  color: $green-color;
+}
+.negative {
+  color: $primary-color;
+}
+
+.roles-head {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+.actions {
+  color: $primary-color;
+  background-color: #f3f4f5;
+}
+.c-mat-icon {
+  font-size: 70px;
+  padding-right: 80px !important;
+}
+
+.mat-table {
+  overflow: hidden;
+  height: auto;
+}

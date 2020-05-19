@@ -1,0 +1,60 @@
+<mat-toolbar role="toolbar" class="task-header">
+  <mat-icon style="color: white;">account_circle</mat-icon>
+  <h5 class="title">Add New Organisation</h5>
+</mat-toolbar>
+<h1 mat-dialog-title style="font-weight: 600;text-align: center;">
+</h1>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()" novalidate>
+  <mat-dialog-content>
+    <div>
+      <mat-form-field class="example-chip-list" style="width: 100%;">
+        <mat-label class="required">Organisation</mat-label>
+        <mat-select class="text-capital"  autocomplete="false" formControlName="organisation">
+          <mat-option  class="text-capital" *ngFor="let item of finalData" [value]="item">{{item.label}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="errorHandling('organisation', 'required')">
+          You must select organisation
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field class="example-chip-list" style="width: 100%;">
+        <mat-label>Organisation</mat-label>
+        <input type="text" aria-label="Number" formControlName="organisation" (keyup)="OnInput($event)" matInput
+          [matAutocomplete]="auto">
+        <mat-error *ngIf="errorHandling('organisation', 'required')">
+          You must select organisation
+        </mat-error>
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let item of finalData" [value]="item">{{item.label}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+    </div>
+
+    <div>
+      <mat-form-field class="example-chip-list" style="width: 100%;">
+        <mat-chip-list #chipList aria-label="Role selection">
+          <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"
+            (removed)="remove(role)">
+            {{role.label}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Roles" formControlName="addRoles" #roleInput [formControl]="roleCtrl"
+            [matAutocomplete]="auto1" [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-error *ngIf="errorHandling('addRoles', 'required')">
+          You must select Roles
+        </mat-error>
+        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+            {{role.label}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="custom-dialog-actions" align="end">
+    <button mat-button (click)="onCancel()">CANCEL</button>
+    <button mat-button class="actions" cdkFocusInitial>UPDATE</button>
+  </mat-dialog-actions>
+</form>

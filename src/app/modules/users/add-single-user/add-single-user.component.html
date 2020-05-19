@@ -1,0 +1,22 @@
+<div>
+  <mat-toolbar role="toolbar" class="task-header">
+    <mat-icon style="color: white;">account_circle</mat-icon>
+    <h5 class="title">Add User</h5>
+  </mat-toolbar>
+</div>
+<mat-dialog-content class="mat-typography custom-dialog-content">
+  <div class="row">
+    <dynamic-form [fields]="formdata" (submit)="submit($event)">
+    </dynamic-form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="custom-dialog-actions" align="end">
+  <button mat-button mat-dialog-close>CANCEL</button>
+  <button [disabled]="submitClick" class="p-button" (click)="onSubmit()" mat-button>
+    ADD USER
+    <mat-icon *ngIf="submitClick">
+      <mat-spinner diameter="20">
+      </mat-spinner>
+    </mat-icon>
+  </button>
+</mat-dialog-actions>

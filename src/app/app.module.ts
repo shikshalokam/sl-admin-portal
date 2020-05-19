@@ -5,22 +5,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule, TranslateService, SharedModule } from 'shikshalokam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './modules/admin-core/components/header/header.component';
 import { LoginComponent } from './login/login.component';
-// import { JwtHelperService } from '@auth0/angular-jwt';
 import { JwtModule } from '@auth0/angular-jwt';
-
 import { AdminCoreModule } from './modules/admin-core/admin-core.module';
 import { keyCloakService } from './modules/admin-core';
 import { AdminSharedModule } from './modules/admin-shared';
 import { environment } from 'src/environments/environment';
 import { KeycloakAngularModule } from 'keycloak-angular';
+import { HomeComponent } from './modules/admin-core/components/home/home.component';
+import { BreadCrumComponent } from './modules/admin-core/components/bread-crum/bread-crum.component';
+import { AdminFooterComponent } from './modules/admin-core/components/admin-footer/admin-footer.component';
 
 
-// import { FooterComponent } from './footer/footer.component';
-// export function authFactory(cloakService: keyCloakService) {
-//   return () => cloakService.init();
-// }
 export function tokenGetter() {
   return localStorage.getItem('access_token');
 }
@@ -28,8 +25,10 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HeaderComponent,
-    // FooterComponent,
     LoginComponent,
+    HomeComponent,
+    BreadCrumComponent,
+    AdminFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -47,10 +46,10 @@ export function tokenGetter() {
     }),
     AdminCoreModule,
   ],
-  entryComponents:[
+  entryComponents: [
     AppComponent
   ],
-  providers: [TranslateService,
+  providers: [ TranslateService,
     keyCloakService
   ],
 })

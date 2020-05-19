@@ -1,0 +1,128 @@
+<div class="pageName">
+  <span *ngFor="let data of crumData['title']">
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
+  </span> >
+  <span class="text-capital">{{editOrganisationDetails?.name}}
+  </span>
+</div>
+
+<div class="dashboard-content">
+  <div style="display: flex;">
+    <mat-card class="profile-card" style="border-radius: 0px;">
+      <mat-card-content>
+        <div style="display: flex;">
+          <mat-icon class="c-mat-icon">account_balance</mat-icon>
+          <div class="wrapping">
+            <div class="text-capital">
+              <h4> {{editOrganisationDetails?.name}}</h4>
+            </div>
+            <!-- <div>
+              {{editOrganisationDetails?.channel}}
+            </div> -->
+            <div *ngIf="editOrganisationDetails?.status === 'Active'" class="positive">
+              Active
+            </div>
+
+            <div *ngIf="editOrganisationDetails?.status === 'Inactive'" class="negative">
+              In active
+            </div>
+
+            <div class="text-color">
+              Created on: {{editOrganisationDetails?.createdDate | date:'mediumDate'}}
+            </div>
+            <div *ngIf="editOrganisationDetails?.updatedDate" class="text-color">
+              Updated on: {{editOrganisationDetails?.updatedDate | date:'mediumDate'}}
+            </div>
+          </div>
+
+        </div>
+      </mat-card-content>
+      <div class=" row c-line"></div>
+      <div class="row" style="padding:10px">
+        <div *ngIf="editOrganisationDetails?.status === 'Active'" matTooltip="Deactivate Organisation"
+          class="col-md-12 profile-actions-icon" (click)="confirmDialog()">
+          <span>
+            <mat-icon class="negative">edit</mat-icon>
+          </span>
+          <span class="profile-actions-text negative">DEACTIVATE</span>
+        </div>
+
+        <div *ngIf="editOrganisationDetails?.status === 'Inactive'" matTooltip="Activate Organisation"
+          class="col-md-12 profile-actions-icon" (click)="confirmDialog()">
+          <span>
+            <mat-icon class="positive">edit</mat-icon>
+          </span>
+          <span class="profile-actions-text positive">ACTIVATE</span>
+        </div>
+
+      </div>
+    </mat-card>
+    <div class="user-details">
+      <mat-accordion>
+        <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="c-font">
+              Organisation Information
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="editOrganisationDetails" class="row">
+            <div class="col-md-4">
+              <div class="text-color">
+                <mat-label>Name</mat-label>
+              </div>
+              <div>
+                {{editOrganisationDetails?.name ? editOrganisationDetails.name : '-- --'}}
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label class="text-color">External Id</label>
+              <div>
+                {{editOrganisationDetails?.externalId ? editOrganisationDetails.externalId: '-- --'}}
+              </div>
+            </div>
+            <div *ngIf="editOrganisationDetails?.address" class="col-md-4">
+              <label class="text-color">Address</label>
+              <div>
+                {{editOrganisationDetails?.address ? editOrganisationDetails.address: '-- --'}}
+              </div>
+            </div>
+          </div>
+          <div class="row" style="padding-top:15px">
+            <div class="col-md-6">
+              <div class="text-color"> <label>Description </label></div>
+              <div>
+                {{editOrganisationDetails?.description ? editOrganisationDetails.description: '-- --'}}
+              </div>
+            </div>
+            <!-- <div class="col-md-3">
+              <label class="text-color">No.Of Members</label>
+              <div>
+                {{editOrganisationDetails?.noOfMembers ? editOrganisationDetails.noOfMembers: '-- --'}}
+              </div>
+            </div> -->
+
+            <!-- <div class="col-md-3">
+              <label class="text-color">Email</label>
+              <div>
+                {{editOrganisationDetails?.email ? editOrganisationDetails.email: '-- --'}}
+              </div>
+            </div> -->
+          </div>
+          <div style="float: right;">
+            <button (click)="editOrganisation(editOrganisationDetails)" matTooltip="Update Organisation" class="actions"
+              mat-button>Update
+            </button>
+          </div>
+
+        </mat-expansion-panel>
+        <!-- <mat-expansion-panel class="c-accordian-width" [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="c-font">
+              Organisation Details
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel> -->
+      </mat-accordion>
+    </div>
+  </div>
+</div>

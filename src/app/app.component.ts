@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { keyCloakService } from './modules/admin-core';
+import { keyCloakService, UsersService } from './modules/admin-core';
 
 
 
@@ -11,17 +11,18 @@ import { keyCloakService } from './modules/admin-core';
 })
 export class AppComponent implements OnInit {
   title = 'admin-portal';
-  userdetails: any;
-
-  constructor(private router: Router, private KeycloakService: keyCloakService) {
-    this.userdetails = this.KeycloakService.getCurrentUserDetails();
-    // localStorage.setItem('userName', this.userdetails.name);
-    // localStorage.setItem('roleInfo', this.userdetails.resource_access.account.roles);
+  roles: any;
+  constructor(private usersService: UsersService,
+    private router: Router, private keycloak: keyCloakService) {
   }
-
 
   // Initial loading
   ngOnInit() {
+    this.getBasicdetails();
+  }
+
+  getBasicdetails() {
+    this.keycloak.setToken();
   }
 
 }

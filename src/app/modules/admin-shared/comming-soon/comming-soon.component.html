@@ -1,5 +1,10 @@
+<!-- <div >
+  <img alt="Angular Logo" src="../../../../assets/images/commingsoon.jpg" />
+</div> -->
 
-
-<div >
-  <img (click)="sidemenu()" alt="Angular Logo" src="../../../../assets/images/commingsoon.jpg" />
-</div>
+  <ng-template #defaultDialog>
+    <h2 matDialogTitle>Comming Soon !</h2>
+    <mat-dialog-actions align="end">
+      <button mat-button matDialogClose="yes">go back</button>
+    </mat-dialog-actions>
+  </ng-template>

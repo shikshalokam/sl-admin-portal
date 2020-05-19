@@ -1,0 +1,30 @@
+<mat-toolbar role="toolbar" class="task-header">
+  <mat-icon style="color: white;">account_circle</mat-icon>
+  <h5 class="title">Edit User Roles for {{selecteddata?.label}}</h5>
+</mat-toolbar>
+<h1 mat-dialog-title style="font-weight: 600;text-align: center;">
+</h1>
+<!-- <form> -->
+  <mat-dialog-content>
+    <mat-form-field class="example-chip-list" style="width: 100%;">
+      <mat-chip-list #chipList aria-label="Role selection">
+        <mat-chip *ngFor="let role of roles" [selectable]="selectable" [removable]="removable"
+          (removed)="remove(role)">
+          {{role.label}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Roles" #roleInput [formControl]="roleCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let role of filteredRoles | async" [value]="role">
+          {{role.label}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </mat-dialog-content>
+<!-- </form> -->
+<mat-dialog-actions class="custom-dialog-actions" align="end">
+  <button mat-button (click)="onCancel()">CANCEL</button>
+  <button mat-button class="actions" (click)="onConfirm()" cdkFocusInitial>UPDATE</button>
+</mat-dialog-actions>

@@ -1,0 +1,33 @@
+<div class="row head">
+  <div class="col-md-2 col-sm-4">
+    <img class="b-color" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
+  </div>
+
+  <div class="row">
+    <!-- <div class="Button">
+      <button class="b-color" matTooltip="Search" mat-icon-button aria-label="search">
+        <mat-icon >search</mat-icon>
+      </button>
+    </div> -->
+    <!-- <div class="Button"> -->
+    <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
+      <mat-icon (click)="notifications()" >notifications</mat-icon>
+    </button>
+    <!-- </div> -->
+
+    <!-- <div class="Button"> -->
+    <button class="b-color" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu" aria-label="user">
+      <mat-icon >person</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>{{username}}</span>
+      </button>
+      <button (click)="logout()" mat-menu-item>
+        <span >Logout</span>
+      </button>
+    </mat-menu>
+    <!-- </div> -->
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<mat-form-field class="form-full-width" [formGroup]="group">
+    <mat-label>{{field.label}}</mat-label>
+    <input (focus)="picker.open()" (click)="picker.open()"  matInput readonly [formControlName]="field.field" placeholder="dd/MM/YYYY"  [max]="yesterday" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
