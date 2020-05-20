@@ -10,6 +10,7 @@ import { RolesEditComponent } from './roles-edit/roles-edit.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from './add-organisation/add-organisation.component';
+import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 
 
 
@@ -25,7 +26,8 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
       NO_ERRORS_SCHEMA
   ],
   providers: [ DatePipe],
-  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent],
-  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent,UsersEditComponent,  RolesEditComponent, AddOrganisationComponent],
+  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent, AddMultipleUsersComponent],
+  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent,UsersEditComponent,
+      RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent],
 })
 export class UsersModule { }

@@ -14,6 +14,8 @@ import { CommonServiceService } from '../../admin-core/services/common-service.s
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
 import { startWith } from 'rxjs/operators';
+import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
+
 
 @Component({
   selector: 'app-users-list',
@@ -39,7 +41,6 @@ export class UsersListComponent implements OnInit {
   listing: boolean = false;
   orgnsationId: any;
   usersId: any[];
-  dataArray: any[];
   status: any = '';
   userObject: any;
   confirmPopupResult: any;
@@ -50,11 +51,10 @@ export class UsersListComponent implements OnInit {
   firstorganisationValue: any;
   selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   datePipe: any;
   downloadedData: any;
-
+  selectedOrganisation: any;
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
     private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
@@ -165,7 +165,7 @@ export class UsersListComponent implements OnInit {
 
 
   getSelected(data) {
-    // this.fieldsBackend.selectedOption = data;
+    this.selectedOrganisation = data;
     this.orgnsationId = data.value
     this.getUserList();
     this.paginator.firstPage();
@@ -210,6 +210,7 @@ export class UsersListComponent implements OnInit {
         this.organisations = data['result'];
         this.organisationsList = data['result'];
         this.myControl.setValue(this.organisations[0].label);
+        this.selectedOrganisation = this.organisations[0];
         this.firstorganisationValue = this.organisations[0].value;
         this.orgnsationId = this.firstorganisationValue
         this.getUserList();
@@ -296,24 +297,23 @@ export class UsersListComponent implements OnInit {
   }
 
   bulkUploadModal(){
-    // this.UploadUsers(this.downloadedData);
-    this.commingsoon();
+    this.UploadUsers(this.downloadedData);
   }
 
   // Adding multiple users popup
-  // UploadUsers(downloadedData) {
-  //   const dialogRef = this.dialog.open(AddMultipleUsersComponent
-  //     , {
-  //       disableClose: true,
-  //       width: '30%',
-  //       data: { downloadedData }
-  //     });
+  UploadUsers(downloadedData) {
+    const defaultValue = this.selectedOrganisation;
+    const dialogRef = this.dialog.open(AddMultipleUsersComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: { downloadedData, defaultValue }
+      });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.getUserList();
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   onRowClicked(row) {
   }

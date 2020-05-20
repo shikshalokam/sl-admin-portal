@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { UsersConfig } from './users.config';
 import { Observable, Subject } from 'rxjs';
+import { keyCloakService } from '../auth-service/auth.service';
 
 
 
@@ -11,8 +12,10 @@ import { Observable, Subject } from 'rxjs';
 })
 export class UsersService {
   roles;
+  token: any;
   private subject = new Subject<any>();
-  constructor(private Http: HttpClient) { }
+  constructor(private Http: HttpClient,
+    private KeycloakService: keyCloakService) { }
 
   // To get the dynamic form
   getUserForm() {
@@ -59,8 +62,14 @@ export class UsersService {
   removeUserFromOrganisation(data) {
     return this.Http.post(environment.base_url + UsersConfig.removeUser, data)
   }
+  
 
-
+  // To upload the Users csv
+  uploadUsersCsv(organisation, file) {
+    let fileData = new FormData();
+    fileData.append('userCreationFile', file);
+    return this.Http.post(environment.base_url + UsersConfig.bulkUpload, fileData)
+  }
 
   // Active and deActivate user
   activateDeActivateUser(userId, user) {

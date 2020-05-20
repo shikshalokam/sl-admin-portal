@@ -29,13 +29,13 @@ export class Interceptor implements HttpInterceptor {
                 }
             });
         }
-        if (!request.headers.has('Content-Type')) {
-            request = request.clone({
-                setHeaders: {
-                    'content-type': 'application/json'
-                }
-            });
-        }
+        // if (!request.headers.has('Content-Type')) {
+        //     request = request.clone({
+        //         setHeaders: {
+        //             'content-type': 'application/json'
+        //         }
+        //     });
+        // }
         // if (request.headers.has('Content-Type')) {
         //     request = request.clone({
         //         setHeaders: {

@@ -35,11 +35,8 @@ export class AddOrganisationComponent implements OnInit {
     private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
-    console.log('AddOrganisationComponent', this.organisationData);
-    this.filteringOrganisationData();
+     this.filteringOrganisationData();
     this.reactiveForm();
-
-
     this.filteredRoles = this.roleCtrl.valueChanges.pipe(
       startWith(null),
       map((role: string | null) => role ? this._filterRoles(role) : this.organisationData.roles.slice()));

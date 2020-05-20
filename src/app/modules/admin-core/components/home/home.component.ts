@@ -3,6 +3,7 @@ import { UsersService, keyCloakService } from '../..';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UnauthorizedComponent } from '../../../admin-shared';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommonServiceService } from '../../services/common-service.service';
 
 
 @Component({
@@ -17,12 +18,22 @@ export class HomeComponent implements OnInit {
   response: boolean = true;
   constructor(private usersService: UsersService, public dialog: MatDialog,
     private KeycloakService: keyCloakService, private _snackBar: MatSnackBar,
-    private router: Router, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute,
+    private commonServiceService: CommonServiceService) { }
 
   async ngOnInit() {
-    this.promiseRowData = await this.usersService.getUserRoles();
+    this.promiseRowData = await this.usersService.getUserRoles().catch(e => {
+      // this.KeycloakService.logout();
+      // this.unAuthoriseduser();
+      console.log('@@@@@@@@@@@@@@@', this.promiseRowData);
+      
+    });
+    console.log('@@@@@@@@@@@@@@@', this.promiseRowData);
     if (this.promiseRowData['result']) {
       this.rolesArray = this.promiseRowData['result'].roles;
+    } else {
+      this.response = false
+      this.KeycloakService.logout();
     }
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
@@ -38,7 +49,7 @@ export class HomeComponent implements OnInit {
   }
 
   openDialog(): void {
-    
+
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
@@ -90,5 +101,9 @@ export class HomeComponent implements OnInit {
       this.router.navigateByUrl(data);
     }
 
+  }
+
+  unAuthoriseduser() {
+    this.commonServiceService.commonSnackBar('unauthorised user', 'Dismiss', 'top', 10000);
   }
 }

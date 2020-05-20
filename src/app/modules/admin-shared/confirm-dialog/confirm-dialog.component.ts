@@ -18,6 +18,7 @@ export class ConfirmDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('cccccccccccccc', this.data);
   }
 
   onConfirm(): void {

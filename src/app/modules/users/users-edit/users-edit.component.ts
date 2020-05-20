@@ -76,7 +76,8 @@ export class UsersEditComponent implements OnInit {
       this.editUserDetails.userId = this.userId;
       this.load = true;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
+      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000);
+      this.router.navigate(['users/list'])
     })
   }
 

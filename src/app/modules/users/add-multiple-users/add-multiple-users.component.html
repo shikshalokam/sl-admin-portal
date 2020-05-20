@@ -1,0 +1,56 @@
+<mat-toolbar role="toolbar" class="task-header">
+  <mat-icon style="color: white;">people</mat-icon>
+  <h5 class="title">Bulk Upload users</h5>
+</mat-toolbar>
+<form [formGroup]="myForm" (ngSubmit)="uploadUsersCSVFile()" novalidate>
+  <mat-dialog-content class="mat-typography">
+    <!-- <h3 class="titlehead">Bulk Upload users</h3> -->
+    <div class="row" style="padding-left: 15px;">
+      <div style="padding-top: 15px;">
+        <mat-form-field class="example-chip-list" style="width: 100%;">
+          <mat-label class="required">Organisation</mat-label>
+          <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="organisation">
+            <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="errorHandling('organisation', 'required')">
+            You must select organisation
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <div class="space">
+          Add or edit users by uploading a CSV file with their info such as passwords and organisation units
+          <a href="{{downloadurl}}" download>Learn More</a>
+        </div>
+
+        <div class="space">
+          Note:
+          Required Fields are FirstName, Last Name, Email Address, Password and Orgnisation.
+        </div>
+        <div>
+          <!-- <button mat-button class="btn">ATTACH CSV</button> -->
+          <input formControlName="userscsv" style="margin-top: 10px;cursor:pointer;" type="file" id="file" enctype="multipart/form-data"
+            (change)="handleFileInput($event.target.files)" accept=".csv">
+          <!-- <input type="file" formControlName="userscsv" name="myfile" (change)="handleFileInput($event.target.files)" accept=".csv" /> -->
+          <mat-error *ngIf="errorHandling('userscsv', 'required')">
+            You must select csv File
+          </mat-error>
+        </div>
+        <div class="space">
+          <h3>Not sure how to get started?</h3>
+        </div>
+        <div class="space">
+          Download a CSV file, then edit and upload the file.
+        </div>
+        <div class="space">
+          <button mat-button class="p-button" (click)="downloadSample()" cdkFocusInitial>DOWNLOAD CSV</button>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCEL</button>
+    <app-button-loading [btnName]="onload" (onChange)="handleChange($event)"></app-button-loading>
+  </mat-dialog-actions>
+</form>

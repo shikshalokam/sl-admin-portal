@@ -1,28 +1,15 @@
-<!-- <h1 mat-dialog-title style="padding:15px">
-  {{title}}
-</h1>
-
-<div mat-dialog-content>
-  <p>{{message}}</p>
-</div>
-
-<div style="padding-left: 15px;" mat-dialog-actions>
-  <button mat-button (click)="onDismiss()">No</button>
-  <button mat-raised-button color="primary" (click)="onConfirm()">Yes</button>
-</div> -->
-
-
 <mat-toolbar role="toolbar" class="task-header">
-  <!-- <mat-icon style="color: white;">account_circle</mat-icon> -->
   <h5 class="title">Confirmation</h5>
 </mat-toolbar>
-<!-- <h1 mat-dialog-title style="font-weight: 600;text-align: center;">
-</h1> -->
 <mat-dialog-content class="mat-typography" style="padding-top: 30px">
     <p>{{message}}</p>
 
 </mat-dialog-content>
-<mat-dialog-actions class="custom-dialog-actions" align="center">
+<mat-dialog-actions *ngIf ="title == 'Confirm Action'" class="custom-dialog-actions" align="center">
   <button mat-button (click)="onDismiss()">No</button>
   <button mat-button class="actions" (click)="onConfirm()">Yes</button>
+</mat-dialog-actions>
+
+<mat-dialog-actions *ngIf ="title == 'upload'" class="custom-dialog-actions" align="center">
+  <button mat-button class="p-button" (click)="onDismiss()">Ok</button>
 </mat-dialog-actions>
