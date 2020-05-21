@@ -6,8 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./button-loading.component.scss']
 })
 export class ButtonLoadingComponent implements OnInit {
-  @Input() btnName;
-  @Output() onChange = new EventEmitter();
+  @Input() btnData;
+  @Output() onSubmit = new EventEmitter();
   submitClick: boolean = false;
   constructor() { }
 
@@ -15,7 +15,7 @@ export class ButtonLoadingComponent implements OnInit {
   }
 
   btnclick() {
-    this.onChange.emit('submit');
+    this.onSubmit.emit('submit');
   }
 
 }

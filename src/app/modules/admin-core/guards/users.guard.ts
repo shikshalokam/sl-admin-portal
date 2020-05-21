@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { UsersService } from '../services/users-service/users.service';
 import { keyCloakService } from '../services/auth-service/auth.service';
 import { CommonServiceService } from '../services/common-service.service';
-import { UnauthorizedComponent } from '../../admin-shared';
+import { UnauthorizedComponent} from '../../admin-shared';
 import { MatDialog } from '@angular/material';
 
 @Injectable({
@@ -36,10 +36,11 @@ export class UsersGuard implements CanActivate {
   }
 
   openDialog(): void {
+    const message = `You don't have right to access this site.`;
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
-         data: {}
+         data: { message }
       });
 
     dialogRef.afterClosed().subscribe(result => {

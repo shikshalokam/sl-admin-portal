@@ -25,37 +25,33 @@ export class HomeComponent implements OnInit {
     this.promiseRowData = await this.usersService.getUserRoles().catch(e => {
       // this.KeycloakService.logout();
       // this.unAuthoriseduser();
-      console.log('@@@@@@@@@@@@@@@', this.promiseRowData);
-      
     });
-    console.log('@@@@@@@@@@@@@@@', this.promiseRowData);
     if (this.promiseRowData['result']) {
       this.rolesArray = this.promiseRowData['result'].roles;
+      this.response = false;
     } else {
-      this.response = false
-      this.KeycloakService.logout();
+      this.response = false;
+      const msg  = `Something went wrong,Please relogin`
+      this.openDialog(msg);
     }
+
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
       this.response = false
     } else {
       this.admin = false;
       this.response = false
-      this.openDialog();
+      const msg = `You don't have right to access this site.`;
+      this.openDialog(msg);
     }
   }
 
-  singleuser() {
-  }
 
-  openDialog(): void {
-
+  openDialog(message): void {
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
-        // width: '25%',
-        // height: '20%',
-        data: {}
+        data: { message }
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -83,7 +79,7 @@ export class HomeComponent implements OnInit {
       "data": "Add or Manage Organisations"
     },
     {
-      "routerlink": "/home",
+      "routerlink": "/uploadstatus/list",
       "icon": "assessment",
       "title": "Reports",
       "data": "Add or Manage Reports"

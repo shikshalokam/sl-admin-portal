@@ -38,7 +38,6 @@ export class OrganisationEditComponent implements OnInit {
   getOrganisationDetails() {
     this.organisationService.organisationDetails(this.organisationId).subscribe(data => {
       this.editOrganisationDetails = data['result'];
-      console.log(' this.editOrganisationDetails', this.editOrganisationDetails);
 
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)

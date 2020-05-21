@@ -12,5 +12,5 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <app-button-loading [btnName]="onload" (onChange)="handleChange($event)"></app-button-loading>
+  <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading>
 </mat-dialog-actions>

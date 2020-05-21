@@ -5,4 +5,5 @@ export * from './services/users-service/users.service';
 export * from './services/organisation-service/organisation.service';
 export * from './services/common-service.service';
 export * from './guards/users.guard';
-export * from './guards/route.guard'
+export * from './guards/route.guard';
+export * from './services/bulkupload/bulkupload.service';

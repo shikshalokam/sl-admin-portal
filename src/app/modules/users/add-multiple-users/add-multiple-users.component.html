@@ -4,9 +4,8 @@
 </mat-toolbar>
 <form [formGroup]="myForm" (ngSubmit)="uploadUsersCSVFile()" novalidate>
   <mat-dialog-content class="mat-typography">
-    <!-- <h3 class="titlehead">Bulk Upload users</h3> -->
     <div class="row" style="padding-left: 15px;">
-      <div style="padding-top: 15px;">
+      <!-- <div style="padding-top: 15px;">
         <mat-form-field class="example-chip-list" style="width: 100%;">
           <mat-label class="required">Organisation</mat-label>
           <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="organisation">
@@ -16,7 +15,7 @@
             You must select organisation
           </mat-error>
         </mat-form-field>
-      </div>
+      </div> -->
       <div>
         <div class="space">
           Add or edit users by uploading a CSV file with their info such as passwords and organisation units
@@ -26,6 +25,17 @@
         <div class="space">
           Note:
           Required Fields are FirstName, Last Name, Email Address, Password and Orgnisation.
+        </div>
+        <div style="padding-top: 15px;">
+          <mat-form-field class="example-chip-list" style="width: 100%;">
+            <mat-label class="required">Organisation</mat-label>
+            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="organisation">
+              <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('organisation', 'required')">
+              You must select organisation
+            </mat-error>
+          </mat-form-field>
         </div>
         <div>
           <!-- <button mat-button class="btn">ATTACH CSV</button> -->
@@ -51,6 +61,6 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>CANCEL</button>
-    <app-button-loading [btnName]="onload" (onChange)="handleChange($event)"></app-button-loading>
+    <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading>
   </mat-dialog-actions>
 </form>

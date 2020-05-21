@@ -84,7 +84,6 @@ export class AddOrganisationComponent implements OnInit {
   }
 
   submitForm() {
-    console.log('this.myForm.value', this.myForm.value);
     if (this.myForm.valid) {
     this.addNewOrganisation(this.myForm.value);
     }

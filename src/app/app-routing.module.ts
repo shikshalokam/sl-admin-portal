@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [RouteGuard],
     loadChildren: './modules/organisations/organisations.module#OrganisationsModule'
   },
+  {
+    path: 'uploadstatus',
+    // canActivate: [UsersGuard],
+    loadChildren: './modules/upload-status/upload-status.module#UploadStatusModule'
+  },
   { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },
   { path: 'unauthorized', component: UnauthorizedComponent, data: { title: 'Unauthorized User' } },
   {

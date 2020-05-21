@@ -29,20 +29,7 @@ export class Interceptor implements HttpInterceptor {
                 }
             });
         }
-        // if (!request.headers.has('Content-Type')) {
-        //     request = request.clone({
-        //         setHeaders: {
-        //             'content-type': 'application/json'
-        //         }
-        //     });
-        // }
-        // if (request.headers.has('Content-Type')) {
-        //     request = request.clone({
-        //         setHeaders: {
-        //             'content-type': 'multipart/form-data'
-        //         }
-        //     });
-        // }
+
         request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
         });
@@ -65,11 +52,12 @@ export class Interceptor implements HttpInterceptor {
     }
 
     openDialog(): void {
+        const message = `You don't have right to access this site.`;
         const dialogRef = this.dialog.open(UnauthorizedComponent
             , {
                 disableClose: true,
                 width: '25%',
-                data: {}
+                data: { message }
             });
 
         dialogRef.afterClosed().subscribe(result => {

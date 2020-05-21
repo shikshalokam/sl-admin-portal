@@ -36,7 +36,6 @@ export class AddUserComponent implements OnInit {
   }
 
   handleChange(data) {
-    console.log('evvvvvvvvvvvv', data);
     this.onSubmit();
 
   }

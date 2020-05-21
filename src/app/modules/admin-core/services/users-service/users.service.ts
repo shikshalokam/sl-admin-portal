@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { UsersConfig } from './users.config';
-import { Observable, Subject } from 'rxjs';
-import { keyCloakService } from '../auth-service/auth.service';
 
 
 
@@ -12,10 +10,7 @@ import { keyCloakService } from '../auth-service/auth.service';
 })
 export class UsersService {
   roles;
-  token: any;
-  private subject = new Subject<any>();
-  constructor(private Http: HttpClient,
-    private KeycloakService: keyCloakService) { }
+  constructor(private Http: HttpClient) { }
 
   // To get the dynamic form
   getUserForm() {
@@ -78,7 +73,6 @@ export class UsersService {
     } else {
       user.status = 'Inactive';
     }
-    console.log('activateDeActivateUser', user)
     return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
   }
 

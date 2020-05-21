@@ -37,12 +37,9 @@ export class AddMultipleUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('mmmmmmmmmmmm', this.data.defaultValue);
     this.selected = this.data.defaultValue;
-
-    // this.myForm.patchValue({ organisation: this.data.defaultValue });
+    this.orgData = this.data.organisationsToUpload;
     this.reactiveForm();
-    this.getOrganisations();
   }
 
   reactiveForm() {
@@ -56,14 +53,6 @@ export class AddMultipleUsersComponent implements OnInit {
   /* Handle form errors*/
   public errorHandling = (control: string, error: string) => {
     return this.myForm.controls[control].hasError(error);
-  }
-
-  getOrganisations() {
-    this.usersService.getOrganisations().subscribe(data => {
-      this.orgData = data['result'];
-    }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
-    })
   }
 
   downloadSample() {

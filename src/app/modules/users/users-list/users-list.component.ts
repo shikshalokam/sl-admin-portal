@@ -303,11 +303,12 @@ export class UsersListComponent implements OnInit {
   // Adding multiple users popup
   UploadUsers(downloadedData) {
     const defaultValue = this.selectedOrganisation;
+    const organisationsToUpload = this.organisationsList;
     const dialogRef = this.dialog.open(AddMultipleUsersComponent
       , {
         disableClose: true,
         width: '30%',
-        data: { downloadedData, defaultValue }
+        data: { downloadedData, defaultValue , organisationsToUpload }
       });
 
     dialogRef.afterClosed().subscribe(result => {
