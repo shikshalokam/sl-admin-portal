@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'list', component: UsersCsvComponent, data: { title: [{ name: 'Home >', link: '/home' },
-         { name: 'Users >', link: '/users/list' }, { name: 'UploadStatus', link: '/uploadstatus/list' }] },
+         { name: 'UploadRecords', link: '/uploadrecords/list' }] },
       },
     ]
   }
@@ -20,4 +20,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class UploadStatusRoutingModule { }
+export class UploadCSVRoutingModule { }

@@ -11,6 +11,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from './add-organisation/add-organisation.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
+import { AdminCoreModule } from '../admin-core/admin-core.module';
 
 
 
@@ -19,6 +20,7 @@ import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-use
   imports: [CommonModule,
     FormsModule, ReactiveFormsModule,
     CdkTableModule,
+    AdminCoreModule,
     AdminSharedModule,
     UsersRoutingModule],
     schemas: [

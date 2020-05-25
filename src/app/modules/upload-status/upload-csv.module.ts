@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UploadStatusRoutingModule } from './upload-status-routing.module';
+import { UploadCSVRoutingModule } from './upload-csv-routing.module';
 import { UsersCsvComponent } from './users-csv/users-csv.component';
 import { AdminSharedModule } from '../admin-shared';
 
@@ -8,8 +8,8 @@ import { AdminSharedModule } from '../admin-shared';
   declarations: [UsersCsvComponent],
   imports: [
     CommonModule,
-    AdminSharedModule,
-    UploadStatusRoutingModule
+    AdminSharedModule,  
+    UploadCSVRoutingModule
   ]
 })
-export class UploadStatusModule { }
+export class UploadCSVModule { }

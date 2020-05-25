@@ -13,12 +13,12 @@ export class BulkuploadService {
 
   // To get the upload list based on the user logged in
   uploadList(data, searchfield) {
-    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' +  data.size + '&page=' + data.page + '&search=' + searchfield );
+    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
   }
 
 
-   // getting Organisation list 
-   referenceDetails(refId) {
-    return this.Http.get(environment.base_url + UploadConfig.referenceDetails + refId);
+  // get download list 
+  getDownloadLinks(reqId, type) {
+    return this.Http.get(environment.base_url + UploadConfig.downloadLinks + reqId + '?fileType=' + type );
   }
 }

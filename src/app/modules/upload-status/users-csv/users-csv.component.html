@@ -5,17 +5,7 @@
         <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
         </mat-icon>
       </a>
-      <!-- <div class="list-menu ">
-        <mat-form-field class="custom-form-field">
-          <mat-label>Select Organisation</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
+
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search </mat-label>
@@ -23,6 +13,57 @@
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
+        </mat-form-field>
+      </div>
+
+      <div class="list-menu ">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Select</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+            <mat-form-field class="custom-form-field">
+              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+            </mat-form-field>
+            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="list-menu ">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Select</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+            <mat-form-field class="custom-form-field">
+              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+            </mat-form-field>
+            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="list-menu ">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Select</mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+            <mat-form-field class="custom-form-field">
+              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+            </mat-form-field>
+            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+      <div class="list-menu ">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Select </mat-label>
+          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
+            <mat-form-field class="custom-form-field">
+              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
+            </mat-form-field>
+            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
     </div>
@@ -41,12 +82,15 @@
       </mat-button-toggle-group>
     </div> -->
 
-    <!-- <div class="row" style="padding-right: 3%;"> -->
-      <!-- <div class="btn-gap">
-        <button mat-button (click)="addNewOrganisation()" matTooltip="Add Organisation">
-          Add Organisation
+    <div class="row" style="padding-right: 3%;">
+      <div class="btn-gap">
+        <button mat-button (click)="clearFilter()" matTooltip="clear filter">
+          Clear
         </button>
-      </div> -->
+        <button mat-button (click)="applyFilter()" matTooltip="apply filter">
+          Apply
+        </button>
+      </div>
       <!-- <div class="btn-gap">
         <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
           Bulk upload users
@@ -57,7 +101,7 @@
           Download Organisations
         </button>
       </div> -->
-    <!-- </div> -->
+    </div>
   </div>
 
   <div class="table-container mat-elevation-z8">
@@ -90,12 +134,12 @@
           </span>
           <span *ngIf="column.type == 'action'">
             <mat-cell *matCellDef="let user">
-              <button (click)="editUpload(user)" matTooltip="Edit" class="actions"
-                mat-button>Edit</button> &nbsp;
-              <button *ngIf ="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
-                class="actions" mat-button> Deactivate</button>
-                <button *ngIf ="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
-                class="actions btnactive" mat-button>Activate</button>
+              <button [disabled]="user?.inputFileAvailable == false" (click)="downloadLinks(user, 'input')"
+                matTooltip="Input file" class="actions" mat-button>Input</button> &nbsp;
+              <button [disabled]="user?.successFileAvailable == false" (click)="downloadLinks(user, 'success')"
+                matTooltip="Successfull file" class="actions" mat-button> Success</button> &nbsp;
+              <button [disabled]="user?.errorFileAvailable == false" (click)="downloadLinks(user, 'failure')"
+                matTooltip="Failure file" class="actions" mat-button>Failure</button>
             </mat-cell>
           </span>
         </ng-container>

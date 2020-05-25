@@ -1,11 +1,11 @@
 import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { UsersService, CommonServiceService } from '../../admin-core';
-// import { saveAs } from 'file-saver';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { saveAs } from "file-saver";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -21,6 +21,8 @@ export class AddMultipleUsersComponent implements OnInit {
   orgData: any;
   requestId: any;
   selected: any;
+  datePipe: any;
+  fileName: any;
   // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
@@ -61,8 +63,11 @@ export class AddMultipleUsersComponent implements OnInit {
 
   // To download selected records
   downLoadFile(data: any, type: string) {
+    const date = new Date();
+    this.datePipe = new DatePipe("en-US");
+    this.fileName = 'Sample' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
     let blob = new Blob([data], { type: type });
-    saveAs(blob, 'Sample.csv');
+    saveAs(blob, this.fileName);
     this._snackBar.open('Sample File Downloaded Successfully', 'success', {
       duration: 10000,
       verticalPosition: 'top'
@@ -101,13 +106,13 @@ export class AddMultipleUsersComponent implements OnInit {
 
   // confirmDialog
   confirmDialog(data) {
-    const message = `Please use this Ref No to check the status --> ` + data;
+    const message = `Please use this Ref No to check the status ` + data;
 
     const dialogData = new ConfirmDialogModel("upload", message);
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: "310px",
-      height: "200px",
+      width: "400px",
+      height: "300px",
       data: dialogData
     });
 

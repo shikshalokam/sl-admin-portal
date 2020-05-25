@@ -1,5 +1,6 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -11,8 +12,10 @@ export class ConfirmDialogComponent implements OnInit {
   message: string;
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel,
+    private router: Router) {
     // Update view with given values
+    // console.log('ccccccccccccccc', data);
     this.title = data.title;
     this.message = data.message;
   }
@@ -23,6 +26,11 @@ export class ConfirmDialogComponent implements OnInit {
   onConfirm(): void {
     // Close the dialog, return true
     this.dialogRef.close(true);
+  }
+
+  toCheckStatus(){
+    this.router.navigate(['/uploadrecords/list']);
+    this.dialogRef.close(false);
   }
 
   onDismiss(): void {

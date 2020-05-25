@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
+import { distinctUntilChanged, map, debounceTime, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Router, ActivatedRoute } from '@angular/router';
@@ -74,7 +74,7 @@ export class UsersListComponent implements OnInit {
       // if character length greater then 2
       , filter(res => res.length > 2 || res.length == 0)
       // Time in milliseconds between key events
-      // , debounceTime(1000)
+      , debounceTime(1000)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response
@@ -89,6 +89,11 @@ export class UsersListComponent implements OnInit {
     });
     this.createForm();
     this.bulkUploadSample();
+  }
+
+  log() {
+    console.log('click');
+
   }
 
   /**
@@ -259,7 +264,7 @@ export class UsersListComponent implements OnInit {
   bulkUploadSample() {
     this.usersService.sampleBulkUsers().subscribe(data => {
       this.formdata = data['result'];
-     console.log('bulkUploadSample', this.formdata);
+      console.log('bulkUploadSample', this.formdata);
     }, error => {
       this.downloadedData = error.error.text;
       // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
@@ -296,7 +301,7 @@ export class UsersListComponent implements OnInit {
     return '';
   }
 
-  bulkUploadModal(){
+  bulkUploadModal() {
     this.UploadUsers(this.downloadedData);
   }
 
@@ -308,7 +313,7 @@ export class UsersListComponent implements OnInit {
       , {
         disableClose: true,
         width: '30%',
-        data: { downloadedData, defaultValue , organisationsToUpload }
+        data: { downloadedData, defaultValue, organisationsToUpload }
       });
 
     dialogRef.afterClosed().subscribe(result => {

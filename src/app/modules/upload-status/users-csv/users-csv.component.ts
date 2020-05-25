@@ -85,14 +85,19 @@ export class UsersCsvComponent implements OnInit {
     return '';
   }
 
-  editUpload(data) {
-    this.bulkuploadService.referenceDetails(data._id).subscribe(data => {
-      console.log('ddddddddddddddd', data);
+  downloadLinks(data, type) {
+    console.log('ddddddddddddddd', data);
+    this.bulkuploadService.getDownloadLinks(data.requestId, type).subscribe(data => {
+      this.onNavigate(data['result']['url']);
 
     }, error => {
 
     })
 
   }
+
+  onNavigate(link){
+    window.open(link, "_blank");
+}
 
 }

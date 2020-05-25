@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
       "data": "Add or Manage Organisations"
     },
     {
-      "routerlink": "/uploadstatus/list",
+      "routerlink": "/uploadrecords/list",
       "icon": "assessment",
       "title": "Reports",
       "data": "Add or Manage Reports"
