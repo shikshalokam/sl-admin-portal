@@ -1,0 +1,23 @@
+<div>
+  <mat-toolbar role="toolbar" class="task-header">
+    <h5 class="title">Upload Confirmation</h5>
+  </mat-toolbar>
+</div>
+<mat-dialog-content class="mat-typography custom-dialog-content">
+  <div style="padding: 10px">
+    {{message}}
+  </div>
+  <div class="ref">
+    <input style="font-weight: 700;
+    padding-left: 5px;" #userinput type="text" matInput readonly value="{{refId}}">
+    <button style="cursor: pointer;" (click)="copyInputMessage(userinput)" mat-icon-button matPrefix>
+      <mat-icon>file_copy</mat-icon>
+    </button>
+    <!-- <mat-icon style="cursor: pointer;" (click)="copyInputMessage(userinput)">file_copy</mat-icon> -->
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="custom-dialog-actions" align="end">
+  <button mat-button mat-dialog-close>OK</button>
+  <button mat-button class="p-button" (click)="toCheckStatus()">GO TO UPLOADS</button>
+</mat-dialog-actions>

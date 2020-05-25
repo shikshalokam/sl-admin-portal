@@ -86,7 +86,6 @@ export class UsersCsvComponent implements OnInit {
   }
 
   downloadLinks(data, type) {
-    console.log('ddddddddddddddd', data);
     this.bulkuploadService.getDownloadLinks(data.requestId, type).subscribe(data => {
       this.onNavigate(data['result']['url']);
 
@@ -96,8 +95,17 @@ export class UsersCsvComponent implements OnInit {
 
   }
 
-  onNavigate(link){
+  onNavigate(link) {
     window.open(link, "_blank");
-}
+  }
+
+
+  clearFilter() {
+
+  }
+
+  applyFilter() {
+
+  }
 
 }

@@ -15,7 +15,6 @@ export class ConfirmDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel,
     private router: Router) {
     // Update view with given values
-    // console.log('ccccccccccccccc', data);
     this.title = data.title;
     this.message = data.message;
   }

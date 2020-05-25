@@ -6,6 +6,7 @@ import { saveAs } from "file-saver";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 import { DatePipe } from '@angular/common';
+import { UploadConfirmationComponent } from '../upload-confirmation/upload-confirmation.component';
 
 
 
@@ -47,7 +48,7 @@ export class AddMultipleUsersComponent implements OnInit {
   reactiveForm() {
     this.myForm = this.fb.group({
       organisation: [this.data.defaultValue.value, [Validators.required]],
-      userscsv: ['', [Validators.required]]
+      userscsv: ['', Validators.pattern("^.+\.(xlsx|xls|csv)$")]
     })
     this.myForm.controls['organisation'].setValue(this.data.defaultValue.value, { onlySelf: true });
   }
@@ -101,19 +102,18 @@ export class AddMultipleUsersComponent implements OnInit {
         this.onload.submitClick = false;
         this.commonServiceService.commonSnackBar(err.error.message.params.errmsg, 'Dismiss', 'top', 10000);
       });
+    } else {
+      this.commonServiceService.commonSnackBar('Please Select the Valid CSV File', 'Dismiss', 'top', 10000);
     }
   }
 
   // confirmDialog
-  confirmDialog(data) {
-    const message = `Please use this Ref No to check the status ` + data;
-
-    const dialogData = new ConfirmDialogModel("upload", message);
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  confirmDialog(refId) {
+    const message = `Please use this Ref No to check the status:`;
+    const dialogRef = this.dialog.open(UploadConfirmationComponent, {
       width: "400px",
-      height: "300px",
-      data: dialogData
+      height: "250px",
+      data:  { message, refId }
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {

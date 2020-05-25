@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from './add-organisation/add-organisation.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 import { AdminCoreModule } from '../admin-core/admin-core.module';
+import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
 
 
 
@@ -28,8 +29,8 @@ import { AdminCoreModule } from '../admin-core/admin-core.module';
       NO_ERRORS_SCHEMA
   ],
   providers: [ DatePipe],
-  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent, AddMultipleUsersComponent],
+  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent,UploadConfirmationComponent, AddMultipleUsersComponent],
   declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent,UsersEditComponent,
-      RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent],
+      RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent, UploadConfirmationComponent],
 })
 export class UsersModule { }
