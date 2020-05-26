@@ -48,7 +48,7 @@ export class AddMultipleUsersComponent implements OnInit {
   reactiveForm() {
     this.myForm = this.fb.group({
       organisation: [this.data.defaultValue.value, [Validators.required]],
-      userscsv: ['', Validators.pattern("^.+\.(xlsx|xls|csv)$")]
+      userscsv: ['', Validators.compose([Validators.required, Validators.pattern("^.+\.(xlsx|xls|csv)$")])]
     })
     this.myForm.controls['organisation'].setValue(this.data.defaultValue.value, { onlySelf: true });
   }

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Directive({
   selector: '[appCustomsearch]'
 })
-export class CustomsearchDirective {
+export class DebounceDirective {
   @Output() debounceClick = new EventEmitter();
   @ViewChild('searchInput') searchInput: ElementRef;
   private clicks = new Subject();

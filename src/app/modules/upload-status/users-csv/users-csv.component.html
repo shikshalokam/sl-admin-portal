@@ -1,12 +1,13 @@
 <div class="dashboard-content">
   <div class="c-toolbar">
     <div class="row" style="padding-top: 5px;">
-      <a class="list-menu " [routerLink]="['/home']">
-        <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
-        </mat-icon>
-      </a>
-
       <div class="list-menu">
+        <a [routerLink]="['/home']">
+          <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
+          </mat-icon>
+        </a>
+      </div>
+      <div class="list-menu" >
         <mat-form-field class="custom-form-field">
           <mat-label>Search </mat-label>
           <input matInput #searchInput>
@@ -16,53 +17,21 @@
         </mat-form-field>
       </div>
 
-      <div class="list-menu ">
+
+      <div class="list-menu" style="margin-left: 50px;">
         <mat-form-field class="custom-form-field">
-          <mat-label>Filter 1</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          <mat-label>Request Type</mat-label>
+          <mat-select [(value)]="initialType" (selectionChange)="requestTypeChange()">
+            <mat-option *ngFor="let request of requestType" [value]="request.value">{{request.label}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-
-      <div class="list-menu ">
+      <div class="list-menu" style="margin-left: 50px;">
         <mat-form-field class="custom-form-field">
-          <mat-label>Filter 2</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-
-      <div class="list-menu ">
-        <mat-form-field class="custom-form-field">
-          <mat-label>Filter 3</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-
-      <div class="list-menu ">
-        <mat-form-field class="custom-form-field">
-          <mat-label>Filter 4 </mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
+          <mat-label>Status</mat-label>
+          <mat-select [(value)]="initialStatus" (selectionChange)="selectStatus($event)">
+            <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.label}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -74,34 +43,31 @@
           class="filter" value="All">All
         </mat-button-toggle>
         <mat-button-toggle matTooltip="Active organisations" (click)="allOrganisation(toggleGroup.value)" class="filter"
-          value="Active">Active
+          value="Active">Success
         </mat-button-toggle>
         <mat-button-toggle matTooltip="Inactive organisations" (click)="allOrganisation(toggleGroup.value)"
-          class="filter" value="Inactive">Inactive
+          class="filter" value="Inactive">Pending
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div> -->
 
-    <div class="row" style="padding-right: 3%;">
+    <!-- <div class="row" style="padding-right: 3%;">
       <div class="btn-gap">
-        <button mat-button (click)="clearFilter()" matTooltip="clear filter">
-          Clear
-        </button>
-        <button mat-button (click)="applyFilter()" matTooltip="apply filter">
-          Apply
-        </button>
-      </div>
-      <!-- <div class="btn-gap">
         <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
           Bulk upload users
         </button>
-      </div> -->
-      <!-- <div class="btn-gap">
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
+          Bulk upload users
+        </button>
+      </div>
+      <div class="btn-gap">
         <button (click)="downloadOrganisations()" mat-button matTooltip="Download Organisations">
           Download Organisations
         </button>
-      </div> -->
-    </div>
+      </div>
+    </div> -->
   </div>
 
   <div class="table-container mat-elevation-z8">

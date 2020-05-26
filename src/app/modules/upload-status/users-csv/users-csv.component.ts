@@ -3,7 +3,9 @@ import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular
 import { BulkuploadService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fromEvent, of, Observable } from 'rxjs';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
+import { distinctUntilChanged, map, debounceTime, filter } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-users-csv',
@@ -11,12 +13,39 @@ import { distinctUntilChanged, map, filter } from 'rxjs/operators';
   styleUrls: ['./users-csv.component.scss']
 })
 export class UsersCsvComponent implements OnInit {
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   dataSource: MatTableDataSource<any>;
   displayedColumns: any = [];
   selection = new SelectionModel(true, []);
   listing: boolean = false;
   recordCount: any;
+  initialStatus: any = '';
+  initialType: any = '';
+  status: any = '';
   columns: any;
+  statusList = [
+    {
+      label: 'All',
+      value: ''
+    }, {
+      label: 'Success',
+      value: 'Success'
+    }, {
+      label: 'Pending',
+      value: 'pending'
+    }, {
+      label: 'Failed',
+      value: 'Failed'
+    }];
+
+  requestType = [{
+    label: 'All',
+    value: ''
+  }, {
+    label: 'user Creation',
+    value: 'user Creation'
+  },]
   queryParams = {
     page: 1,
     size: 10,
@@ -36,7 +65,7 @@ export class UsersCsvComponent implements OnInit {
       // if character length greater then 2
       , filter(res => res.length > 2 || res.length == 0)
       // Time in milliseconds between key events
-      // , debounceTime(1000)
+      , debounceTime(1000)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response
@@ -52,7 +81,7 @@ export class UsersCsvComponent implements OnInit {
   }
 
   bulkUploadList() {
-    this.bulkuploadService.uploadList(this.queryParams, this.searchInput.nativeElement.value).subscribe(data => {
+    this.bulkuploadService.uploadList(this.queryParams, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.organisationListData = data['result'];
       // this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
@@ -71,6 +100,18 @@ export class UsersCsvComponent implements OnInit {
       this.listing = true;
       // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     });
+  }
+
+  // request type filter
+  requestTypeChange() {
+
+  }
+
+  selectStatus(data) {
+    this.status = data.value;
+    this.paginator.firstPage();
+    this.bulkUploadList();
+
   }
 
 

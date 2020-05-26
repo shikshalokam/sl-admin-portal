@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './services/interceptor/interceptor';
-import { CustomsearchDirective } from './directives/customsearch.directive';
+import { DebounceDirective } from './directives/debounceDirective.directive';
 
 
 @NgModule({
-  declarations: [CustomsearchDirective],
+  declarations: [DebounceDirective],
   imports: [
     CommonModule,
     HttpClientModule

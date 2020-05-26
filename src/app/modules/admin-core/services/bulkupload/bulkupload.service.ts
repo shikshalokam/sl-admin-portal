@@ -12,8 +12,8 @@ export class BulkuploadService {
 
 
   // To get the upload list based on the user logged in
-  uploadList(data, searchfield) {
-    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield);
+  uploadList(data, searchfield, status) {
+    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield + '&status=' + status);
   }
 
 

@@ -27,10 +27,6 @@ export class ConfirmDialogComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  toCheckStatus(){
-    this.router.navigate(['/uploadrecords/list']);
-    this.dialogRef.close(false);
-  }
 
   onDismiss(): void {
     // Close the dialog, return false
