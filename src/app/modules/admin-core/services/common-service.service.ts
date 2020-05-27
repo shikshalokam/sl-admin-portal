@@ -36,6 +36,7 @@ export class CommonServiceService {
     });
   }
 
+  // To handle the error messages commonly
   errorHandling(error) {
     if (error.error.message) {
       this.commonSnackBar(error.error.message, 'Dismiss', 'top', 10000);

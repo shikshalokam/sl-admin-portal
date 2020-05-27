@@ -27,7 +27,7 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
-          <input  [(ngModel)] = "search" [appCustomsearch] = "search" (debounceClick)="log()" #searchInput matInput>
+          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (debounceClick)="debounceMethod()" #searchInput matInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>

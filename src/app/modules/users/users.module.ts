@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA} from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminSharedModule } from '../admin-shared';
@@ -11,10 +11,8 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from './add-organisation/add-organisation.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
-import { AdminCoreModule } from '../admin-core/admin-core.module';
 import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
-import { DebounceDirective } from '../admin-core';
-
+import { AdminCoreModule } from '../admin-core';
 
 
 
@@ -25,13 +23,13 @@ import { DebounceDirective } from '../admin-core';
     AdminCoreModule,
     AdminSharedModule,
     UsersRoutingModule],
-    schemas: [
-      CUSTOM_ELEMENTS_SCHEMA,
-      NO_ERRORS_SCHEMA
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
   ],
-  providers: [ DatePipe],
-  entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent,UploadConfirmationComponent, AddMultipleUsersComponent],
-  declarations: [AddOrganisationComponent, DebounceDirective, UsersListComponent, AddUserComponent,UsersEditComponent,
-      RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent, UploadConfirmationComponent],
+  providers: [DatePipe],
+  entryComponents: [AddUserComponent, AddOrganisationComponent, RolesEditComponent, UploadConfirmationComponent, AddMultipleUsersComponent],
+  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent, UsersEditComponent,
+    RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent, UploadConfirmationComponent],
 })
 export class UsersModule { }

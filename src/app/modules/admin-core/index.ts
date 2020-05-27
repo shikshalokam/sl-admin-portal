@@ -7,4 +7,4 @@ export * from './services/common-service.service';
 export * from './guards/users.guard';
 export * from './guards/route.guard';
 export * from './services/bulkupload/bulkupload.service';
-export * from './directives/debounceDirective.directive';
+export * from './admin-core.module';

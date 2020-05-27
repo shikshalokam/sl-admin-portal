@@ -62,16 +62,6 @@ export class UsersListComponent implements OnInit {
   }
 
   ngOnInit() {
-    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      map((event: any) => {
-        return event.target.value;
-      })
-      , filter(res => res.length > 2 || res.length == 0)
-      , debounceTime(1000)
-      , distinctUntilChanged()
-    ).subscribe((text: string) => {
-      this.getUserList();
-    });
     this.getUserOrginasations();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
@@ -82,10 +72,8 @@ export class UsersListComponent implements OnInit {
     this.bulkUploadSample();
   }
 
-  log() {
-    console.log('users listing');
-    // this.getUserList();
-
+  debounceMethod() {
+    this.getUserList();
   }
 
   /**
