@@ -1,6 +1,5 @@
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -12,8 +11,7 @@ export class ConfirmDialogComponent implements OnInit {
   message: string;
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel,
-    private router: Router) {
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;

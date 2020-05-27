@@ -13,6 +13,7 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 import { AdminCoreModule } from '../admin-core/admin-core.module';
 import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
+import { DebounceDirective } from '../admin-core';
 
 
 
@@ -30,7 +31,7 @@ import { UploadConfirmationComponent } from './upload-confirmation/upload-confir
   ],
   providers: [ DatePipe],
   entryComponents: [AddUserComponent,AddOrganisationComponent,RolesEditComponent,UploadConfirmationComponent, AddMultipleUsersComponent],
-  declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent,UsersEditComponent,
+  declarations: [AddOrganisationComponent, DebounceDirective, UsersListComponent, AddUserComponent,UsersEditComponent,
       RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent, UploadConfirmationComponent],
 })
 export class UsersModule { }

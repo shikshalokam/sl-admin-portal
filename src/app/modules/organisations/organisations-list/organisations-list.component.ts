@@ -92,7 +92,6 @@ export class OrganisationsListComponent implements OnInit {
     }
     this.paginator.firstPage();
     this.getOrganisationList();
-   
   }
 
   /**
@@ -116,7 +115,7 @@ export class OrganisationsListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -126,21 +125,23 @@ export class OrganisationsListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   // confirmDialog
   confirmDialog(data) {
     this.orgObject = data;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData
+      data: confirmData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -173,13 +174,11 @@ export class OrganisationsListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
   editOrganisation(data) {
-    console.log('edit', data);
-
     this.router.navigate(['/organisations/edit', data._id])
   }
 
@@ -190,7 +189,6 @@ export class OrganisationsListComponent implements OnInit {
   // For adding new organisation
   addNewOrganisation() {
     this.openDialog(this.fieldsForOrganisation);
-
   }
 
   // Adding Organisation popup
@@ -204,14 +202,8 @@ export class OrganisationsListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getOrganisationList();
     });
-  }
-
-  // To download organisations
-  downloadOrganisations() {
-    this.commingSoon();
   }
 
 
@@ -231,17 +223,6 @@ export class OrganisationsListComponent implements OnInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  /** The label for the checkbox on the passed row */
-  // checkboxLabel(row): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
-  // }
-
-  commingSoon() {
-    this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);
-  }
 }
 
 

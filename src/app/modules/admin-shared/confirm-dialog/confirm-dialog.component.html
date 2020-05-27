@@ -1,11 +1,11 @@
 <mat-toolbar role="toolbar" class="task-header">
-  <h5 class="title">Confirmation</h5>
+  <div class="title">{{data?.title}}</div>
 </mat-toolbar>
 <mat-dialog-content class="mat-typography" style="padding-top: 30px">
-  <p>{{message}}</p>
+  <p>{{data?.message}}</p>
 
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="center">
-  <button mat-button class="p-button" (click)="onDismiss()">No</button>
-  <button mat-button class="p-button" (click)="onConfirm()">Yes</button>
+  <button mat-button class="p-button" (click)="onDismiss()">{{data?.cancelButtonText}}</button>
+  <button mat-button class="p-button" (click)="onConfirm()">{{data?.confirmButtonText}}</button>
 </mat-dialog-actions>

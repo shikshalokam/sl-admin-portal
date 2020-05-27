@@ -30,20 +30,20 @@ export class UsersCsvComponent implements OnInit {
       value: ''
     }, {
       label: 'Success',
-      value: 'Success'
+      value: 'success'
     }, {
       label: 'Pending',
       value: 'pending'
     }, {
       label: 'Failed',
-      value: 'Failed'
+      value: 'failed'
     }];
 
   requestType = [{
     label: 'All',
     value: ''
   }, {
-    label: 'user Creation',
+    label: 'User Creation',
     value: 'user Creation'
   },]
   queryParams = {
@@ -138,15 +138,6 @@ export class UsersCsvComponent implements OnInit {
 
   onNavigate(link) {
     window.open(link, "_blank");
-  }
-
-
-  clearFilter() {
-
-  }
-
-  applyFilter() {
-
   }
 
 }

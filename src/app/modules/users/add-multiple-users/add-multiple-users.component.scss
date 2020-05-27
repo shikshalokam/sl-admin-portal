@@ -1,65 +1,61 @@
 @import "../../../../assets/scss/variables.scss";
 
-
-.ftitle{
-    font-weight: 600;
-    color: $primary-color
+.ftitle {
+  font-weight: 600;
+  color: $primary-color;
 }
 
 .task-header {
-    background-color: $primary-color;
+  background-color: $primary-color;
 }
 
 .space {
-    padding-top: 5%;
+  padding-top: 5%;
 }
-
 
 ::ng-deep.mat-dialog-actions {
-    padding: 8px 0;
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 52px;
-    align-items: center;
-    padding-right: 42px;
-    margin-bottom: 16px;
+  padding: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 52px;
+  align-items: center;
+  padding-right: 42px;
+  margin-bottom: 16px;
 }
 
-// .upload-btn-wrapper {
-//     position: relative;
-//     overflow: hidden;
-//     display: inline-block;
-//     padding-top: 15px;
-//   }
-  
-  .btn {
-    color:$primary-color;
-    background-color: #f3f4f5;
-    padding: 6px 15px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-  }
-  
-//   .upload-btn-wrapper input[type=file] {
-//     font-size: 100px;
-//     position: absolute;
-//     left: 0;
-//     top: 0;
-//     opacity: 0;
-//   }
+.btn {
+  color: $primary-color;
+  background-color: #f3f4f5;
+  padding: 6px 15px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+}
 
-
-// input[type="file"] {
-//     display: none;
-// }
 .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
-
-
-
+.new-button {
+  display: inline-block;
+  padding: 8px 12px; 
+  cursor: pointer;
+  border-radius: 4px;
+ font-weight: 600;
+  font-size: 14px;
+  color:$primary-color;
+}
+input[type="file"] {
+position: absolute;
+z-index: -1;
+top: 6px;
+left: 0;
+font-size: 15px;
+color: rgb(153,153,153);
+}
+.button-wrap {
+position: relative;
+}

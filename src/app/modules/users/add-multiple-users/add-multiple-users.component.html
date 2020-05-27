@@ -1,6 +1,6 @@
 <mat-toolbar role="toolbar" class="task-header">
   <mat-icon style="color: white;">people</mat-icon>
-  <h5 class="title">Bulk Upload Users</h5>
+  <div class="title">Bulk Upload Users</div>
 </mat-toolbar>
 <form [formGroup]="myForm" (ngSubmit)="uploadUsersCSVFile()" novalidate>
   <mat-dialog-content class="mat-typography">
@@ -30,12 +30,19 @@
         </div>
 
         <div>
-          <div style="padding-bottom: 10px;">
+          <!-- <div style="padding-bottom: 10px;">
             <div class="btn" style="width: auto;">
               <input formControlName="userscsv" type="file" id="file"
                 enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">
             </div>
-          </div>
+          </div> -->
+
+          <div class="button-wrap">
+            <label class ="new-button p-button" for="upload"> Select CSV</label>
+            <input formControlName="userscsv" type="file" id="upload"
+                enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">
+            </div>
+            <div>{{selectedFile}}</div>
           <!-- <div>
             <input class="custom-file-input" formControlName="userscsv" type="file" id="file"
               enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">

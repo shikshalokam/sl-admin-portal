@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
       "routerlink": "/uploadrecords/list",
       "icon": "cloud_upload",
       "title": "Uploads",
-      "data": "View Upload Files"
+      "data": "View Upload Request Status"
     }
   ]
 

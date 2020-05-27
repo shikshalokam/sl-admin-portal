@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './services/interceptor/interceptor';
-import { DebounceDirective } from './directives/debounceDirective.directive';
+// import { DebounceDirective } from './directives/debounceDirective.directive';
 
 
 @NgModule({
-  declarations: [DebounceDirective],
+  // declarations: [DebounceDirective],
   imports: [
     CommonModule,
     HttpClientModule

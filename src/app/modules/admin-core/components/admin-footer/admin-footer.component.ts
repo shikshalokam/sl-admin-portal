@@ -10,7 +10,7 @@ export class AdminFooterComponent implements OnInit {
   constructor() {
     this.footerLink = [
         {
-            name: "Copyright @2019 Shikshalokam"
+            name: "Copyright @2020 Shikshalokam"
         },
         {
             name: "Terms of Service"

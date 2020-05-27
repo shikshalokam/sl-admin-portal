@@ -24,6 +24,7 @@ export class AddMultipleUsersComponent implements OnInit {
   selected: any;
   datePipe: any;
   fileName: any;
+  selectedFile: any;
   // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
@@ -77,8 +78,11 @@ export class AddMultipleUsersComponent implements OnInit {
 
   // File Handling
   handleFileInput(files: Event) {
+    console.log('files', files);
+    
     const file = files[0];
     this.filecontent = file;
+     this.selectedFile = file.name;
   }
 
   handleChange(data) {
@@ -98,9 +102,9 @@ export class AddMultipleUsersComponent implements OnInit {
         } else {
           this.dialogRef.close();
         }
-      }, err => {
+      }, error => {
         this.onload.submitClick = false;
-        this.commonServiceService.commonSnackBar(err.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+        this.commonServiceService.errorHandling(error);
       });
     } else {
       this.commonServiceService.commonSnackBar('Please Select the Valid CSV File', 'Dismiss', 'top', 10000);

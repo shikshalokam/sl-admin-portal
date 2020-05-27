@@ -43,7 +43,7 @@
           </span>
           <span class="profile-actions-text"> RESET PASSWORD</span>
         </div>
-        <div *ngIf="editUserDetails?.status === 1" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
+        <div *ngIf="editUserDetails?.status === 1 && editUserDetails?.userDeactiveAccess ==  true" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
           (click)="confirmDialog()">
           <span>
             <mat-icon class="negative">edit</mat-icon>
@@ -157,7 +157,7 @@
               <mat-cell *matCellDef="let element">
                 <button (click)="editRoles(element)" matTooltip="Edit Roles" class="actions" mat-button>
                   Edit</button>&nbsp;
-                <button (click)="confirmForUserDelete(element)" matTooltip="Delete User from Organisation"
+                <button (click)="confirmForUserDelete(element)" matTooltip="Remove roles for Organisation"
                   class="actions" mat-button>Remove All Roles</button>
               </mat-cell>
             </ng-container>

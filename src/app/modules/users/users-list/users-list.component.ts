@@ -55,29 +55,20 @@ export class UsersListComponent implements OnInit {
   datePipe: any;
   downloadedData: any;
   selectedOrganisation: any;
+  search: any = '';
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
     private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // this.organisations = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value))
-    // );
-
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      // get value
       map((event: any) => {
         return event.target.value;
       })
-      // if character length greater then 2
       , filter(res => res.length > 2 || res.length == 0)
-      // Time in milliseconds between key events
       , debounceTime(1000)
-      // If previous query is diffent from current
       , distinctUntilChanged()
-      // subscription for response
     ).subscribe((text: string) => {
       this.getUserList();
     });
@@ -92,7 +83,8 @@ export class UsersListComponent implements OnInit {
   }
 
   log() {
-    console.log('click');
+    console.log('users listing');
+    // this.getUserList();
 
   }
 
@@ -118,7 +110,7 @@ export class UsersListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
   refreshDatasource(data) {
@@ -227,10 +219,7 @@ export class UsersListComponent implements OnInit {
         this.listing = true;
       }
     }, error => {
-      this._snackBar.open('No Organisations Found', 'Dismiss', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
+      this.commonServiceService.errorHandling(error);
     });
 
   }
@@ -257,17 +246,16 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsBackend = this.formdata.form;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   bulkUploadSample() {
     this.usersService.sampleBulkUsers().subscribe(data => {
       this.formdata = data['result'];
-      console.log('bulkUploadSample', this.formdata);
     }, error => {
       this.downloadedData = error.error.text;
-      // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      // this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -381,14 +369,16 @@ export class UsersListComponent implements OnInit {
   // confirmDialog
   confirmDialog(user) {
     this.userObject = user;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData
+      data: confirmData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -413,7 +403,7 @@ export class UsersListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
