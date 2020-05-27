@@ -57,22 +57,6 @@ export class UsersCsvComponent implements OnInit {
   constructor(private bulkuploadService: BulkuploadService) { }
 
   ngOnInit() {
-
-    // fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-    //   // get value
-    //   map((event: any) => {
-    //     return event.target.value;
-    //   })
-    //   // if character length greater then 2
-    //   , filter(res => res.length > 2 || res.length == 0)
-    //   // Time in milliseconds between key events
-    //   , debounceTime(1000)
-    //   // If previous query is diffent from current
-    //   , distinctUntilChanged()
-    //   // subscription for response
-    // ).subscribe((text: string) => {
-    //   this.bulkUploadList();
-    // });
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
       this.queryParams.size = page.pageSize;

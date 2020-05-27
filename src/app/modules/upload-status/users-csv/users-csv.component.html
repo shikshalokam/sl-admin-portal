@@ -11,7 +11,7 @@
         <mat-form-field class="custom-form-field">
           <mat-label>Search </mat-label>
           <!-- <input matInput #searchInput> -->
-          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (debounceClick)="debounceMethod()" #searchInput matInput>
+          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (debounceClick)="bulkUploadList()" #searchInput matInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>

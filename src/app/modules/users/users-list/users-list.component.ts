@@ -1,19 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
-import { fromEvent } from 'rxjs';
 import { UsersService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { distinctUntilChanged, map, debounceTime, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
-import { startWith } from 'rxjs/operators';
 import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
 
 
@@ -70,10 +67,6 @@ export class UsersListComponent implements OnInit {
     });
     this.createForm();
     this.bulkUploadSample();
-  }
-
-  debounceMethod() {
-    this.getUserList();
   }
 
   /**

@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class DebounceDirective  {
   @Input() appDebounceDirective;
-  @Output() debounceClick = new EventEmitter();
+  @Output() onValueChange = new EventEmitter();
   subject: Subject<any> = new Subject();
   constructor(private Element: ElementRef,
     private renderer: Renderer) {
@@ -23,7 +23,7 @@ export class DebounceDirective  {
       , debounceTime(500)
       , distinctUntilChanged()
     ).subscribe((text: string) => {
-      this.debounceClick.emit();
+      this.onValueChange.emit();
     });
   }
  
