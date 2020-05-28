@@ -7,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
 import { DatePipe } from '@angular/common';
 import { UploadConfirmationComponent } from '../upload-confirmation/upload-confirmation.component';
-
+import { Pipe, PipeTransform } from '@angular/core';
 
 
 @Component({
@@ -25,6 +25,8 @@ export class AddMultipleUsersComponent implements OnInit {
   datePipe: any;
   fileName: any;
   selectedFile: any;
+  type: any;
+  CSVfile: any;
   // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
@@ -78,20 +80,27 @@ export class AddMultipleUsersComponent implements OnInit {
 
   // File Handling
   handleFileInput(files: Event) {
-    console.log('files', files);
-    
     const file = files[0];
     this.filecontent = file;
-     this.selectedFile = file.name;
+    this.selectedFile = file.name;
+    if (this.selectedFile.length > 20) {
+      this.CSVfile = this.selectedFile.slice(0, 20) + '...' + file.name.split('.')[1];
+    } else {
+      this.CSVfile = this.selectedFile
+    }
   }
 
-  handleChange(data) {
 
+
+  clearSelectedFile() {
+    this.CSVfile = '';
+    this.filecontent = '';
+    (<HTMLInputElement>document.getElementById('upload')).value = null;
   }
 
   // Sendind csv to service
   uploadUsersCSVFile() {
-    if (this.myForm.valid) {
+    if (this.myForm.valid && this.filecontent) {
       this.onload.submitClick = true;
       this.usersService.uploadUsersCsv(this.myForm.value, this.filecontent).subscribe(res => {
         if (res['status'] === 200) {
@@ -117,7 +126,7 @@ export class AddMultipleUsersComponent implements OnInit {
     const dialogRef = this.dialog.open(UploadConfirmationComponent, {
       width: "400px",
       height: "250px",
-      data:  { message, refId }
+      data: { message, refId }
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {

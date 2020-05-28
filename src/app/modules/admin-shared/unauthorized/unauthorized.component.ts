@@ -15,8 +15,6 @@ export class UnauthorizedComponent implements OnInit {
     public dialogRef: MatDialogRef<UnauthorizedComponent>) { }
 
   ngOnInit() {
-    console.log('uuuuuuuuuuuu', this.data);
-    
     this.userdetails = this.commonServiceService.getUserDetails();
     if (this.userdetails) {
       this.username = this.userdetails.firstName;

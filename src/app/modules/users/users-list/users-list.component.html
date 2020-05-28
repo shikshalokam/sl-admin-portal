@@ -112,7 +112,7 @@
         </span>
       </span>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" style="background-color: #f5f5f5;">
+      <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" class="p-button">
       </mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
       </mat-row>

@@ -2,7 +2,7 @@
   <mat-icon style="color: white;">people</mat-icon>
   <div class="title">Bulk Upload Users</div>
 </mat-toolbar>
-<form [formGroup]="myForm" (ngSubmit)="uploadUsersCSVFile()" novalidate>
+<form [formGroup]="myForm" novalidate>
   <mat-dialog-content class="mat-typography">
     <div class="row" style="padding-left: 15px;">
 
@@ -29,43 +29,23 @@
           </mat-form-field>
         </div>
 
-        <div>
-          <!-- <div style="padding-bottom: 10px;">
-            <div class="btn" style="width: auto;">
-              <input formControlName="userscsv" type="file" id="file"
-                enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">
-            </div>
-          </div> -->
-
+        <div style="display: flex;">
           <div class="button-wrap">
-            <label class ="new-button p-button" for="upload"> Select CSV</label>
-            <input formControlName="userscsv" type="file" id="upload"
-                enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">
-            </div>
-            <div>{{selectedFile}}</div>
-          <!-- <div>
-            <input class="custom-file-input" formControlName="userscsv" type="file" id="file"
-              enctype="multipart/form-data" (change)="handleFileInput($event.target.files)" accept=".csv">
-          </div> -->
-          <!-- <input type="file" formControlName="userscsv" name="myfile" (change)="handleFileInput($event.target.files)" accept=".csv" /> -->
-          <!-- <mat-error *ngIf="errorHandling('userscsv', 'required')">
-            You must select csv File
-          </mat-error> -->
+            <label class="new-button p-button" for="upload"> SELECT CSV</label>
+            <input formControlName="userscsv" type="file" id="upload" enctype="multipart/form-data"
+              (change)="handleFileInput($event.target.files)" accept=".csv">
+          </div>
+          <div style="padding: 0px 0px 10px 10px;">{{CSVfile}}
+            <button *ngIf="CSVfile" mat-icon-button matSuffix (click)="clearSelectedFile()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
         </div>
-
-        <!-- <div class="space">
-          <h3>Not sure how to get started?</h3>
-        </div>
-        <div class="space">
-          Download a CSV file, then edit and upload the file.
-        </div> -->
-
       </div>
     </div>
-    <!-- </div> -->
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>CANCEL</button> &nbsp;
-    <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading>
+    <app-button-loading [btnData]="onload" (click)="uploadUsersCSVFile($event)"></app-button-loading>
   </mat-dialog-actions>
 </form>
