@@ -41,15 +41,17 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
+import { ButtonLoadingComponent } from './button-loading/button-loading.component';
+import { DebounceDirective } from './directives/debounceDirective.directive';
 
 
 
 
 @NgModule({
   // ButtonComponent
-  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent],
+  declarations: [DebounceDirective,CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
+    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent, 
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent, ButtonLoadingComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -102,6 +104,8 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     MatRadioModule,
     MatButtonToggleModule,
     DynamicFormComponent,
+    ButtonLoadingComponent,
+    DebounceDirective,
     NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

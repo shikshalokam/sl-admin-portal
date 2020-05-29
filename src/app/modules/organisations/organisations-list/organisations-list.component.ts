@@ -30,6 +30,7 @@ export class OrganisationsListComponent implements OnInit {
   status: any = '';
   orgObject: any;
   assignedStatus: any;
+  search: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -40,22 +41,6 @@ export class OrganisationsListComponent implements OnInit {
     private dialog: MatDialog, private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
-
-    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      // get value
-      map((event: any) => {
-        return event.target.value;
-      })
-      // if character length greater then 2
-      , filter(res => res.length > 2 || res.length == 0)
-      // Time in milliseconds between key events
-      // , debounceTime(1000)
-      // If previous query is diffent from current
-      , distinctUntilChanged()
-      // subscription for response
-    ).subscribe((text: string) => {
-      this.getOrganisationList();
-    });
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
       this.queryParams.size = page.pageSize;
@@ -92,7 +77,6 @@ export class OrganisationsListComponent implements OnInit {
     }
     this.paginator.firstPage();
     this.getOrganisationList();
-   
   }
 
   /**
@@ -116,7 +100,7 @@ export class OrganisationsListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -126,21 +110,23 @@ export class OrganisationsListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   // confirmDialog
   confirmDialog(data) {
     this.orgObject = data;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData
+      data: confirmData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -173,13 +159,11 @@ export class OrganisationsListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
   editOrganisation(data) {
-    console.log('edit', data);
-
     this.router.navigate(['/organisations/edit', data._id])
   }
 
@@ -190,7 +174,6 @@ export class OrganisationsListComponent implements OnInit {
   // For adding new organisation
   addNewOrganisation() {
     this.openDialog(this.fieldsForOrganisation);
-
   }
 
   // Adding Organisation popup
@@ -204,14 +187,8 @@ export class OrganisationsListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.getOrganisationList();
     });
-  }
-
-  // To download organisations
-  downloadOrganisations() {
-    this.commingSoon();
   }
 
 
@@ -231,17 +208,6 @@ export class OrganisationsListComponent implements OnInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-  /** The label for the checkbox on the passed row */
-  // checkboxLabel(row): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
-  // }
-
-  commingSoon() {
-    this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);
-  }
 }
 
 

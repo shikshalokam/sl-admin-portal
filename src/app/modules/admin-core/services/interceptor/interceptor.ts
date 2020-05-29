@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 import { UnauthorizedComponent } from 'src/app/modules/admin-shared';
 import { keyCloakService } from '../auth-service/auth.service';
 import { MatDialog } from '@angular/material';
+import { CommonServiceService } from '../common-service.service';
+
 @Injectable()
 export class Interceptor implements HttpInterceptor {
     token;
     constructor(private router: Router,
         public dialog: MatDialog,
-        private KeycloakService: keyCloakService
+        private KeycloakService: keyCloakService,
+        private commonServiceService: CommonServiceService
         // public storage: Storage,
     ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,20 +32,7 @@ export class Interceptor implements HttpInterceptor {
                 }
             });
         }
-        if (!request.headers.has('Content-Type')) {
-            request = request.clone({
-                setHeaders: {
-                    'content-type': 'application/json'
-                }
-            });
-        }
-        // if (request.headers.has('Content-Type')) {
-        //     request = request.clone({
-        //         setHeaders: {
-        //             'content-type': 'multipart/form-data'
-        //         }
-        //     });
-        // }
+
         request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
         });
@@ -53,6 +43,13 @@ export class Interceptor implements HttpInterceptor {
                 return event;
             }),
             catchError((error: HttpErrorResponse) => {
+                let errorMessage = '';
+
+                if (error.error instanceof ErrorEvent) {
+                    errorMessage = `Error: ${error.error.message}`;
+                } else {
+                    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+                }
                 if (error.status === 401) {
                     if (error.error.success === false) {
                         this.openDialog();
@@ -60,16 +57,18 @@ export class Interceptor implements HttpInterceptor {
                         this.KeycloakService.logout();
                     }
                 }
+                // this.commonServiceService.commonSnackBar(errorMessage, 'Dismiss', 'top', 1000);
                 return throwError(error);
             }));
     }
 
     openDialog(): void {
+        const message = `You don't have right to access this site.`;
         const dialogRef = this.dialog.open(UnauthorizedComponent
             , {
                 disableClose: true,
                 width: '25%',
-                data: {}
+                data: { message }
             });
 
         dialogRef.afterClosed().subscribe(result => {

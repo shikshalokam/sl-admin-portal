@@ -2819,5 +2819,14 @@ html.cdk-global-scrollblock body {
 }
 
 .p-button{
-  background: #bababa;
+  background: #f5f5f5;
 }
+
+.title {
+  font-weight: 600;
+  color: $white-color;
+  text-align: center;
+  margin-right: 12%;
+  padding: 5px 0px 0px 12px;
+}
+
