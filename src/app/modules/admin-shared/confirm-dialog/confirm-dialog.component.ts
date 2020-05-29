@@ -9,12 +9,16 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class ConfirmDialogComponent implements OnInit {
   title: string;
   message: string;
+  cancelButtonText: string;
+  confirmButtonText: string;
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    this.cancelButtonText = data['cancelButtonText'];
+    this.confirmButtonText = data['confirmButtonText'];
   }
 
   ngOnInit() {
