@@ -83,6 +83,12 @@ export class HomeComponent implements OnInit {
       "icon": "cloud_upload",
       "title": "Uploads",
       "data": "View Upload Request Status"
+    },
+    {
+      "routerlink": "/entities/list",
+      "icon": "analytics",
+      "title": "Entity",
+      "data": "View Entity Details"
     }
   ]
 

@@ -1,13 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { fromEvent, of, Observable } from 'rxjs';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { OrganisationService } from '../../admin-core';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { ConfirmDialogComponent} from '../../admin-shared';
 
 
 @Component({
@@ -19,7 +16,6 @@ export class OrganisationsListComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: any = [];
-  selection = new SelectionModel(true, []);
   listing: boolean = false;
   recordCount: any;
   columns: any;
@@ -189,23 +185,6 @@ export class OrganisationsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.getOrganisationList();
     });
-  }
-
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    if (this.dataSource) {
-      const numRows = this.dataSource.data.length;
-      return numSelected === numRows;
-    }
-
-  }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
 }

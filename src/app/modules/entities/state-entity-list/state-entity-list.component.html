@@ -7,9 +7,10 @@
       </a>
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
-          <mat-label>Search for Organisation</mat-label>
-          <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getOrganisationList()"
-            #searchInput matInput>
+          <mat-label>Search for State</mat-label>
+          <input matInput>
+          <!-- <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getOrganisationList()"
+            #searchInput matInput> -->
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -18,7 +19,7 @@
     </div>
 
     <div>
-      <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
+      <!-- <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
         <mat-button-toggle matTooltip="All organisations" checked (click)="allOrganisation(toggleGroup.value)"
           class="filter" value="All">All
         </mat-button-toggle>
@@ -28,15 +29,15 @@
         <mat-button-toggle matTooltip="Inactive organisations" (click)="allOrganisation(toggleGroup.value)"
           class="filter" value="Inactive">Inactive
         </mat-button-toggle>
-      </mat-button-toggle-group>
+      </mat-button-toggle-group> -->
     </div>
 
     <div class="row" style="padding-right: 3%;">
-      <div class="btn-gap">
+      <!-- <div class="btn-gap">
         <button mat-button (click)="addNewOrganisation()" matTooltip="Add Organisation">
           Add Organisation
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -54,12 +55,12 @@
           </span>
           <span *ngIf="column.type == 'action'">
             <mat-cell *matCellDef="let user">
-              <button (click)="editOrganisation(user)" matTooltip="Edit Organisation" class="actions"
-                mat-button>Edit</button> &nbsp;
-              <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
+              <button (click)="viewDetails(user)" matTooltip="View Details" class="actions"
+                mat-button>View Details</button> &nbsp;
+              <!-- <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
                 class="actions" mat-button> Deactivate</button>
               <button *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
-                class="actions btnactive" mat-button>Activate</button>
+                class="actions btnactive" mat-button>Activate</button> -->
             </mat-cell>
           </span>
         </ng-container>
