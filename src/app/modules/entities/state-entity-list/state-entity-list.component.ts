@@ -24,6 +24,7 @@ export class StateEntityListComponent implements OnInit {
   orgObject: any;
   assignedStatus: any;
   search: any;
+  noData: boolean;
   queryParams = {
     page: 1,
     size: 10,
@@ -37,6 +38,21 @@ export class StateEntityListComponent implements OnInit {
 
   ngOnInit() {
     this.getEntityStateList();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.filteredData.length < 1) {
+      this.noData = true;
+    } else {
+      this.noData = false;
+    }
+
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   /**
@@ -65,8 +81,8 @@ export class StateEntityListComponent implements OnInit {
     });
   }
 
-   // get color based on the status
-   getItemCssClassByStatus(status): string {
+  // get color based on the status
+  getItemCssClassByStatus(status): string {
     switch (status) {
       case 'Active':
         return 'active';
@@ -76,7 +92,7 @@ export class StateEntityListComponent implements OnInit {
     return '';
   }
 
-  viewDetails(entity){
+  viewDetails(entity) {
     this.router.navigate(['/entities/entitydetails', entity._id])
   }
 

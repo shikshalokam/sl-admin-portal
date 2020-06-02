@@ -8,7 +8,7 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for State</mat-label>
-          <input matInput>
+          <input matInput (keyup)="applyFilter($event)">
           <!-- <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getOrganisationList()"
             #searchInput matInput> -->
           <button mat-icon-button matPrefix>
@@ -57,10 +57,6 @@
             <mat-cell *matCellDef="let user">
               <button (click)="viewDetails(user)" matTooltip="View Details" class="actions"
                 mat-button>View Details</button> &nbsp;
-              <!-- <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
-                class="actions" mat-button> Deactivate</button>
-              <button *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
-                class="actions btnactive" mat-button>Activate</button> -->
             </mat-cell>
           </span>
         </ng-container>
@@ -71,7 +67,7 @@
       </mat-row>
     </mat-table>
 
-    <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
+    <div class="message" *ngIf="noData || !dataSource">No records found</div>
     <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
       [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>

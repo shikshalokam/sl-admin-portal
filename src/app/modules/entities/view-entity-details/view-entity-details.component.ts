@@ -3,6 +3,7 @@ import { EntityService } from '../../admin-core/services/entity-service/entity.s
 import { ActivatedRoute } from '@angular/router';
 import { CommonServiceService } from '../../admin-core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
+import { ViewSubEntityDetailsComponent } from '../view-sub-entity-details/view-sub-entity-details.component';
 
 
 
@@ -22,6 +23,8 @@ export class ViewEntityDetailsComponent implements OnInit {
   columns: any;
   recordCount: any;
   search: any = '';
+  viewSubEntitymetaData: any;
+  childHierarchary: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -29,26 +32,9 @@ export class ViewEntityDetailsComponent implements OnInit {
   type: any = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('searchInput') searchInput: ElementRef;
-  constructor(private entityService: EntityService,
+  constructor(public dialog: MatDialog, private entityService: EntityService,
     private route: ActivatedRoute, private commonServiceService: CommonServiceService) { }
 
-
-  sideMenu = [{
-    label: 'District',
-    value: 'district'
-  }, {
-    label: 'Zone',
-    value: 'zone'
-  }, {
-    label: 'School',
-    value: 'school'
-  }, {
-    label: 'Cluster',
-    value: 'cluster'
-  }, {
-    label: 'Hub',
-    value: 'hub'
-  }]
 
   ngOnInit() {
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -68,7 +54,10 @@ export class ViewEntityDetailsComponent implements OnInit {
       console.log('getEntityDetails', data);
       this.entityInfo = data['result'][0]
       this.metaData = data['result'][0]['metaInformation'];
-      //  ['metaInformation']['name']
+      if (data['result'][0]['childHierarchyPath']) {
+        this.childHierarchary = data['result'][0]['childHierarchyPath'];
+        this.type = data['result'][0]['childHierarchyPath'][0]
+      }
 
     }, error => {
       this.commonServiceService.errorHandling(error);
@@ -77,7 +66,7 @@ export class ViewEntityDetailsComponent implements OnInit {
   }
 
 
-  entityChange(data){
+  entityChange(data) {
     this.type = data;
     this.subEntity();
     this.paginator.firstPage();
@@ -119,7 +108,37 @@ export class ViewEntityDetailsComponent implements OnInit {
   }
 
   ViewData(data) {
+    console.log('vvvvvvvvvvvvvv', data);
+    this.entityService.getEntityDetails(data._id).subscribe(data => {
+      console.log('pppppppppppp', data);
+      // this.entityInfo = data['result'][0]
+      const viewSubEntitymetaData = data['result'][0]['metaInformation'];
+      const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
+        , {
+          disableClose: true,
+          width: '50%',
+          data: { viewSubEntitymetaData }
+        });
+      // if (data['result'][0]['childHierarchyPath']) {
+      //   this.childHierarchary = data['result'][0]['childHierarchyPath'];
+      //   this.type = data['result'][0]['childHierarchyPath'][0]
+      // }
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
+    // const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
+    //   , {
+    //     disableClose: true,
+    //     width: '50%',
+    //     data: { data }
+    //   });
 
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    //   setTimeout(() => {
+    //     // this.getUserList();
+    //   }, 2000)
+    // });
   }
 
 
