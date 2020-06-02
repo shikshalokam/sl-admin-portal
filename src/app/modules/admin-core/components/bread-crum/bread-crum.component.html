@@ -1,4 +1,4 @@
-<div *ngIf="edit != 'edit/:id'" class="pageName">
+<div *ngIf ="show" class="pageName">
     <span *ngFor="let data of crumData?.title">
         <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
     </span>

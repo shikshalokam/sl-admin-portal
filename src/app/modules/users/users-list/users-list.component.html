@@ -90,9 +90,9 @@
         </span>
         <span *ngIf="column.type !== 'checkbox'">
           <ng-container [matColumnDef]="column.key">
-            <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+            <mat-header-cell style="padding-right: 2%;" *matHeaderCellDef>{{ column.label}}</mat-header-cell>
             <span *ngIf="column.type == 'column'">
-              <mat-cell *matCellDef="let row" class="text-capital">
+              <mat-cell style="padding-right: 2%;" *matCellDef="let row" class="text-capital">
                 <span class="{{getItemCssClassByStatus(row[column.key])}}">
                   {{row[column.key] ? row[column.key]: '-- --'}}
                 </span>

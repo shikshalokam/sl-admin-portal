@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'entitydetails/:id', component: ViewEntityDetailsComponent, data: { title: [{ name: 'Home >', link: '/home' },
-         { name: 'Entity >', link: 'entities/list' }, { name: 'EntityDetails', link: 'entitydetails/:id' }] },
+         { name: 'Entity', link: '/entities/list' }] },
       },
     ]
   }

@@ -29,6 +29,7 @@ export class ViewEntityDetailsComponent implements OnInit {
     page: 1,
     size: 10,
   };
+  crumData: any;
   type: any = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('searchInput') searchInput: ElementRef;
@@ -37,10 +38,15 @@ export class ViewEntityDetailsComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.route
+      .data
+      .subscribe(data => {
+        this.crumData = data;
+      });
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
       this.queryParams.size = page.pageSize;
-      // this.getOrganisationList();
       this.subEntity();
     });
     this.entityId = this.route.snapshot.paramMap.get('id');
@@ -68,6 +74,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   entityChange(data) {
     this.type = data;
+    this.searchInput.nativeElement.value = '';
     this.subEntity();
     this.paginator.firstPage();
   }
@@ -77,7 +84,6 @@ export class ViewEntityDetailsComponent implements OnInit {
   subEntity() {
     this.entityService.getSubEntityList(this.entityId, this.type, this.searchInput.nativeElement.value, this.queryParams).subscribe(data => {
       this.entityListData = data['result'];
-      // this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result']['data']);
       this.columns = data['result']['columns'];
@@ -108,10 +114,7 @@ export class ViewEntityDetailsComponent implements OnInit {
   }
 
   ViewData(data) {
-    console.log('vvvvvvvvvvvvvv', data);
     this.entityService.getEntityDetails(data._id).subscribe(data => {
-      console.log('pppppppppppp', data);
-      // this.entityInfo = data['result'][0]
       const viewSubEntitymetaData = data['result'][0]['metaInformation'];
       const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
         , {
@@ -119,10 +122,6 @@ export class ViewEntityDetailsComponent implements OnInit {
           width: '50%',
           data: { viewSubEntitymetaData }
         });
-      // if (data['result'][0]['childHierarchyPath']) {
-      //   this.childHierarchary = data['result'][0]['childHierarchyPath'];
-      //   this.type = data['result'][0]['childHierarchyPath'][0]
-      // }
     }, error => {
       this.commonServiceService.errorHandling(error);
     })
