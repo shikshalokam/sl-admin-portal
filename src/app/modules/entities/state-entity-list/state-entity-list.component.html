@@ -9,8 +9,6 @@
         <mat-form-field class="custom-form-field">
           <mat-label>Search for State</mat-label>
           <input matInput (keyup)="applyFilter($event)">
-          <!-- <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getOrganisationList()"
-            #searchInput matInput> -->
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -18,26 +16,24 @@
       </div>
     </div>
 
-    <div>
-      <!-- <mat-button-toggle-group #toggleGroup="matButtonToggleGroup">
-        <mat-button-toggle matTooltip="All organisations" checked (click)="allOrganisation(toggleGroup.value)"
-          class="filter" value="All">All
-        </mat-button-toggle>
-        <mat-button-toggle matTooltip="Active organisations" (click)="allOrganisation(toggleGroup.value)" class="filter"
-          value="Active">Active
-        </mat-button-toggle>
-        <mat-button-toggle matTooltip="Inactive organisations" (click)="allOrganisation(toggleGroup.value)"
-          class="filter" value="Inactive">Inactive
-        </mat-button-toggle>
-      </mat-button-toggle-group> -->
-    </div>
+
 
     <div class="row" style="padding-right: 3%;">
-      <!-- <div class="btn-gap">
-        <button mat-button (click)="addNewOrganisation()" matTooltip="Add Organisation">
-          Add Organisation
+      <div class="btn-gap">
+        <button mat-button (click)="addNewState()" matTooltip="Add New State">
+          Add State
         </button>
-      </div> -->
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="bulkUploadEntity()" matTooltip="Bulk Entity Upload">
+          Upload Entites
+        </button>
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="bulkEntityMap()" matTooltip="Bulk Entity Mapping">
+          Entity Mapping
+        </button>
+      </div>
     </div>
   </div>
 
@@ -55,8 +51,10 @@
           </span>
           <span *ngIf="column.type == 'action'">
             <mat-cell *matCellDef="let user">
-              <button (click)="viewDetails(user)" matTooltip="View Details" class="actions"
-                mat-button>View Details</button> &nbsp;
+              <button (click)="viewDetails(user)" matTooltip="View Details" class="actions" mat-button>View
+                Details</button> &nbsp;
+              <button (click)="viewHierarchy(user)" matTooltip="View Hierarchy" class="actions" mat-button>View
+                Hierarchy</button> &nbsp;
             </mat-cell>
           </span>
         </ng-container>
@@ -66,8 +64,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
-
-    <div class="message" *ngIf="noData || !dataSource">No records found</div>
+    <app-no-record *ngIf="noData || !dataSource"></app-no-record>
     <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
       [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>

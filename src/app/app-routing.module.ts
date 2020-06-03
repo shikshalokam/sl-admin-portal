@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'entities',
-    canActivate: [UsersGuard],
+    canActivate: [RouteGuard],
     loadChildren: './modules/entities/entities.module#EntitiesModule'
   },
   { path: 'home', component: HomeComponent, data: { title: [{ name: 'Admin Console', link: '/home' }] } },

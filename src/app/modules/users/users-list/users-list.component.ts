@@ -217,9 +217,9 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.getUserList();
-    }, 3000)
+    // }, 3000)
   }
 
   createForm() {

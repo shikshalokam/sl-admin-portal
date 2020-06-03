@@ -38,7 +38,6 @@ export class ViewEntityDetailsComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.route
       .data
       .subscribe(data => {
@@ -57,7 +56,6 @@ export class ViewEntityDetailsComponent implements OnInit {
   // get Entity Details
   entityDetails() {
     this.entityService.getEntityDetails(this.entityId).subscribe(data => {
-      console.log('getEntityDetails', data);
       this.entityInfo = data['result'][0]
       this.metaData = data['result'][0]['metaInformation'];
       if (data['result'][0]['childHierarchyPath']) {
@@ -71,7 +69,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   }
 
-
+// on selecting the entity
   entityChange(data) {
     this.type = data;
     this.searchInput.nativeElement.value = '';
@@ -99,6 +97,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
     }, error => {
       this.listing = true;
+      this.commonServiceService.errorHandling(error);
     })
   }
 
@@ -110,7 +109,6 @@ export class ViewEntityDetailsComponent implements OnInit {
       case 'Inactive':
         return 'inactive';
     }
-    return '';
   }
 
   ViewData(data) {
@@ -125,19 +123,6 @@ export class ViewEntityDetailsComponent implements OnInit {
     }, error => {
       this.commonServiceService.errorHandling(error);
     })
-    // const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
-    //   , {
-    //     disableClose: true,
-    //     width: '50%',
-    //     data: { data }
-    //   });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   setTimeout(() => {
-    //     // this.getUserList();
-    //   }, 2000)
-    // });
   }
 
 

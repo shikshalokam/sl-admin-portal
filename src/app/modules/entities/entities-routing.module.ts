@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'list', component: StateEntityListComponent, data: {
-          title: [{ name: 'Home >', link: '/home' },
+          title: [{ name: 'Home', link: '/home' },
           { name: 'StateEntity', link: 'entities/list' }
           ]
         },

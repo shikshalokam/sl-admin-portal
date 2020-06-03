@@ -1,5 +1,6 @@
 <div *ngIf ="show" class="pageName">
-    <span *ngFor="let data of crumData?.title">
+    <span *ngFor="let data of crumData?.title; let i = index">
         <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
+        <span *ngIf ="i < crumData?.title.length -1"> ></span>
     </span>
 </div>

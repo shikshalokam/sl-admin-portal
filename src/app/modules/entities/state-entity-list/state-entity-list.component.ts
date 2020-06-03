@@ -37,6 +37,11 @@ export class StateEntityListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.paginator.page.subscribe((page: PageEvent) => {
+      this.queryParams.page = page.pageIndex + 1;
+      this.queryParams.size = page.pageSize;
+      this.getEntityStateList();
+    });
     this.getEntityStateList();
   }
 
@@ -60,9 +65,7 @@ export class StateEntityListComponent implements OnInit {
   */
   getEntityStateList() {
     this.entityService.getStatesList(this.queryParams).subscribe(data => {
-      console.log('getEntityStateList', data);
       this.EntityStateList = data['result'];
-      // this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result'].data);
       this.columns = data['result']['columns'];
@@ -89,11 +92,25 @@ export class StateEntityListComponent implements OnInit {
       case 'Inactive':
         return 'inactive';
     }
-    return '';
   }
 
   viewDetails(entity) {
     this.router.navigate(['/entities/entitydetails', entity._id])
+  }
+
+  bulkUploadEntity() {
+
+  }
+
+  bulkEntityMap() {
+
+  }
+
+  addNewState() {
+
+  }
+  viewHierarchy() {
+
   }
 
 }
