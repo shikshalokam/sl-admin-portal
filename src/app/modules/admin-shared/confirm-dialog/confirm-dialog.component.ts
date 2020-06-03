@@ -16,6 +16,8 @@ export class ConfirmDialogComponent implements OnInit {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    this.cancelButtonText = data['cancelButtonText'];
+    this.confirmButtonText = data['confirmButtonText'];
   }
 
   ngOnInit() {

@@ -3,7 +3,7 @@
     <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
   </span> >
   <span class="text-capital"> {{metaData?.name}}
-    </span>
+  </span>
 </div>
 
 <div class="dashboard-content">
@@ -140,6 +140,8 @@
                     <mat-cell *matCellDef="let user">
                       <button (click)="ViewData(user)" matTooltip="View details" class="actions"
                         mat-button>View</button> &nbsp;
+                      <button (click)="viewHierarchy(user)" matTooltip="View Hierarchy" class="actions" mat-button>View
+                        Hierarchy</button> &nbsp;
                     </mat-cell>
                   </span>
                 </ng-container>

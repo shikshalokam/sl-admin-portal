@@ -69,7 +69,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   }
 
-// on selecting the entity
+  // on selecting the entity
   entityChange(data) {
     this.type = data;
     this.searchInput.nativeElement.value = '';
@@ -125,5 +125,8 @@ export class ViewEntityDetailsComponent implements OnInit {
     })
   }
 
+  viewHierarchy() {
+
+  }
 
 }

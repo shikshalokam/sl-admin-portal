@@ -8,21 +8,22 @@ import { Component, OnInit } from '@angular/core';
 export class AdminFooterComponent implements OnInit {
   footerLink: any;
   constructor() {
+    const currentyear = new Date().getFullYear();
     this.footerLink = [
-        {
-            name: "Copyright @2020 Shikshalokam"
-        },
-        {
-            name: "Terms of Service"
-        },
-        {
-            name: "Privacy Policy"
-        },
-        {
-            name: "Contact Us"
-        }
+      {
+        name: "Copyright @" + currentyear +" Shikshalokam"
+      },
+      {
+        name: "Terms of Service"
+      },
+      {
+        name: "Privacy Policy"
+      },
+      {
+        name: "Contact Us"
+      }
     ];
-}
+  }
 
   ngOnInit() {
   }

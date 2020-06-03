@@ -109,8 +109,4 @@ export class StateEntityListComponent implements OnInit {
   addNewState() {
 
   }
-  viewHierarchy() {
-
-  }
-
 }
