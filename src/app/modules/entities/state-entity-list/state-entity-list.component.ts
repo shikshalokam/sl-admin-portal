@@ -133,7 +133,8 @@ export class StateEntityListComponent implements OnInit {
   }
 
   addNewState() {
-    this.openDialog(this.fieldsForState);
+    // this.openDialog(this.fieldsForState);
+    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
   }
 
 
