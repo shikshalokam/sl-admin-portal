@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
-import { OrganisationService } from '../../admin-core';
+import { OrganisationService, constants } from '../../admin-core';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
@@ -33,6 +33,8 @@ export class OrganisationsListComponent implements OnInit {
   };
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(private organisationService: OrganisationService, private router: Router,
     private dialog: MatDialog, private commonServiceService: CommonServiceService) { }
 

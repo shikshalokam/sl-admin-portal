@@ -34,7 +34,7 @@
           <div class=" row c-line"></div>
           <div class="state-hierarchary">
             <span style="padding:10px;" *ngFor="let data of childHierarchary">
-              <button [style.background-color]="data === type ? '#e0e0e0': '#f5f5f5'" class="child-button"
+              <button [ngClass]="data === type ?'child-selected':'child-button'"
                 (click)="entityChange(data)" mat-button>
                 <!-- <div>
                   <mat-icon>account_circle</mat-icon>
@@ -101,12 +101,12 @@
             <div class="roles-head">
               <div style="padding-top: 15px;">
                 <mat-panel-title class="c-font">
-                  Entity List - <span class="text-capital"> {{type}}</span>
+                 <span class="text-capital"> {{type}} - Listing </span>
                 </mat-panel-title>
               </div>
 
               <div class="c-search">
-                <mat-form-field class="custom-form-field">
+                <mat-form-field class="custom-form-field" style="width: 350px;">
                   <mat-label>Search for {{type}}</mat-label>
                   <input [(ngModel)]="search" autocomplete="off" [appDebounceDirective]="search"
                     (onValueChange)="subEntity()" #searchInput matInput>
@@ -151,10 +151,9 @@
               <mat-row *matRowDef="let row; columns: displayedColumns;">
               </mat-row>
             </mat-table>
-
-            <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
-            <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
-              [pageSizeOptions]="[5, 10, 25, 100]">
+            <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
+            <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+              [pageSizeOptions]="paginationOptions">
             </mat-paginator>
           </div>
         </mat-card>

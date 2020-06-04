@@ -12,7 +12,6 @@ export class ViewSubEntityDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('vvvvvvvvvvv', this.data);
     this.viewSubEntitymetaData = this.data['viewSubEntitymetaData'];
     
   }

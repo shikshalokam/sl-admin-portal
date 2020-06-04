@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
 import { EntityService } from '../../admin-core/services/entity-service/entity.service';
-import { CommonServiceService } from '../../admin-core';
+import { CommonServiceService, constants } from '../../admin-core';
 import { Router } from '@angular/router';
-
+import { BulkUploadEntitiesComponent } from '../bulk-upload-entities/bulk-upload-entities.component';
+constants
 
 @Component({
   selector: 'app-state-entity-list',
@@ -31,10 +32,11 @@ export class StateEntityListComponent implements OnInit {
   };
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(private entityService: EntityService,
     private commonServiceService: CommonServiceService,
-    private router: Router) { }
+    private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -45,8 +47,8 @@ export class StateEntityListComponent implements OnInit {
     this.getEntityStateList();
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+  applyFilter(data) {
+    const filterValue = data;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.filteredData.length < 1) {
       this.noData = true;
@@ -99,6 +101,23 @@ export class StateEntityListComponent implements OnInit {
   }
 
   bulkUploadEntity() {
+
+
+    // Adding multiple users popup
+    // UploadUsers(downloadedData) {
+    //   const defaultValue = this.selectedOrganisation;
+    // const organisationsToUpload = this.organisationsList;
+    const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+    // }
 
   }
 

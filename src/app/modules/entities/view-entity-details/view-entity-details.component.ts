@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EntityService } from '../../admin-core/services/entity-service/entity.service';
 import { ActivatedRoute } from '@angular/router';
-import { CommonServiceService } from '../../admin-core';
+import { CommonServiceService, constants } from '../../admin-core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
 import { ViewSubEntityDetailsComponent } from '../view-sub-entity-details/view-sub-entity-details.component';
 
@@ -33,6 +33,8 @@ export class ViewEntityDetailsComponent implements OnInit {
   type: any = '';
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('searchInput') searchInput: ElementRef;
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(public dialog: MatDialog, private entityService: EntityService,
     private route: ActivatedRoute, private commonServiceService: CommonServiceService) { }
 
@@ -125,8 +127,13 @@ export class ViewEntityDetailsComponent implements OnInit {
     })
   }
 
-  viewHierarchy() {
-
+  // view hierarchy
+  viewHierarchy(data) {
+    this.entityService.getRelatedEntities(data._id).subscribe(data => {
+      console.log('viewHierarchy', data);
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
   }
 
 }

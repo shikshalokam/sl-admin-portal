@@ -22,6 +22,9 @@ export class EntityService {
 
   getEntityDetails(entityId){
     return this.Http.get(environment.base_url + EntityConfig.entityDetails +  entityId);
+  }
 
+  getRelatedEntities(entityId){
+    return this.Http.get(environment.base_url + EntityConfig.relatedEntities +  entityId);
   }
 }

@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
-import { BulkuploadService } from '../../admin-core';
+import { BulkuploadService, constants } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { fromEvent, of, Observable } from 'rxjs';
 import { distinctUntilChanged, map, debounceTime, filter } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-
+constants
 
 @Component({
   selector: 'app-users-csv',
@@ -51,6 +51,8 @@ export class UsersCsvComponent implements OnInit {
     page: 1,
     size: 10,
   };
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   organisationListData: any;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;

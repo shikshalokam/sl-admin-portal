@@ -7,10 +7,12 @@ import { AdminSharedModule } from '../admin-shared';
 import { ViewEntityDetailsComponent } from './view-entity-details/view-entity-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewSubEntityDetailsComponent } from './view-sub-entity-details/view-sub-entity-details.component';
+import { BulkUploadEntitiesComponent } from './bulk-upload-entities/bulk-upload-entities.component';
+import { BulkEntityMappingComponent } from './bulk-entity-mapping/bulk-entity-mapping.component';
 
 
 @NgModule({
-  declarations: [StateEntityListComponent, ViewEntityDetailsComponent, ViewSubEntityDetailsComponent],
+  declarations: [StateEntityListComponent, ViewEntityDetailsComponent, ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent],
   imports: [
     CommonModule,
     AdminSharedModule,
@@ -19,6 +21,6 @@ import { ViewSubEntityDetailsComponent } from './view-sub-entity-details/view-su
     FormsModule,
     EntitiesRoutingModule
   ],
-  entryComponents: [ViewSubEntityDetailsComponent]
+  entryComponents: [ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent]
 })
 export class EntitiesModule { }

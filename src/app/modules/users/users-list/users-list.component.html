@@ -119,8 +119,8 @@
       </mat-row>
     </mat-table>
     <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
-    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]">
+    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+      [pageSizeOptions]="paginationOptions">
     </mat-paginator>
   </div>
 </div>
