@@ -5,6 +5,8 @@ import { CommonServiceService, constants } from '../../admin-core';
 import { Router } from '@angular/router';
 import { BulkUploadEntitiesComponent } from '../bulk-upload-entities/bulk-upload-entities.component';
 import { CreateandeditStateComponent } from '../createandedit-state/createandedit-state.component';
+import { BulkEntityMappingComponent } from '../bulk-entity-mapping/bulk-entity-mapping.component';
+
 
 constants
 
@@ -37,6 +39,7 @@ export class StateEntityListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paginationOptions = constants.paginationOptions;
   initialOption = constants.initialOption;
+  sampleEntitycsvData: any;
   constructor(private entityService: EntityService,
     private commonServiceService: CommonServiceService,
     private router: Router, private dialog: MatDialog) { }
@@ -49,6 +52,20 @@ export class StateEntityListComponent implements OnInit {
     });
     this.getEntityStateList();
     this.getStateForm();
+    this.getSampleEntityCsv();
+
+  }
+
+
+  getSampleEntityCsv() {
+    this.entityService.sampleEntityCSV().subscribe(data => {
+      console.log('getSampleEntityCsv()', data);
+      
+      this.sampleEntitycsvData = data['result'];
+
+    }, error =>{
+      this.sampleEntitycsvData = error.error.text;
+    })
   }
 
   applyFilter(data) {
@@ -77,7 +94,7 @@ export class StateEntityListComponent implements OnInit {
   * To get EntityStateList
   */
   getEntityStateList() {
-    this.entityService.getStatesList(this.queryParams).subscribe(data => {
+    this.entityService.getEntityStatesList(this.queryParams).subscribe(data => {
       this.EntityStateList = data['result'];
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result'].data);
@@ -111,30 +128,34 @@ export class StateEntityListComponent implements OnInit {
     this.router.navigate(['/entities/entitydetails', entity._id])
   }
 
-  // bulkUploadEntity() {
-  //   const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
-  //     , {
-  //       disableClose: true,
-  //       width: '30%',
-  //       data: {}
-  //     });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-
   bulkUploadEntity() {
-    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
+    const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   bulkEntityMap() {
-    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
+    const dialogRef = this.dialog.open(BulkEntityMappingComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: {}
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   addNewState() {
-    // this.openDialog(this.fieldsForState);
-    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
+    this.openDialog(this.fieldsForState);
   }
 
 

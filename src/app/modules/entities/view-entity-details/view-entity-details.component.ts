@@ -31,6 +31,7 @@ export class ViewEntityDetailsComponent implements OnInit {
   };
   crumData: any;
   type: any = '';
+  relatedEntities: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('searchInput') searchInput: ElementRef;
   paginationOptions = constants.paginationOptions;
@@ -129,12 +130,15 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   // view hierarchy
   viewHierarchy(data) {
-    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
     this.entityService.getRelatedEntities(data._id).subscribe(data => {
-      console.log('viewHierarchy', data);
+      this.relatedEntities = data['result']['relatedEntities'];
     }, error => {
       this.commonServiceService.errorHandling(error);
     })
+  }
+
+  goToEntityType(data) {
+    // this.entityChange(data.entityType);
   }
 
 }

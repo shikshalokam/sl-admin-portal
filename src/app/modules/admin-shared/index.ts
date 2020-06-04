@@ -7,3 +7,4 @@ export * from './confirm-dialog/confirm-dialog.component';
 export * from './button-loading/button-loading.component';
 export * from './directives/debounceDirective.directive';
 export * from './no-record/no-record.component';
+export * from './upload-confirmation/upload-confirmation.component';

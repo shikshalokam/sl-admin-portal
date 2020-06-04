@@ -11,29 +11,48 @@ export class EntityService {
   constructor(private Http: HttpClient) { }
 
   // To get the states list
-  getStatesList(data) {
+  getEntityStatesList(data) {
     return this.Http.get(environment.base_url + EntityConfig.stateEntityList + '?page=' + data.page + '&limit=' + data.size);
   }
 
   getSubEntityList(entityId, entityType, searchField, data) {
-    return this.Http.get(environment.base_url + EntityConfig.subEntityList +  entityId + '?type=' 
-    + entityType + '&limit=' + data.size + '&page=' + data.page + '&search=' + searchField);
+    return this.Http.get(environment.base_url + EntityConfig.subEntityList + entityId + '?type='
+      + entityType + '&limit=' + data.size + '&page=' + data.page + '&search=' + searchField);
   }
 
-  getEntityDetails(entityId){
-    return this.Http.get(environment.base_url + EntityConfig.entityDetails +  entityId);
+  getEntityDetails(entityId) {
+    return this.Http.get(environment.base_url + EntityConfig.entityDetails + entityId);
   }
 
-  getRelatedEntities(entityId){
-    return this.Http.get(environment.base_url + EntityConfig.relatedEntities +  entityId);
+  getRelatedEntities(entityId) {
+    return this.Http.get(environment.base_url + EntityConfig.relatedEntities + entityId);
   }
 
-  getStatesForm(){
+  getStatesForm() {
     return this.Http.get(environment.base_url + EntityConfig.stateForm);
   }
 
-  createState(data){
+  sampleEntityCSV() {
+    return this.Http.get(environment.base_url + EntityConfig.sampleEntityCSV);
+  }
+
+  createState(data) {
     return this.Http.post(environment.base_url + EntityConfig.createState, data);
   }
 
+
+  // To upload the entity csv
+  uploadEntityCsv(organisation, file) {
+    let fileData = new FormData();
+    fileData.append('userCreationFile', file);
+    return this.Http.post(environment.base_url + EntityConfig.bulkUploadEntity, fileData)
+  }
+
+  getStatesList() {
+    return this.Http.get(environment.base_url + EntityConfig.stateList);
+  }
+
+  getEntityList() {
+    return this.Http.get(environment.base_url + EntityConfig.entityTypeList);
+  }
 }

@@ -4,9 +4,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { MatSnackBar } from '@angular/material';
 import { saveAs } from "file-saver";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { ConfirmDialogComponent, ConfirmDialogModel, UploadConfirmationComponent } from '../../admin-shared';
 import { DatePipe } from '@angular/common';
-import { UploadConfirmationComponent } from '../upload-confirmation/upload-confirmation.component';
 import { Pipe, PipeTransform } from '@angular/core';
 
 
@@ -17,7 +16,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddMultipleUsersComponent implements OnInit {
   filecontent: any;
-  downloadurl: 'download url from server';
   myForm: FormGroup;
   orgData: any;
   requestId: any;
@@ -28,7 +26,6 @@ export class AddMultipleUsersComponent implements OnInit {
   type: any;
   CSVfile: any;
   loader: boolean = false;
-  // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
     buttonName: 'UPLOAD',
@@ -70,7 +67,7 @@ export class AddMultipleUsersComponent implements OnInit {
   downLoadFile(data: any, type: string) {
     const date = new Date();
     this.datePipe = new DatePipe("en-US");
-    this.fileName = 'Sample' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
+    this.fileName = 'Sample-users' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
     let blob = new Blob([data], { type: type });
     saveAs(blob, this.fileName);
     this._snackBar.open('Sample File Downloaded Successfully', 'success', {

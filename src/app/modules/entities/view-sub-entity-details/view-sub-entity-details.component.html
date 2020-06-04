@@ -1,7 +1,6 @@
 <div>
   <mat-toolbar role="toolbar" class="task-header">
-    <!-- <mat-icon style="color: white;">account_circle</mat-icon> -->
-    <div class="title">View Sub Entity  - {{viewSubEntitymetaData?.name}}</div>
+    <div class="title">{{viewSubEntitymetaData?.name}}</div>
   </mat-toolbar>
 </div>
 <mat-dialog-content class="mat-typography custom-dialog-content">
@@ -16,5 +15,4 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button class="p-button" mat-dialog-close>CLOSE</button>
-  <!-- <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading> -->
 </mat-dialog-actions>

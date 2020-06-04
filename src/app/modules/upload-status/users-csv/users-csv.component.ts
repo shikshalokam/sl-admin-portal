@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
-import { BulkuploadService, constants } from '../../admin-core';
+import { BulkuploadService, constants, CommonServiceService } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { fromEvent, of, Observable } from 'rxjs';
-import { distinctUntilChanged, map, debounceTime, filter } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-constants
+
 
 @Component({
   selector: 'app-users-csv',
@@ -56,7 +54,8 @@ export class UsersCsvComponent implements OnInit {
   organisationListData: any;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private bulkuploadService: BulkuploadService) { }
+  constructor(private bulkuploadService: BulkuploadService,
+    private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
     this.paginator.page.subscribe((page: PageEvent) => {
@@ -117,18 +116,19 @@ export class UsersCsvComponent implements OnInit {
     return '';
   }
 
+// Api call to get the download links based on type
   downloadLinks(data, type) {
     this.bulkuploadService.getDownloadLinks(data.requestId, type).subscribe(data => {
       this.onNavigate(data['result']['url']);
-
     }, error => {
-
+      this.commonServiceService.errorHandling(error);
     })
 
   }
 
+  // To download in the same tab
   onNavigate(link) {
-    window.open(link, "_blank");
+    window.location.href = link;
   }
 
 }

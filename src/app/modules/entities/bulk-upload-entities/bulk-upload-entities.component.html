@@ -1,6 +1,5 @@
-<!-- <mat-toolbar role="toolbar" class="task-header">
-  <mat-icon style="color: white;">people</mat-icon>
-  <div class="title">Bulk Upload Users</div>
+<mat-toolbar role="toolbar" class="task-header">
+  <div class="title">Bulk Upload Entities</div>
 </mat-toolbar>
 <form [formGroup]="myForm" novalidate>
   <mat-dialog-content class="mat-typography">
@@ -9,7 +8,7 @@
       <div>
 
         <div class="space">
-          Required Fields are FirstName, Last Name, Email Address, Password and Orgnisation.
+          Required Fields are Name, Capital, Region, and ExternalId.
         </div>
         <div class="space">
           Click <a [routerLink]="[]" (click)="downloadSample()">
@@ -18,18 +17,31 @@
         </div>
         <div style="padding-top: 15px;">
           <mat-form-field class="example-chip-list" style="width: 100%;">
-            <mat-label class="required">Organisation</mat-label>
-            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="organisation">
-              <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}
+            <mat-label class="required">State</mat-label>
+            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="state">
+              <mat-option class="text-capital" *ngFor="let item of statesList" [(value)]="item.value">{{item.label}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="errorHandling('organisation', 'required')">
-              You must select organisation
+            <mat-error *ngIf="errorHandling('state', 'required')">
+              You must select state
             </mat-error>
           </mat-form-field>
         </div>
 
-        <div style="display: flex;">
+        <div style="padding-top: 15px;">
+          <mat-form-field class="example-chip-list" style="width: 100%;">
+            <mat-label class="required">Entity Type</mat-label>
+            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="entitytype">
+              <mat-option class="text-capital" *ngFor="let item of entityList" [(value)]="item.value">{{item.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('entitytype', 'required')">
+              You must select entity type
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div style="display: flex;padding-top: 10px;">
           <div class="button-wrap">
             <label class="new-button p-button" for="upload"> SELECT CSV</label>
             <input formControlName="userscsv" type="file" id="upload" enctype="multipart/form-data"
@@ -47,6 +59,6 @@
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>CANCEL</button> &nbsp;
     <app-spinner *ngIf="loader"></app-spinner>
-    <app-button-loading [btnData]="onload" (click)="uploadUsersCSVFile()"></app-button-loading>
+    <app-button-loading [btnData]="onload" (click)="uploadEntityCSVFile()"></app-button-loading>
   </mat-dialog-actions>
-</form> -->
+</form>

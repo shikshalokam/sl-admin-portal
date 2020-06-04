@@ -34,8 +34,8 @@
           <div class=" row c-line"></div>
           <div class="state-hierarchary">
             <span style="padding:10px;" *ngFor="let data of childHierarchary">
-              <button [ngClass]="data === type ?'child-selected':'child-button'"
-                (click)="entityChange(data)" mat-button>
+              <button [ngClass]="data === type ?'child-selected':'child-button'" (click)="entityChange(data)"
+                mat-button>
                 <!-- <div>
                   <mat-icon>account_circle</mat-icon>
                 </div> -->
@@ -99,9 +99,9 @@
         <mat-card>
           <div class="row" style="padding-bottom: 2%;">
             <div class="roles-head">
-              <div style="padding-top: 15px;">
+              <div *ngIf="type" style="padding-top: 15px;">
                 <mat-panel-title class="c-font">
-                 <span class="text-capital"> {{type}} - Listing </span>
+                  <span class="text-capital"> {{type}} - Listing </span>
                 </mat-panel-title>
               </div>
 
@@ -140,10 +140,17 @@
                     <mat-cell *matCellDef="let user">
                       <button (click)="ViewData(user)" matTooltip="View details" class="actions"
                         mat-button>View</button> &nbsp;
-                      <button (click)="viewHierarchy(user)" matTooltip="View Hierarchy" class="actions" mat-button>View
+                      <button (click)="viewHierarchy(user)" [matMenuTriggerFor]="menu" matTooltip="View Hierarchy"
+                        class="actions" mat-button>View
                         Hierarchy</button> &nbsp;
                     </mat-cell>
                   </span>
+                  <mat-menu #menu="matMenu">
+                    <button *ngFor="let data of relatedEntities;" mat-menu-item>
+                      <span matTooltip="{{data?.entityType}}" (click)="goToEntityType(data)" class="text-capitalize">{{data?.entityType}}:
+                        {{data?.metaInformation.name}}</span>
+                    </button>
+                  </mat-menu>
                 </ng-container>
               </span>
               <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" class="p-button">
