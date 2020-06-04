@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'list', component: UsersCsvComponent, data: { title: [{ name: 'Home', link: '/home' },
-         { name: 'UploadRecords', link: '/uploadrecords/list' }] },
+         { name: 'Uploads', link: '/uploadrecords/list' }] },
       },
     ]
   }
