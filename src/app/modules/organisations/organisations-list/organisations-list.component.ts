@@ -4,7 +4,7 @@ import { OrganisationService, constants } from '../../admin-core';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
-import { ConfirmDialogComponent} from '../../admin-shared';
+import { ConfirmDialogComponent } from '../../admin-shared';
 
 
 @Component({
@@ -185,7 +185,9 @@ export class OrganisationsListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getOrganisationList();
+      if (result) {
+        this.getOrganisationList();
+      }
     });
   }
 

@@ -4,6 +4,8 @@ import { EntityService } from '../../admin-core/services/entity-service/entity.s
 import { CommonServiceService, constants } from '../../admin-core';
 import { Router } from '@angular/router';
 import { BulkUploadEntitiesComponent } from '../bulk-upload-entities/bulk-upload-entities.component';
+import { CreateandeditStateComponent } from '../createandedit-state/createandedit-state.component';
+
 constants
 
 @Component({
@@ -30,6 +32,7 @@ export class StateEntityListComponent implements OnInit {
     page: 1,
     size: 10,
   };
+  fieldsForState: any;
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   paginationOptions = constants.paginationOptions;
@@ -45,6 +48,7 @@ export class StateEntityListComponent implements OnInit {
       this.getEntityStateList();
     });
     this.getEntityStateList();
+    this.getStateForm();
   }
 
   applyFilter(data) {
@@ -60,6 +64,13 @@ export class StateEntityListComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+  getStateForm() {
+    this.entityService.getStatesForm().subscribe(data => {
+      this.fieldsForState = data['result']
+    })
   }
 
   /**
@@ -100,32 +111,47 @@ export class StateEntityListComponent implements OnInit {
     this.router.navigate(['/entities/entitydetails', entity._id])
   }
 
+  // bulkUploadEntity() {
+  //   const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
+  //     , {
+  //       disableClose: true,
+  //       width: '30%',
+  //       data: {}
+  //     });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
+
   bulkUploadEntity() {
-
-
-    // Adding multiple users popup
-    // UploadUsers(downloadedData) {
-    //   const defaultValue = this.selectedOrganisation;
-    // const organisationsToUpload = this.organisationsList;
-    const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
-      , {
-        disableClose: true,
-        width: '30%',
-        data: {}
-      });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-    // }
-
+    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
   }
 
   bulkEntityMap() {
-
+    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
   }
 
   addNewState() {
-
+    this.openDialog(this.fieldsForState);
   }
+
+
+  // Adding States popup
+  openDialog(fieldsForState): void {
+    fieldsForState.action = 'Add'
+    const dialogRef = this.dialog.open(CreateandeditStateComponent
+      , {
+        disableClose: true,
+        width: '40%',
+        data: { fieldsForState }
+      });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getEntityStateList();
+      }
+    });
+  }
+
 }

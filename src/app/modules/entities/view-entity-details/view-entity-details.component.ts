@@ -129,6 +129,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   // view hierarchy
   viewHierarchy(data) {
+    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
     this.entityService.getRelatedEntities(data._id).subscribe(data => {
       console.log('viewHierarchy', data);
     }, error => {

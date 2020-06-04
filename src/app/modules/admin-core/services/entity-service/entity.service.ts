@@ -27,4 +27,13 @@ export class EntityService {
   getRelatedEntities(entityId){
     return this.Http.get(environment.base_url + EntityConfig.relatedEntities +  entityId);
   }
+
+  getStatesForm(){
+    return this.Http.get(environment.base_url + EntityConfig.stateForm);
+  }
+
+  createState(data){
+    return this.Http.post(environment.base_url + EntityConfig.createState, data);
+  }
+
 }

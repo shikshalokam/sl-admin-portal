@@ -9,10 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewSubEntityDetailsComponent } from './view-sub-entity-details/view-sub-entity-details.component';
 import { BulkUploadEntitiesComponent } from './bulk-upload-entities/bulk-upload-entities.component';
 import { BulkEntityMappingComponent } from './bulk-entity-mapping/bulk-entity-mapping.component';
+import { CreateandeditStateComponent } from './createandedit-state/createandedit-state.component';
 
 
 @NgModule({
-  declarations: [StateEntityListComponent, ViewEntityDetailsComponent, ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent],
+  declarations: [StateEntityListComponent, ViewEntityDetailsComponent, ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent, CreateandeditStateComponent],
   imports: [
     CommonModule,
     AdminSharedModule,
@@ -21,6 +22,6 @@ import { BulkEntityMappingComponent } from './bulk-entity-mapping/bulk-entity-ma
     FormsModule,
     EntitiesRoutingModule
   ],
-  entryComponents: [ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent]
+  entryComponents: [ViewSubEntityDetailsComponent, CreateandeditStateComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent]
 })
 export class EntitiesModule { }
