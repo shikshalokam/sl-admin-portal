@@ -1,0 +1,52 @@
+<!-- <mat-toolbar role="toolbar" class="task-header">
+  <mat-icon style="color: white;">people</mat-icon>
+  <div class="title">Bulk Upload Users</div>
+</mat-toolbar>
+<form [formGroup]="myForm" novalidate>
+  <mat-dialog-content class="mat-typography">
+    <div class="row" style="padding-left: 15px;">
+
+      <div>
+
+        <div class="space">
+          Required Fields are FirstName, Last Name, Email Address, Password and Orgnisation.
+        </div>
+        <div class="space">
+          Click <a [routerLink]="[]" (click)="downloadSample()">
+            here
+          </a> to download the sample csv file
+        </div>
+        <div style="padding-top: 15px;">
+          <mat-form-field class="example-chip-list" style="width: 100%;">
+            <mat-label class="required">Organisation</mat-label>
+            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="organisation">
+              <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="errorHandling('organisation', 'required')">
+              You must select organisation
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div style="display: flex;">
+          <div class="button-wrap">
+            <label class="new-button p-button" for="upload"> SELECT CSV</label>
+            <input formControlName="userscsv" type="file" id="upload" enctype="multipart/form-data"
+              (change)="handleFileInput($event.target.files)" accept=".csv">
+          </div>
+          <div style="padding: 0px 0px 10px 10px;">{{CSVfile}}
+            <button *ngIf="CSVfile" mat-icon-button matSuffix (click)="clearSelectedFile()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCEL</button> &nbsp;
+    <app-spinner *ngIf="loader"></app-spinner>
+    <app-button-loading [btnData]="onload" (click)="uploadUsersCSVFile()"></app-button-loading>
+  </mat-dialog-actions>
+</form> -->

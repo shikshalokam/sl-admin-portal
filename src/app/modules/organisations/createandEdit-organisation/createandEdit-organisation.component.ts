@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DynamicFormComponent } from '../../admin-shared';
-import { FieldConfig } from "../../admin-shared/field.interface";
 import { OrganisationService, CommonServiceService } from '../../admin-core';
 
 
@@ -12,7 +11,6 @@ import { OrganisationService, CommonServiceService } from '../../admin-core';
 })
 export class CreateandEditOrganisationComponent implements OnInit {
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
-  field: FieldConfig;
   formdata: any;
   action: any;
   title: any;

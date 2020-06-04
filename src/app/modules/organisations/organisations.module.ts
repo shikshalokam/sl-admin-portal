@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminSharedModule } from '../admin-shared';
 import { OrganisationsRoutingModule } from './organisations-routing.module';
@@ -18,6 +18,10 @@ import { OrganisationEditComponent } from './organisation-edit/organisation-edit
     CdkTableModule,
     OrganisationsRoutingModule,
     FormsModule, ReactiveFormsModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
   ],
   entryComponents:[CreateandEditOrganisationComponent]
 })

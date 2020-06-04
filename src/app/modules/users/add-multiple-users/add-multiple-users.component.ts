@@ -27,6 +27,7 @@ export class AddMultipleUsersComponent implements OnInit {
   selectedFile: any;
   type: any;
   CSVfile: any;
+  loader: boolean = false;
   // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
@@ -102,6 +103,7 @@ export class AddMultipleUsersComponent implements OnInit {
   uploadUsersCSVFile() {
     if (this.myForm.valid && this.filecontent) {
       this.onload.submitClick = true;
+      this.loader = true;
       this.usersService.uploadUsersCsv(this.myForm.value, this.filecontent).subscribe(res => {
         if (res['status'] === 200) {
           this.commonServiceService.commonSnackBar(res['message'], 'Dismiss', 'top', 1000);
@@ -113,6 +115,7 @@ export class AddMultipleUsersComponent implements OnInit {
         }
       }, error => {
         this.onload.submitClick = false;
+        this.loader = false;
         this.commonServiceService.errorHandling(error);
       });
     } else {

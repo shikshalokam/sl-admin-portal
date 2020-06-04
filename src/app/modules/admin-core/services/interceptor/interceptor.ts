@@ -43,13 +43,6 @@ export class Interceptor implements HttpInterceptor {
                 return event;
             }),
             catchError((error: HttpErrorResponse) => {
-                let errorMessage = '';
-
-                if (error.error instanceof ErrorEvent) {
-                    errorMessage = `Error: ${error.error.message}`;
-                } else {
-                    errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-                }
                 if (error.status === 401) {
                     if (error.error.success === false) {
                         this.openDialog();
@@ -57,7 +50,6 @@ export class Interceptor implements HttpInterceptor {
                         this.KeycloakService.logout();
                     }
                 }
-                // this.commonServiceService.commonSnackBar(errorMessage, 'Dismiss', 'top', 1000);
                 return throwError(error);
             }));
     }

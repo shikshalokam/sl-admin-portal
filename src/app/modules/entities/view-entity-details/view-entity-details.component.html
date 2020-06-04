@@ -1,0 +1,164 @@
+<div class="pageName">
+  <span *ngFor="let data of crumData['title']">
+    <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
+  </span> >
+  <span class="text-capital"> {{metaData?.name}}
+  </span>
+</div>
+
+<div class="dashboard-content">
+  <div style="display: flex;">
+    <div style="width:20%">
+      <mat-card style="height: 50px;">
+        <mat-card-content>
+          <div>
+            <!-- <mat-icon class="c-mat-icon">account_circle</mat-icon> -->
+            <div class="text-heading">
+              {{metaData?.name}}
+            </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+      <div style="padding-top: 5%;">
+        <mat-card>
+          <mat-card-content>
+            <div>
+              <!-- <mat-icon class="c-mat-icon">account_circle</mat-icon> -->
+              <div class="text-heading">
+                State Hierarchy
+              </div>
+
+            </div>
+          </mat-card-content>
+          <div class=" row c-line"></div>
+          <div class="state-hierarchary">
+            <span style="padding:10px;" *ngFor="let data of childHierarchary">
+              <button [ngClass]="data === type ?'child-selected':'child-button'"
+                (click)="entityChange(data)" mat-button>
+                <!-- <div>
+                  <mat-icon>account_circle</mat-icon>
+                </div> -->
+                <div class="text-capitalize"> {{data}}</div>
+              </button>
+            </span>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="user-details">
+      <mat-accordion>
+        <mat-expansion-panel class="c-accordian-width" [expanded]="false">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="c-font">
+              Meta Information
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div *ngIf="metaData" class="row">
+            <div class="col-md-3">
+              <div class="text-color">
+                <mat-label>Name</mat-label>
+              </div>
+              <div class="text-capital">
+                {{metaData?.name ? metaData.name : '-- --'}}
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="text-color">
+                <label>Capital</label>
+              </div>
+              <div class="text-capital">
+                {{metaData?.capital ? metaData.capital: '-- --'}}
+              </div>
+
+            </div>
+
+            <div class="col-md-3">
+              <div class="text-color"> <label>Region</label></div>
+              <div>
+                {{metaData?.region ? metaData.region: '-- --'}}
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="text-color">
+                <label>ExternalId </label>
+              </div>
+              <div>
+                {{metaData?.externalId ? metaData.externalId: '-- --'}}
+              </div>
+
+            </div>
+          </div>
+
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div class="user-details-card">
+
+        <mat-card>
+          <div class="row" style="padding-bottom: 2%;">
+            <div class="roles-head">
+              <div style="padding-top: 15px;">
+                <mat-panel-title class="c-font">
+                 <span class="text-capital"> {{type}} - Listing </span>
+                </mat-panel-title>
+              </div>
+
+              <div class="c-search">
+                <mat-form-field class="custom-form-field" style="width: 350px;">
+                  <mat-label>Search for {{type}}</mat-label>
+                  <input [(ngModel)]="search" autocomplete="off" [appDebounceDirective]="search"
+                    (onValueChange)="subEntity()" #searchInput matInput>
+                  <button mat-icon-button matPrefix>
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <!-- <div *ngIf="editUserDetails?.organisations.length < editUserDetails?.organisationsList.length">
+              <button mat-button class="actions" (click)="addOrganisation(details)" cdkFocusInitial>Add New
+                organisation</button>
+            </div> -->
+            </div>
+          </div>
+
+          <div class="table-container mat-elevation-z8">
+            <app-spinner *ngIf="listing == false"></app-spinner>
+            <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+              <span *ngFor="let column of columns">
+                <ng-container [matColumnDef]="column.key">
+                  <mat-header-cell style="padding-right: 2%;" *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+                  <span *ngIf="column.type == 'column'">
+                    <mat-cell style="padding-right: 2%;" *matCellDef="let row" class="text-capital">
+                      <span class="{{getItemCssClassByStatus(row[column.key])}}">
+                        {{row[column.key] ? row[column.key]: '-- --'}}
+                      </span>
+                    </mat-cell>
+                  </span>
+                  <span *ngIf="column.type == 'action'">
+                    <mat-cell *matCellDef="let user">
+                      <button (click)="ViewData(user)" matTooltip="View details" class="actions"
+                        mat-button>View</button> &nbsp;
+                      <button (click)="viewHierarchy(user)" matTooltip="View Hierarchy" class="actions" mat-button>View
+                        Hierarchy</button> &nbsp;
+                    </mat-cell>
+                  </span>
+                </ng-container>
+              </span>
+              <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" class="p-button">
+              </mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;">
+              </mat-row>
+            </mat-table>
+            <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
+            <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+              [pageSizeOptions]="paginationOptions">
+            </mat-paginator>
+          </div>
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>

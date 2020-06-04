@@ -11,6 +11,7 @@ export class BreadCrumComponent implements OnInit {
   breadcrumData: any;
   crumData: any;
   edit: any;
+  show: boolean = true;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -20,6 +21,11 @@ export class BreadCrumComponent implements OnInit {
         if (e.snapshot.data && e.snapshot.data.title) {
           this.crumData = e.snapshot.data;
           this.edit = e.snapshot.routeConfig.path;
+          if (this.edit == 'edit/:id' || this.edit == 'entitydetails/:id') {
+            this.show = false;
+          } else {
+            this.show = true;
+          }
         }
 
       }

@@ -10,9 +10,11 @@ import { UsersGuard, RouteGuard } from './modules/admin-core';
 const routes: Routes = [
   {
     path: 'users',
+    // UsersGuard: Acess to both padmin and oadmin
     canActivate: [UsersGuard],
     loadChildren: './modules/users/users.module#UsersModule'
   },
+  // RouteGuard: Acess to padmin only
   {
     path: 'organisations',
     canActivate: [RouteGuard],
@@ -23,7 +25,12 @@ const routes: Routes = [
     canActivate: [UsersGuard],
     loadChildren: './modules/upload-status/upload-csv.module#UploadCSVModule'
   },
-  { path: 'home', component: HomeComponent, data: { title: [{name: 'Admin Console', link: '/home'}]} },
+  {
+    path: 'entities',
+    canActivate: [RouteGuard],
+    loadChildren: './modules/entities/entities.module#EntitiesModule'
+  },
+  { path: 'home', component: HomeComponent, data: { title: [{ name: 'Admin Console', link: '/home' }] } },
   { path: 'unauthorized', component: UnauthorizedComponent, data: { title: 'Unauthorized User' } },
   {
     path: 'comming-soon', component: CommingSoonComponent, data: { title: 'Comming soon' }

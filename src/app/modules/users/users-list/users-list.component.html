@@ -27,7 +27,8 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for users</mat-label>
-          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (onValueChange)="getUserList()" #searchInput matInput>
+          <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getUserList()" #searchInput
+            matInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -90,9 +91,9 @@
         </span>
         <span *ngIf="column.type !== 'checkbox'">
           <ng-container [matColumnDef]="column.key">
-            <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+            <mat-header-cell style="padding-right: 2%;" *matHeaderCellDef>{{ column.label}}</mat-header-cell>
             <span *ngIf="column.type == 'column'">
-              <mat-cell *matCellDef="let row" class="text-capital">
+              <mat-cell style="padding-right: 2%;" *matCellDef="let row" class="text-capital">
                 <span class="{{getItemCssClassByStatus(row[column.key])}}">
                   {{row[column.key] ? row[column.key]: '-- --'}}
                 </span>
@@ -117,10 +118,9 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)">
       </mat-row>
     </mat-table>
-
-    <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
-    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]">
+    <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
+    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+      [pageSizeOptions]="paginationOptions">
     </mat-paginator>
   </div>
 </div>

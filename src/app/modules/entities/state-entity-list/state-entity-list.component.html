@@ -1,0 +1,70 @@
+<div class="dashboard-content">
+  <div class="c-toolbar">
+    <div class="row" style="padding-top: 5px;">
+      <a class="list-menu " [routerLink]="['/home']">
+        <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
+        </mat-icon>
+      </a>
+      <div class="list-menu">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Search for State</mat-label>
+          <input matInput (keyup)="applyFilter($event.target.value)">
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="btn-gap">
+        <button mat-button (click)="addNewState()" matTooltip="Add New State">
+          Add State
+        </button>
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="bulkUploadEntity()" matTooltip="Bulk Entity Upload">
+          Upload Entites
+        </button>
+      </div>
+      <div class="btn-gap">
+        <button mat-button (click)="bulkEntityMap()" matTooltip="Bulk Entity Mapping">
+          Entity Mapping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <app-spinner *ngIf="listing == false"></app-spinner>
+    <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+      <span *ngFor="let column of columns">
+        <ng-container [matColumnDef]="column.key">
+          <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+          <span *ngIf="column.type == 'column'">
+            <mat-cell *matCellDef="let row" class="text-capital">
+              <span class="{{getItemCssClassByStatus(row[column.key])}}"> {{row[column.key] ? row[column.key]: '-- --'}}
+              </span>
+            </mat-cell>
+          </span>
+          <span *ngIf="column.type == 'action'">
+            <mat-cell *matCellDef="let user">
+              <button (click)="viewDetails(user)" matTooltip="View Details" class="actions" mat-button>View
+                Details</button> &nbsp;
+            </mat-cell>
+          </span>
+        </ng-container>
+      </span>
+      <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" class="p-button">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    <app-no-record *ngIf="noData || !dataSource"></app-no-record>
+    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+      [pageSizeOptions]="paginationOptions">
+    </mat-paginator>
+  </div>
+</div>

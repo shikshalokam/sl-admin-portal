@@ -5,22 +5,11 @@
         <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
         </mat-icon>
       </a>
-      <!-- <div class="list-menu ">
-        <mat-form-field class="custom-form-field">
-          <mat-label>Select Organisation</mat-label>
-          <mat-select [(value)]="selected" (selectionChange)="selectorganisation()">
-            <mat-form-field class="custom-form-field">
-              <input style="padding-left: 10px;" matInput (keyup)="onKey($event.target.value)">
-            </mat-form-field>
-            <mat-option *ngFor="let state of organisations" [value]="state.value">{{state.label}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div> -->
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search for Organisation</mat-label>
-          <!-- <input matInput #searchInput> -->
-          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (debounceClick)="getOrganisationList()" #searchInput matInput>
+          <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="getOrganisationList()"
+            #searchInput matInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -48,43 +37,17 @@
           Add Organisation
         </button>
       </div>
-      <!-- <div class="btn-gap">
-        <button mat-button (click)="UploadUsers()" matTooltip="Upload users">
-          Bulk upload users
-        </button>
-      </div> -->
-      <!-- <div class="btn-gap">
-        <button (click)="downloadOrganisations()" mat-button matTooltip="Download Organisations">
-          Download Organisations
-        </button>
-      </div> -->
     </div>
   </div>
 
   <div class="table-container mat-elevation-z8">
     <app-spinner *ngIf="listing == false"></app-spinner>
-
-
-
     <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
-
-      <!-- <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef style="padding-top: 10px;">
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row" style="padding-top: 10px;">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;"
-            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-          </mat-checkbox>
-        </td>
-      </ng-container> -->
       <span *ngFor="let column of columns">
         <ng-container [matColumnDef]="column.key">
-          <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+          <mat-header-cell style="padding-right: 2%;" *matHeaderCellDef>{{ column.label}}</mat-header-cell>
           <span *ngIf="column.type == 'column'">
-            <mat-cell *matCellDef="let row" class="text-capital">
+            <mat-cell style="padding-right: 2%;" *matCellDef="let row" class="text-capital">
               <span class="{{getItemCssClassByStatus(row[column.key])}}"> {{row[column.key] ? row[column.key]: '-- --'}}
               </span>
             </mat-cell>
@@ -93,9 +56,9 @@
             <mat-cell *matCellDef="let user">
               <button (click)="editOrganisation(user)" matTooltip="Edit Organisation" class="actions"
                 mat-button>Edit</button> &nbsp;
-              <button *ngIf ="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
+              <button *ngIf="user.status == 'Active'" (click)="confirmDialog(user)" matTooltip="Deactivate Organisation"
                 class="actions" mat-button> Deactivate</button>
-                <button *ngIf ="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
+              <button *ngIf="user.status == 'Inactive'" (click)="confirmDialog(user)" matTooltip="Activate Organisation"
                 class="actions btnactive" mat-button>Activate</button>
             </mat-cell>
           </span>
@@ -106,10 +69,9 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
-
-    <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
-    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 25, 100]">
+    <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
+    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="initialOption"
+      [pageSizeOptions]="paginationOptions">
     </mat-paginator>
   </div>
 </div>

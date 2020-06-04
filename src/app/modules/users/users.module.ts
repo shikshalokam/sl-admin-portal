@@ -13,7 +13,6 @@ import { AddOrganisationComponent } from './add-organisation/add-organisation.co
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
 import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
 import { AdminCoreModule } from '../admin-core';
-import { Pipe, PipeTransform } from '@angular/core';
 
 
 @NgModule({

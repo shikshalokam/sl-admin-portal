@@ -1,0 +1,32 @@
+@import "../../../../assets/scss/variables.scss";
+
+.task-header {
+  background-color: $primary-color;
+}
+
+.mat-spinner {
+  ::ng-deep circle {
+    stroke: $white-color !important;
+  }
+}
+
+.custom-dialog-content {
+  display: block;
+  margin: 0px;
+  padding: 24px;
+  max-height: 65vh;
+  overflow: auto;
+}
+
+.custom-dialog-actions {
+  padding: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 52px;
+  align-items: center;
+  padding-right: 42px;
+  margin-bottom: 16px;
+}
+.p-button{
+  background: #bababa;
+}

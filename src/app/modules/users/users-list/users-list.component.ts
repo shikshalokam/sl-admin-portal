@@ -3,7 +3,7 @@ import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
-import { UsersService } from '../../admin-core';
+import { UsersService, constants } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
@@ -53,6 +53,8 @@ export class UsersListComponent implements OnInit {
   downloadedData: any;
   selectedOrganisation: any;
   search: any = '';
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
     private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
@@ -217,9 +219,9 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.getUserList();
-    }, 3000)
+    // }, 3000)
   }
 
   createForm() {

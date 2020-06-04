@@ -7,11 +7,12 @@
           </mat-icon>
         </a>
       </div>
-      <div class="list-menu" >
+      <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search </mat-label>
           <!-- <input matInput #searchInput> -->
-          <input  [(ngModel)] = "search" [appDebounceDirective] = "search" (debounceClick)="bulkUploadList()" #searchInput matInput>
+          <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="bulkUploadList()" #searchInput
+            matInput>
           <button mat-icon-button matPrefix>
             <mat-icon>search</mat-icon>
           </button>
@@ -84,8 +85,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;">
       </mat-row>
     </mat-table>
-
-    <div class="message" *ngIf="recordCount == 0 || !dataSource">No records found</div>
+    <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
     <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
       [pageSizeOptions]="[5, 10, 25, 100]">
     </mat-paginator>

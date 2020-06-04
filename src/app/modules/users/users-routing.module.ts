@@ -10,10 +10,10 @@ const routes: Routes = [
     // data: { title: 'Home' },
     children: [
       {
-        path: 'list', component: UsersListComponent, data: { title: [{ name: 'Home >', link: '/home' }, { name: 'Users', link: '/users/list' }] },
+        path: 'list', component: UsersListComponent, data: { title: [{ name: 'Home', link: '/home' }, { name: 'Users', link: '/users/list' }] },
       },
       {
-        path: 'edit/:id', component: UsersEditComponent, data: { title: [{ name: 'Home >', link: '/home' }, { name: 'Users', link: '/users/list' }] },
+        path: 'edit/:id', component: UsersEditComponent, data: { title: [{ name: 'Home', link: '/home' }, { name: 'Users', link: '/users/list' }] },
       },
     ]
   }

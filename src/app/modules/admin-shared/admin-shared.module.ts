@@ -43,6 +43,7 @@ import { TextAreaComponent } from './components/text-area/text-area.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 import { ButtonLoadingComponent } from './button-loading/button-loading.component';
 import { DebounceDirective } from './directives/debounceDirective.directive';
+import { NoRecordComponent } from './no-record/no-record.component';
 
 
 
@@ -51,7 +52,8 @@ import { DebounceDirective } from './directives/debounceDirective.directive';
   // ButtonComponent
   declarations: [DebounceDirective,CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
     InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent, 
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent, ButtonLoadingComponent],
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, 
+    ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent, ButtonLoadingComponent, NoRecordComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -100,6 +102,7 @@ import { DebounceDirective } from './directives/debounceDirective.directive';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
+    NoRecordComponent,
     MatChipsModule,
     MatRadioModule,
     MatButtonToggleModule,
