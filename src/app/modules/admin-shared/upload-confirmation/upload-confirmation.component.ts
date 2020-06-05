@@ -30,7 +30,6 @@ export class UploadConfirmationComponent implements OnInit {
   }
 
   copyInputMessage(inputElement) {
-    console.log(inputElement);
     inputElement.select();
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);

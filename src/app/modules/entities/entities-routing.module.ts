@@ -12,13 +12,13 @@ const routes: Routes = [
       {
         path: 'list', component: StateEntityListComponent, data: {
           title: [{ name: 'Home', link: '/home' },
-          { name: 'StateEntity', link: 'entities/list' }
+          { name: 'StateListing', link: 'entities/list' }
           ]
         },
       },
       {
         path: 'entitydetails/:id', component: ViewEntityDetailsComponent, data: { title: [{ name: 'Home >', link: '/home' },
-         { name: 'Entity', link: '/entities/list' }] },
+         { name: 'State', link: '/entities/list' }] },
       },
     ]
   }

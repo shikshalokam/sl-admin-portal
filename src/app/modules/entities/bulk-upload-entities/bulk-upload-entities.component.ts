@@ -4,6 +4,7 @@ import { CommonServiceService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EntityService } from '../../admin-core/services/entity-service/entity.service';
 import { UploadConfirmationComponent } from '../../admin-shared';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -43,7 +44,6 @@ export class BulkUploadEntitiesComponent implements OnInit {
 
   getStateList() {
     this.entityService.getStatesList().subscribe(data => {
-      console.log('statesList', data);
       this.statesList = data['result'];
     }, error => {
       this.commonServiceService.errorHandling(error);
@@ -53,7 +53,6 @@ export class BulkUploadEntitiesComponent implements OnInit {
 
   getEntityTpes() {
     this.entityService.getEntityList().subscribe(data => {
-      console.log('getEntityTpes', data);
       this.entityList = data['result'];
     }, error => {
       this.commonServiceService.errorHandling(error);
@@ -91,10 +90,9 @@ export class BulkUploadEntitiesComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('upload')).value = null;
   }
 
-  downloadSample() {
-
+  downloadSampleEntity() {
+    this.commonServiceService.downloadSample(this.data.sampleEntitycsv.url, 'Sample-bulkupload-entity');
   }
-
 
   // Sendind csv to service
   uploadEntityCSVFile() {

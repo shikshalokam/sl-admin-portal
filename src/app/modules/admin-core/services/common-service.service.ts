@@ -1,27 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
+import { saveAs } from 'file-saver';
+import { DatePipe } from '@angular/common';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonServiceService {
-  private message = new BehaviorSubject('First Message');
-  sharedMessage = this.message.asObservable();
+  datePipe: any;
   details: any;
-  editUserDetails: any;
-
+  fileName: any;
   constructor(private _snackBar: MatSnackBar) { }
-
-  nextMessage(message: string) {
-    this.message.next(message)
-  }
 
   // To set the data
   setUserDetails(data) {
     this.details = data;
-    console.log('setting data', this.details);
   }
 
   getUserDetails() {
@@ -43,6 +37,13 @@ export class CommonServiceService {
     } else {
       this.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
     }
+  }
+
+  downloadSample(fileurl, Name) {
+    const date = new Date();
+    this.datePipe = new DatePipe("en-US");
+    this.fileName = Name + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
+    saveAs(fileurl, this.fileName);
   }
 
 }

@@ -53,17 +53,13 @@ export class StateEntityListComponent implements OnInit {
     this.getEntityStateList();
     this.getStateForm();
     this.getSampleEntityCsv();
-
   }
 
-
+  // Sample Entity CSV Download
   getSampleEntityCsv() {
     this.entityService.sampleEntityCSV().subscribe(data => {
-      console.log('getSampleEntityCsv()', data);
-      
       this.sampleEntitycsvData = data['result'];
-
-    }, error =>{
+    }, error => {
       this.sampleEntitycsvData = error.error.text;
     })
   }
@@ -76,7 +72,6 @@ export class StateEntityListComponent implements OnInit {
     } else {
       this.noData = false;
     }
-
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -128,12 +123,14 @@ export class StateEntityListComponent implements OnInit {
     this.router.navigate(['/entities/entitydetails', entity._id])
   }
 
+  // bulk upload Entity modal
   bulkUploadEntity() {
+    const sampleEntitycsv = this.sampleEntitycsvData;
     const dialogRef = this.dialog.open(BulkUploadEntitiesComponent
       , {
         disableClose: true,
         width: '30%',
-        data: {}
+        data: { sampleEntitycsv }
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -141,12 +138,13 @@ export class StateEntityListComponent implements OnInit {
     });
   }
 
+  // bulk upload Entity mapping modal
   bulkEntityMap() {
     const dialogRef = this.dialog.open(BulkEntityMappingComponent
       , {
         disableClose: true,
         width: '30%',
-        data: {}
+        data: { }
       });
 
     dialogRef.afterClosed().subscribe(result => {

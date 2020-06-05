@@ -43,6 +43,8 @@ export class AddMultipleUsersComponent implements OnInit {
   ngOnInit() {
     this.selected = this.data.defaultValue;
     this.orgData = this.data.organisationsToUpload;
+    console.log('this.orgData',  this.orgData );
+    
     this.reactiveForm();
   }
 
@@ -59,21 +61,8 @@ export class AddMultipleUsersComponent implements OnInit {
     return this.myForm.controls[control].hasError(error);
   }
 
-  downloadSample() {
-    this.downLoadFile(this.data.downloadedData, '"text/csv"');
-  }
-
-  // To download selected records
-  downLoadFile(data: any, type: string) {
-    const date = new Date();
-    this.datePipe = new DatePipe("en-US");
-    this.fileName = 'Sample-users' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
-    let blob = new Blob([data], { type: type });
-    saveAs(blob, this.fileName);
-    this._snackBar.open('Sample File Downloaded Successfully', 'success', {
-      duration: 10000,
-      verticalPosition: 'top'
-    })
+  downloadSampleUsers() {
+    this.commonServiceService.downloadSample(this.data.downloadedData.url, 'Sample-Users')
   }
 
   // File Handling
@@ -139,10 +128,4 @@ export class AddMultipleUsersComponent implements OnInit {
     });
   }
 
-  close() {
-    this.dialogRef.close();
-  }
-  onNoClick() {
-    this.dialogRef.close();
-  }
 }

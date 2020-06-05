@@ -10,7 +10,7 @@
           Required Fields are Name, Capital, Region, and ExternalId.
         </div>
         <div class="space">
-          Click <a [routerLink]="[]" (click)="downloadSample()">
+          Click <a [routerLink]="[]" (click)="getSampleEntityMappingCsv()">
             here
           </a> to download the sample csv file
         </div>
@@ -18,7 +18,7 @@
           <mat-form-field class="example-chip-list" style="width: 100%;">
             <mat-label class="required">State</mat-label>
             <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="state">
-              <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}
+              <mat-option class="text-capital" *ngFor="let item of statesList" [(value)]="item.value">{{item.label}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="errorHandling('state', 'required')">
@@ -27,18 +27,6 @@
           </mat-form-field>
         </div>
 
-        <div style="padding-top: 15px;">
-          <mat-form-field class="example-chip-list" style="width: 100%;">
-            <mat-label class="required">Entity Type</mat-label>
-            <mat-select [value]="selected" class="text-capital" autocomplete="false" formControlName="entitytype">
-              <mat-option class="text-capital" *ngFor="let item of orgData" [(value)]="item.value">{{item.label}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="errorHandling('entitytype', 'required')">
-              You must select entity type
-            </mat-error>
-          </mat-form-field>
-        </div>
 
         <div style="display: flex;padding-top: 10px;">
           <div class="button-wrap">
@@ -58,6 +46,6 @@
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>CANCEL</button> &nbsp;
     <app-spinner *ngIf="loader"></app-spinner>
-    <app-button-loading [btnData]="onload" (click)="uploadEntityCSVFile()"></app-button-loading>
+    <app-button-loading [btnData]="onload" (click)="uploadEntityMappingCSVFile()"></app-button-loading>
   </mat-dialog-actions>
 </form>

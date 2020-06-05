@@ -235,10 +235,9 @@ export class UsersListComponent implements OnInit {
 
   bulkUploadSample() {
     this.usersService.sampleBulkUsers().subscribe(data => {
-      this.formdata = data['result'];
+      this.downloadedData = data['result'];
     }, error => {
-      this.downloadedData = error.error.text;
-      // this.commonServiceService.errorHandling(error);
+      this.commonServiceService.errorHandling(error);
     });
   }
 

@@ -61,9 +61,11 @@ export class UsersService {
 
   // To upload the Users csv
   uploadUsersCsv(organisation, file) {
+    console.log('uploadUsersCsv', organisation);
+    
     let fileData = new FormData();
-    fileData.append('userCreationFile', file);
-    return this.Http.post(environment.base_url + UsersConfig.bulkUpload, fileData)
+    fileData.append('uploadFile', file);
+    return this.Http.post(environment.base_url + UsersConfig.bulkUpload + '&organisationId='+ organisation, fileData)
   }
 
   // Active and deActivate user

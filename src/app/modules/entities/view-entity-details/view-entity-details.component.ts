@@ -53,7 +53,6 @@ export class ViewEntityDetailsComponent implements OnInit {
     });
     this.entityId = this.route.snapshot.paramMap.get('id');
     this.entityDetails();
-    this.subEntity();
   }
 
   // get Entity Details
@@ -61,10 +60,15 @@ export class ViewEntityDetailsComponent implements OnInit {
     this.entityService.getEntityDetails(this.entityId).subscribe(data => {
       this.entityInfo = data['result'][0]
       this.metaData = data['result'][0]['metaInformation'];
+
       if (data['result'][0]['childHierarchyPath']) {
         this.childHierarchary = data['result'][0]['childHierarchyPath'];
-        this.type = data['result'][0]['childHierarchyPath'][0]
+        this.type = data['result'][0]['childHierarchyPath'][0];
+      } else {
+        this.commonServiceService.commonSnackBar('No Hierarchy Data found', 'Dismiss', 'top', 1000)
+        this.listing = true;
       }
+      this.subEntity();
 
     }, error => {
       this.commonServiceService.errorHandling(error);

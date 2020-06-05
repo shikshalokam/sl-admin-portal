@@ -57,9 +57,6 @@ export class keyCloakService {
       console.log("errorrrr")
     })
   }
-  newMessage() {
-    this.commonServiceService.nextMessage("Second Message")
-  }
 
   getToken(): string {
     const accessToken = this.keycloak.getKeycloakInstance().token;
