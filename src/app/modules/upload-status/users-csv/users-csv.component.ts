@@ -12,39 +12,19 @@ import { FormControl } from '@angular/forms';
 })
 export class UsersCsvComponent implements OnInit {
   toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   dataSource: MatTableDataSource<any>;
   displayedColumns: any = [];
   selection = new SelectionModel(true, []);
   listing: boolean = false;
   recordCount: any;
-  initialStatus: any = '';
-  initialType: any = '';
+  initialStatus: any = 'all';
+  initialType: any = 'all';
   status: any = '';
   columns: any;
   search: any;
-  statusList = [
-    {
-      label: 'All',
-      value: ''
-    }, {
-      label: 'Success',
-      value: 'success'
-    }, {
-      label: 'Pending',
-      value: 'pending'
-    }, {
-      label: 'Failed',
-      value: 'failed'
-    }];
-
-  requestType = [{
-    label: 'All',
-    value: ''
-  }, {
-    label: 'User Creation',
-    value: 'user Creation'
-  },]
+  requestTypes: any;
+  type: any = '';
+  statusList: any;
   queryParams = {
     page: 1,
     size: 10,
@@ -64,16 +44,36 @@ export class UsersCsvComponent implements OnInit {
       this.bulkUploadList();
     });
     this.bulkUploadList();
+    this.getRequestTypes();
+    this.getStatus();
   }
 
   debounceMethod() {
     this.bulkUploadList();
   }
 
+  // Request Types
+  getRequestTypes() {
+    this.bulkuploadService.getRequestTypes().subscribe(data => {
+      this.requestTypes = data['result'];
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
+  }
+
+  // Status
+  getStatus() {
+    this.bulkuploadService.getStatus().subscribe(data => {
+      this.statusList = data['result'];
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
+  }
+
+  // bulk upload list
   bulkUploadList() {
-    this.bulkuploadService.uploadList(this.queryParams, this.searchInput.nativeElement.value, this.status).subscribe(data => {
+    this.bulkuploadService.uploadList(this.queryParams, this.searchInput.nativeElement.value, this.status, this.type).subscribe(data => {
       this.organisationListData = data['result'];
-      // this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result']['data']);
       this.columns = data['result']['column'];
@@ -88,13 +88,15 @@ export class UsersCsvComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   // request type filter
-  requestTypeChange() {
-
+  requestTypeChange(data) {
+    this.type = data.value;
+    this.paginator.firstPage();
+    this.bulkUploadList();
   }
 
   selectStatus(data) {
@@ -104,19 +106,30 @@ export class UsersCsvComponent implements OnInit {
 
   }
 
+  // clear filter
+  clearFilter() {
+    this.initialStatus = 'all';
+    this.initialType = 'all';
+    this.status = '';
+    this.type = '';
+    this.bulkUploadList();
+  }
+
 
   // get color based on the status
   getItemCssClassByStatus(status): string {
     switch (status) {
-      case 'Active':
+      case 'completed':
         return 'active';
       case 'pending':
+        return 'inactive';
+      case 'failed':
         return 'inactive';
     }
     return '';
   }
 
-// Api call to get the download links based on type
+  // Api call to get the download links based on type
   downloadLinks(data, type) {
     this.bulkuploadService.getDownloadLinks(data.requestId, type).subscribe(data => {
       this.onNavigate(data['result']['url']);

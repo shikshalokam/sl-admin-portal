@@ -10,7 +10,6 @@
       <div class="list-menu">
         <mat-form-field class="custom-form-field">
           <mat-label>Search </mat-label>
-          <!-- <input matInput #searchInput> -->
           <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="bulkUploadList()" #searchInput
             matInput>
           <button mat-icon-button matPrefix>
@@ -23,8 +22,8 @@
       <div class="list-menu" style="margin-left: 50px;">
         <mat-form-field class="custom-form-field">
           <mat-label>Request Type</mat-label>
-          <mat-select [(value)]="initialType" (selectionChange)="requestTypeChange()">
-            <mat-option *ngFor="let request of requestType" [value]="request.value">{{request.label}}</mat-option>
+          <mat-select [(value)]="initialType" (selectionChange)="requestTypeChange($event)">
+            <mat-option *ngFor="let request of requestTypes" [value]="request.value">{{request.label}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -37,28 +36,17 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <div class="list-menu" class="btn-clear">
+        <button mat-button (click)="clearFilter()" matTooltip="clear filter">
+          Clear Filter
+        </button>
+      </div>
     </div>
   </div>
 
   <div class="table-container mat-elevation-z8">
     <app-spinner *ngIf="listing == false"></app-spinner>
-
-
-
     <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
-
-      <!-- <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef style="padding-top: 10px;">
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row" style="padding-top: 10px;">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null;"
-            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-          </mat-checkbox>
-        </td>
-      </ng-container> -->
       <span *ngFor="let column of columns">
         <ng-container [matColumnDef]="column.key">
           <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>

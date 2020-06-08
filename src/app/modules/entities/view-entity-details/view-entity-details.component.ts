@@ -58,12 +58,12 @@ export class ViewEntityDetailsComponent implements OnInit {
   // get Entity Details
   entityDetails() {
     this.entityService.getEntityDetails(this.entityId).subscribe(data => {
-      this.entityInfo = data['result'][0]
-      this.metaData = data['result'][0]['metaInformation'];
+      this.entityInfo = data['result'];
+      this.metaData = data['result']['metaInformation'];
 
-      if (data['result'][0]['childHierarchyPath']) {
-        this.childHierarchary = data['result'][0]['childHierarchyPath'];
-        this.type = data['result'][0]['childHierarchyPath'][0];
+      if (data['result']['childHierarchyPath']) {
+        this.childHierarchary = data['result']['childHierarchyPath'];
+        this.type = data['result']['childHierarchyPath'][0];
       } else {
         this.commonServiceService.commonSnackBar('No Hierarchy Data found', 'Dismiss', 'top', 1000)
         this.listing = true;
@@ -120,7 +120,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   ViewData(data) {
     this.entityService.getEntityDetails(data._id).subscribe(data => {
-      const viewSubEntitymetaData = data['result'][0]['metaInformation'];
+      const viewSubEntitymetaData = data['result'];
       const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
         , {
           disableClose: true,

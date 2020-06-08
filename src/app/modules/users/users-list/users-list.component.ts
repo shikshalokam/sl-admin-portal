@@ -89,7 +89,6 @@ export class UsersListComponent implements OnInit {
         });
       }
       this.recordCount = data['result'].count;
-      // this.cdr.detectChanges();
       this.listing = true;
     }, error => {
       this.listing = true;
@@ -219,9 +218,7 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    // setTimeout(() => {
       this.getUserList();
-    // }, 3000)
   }
 
   createForm() {
@@ -329,23 +326,11 @@ export class UsersListComponent implements OnInit {
   downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type });
     importedSaveAs(blob, this.fileName);
-    // let url = window.URL.createObjectURL(blob);
-    // let pwa = window.open(url);
     this._snackBar.open('Users Downloaded Successfully', 'success', {
       duration: 10000,
       verticalPosition: 'top'
     })
   }
-
-
-  commingsoon() {
-    this._snackBar.open('Comming soon', 'Dismiss', {
-      duration: 10000,
-      verticalPosition: 'top',
-      // horizontalPosition: 'end',
-    });
-  }
-
 
 
   // confirmDialog

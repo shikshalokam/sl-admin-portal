@@ -7,7 +7,6 @@ import { OrganisationEditComponent } from './organisation-edit/organisation-edit
 const routes: Routes = [
   {
     path: '',
-    // data: { title: 'Home' },
     children: [
       {
         path: 'list', component: OrganisationsListComponent, data: { title: [{ name: 'Home', link: '/home' }, { name: 'Organisations', link: '/organisations/list' }] },

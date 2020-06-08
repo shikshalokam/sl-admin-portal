@@ -2,11 +2,8 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { UsersService, CommonServiceService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
-import { saveAs } from "file-saver";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConfirmDialogComponent, ConfirmDialogModel, UploadConfirmationComponent } from '../../admin-shared';
-import { DatePipe } from '@angular/common';
-import { Pipe, PipeTransform } from '@angular/core';
+import { UploadConfirmationComponent } from '../../admin-shared';
 
 
 @Component({
@@ -32,7 +29,6 @@ export class AddMultipleUsersComponent implements OnInit {
     submitClick: false
   }
   constructor(private usersService: UsersService,
-    private _snackBar: MatSnackBar,
     public fb: FormBuilder,
     private commonServiceService: CommonServiceService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
@@ -43,8 +39,6 @@ export class AddMultipleUsersComponent implements OnInit {
   ngOnInit() {
     this.selected = this.data.defaultValue;
     this.orgData = this.data.organisationsToUpload;
-    console.log('this.orgData',  this.orgData );
-    
     this.reactiveForm();
   }
 

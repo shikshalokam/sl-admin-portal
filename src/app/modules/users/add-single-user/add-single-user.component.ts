@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, Optional, ViewChild } from '@angular/core';
-import { DynamicFormComponent, ButtonLoadingComponent } from '../../admin-shared';
+import { DynamicFormComponent } from '../../admin-shared';
 import { FieldConfig } from "../../admin-shared/field.interface";
 import { FormGroup } from '@angular/forms';
 import { UsersService, CommonServiceService } from '../../admin-core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
@@ -65,9 +65,6 @@ export class AddUserComponent implements OnInit {
     } else {
       this.form.validateAllFormFields(this.form.form);
     }
-  }
-  submit(data) {
-
   }
 
   /**

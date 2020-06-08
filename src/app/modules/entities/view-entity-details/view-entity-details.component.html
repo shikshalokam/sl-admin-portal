@@ -12,7 +12,6 @@
       <mat-card style="height: 50px;">
         <mat-card-content>
           <div>
-            <!-- <mat-icon class="c-mat-icon">account_circle</mat-icon> -->
             <div class="text-heading">
               {{metaData?.name}}
             </div>
@@ -24,7 +23,6 @@
         <mat-card>
           <mat-card-content>
             <div>
-              <!-- <mat-icon class="c-mat-icon">account_circle</mat-icon> -->
               <div class="text-heading">
                 State Hierarchy
               </div>
@@ -36,9 +34,6 @@
             <span style="padding:10px;" *ngFor="let data of childHierarchary">
               <button [ngClass]="data === type ?'child-selected':'child-button'" (click)="entityChange(data)"
                 mat-button>
-                <!-- <div>
-                  <mat-icon>account_circle</mat-icon>
-                </div> -->
                 <div class="text-capitalize"> {{data}}</div>
               </button>
             </span>

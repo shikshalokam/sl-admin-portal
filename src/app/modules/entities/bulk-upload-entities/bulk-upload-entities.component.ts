@@ -4,7 +4,6 @@ import { CommonServiceService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EntityService } from '../../admin-core/services/entity-service/entity.service';
 import { UploadConfirmationComponent } from '../../admin-shared';
-import { saveAs } from 'file-saver';
 
 
 @Component({

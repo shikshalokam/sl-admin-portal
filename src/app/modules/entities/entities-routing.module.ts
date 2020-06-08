@@ -12,7 +12,7 @@ const routes: Routes = [
       {
         path: 'list', component: StateEntityListComponent, data: {
           title: [{ name: 'Home', link: '/home' },
-          { name: 'StateListing', link: 'entities/list' }
+          { name: 'State Listing', link: 'entities/list' }
           ]
         },
       },
