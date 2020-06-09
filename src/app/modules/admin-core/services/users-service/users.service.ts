@@ -10,6 +10,7 @@ import { UsersConfig } from './users.config';
 })
 export class UsersService {
   roles;
+  status;
   constructor(private Http: HttpClient) { }
 
   // To get the dynamic form
@@ -68,12 +69,12 @@ export class UsersService {
 
   // Active and deActivate user
   activateDeActivateUser(userId, user) {
-    if (user.status === 'Inactive') {
-      user.status = 'Active';
+    if (user.status === 'Active' || user.status === 1) {
+      this.status = 'inActivateUser';
     } else {
-      user.status = 'Inactive';
+      this.status = 'activateUser';
     }
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + this.status + '/' + userId)
   }
 
   // get details to Edit
