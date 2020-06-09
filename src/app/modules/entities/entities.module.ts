@@ -13,7 +13,9 @@ import { CreateandeditStateComponent } from './createandedit-state/createandedit
 
 
 @NgModule({
-  declarations: [StateEntityListComponent, ViewEntityDetailsComponent, ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent, CreateandeditStateComponent],
+  declarations: [StateEntityListComponent, ViewEntityDetailsComponent,
+    ViewSubEntityDetailsComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent,
+    CreateandeditStateComponent],
   imports: [
     CommonModule,
     AdminSharedModule,
@@ -22,6 +24,7 @@ import { CreateandeditStateComponent } from './createandedit-state/createandedit
     FormsModule,
     EntitiesRoutingModule
   ],
-  entryComponents: [ViewSubEntityDetailsComponent, CreateandeditStateComponent, BulkUploadEntitiesComponent, BulkEntityMappingComponent]
+  entryComponents: [ViewSubEntityDetailsComponent, CreateandeditStateComponent,
+    BulkUploadEntitiesComponent, BulkEntityMappingComponent]
 })
 export class EntitiesModule { }

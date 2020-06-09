@@ -31,6 +31,7 @@ export class ViewEntityDetailsComponent implements OnInit {
   };
   crumData: any;
   type: any = '';
+  relatedEntities: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('searchInput') searchInput: ElementRef;
   paginationOptions = constants.paginationOptions;
@@ -52,18 +53,22 @@ export class ViewEntityDetailsComponent implements OnInit {
     });
     this.entityId = this.route.snapshot.paramMap.get('id');
     this.entityDetails();
-    this.subEntity();
   }
 
   // get Entity Details
   entityDetails() {
     this.entityService.getEntityDetails(this.entityId).subscribe(data => {
-      this.entityInfo = data['result'][0]
-      this.metaData = data['result'][0]['metaInformation'];
-      if (data['result'][0]['childHierarchyPath']) {
-        this.childHierarchary = data['result'][0]['childHierarchyPath'];
-        this.type = data['result'][0]['childHierarchyPath'][0]
+      this.entityInfo = data['result'];
+      this.metaData = data['result']['metaInformation'];
+
+      if (data['result']['childHierarchyPath']) {
+        this.childHierarchary = data['result']['childHierarchyPath'];
+        this.type = data['result']['childHierarchyPath'][0];
+      } else {
+        this.commonServiceService.commonSnackBar('No Hierarchy Data found', 'Dismiss', 'top', 1000)
+        this.listing = true;
       }
+      this.subEntity();
 
     }, error => {
       this.commonServiceService.errorHandling(error);
@@ -115,7 +120,7 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   ViewData(data) {
     this.entityService.getEntityDetails(data._id).subscribe(data => {
-      const viewSubEntitymetaData = data['result'][0]['metaInformation'];
+      const viewSubEntitymetaData = data['result'];
       const dialogRef = this.dialog.open(ViewSubEntityDetailsComponent
         , {
           disableClose: true,
@@ -129,12 +134,15 @@ export class ViewEntityDetailsComponent implements OnInit {
 
   // view hierarchy
   viewHierarchy(data) {
-    this.commonServiceService.commonSnackBar('Comming Soon', 'Dismiss', 'top', 1000)
     this.entityService.getRelatedEntities(data._id).subscribe(data => {
-      console.log('viewHierarchy', data);
+      this.relatedEntities = data['result']['relatedEntities'];
     }, error => {
       this.commonServiceService.errorHandling(error);
     })
+  }
+
+  goToEntityType(data) {
+    // this.entityChange(data.entityType);
   }
 
 }

@@ -10,6 +10,7 @@
   padding: 0 24px;
   max-height: 65vh;
   overflow: auto;
+  padding-bottom: 10px;
 }
 
 .custom-dialog-actions {
@@ -20,4 +21,8 @@
   align-items: center;
   padding-right: 42px;
   margin-bottom: 16px;
+}
+.text-color{
+  color: $text-color;
+
 }

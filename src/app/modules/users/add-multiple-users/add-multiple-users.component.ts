@@ -2,12 +2,8 @@ import { Component, OnInit, Optional, Inject } from '@angular/core';
 import { UsersService, CommonServiceService } from '../../admin-core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
-import { saveAs } from "file-saver";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
-import { DatePipe } from '@angular/common';
-import { UploadConfirmationComponent } from '../upload-confirmation/upload-confirmation.component';
-import { Pipe, PipeTransform } from '@angular/core';
+import { UploadConfirmationComponent } from '../../admin-shared';
 
 
 @Component({
@@ -17,7 +13,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class AddMultipleUsersComponent implements OnInit {
   filecontent: any;
-  downloadurl: 'download url from server';
   myForm: FormGroup;
   orgData: any;
   requestId: any;
@@ -28,14 +23,12 @@ export class AddMultipleUsersComponent implements OnInit {
   type: any;
   CSVfile: any;
   loader: boolean = false;
-  // submitClick: boolean = false;
   confirmPopupResult: any;
   onload = {
     buttonName: 'UPLOAD',
     submitClick: false
   }
   constructor(private usersService: UsersService,
-    private _snackBar: MatSnackBar,
     public fb: FormBuilder,
     private commonServiceService: CommonServiceService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data,
@@ -62,21 +55,8 @@ export class AddMultipleUsersComponent implements OnInit {
     return this.myForm.controls[control].hasError(error);
   }
 
-  downloadSample() {
-    this.downLoadFile(this.data.downloadedData, '"text/csv"');
-  }
-
-  // To download selected records
-  downLoadFile(data: any, type: string) {
-    const date = new Date();
-    this.datePipe = new DatePipe("en-US");
-    this.fileName = 'Sample' + '-' + this.datePipe.transform(date, 'dd-mm-yyyy-HH-mm-ss') + '.csv';
-    let blob = new Blob([data], { type: type });
-    saveAs(blob, this.fileName);
-    this._snackBar.open('Sample File Downloaded Successfully', 'success', {
-      duration: 10000,
-      verticalPosition: 'top'
-    })
+  downloadSampleUsers() {
+    this.commonServiceService.downloadSample(this.data.downloadedData.url, 'Sample-Users')
   }
 
   // File Handling
@@ -142,10 +122,4 @@ export class AddMultipleUsersComponent implements OnInit {
     });
   }
 
-  close() {
-    this.dialogRef.close();
-  }
-  onNoClick() {
-    this.dialogRef.close();
-  }
 }

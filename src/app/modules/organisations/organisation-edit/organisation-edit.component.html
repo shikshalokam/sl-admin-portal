@@ -17,9 +17,7 @@
             <div class="text-capital">
               <h4> {{editOrganisationDetails?.name}}</h4>
             </div>
-            <!-- <div>
-              {{editOrganisationDetails?.channel}}
-            </div> -->
+          
             <div *ngIf="editOrganisationDetails?.status === 'Active'" class="positive">
               Active
             </div>
@@ -95,19 +93,6 @@
                 {{editOrganisationDetails?.description ? editOrganisationDetails.description: '-- --'}}
               </div>
             </div>
-            <!-- <div class="col-md-3">
-              <label class="text-color">No.Of Members</label>
-              <div>
-                {{editOrganisationDetails?.noOfMembers ? editOrganisationDetails.noOfMembers: '-- --'}}
-              </div>
-            </div> -->
-
-            <!-- <div class="col-md-3">
-              <label class="text-color">Email</label>
-              <div>
-                {{editOrganisationDetails?.email ? editOrganisationDetails.email: '-- --'}}
-              </div>
-            </div> -->
           </div>
           <div style="float: right;">
             <button (click)="editOrganisation(editOrganisationDetails)" matTooltip="Update Organisation" class="actions"
@@ -116,13 +101,6 @@
           </div>
 
         </mat-expansion-panel>
-        <!-- <mat-expansion-panel class="c-accordian-width" [expanded]="false">
-          <mat-expansion-panel-header>
-            <mat-panel-title class="c-font">
-              Organisation Details
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-        </mat-expansion-panel> -->
       </mat-accordion>
     </div>
   </div>

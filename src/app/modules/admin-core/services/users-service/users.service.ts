@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UsersConfig } from './users.config';
 
 
@@ -62,8 +62,8 @@ export class UsersService {
   // To upload the Users csv
   uploadUsersCsv(organisation, file) {
     let fileData = new FormData();
-    fileData.append('userCreationFile', file);
-    return this.Http.post(environment.base_url + UsersConfig.bulkUpload, fileData)
+    fileData.append('uploadFile', file);
+    return this.Http.post(environment.base_url + UsersConfig.bulkUpload + '&organisationId='+ organisation, fileData)
   }
 
   // Active and deActivate user

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { UploadConfig } from './bulkupload.config';
 
 @Injectable({
@@ -12,8 +12,9 @@ export class BulkuploadService {
 
 
   // To get the upload list based on the user logged in
-  uploadList(data, searchfield, status) {
-    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' + data.size + '&page=' + data.page + '&search=' + searchfield + '&status=' + status);
+  uploadList(data, searchfield, status, type) {
+    return this.Http.get(environment.base_url + UploadConfig.bulkUploadRequest + '?limit=' + data.size + '&page=' + data.page 
+    + '&search=' + searchfield + '&status=' + status + '&requestType=' + type);
   }
 
 
@@ -21,4 +22,15 @@ export class BulkuploadService {
   getDownloadLinks(reqId, type) {
     return this.Http.get(environment.base_url + UploadConfig.downloadLinks + reqId + '?fileType=' + type );
   }
+
+   // get Request types 
+   getRequestTypes() {
+    return this.Http.get(environment.base_url + UploadConfig.getTypes);
+  }
+
+  // get status 
+  getStatus() {
+    return this.Http.get(environment.base_url + UploadConfig.getStatus);
+  }
+
 }

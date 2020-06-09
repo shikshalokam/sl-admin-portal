@@ -1,20 +1,41 @@
 <div>
   <mat-toolbar role="toolbar" class="task-header">
-    <!-- <mat-icon style="color: white;">account_circle</mat-icon> -->
-    <div class="title">View Sub Entity  - {{viewSubEntitymetaData?.name}}</div>
+    <div class="title">{{viewSubEntitymetaData?.name}}</div>
   </mat-toolbar>
 </div>
 <mat-dialog-content class="mat-typography custom-dialog-content">
   <div class="row" style="padding-top: 15px;">
-    <span *ngFor ="let data of viewSubEntitymetaData | keyvalue">
+    <span *ngFor="let data of viewSubEntitymetaData | keyvalue">
       <mat-form-field style="padding-left: 50px;">
-        <mat-label class="text-capitalize">{{data.key}}</mat-label>
+        <mat-label class="text-capitalize"> {{replaceKeys(data.key)}}</mat-label>
         <input readonly matInput autocomplete="false" value="{{data.value ? data.value: '-- --'}}">
       </mat-form-field>
     </span>
   </div>
+  <div style="padding: 20px;">
+    <mat-accordion>
+      <mat-expansion-panel class="c-accordian-width" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="font-weight: 600;">
+            Hierarchy Data
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-md-3" *ngFor="let data of relatedEntities;">
+            <div class="text-color text-capital">
+              <mat-label>{{data?.entityType }}</mat-label>
+            </div>
+            <div class="text-capital">
+              {{data?.metaInformation.name}}
+            </div>
+          </div>
+
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button class="p-button" mat-dialog-close>CLOSE</button>
-  <!-- <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading> -->
 </mat-dialog-actions>

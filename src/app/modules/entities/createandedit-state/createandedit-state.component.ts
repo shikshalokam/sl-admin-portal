@@ -70,11 +70,9 @@ export class CreateandeditStateComponent implements OnInit {
     createState(stateData) {
       this.onload.submitClick = true;
       this.entityService.createState(stateData).subscribe(data => {
-        if (data['result'].response === 'SUCCESS') {
           this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000);
           this.form.form.reset();
           this.dialogRef.close('true');
-        }
       }, error => {
         this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
         this.onload.submitClick = false;

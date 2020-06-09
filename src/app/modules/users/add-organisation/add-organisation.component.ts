@@ -49,11 +49,6 @@ export class AddOrganisationComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
-    // if ((value || '').trim()) {
-    //   this.roles.push(value.trim());
-    // }
-
     // Reset the input value
     if (input) {
       input.value = '';

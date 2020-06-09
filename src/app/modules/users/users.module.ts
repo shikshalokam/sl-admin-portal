@@ -11,7 +11,6 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from './add-organisation/add-organisation.component';
 import { AddMultipleUsersComponent } from './add-multiple-users/add-multiple-users.component';
-import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
 import { AdminCoreModule } from '../admin-core';
 
 
@@ -27,8 +26,8 @@ import { AdminCoreModule } from '../admin-core';
     NO_ERRORS_SCHEMA
   ],
   providers: [DatePipe],
-  entryComponents: [AddUserComponent, AddOrganisationComponent, RolesEditComponent, UploadConfirmationComponent, AddMultipleUsersComponent],
+  entryComponents: [AddUserComponent, AddOrganisationComponent, RolesEditComponent,AddMultipleUsersComponent],
   declarations: [AddOrganisationComponent, UsersListComponent, AddUserComponent, UsersEditComponent,
-    RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent, UploadConfirmationComponent],
+    RolesEditComponent, AddOrganisationComponent, AddMultipleUsersComponent],
 })
 export class UsersModule { }

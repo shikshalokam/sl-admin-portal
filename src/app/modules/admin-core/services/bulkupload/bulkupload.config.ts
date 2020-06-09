@@ -1,7 +1,8 @@
 export const UploadConfig = {
     bulkUploadRequest: 'v1/bulkUploadRequest/list',
     referenceDetails: 'v1/bulkUploadRequest/details/',
-    downloadLinks: 'v1/bulkUploadRequest/getDownloadableUrls/'
+    downloadLinks: 'v1/bulkUploadRequest/getDownloadableUrls/',
+    getTypes: 'v1/bulkUploadRequest/getTypes',
+    getStatus: 'v1/bulkUploadRequest/getStatus'
 
-    // admin-service/api/v1/bulkUploadRequest/getDownloadableUrls/503g6jeakai4gxu7?fileType=input
 }

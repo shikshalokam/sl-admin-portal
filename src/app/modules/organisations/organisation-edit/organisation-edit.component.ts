@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrganisationService, CommonServiceService } from '../../admin-core';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { ConfirmDialogComponent } from '../../admin-shared';
 import { MatDialog } from '@angular/material';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 
