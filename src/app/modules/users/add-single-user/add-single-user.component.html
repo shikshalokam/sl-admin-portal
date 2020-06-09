@@ -6,11 +6,11 @@
 </div>
 <mat-dialog-content class="mat-typography custom-dialog-content">
   <div class="row">
-    <dynamic-form [fields]="formdata" (submit)="submit($event)">
+    <dynamic-form [fields]="formdata">
     </dynamic-form>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading>
+  <app-button-loading [btnData]="onload" (onSubmit)="onSubmit()"></app-button-loading>
 </mat-dialog-actions>

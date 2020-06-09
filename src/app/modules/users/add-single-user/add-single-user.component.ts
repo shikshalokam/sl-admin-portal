@@ -35,11 +35,6 @@ export class AddUserComponent implements OnInit {
     this.formdata = this.data.fieldsBackend;
   }
 
-  handleChange(data) {
-    this.onSubmit();
-
-  }
-
   // Form Submit
   onSubmit() {
     this.form.value.dateOfBirth = this.datePipe.transform(this.form.value.dateOfBirth, 'yyyy-MM-dd');
