@@ -65,7 +65,6 @@ export class ViewEntityDetailsComponent implements OnInit {
         this.childHierarchary = data['result']['childHierarchyPath'];
         this.type = data['result']['childHierarchyPath'][0];
       } else {
-        this.commonServiceService.commonSnackBar('No Hierarchy Data found', 'Dismiss', 'top', 1000)
         this.listing = true;
       }
       this.subEntity();

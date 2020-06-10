@@ -6,7 +6,6 @@ import { CoreModule, TranslateService, SharedModule } from 'shikshalokam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './modules/admin-core/components/header/header.component';
-import { LoginComponent } from './login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AdminCoreModule } from './modules/admin-core/admin-core.module';
 import { keyCloakService } from './modules/admin-core';
@@ -25,7 +24,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
     HomeComponent,
     BreadCrumComponent,
     AdminFooterComponent

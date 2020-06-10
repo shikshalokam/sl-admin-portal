@@ -87,8 +87,8 @@ export class HomeComponent implements OnInit {
     {
       "routerlink": "/entities/list",
       "icon": "analytics",
-      "title": "Entity",
-      "data": "View Entity Details"
+      "title": "State Listing",
+      "data": "View State Listing or Hierarchy"
     }
   ]
 
