@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER, DoBootstrap, ApplicationRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule, TranslateService, SharedModule } from 'shikshalokam';
+// import { CoreModule, TranslateService, SharedModule } from 'shikshalokam';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './modules/admin-core/components/header/header.component';
@@ -35,8 +35,8 @@ export function tokenGetter() {
     FormsModule, ReactiveFormsModule,
     BrowserAnimationsModule,
     KeycloakAngularModule,
-    CoreModule.forRoot(),
-    SharedModule,
+    // CoreModule.forRoot(),
+    // SharedModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
@@ -47,7 +47,8 @@ export function tokenGetter() {
   entryComponents: [
     AppComponent
   ],
-  providers: [ TranslateService,
+  providers: [
+    //  TranslateService,
     keyCloakService
   ],
 })
