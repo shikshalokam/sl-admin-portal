@@ -81,13 +81,14 @@ export class OrganisationsListComponent implements OnInit {
 * To get OrganisationList
 */
   getOrganisationList() {
+    this.listing = false;
     this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.organisationListData = data['result'];
       this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result']['data']);
       this.columns = data['result']['columns'];
-      if (this.organisationListData) {
+      if (this.organisationListData && this.columns) {
         this.columns.forEach(element => {
           if (element.visible) {
             this.displayedColumns.push(element.key)
