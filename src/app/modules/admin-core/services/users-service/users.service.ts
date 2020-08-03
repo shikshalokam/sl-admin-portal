@@ -70,9 +70,9 @@ export class UsersService {
   // Active and deActivate user
   activateDeActivateUser(userId, user) {
     if (user.status === 'Active' || user.status === 1) {
-      this.status = 'inActivateUser';
+      this.status = 'inactivate';
     } else {
-      this.status = 'activateUser';
+      this.status = 'activate';
     }
     return this.Http.get(environment.base_url + UsersConfig.blockUser + this.status + '/' + userId)
   }
