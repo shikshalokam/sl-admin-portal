@@ -41,15 +41,21 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { DynamicFormComponent } from './components/dynamic-form/dynamic-form.component';
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
+import { ButtonLoadingComponent } from './button-loading/button-loading.component';
+import { DebounceDirective } from './directives/debounceDirective.directive';
+import { NoRecordComponent } from './no-record/no-record.component';
+import { UploadConfirmationComponent } from './upload-confirmation/upload-confirmation.component';
 
 
 
 
 @NgModule({
   // ButtonComponent
-  declarations: [CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
-    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent,
-    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent],
+  declarations: [DebounceDirective,CommingSoonComponent, DynamicFieldDirective, UnauthorizedComponent, 
+    InputComponent, SelectComponent, RadiobuttonComponent, DynamicFormComponent, 
+    CheckboxComponent,MultiSelectComponent, DateComponent, SpinnerComponent, PasswordComponent, 
+    ConfirmDialogComponent, TextAreaComponent, AutoCompleteComponent, ButtonLoadingComponent, NoRecordComponent,
+    UploadConfirmationComponent],
   imports: [
     CommonModule,
     MatMenuModule,
@@ -98,10 +104,14 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     SpinnerComponent,
+    NoRecordComponent,
     MatChipsModule,
     MatRadioModule,
     MatButtonToggleModule,
     DynamicFormComponent,
+    ButtonLoadingComponent,
+    UploadConfirmationComponent,
+    DebounceDirective,
     NgxMatSelectSearchModule],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
@@ -116,7 +126,8 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
     MultiSelectComponent,
     CommingSoonComponent,
     ConfirmDialogComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    UploadConfirmationComponent
   ]
 })
 export class AdminSharedModule { }

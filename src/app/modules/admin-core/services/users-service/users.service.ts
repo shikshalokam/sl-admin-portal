@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UsersConfig } from './users.config';
-import { Observable, Subject } from 'rxjs';
 
 
 
@@ -11,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 })
 export class UsersService {
   roles;
-  private subject = new Subject<any>();
+  status;
   constructor(private Http: HttpClient) { }
 
   // To get the dynamic form
@@ -59,18 +58,23 @@ export class UsersService {
   removeUserFromOrganisation(data) {
     return this.Http.post(environment.base_url + UsersConfig.removeUser, data)
   }
+  
 
-
+  // To upload the Users csv
+  uploadUsersCsv(organisation, file) {
+    let fileData = new FormData();
+    fileData.append('uploadFile', file);
+    return this.Http.post(environment.base_url + UsersConfig.bulkUpload + '&organisationId='+ organisation, fileData)
+  }
 
   // Active and deActivate user
   activateDeActivateUser(userId, user) {
-    if (user.status === 'Inactive') {
-      user.status = 'Active';
+    if (user.status === 'Active' || user.status === 1) {
+      this.status = 'inactivate';
     } else {
-      user.status = 'Inactive';
+      this.status = 'activate';
     }
-    console.log('activateDeActivateUser', user)
-    return this.Http.get(environment.base_url + UsersConfig.blockUser + userId + '?status=' + user.status)
+    return this.Http.get(environment.base_url + UsersConfig.blockUser + this.status + '/' + userId)
   }
 
   // get details to Edit

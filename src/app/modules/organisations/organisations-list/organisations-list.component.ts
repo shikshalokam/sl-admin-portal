@@ -1,13 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatPaginator, MatTableDataSource, PageEvent, MatDialog } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
-import { fromEvent, of, Observable } from 'rxjs';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
-import { OrganisationService } from '../../admin-core';
+import { OrganisationService, constants } from '../../admin-core';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
 import { Router } from '@angular/router';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { ConfirmDialogComponent } from '../../admin-shared';
 
 
 @Component({
@@ -19,7 +16,6 @@ export class OrganisationsListComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
   displayedColumns: any = [];
-  selection = new SelectionModel(true, []);
   listing: boolean = false;
   recordCount: any;
   columns: any;
@@ -30,32 +26,19 @@ export class OrganisationsListComponent implements OnInit {
   status: any = '';
   orgObject: any;
   assignedStatus: any;
+  search: any;
   queryParams = {
     page: 1,
     size: 10,
   };
   @ViewChild('searchInput') searchInput: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(private organisationService: OrganisationService, private router: Router,
     private dialog: MatDialog, private commonServiceService: CommonServiceService) { }
 
   ngOnInit() {
-
-    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      // get value
-      map((event: any) => {
-        return event.target.value;
-      })
-      // if character length greater then 2
-      , filter(res => res.length > 2 || res.length == 0)
-      // Time in milliseconds between key events
-      // , debounceTime(1000)
-      // If previous query is diffent from current
-      , distinctUntilChanged()
-      // subscription for response
-    ).subscribe((text: string) => {
-      this.getOrganisationList();
-    });
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
       this.queryParams.size = page.pageSize;
@@ -92,20 +75,20 @@ export class OrganisationsListComponent implements OnInit {
     }
     this.paginator.firstPage();
     this.getOrganisationList();
-   
   }
 
   /**
 * To get OrganisationList
 */
   getOrganisationList() {
+    this.listing = false;
     this.organisationService.organisationList(this.queryParams, this.searchInput.nativeElement.value, this.status).subscribe(data => {
       this.organisationListData = data['result'];
       this.refreshDatasource(data['result']['data']);
       this.displayedColumns = [];
       this.dataSource = new MatTableDataSource(data['result']['data']);
       this.columns = data['result']['columns'];
-      if (this.organisationListData) {
+      if (this.organisationListData && this.columns) {
         this.columns.forEach(element => {
           if (element.visible) {
             this.displayedColumns.push(element.key)
@@ -116,7 +99,7 @@ export class OrganisationsListComponent implements OnInit {
       this.listing = true;
     }, error => {
       this.listing = true;
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -126,21 +109,23 @@ export class OrganisationsListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   // confirmDialog
   confirmDialog(data) {
     this.orgObject = data;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData
+      data: confirmData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -173,13 +158,11 @@ export class OrganisationsListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
   editOrganisation(data) {
-    console.log('edit', data);
-
     this.router.navigate(['/organisations/edit', data._id])
   }
 
@@ -190,7 +173,6 @@ export class OrganisationsListComponent implements OnInit {
   // For adding new organisation
   addNewOrganisation() {
     this.openDialog(this.fieldsForOrganisation);
-
   }
 
   // Adding Organisation popup
@@ -204,44 +186,12 @@ export class OrganisationsListComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.getOrganisationList();
+      if (result) {
+        this.getOrganisationList();
+      }
     });
   }
 
-  // To download organisations
-  downloadOrganisations() {
-    this.commingSoon();
-  }
-
-
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    if (this.dataSource) {
-      const numRows = this.dataSource.data.length;
-      return numSelected === numRows;
-    }
-
-  }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  // checkboxLabel(row): string {
-  //   if (!row) {
-  //     return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  //   }
-  //   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.length + 1}`;
-  // }
-
-  commingSoon() {
-    this.commonServiceService.commonSnackBar('Comming soon', 'Dismiss', 'top', 1000);
-  }
 }
 
 

@@ -3,6 +3,7 @@ import { UsersService, keyCloakService } from '../..';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UnauthorizedComponent } from '../../../admin-shared';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CommonServiceService } from '../../services/common-service.service';
 
 
 @Component({
@@ -17,34 +18,40 @@ export class HomeComponent implements OnInit {
   response: boolean = true;
   constructor(private usersService: UsersService, public dialog: MatDialog,
     private KeycloakService: keyCloakService, private _snackBar: MatSnackBar,
-    private router: Router, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute,
+    private commonServiceService: CommonServiceService) { }
 
   async ngOnInit() {
-    this.promiseRowData = await this.usersService.getUserRoles();
+    this.promiseRowData = await this.usersService.getUserRoles().catch(e => {
+      // this.KeycloakService.logout();
+      // this.unAuthoriseduser();
+    });
     if (this.promiseRowData['result']) {
       this.rolesArray = this.promiseRowData['result'].roles;
+      this.response = false;
+    } else {
+      this.response = false;
+      const msg  = `Something went wrong,Please relogin`
+      this.openDialog(msg);
     }
+
     if (this.promiseRowData['result'] && (this.rolesArray.includes("ORG_ADMIN") || this.rolesArray.includes("PLATFORM_ADMIN"))) {
       this.admin = true;
       this.response = false
     } else {
       this.admin = false;
       this.response = false
-      this.openDialog();
+      const msg = `You don't have right to access this site.`;
+      this.openDialog(msg);
     }
   }
 
-  singleuser() {
-  }
 
-  openDialog(): void {
-    
+  openDialog(message): void {
     const dialogRef = this.dialog.open(UnauthorizedComponent
       , {
         disableClose: true,
-        // width: '25%',
-        // height: '20%',
-        data: {}
+        data: { message }
       });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -72,10 +79,16 @@ export class HomeComponent implements OnInit {
       "data": "Add or Manage Organisations"
     },
     {
-      "routerlink": "/home",
-      "icon": "assessment",
-      "title": "Reports",
-      "data": "Add or Manage Reports"
+      "routerlink": "/uploadrecords/list",
+      "icon": "cloud_upload",
+      "title": "Uploads",
+      "data": "View Upload Request Status"
+    },
+    {
+      "routerlink": "/entities/list",
+      "icon": "analytics",
+      "title": "State Listing",
+      "data": "View State Listing or Hierarchy"
     }
   ]
 
@@ -90,5 +103,9 @@ export class HomeComponent implements OnInit {
       this.router.navigateByUrl(data);
     }
 
+  }
+
+  unAuthoriseduser() {
+    this.commonServiceService.commonSnackBar('unauthorised user', 'Dismiss', 'top', 10000);
   }
 }

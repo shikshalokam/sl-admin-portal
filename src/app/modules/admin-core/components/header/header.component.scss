@@ -11,7 +11,8 @@
 }
 
 .head {
-  // padding: 7px 10px 0px 10px;
+  // padding: 7px 10px 0px 10px;0
+  position: fixed;
   border-bottom: 1px  solid $primary-color;
   background-color: $white-color;
   display: flex;
@@ -23,6 +24,26 @@
 background-color: $white-color;
 color: $white-color;
 
+}
+
+
+.h-toolbar {
+  border-bottom: 1px  solid $primary-color;
+  background-color: $white-color;
+}
+
+
+
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+.mat-drawer-side {
+  border: none !important;
+}
+
+.himage {
+  width: 170px;
 }
 
   //  .mat-form-field-underline {

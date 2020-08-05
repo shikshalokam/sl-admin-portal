@@ -1,19 +1,18 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, PageEvent } from '@angular/material';
+import { MatPaginator, MatTableDataSource, PageEvent } from '@angular/material';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-single-user/add-single-user.component';
 import { FormControl } from '@angular/forms';
-import { fromEvent } from 'rxjs';
-import { UsersService } from '../../admin-core';
+import { UsersService, constants } from '../../admin-core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { distinctUntilChanged, map, filter } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { saveAs as importedSaveAs } from "file-saver";
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonServiceService } from '../../admin-core/services/common-service.service';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../admin-shared/confirm-dialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
-import { startWith } from 'rxjs/operators';
+import { AddMultipleUsersComponent } from '../add-multiple-users/add-multiple-users.component';
+
 
 @Component({
   selector: 'app-users-list',
@@ -39,7 +38,6 @@ export class UsersListComponent implements OnInit {
   listing: boolean = false;
   orgnsationId: any;
   usersId: any[];
-  dataArray: any[];
   status: any = '';
   userObject: any;
   confirmPopupResult: any;
@@ -50,37 +48,19 @@ export class UsersListComponent implements OnInit {
   firstorganisationValue: any;
   selection = new SelectionModel(true, []);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
   @ViewChild('searchInput') searchInput: ElementRef;
   datePipe: any;
   downloadedData: any;
-
+  selectedOrganisation: any;
+  search: any = '';
+  paginationOptions = constants.paginationOptions;
+  initialOption = constants.initialOption;
   constructor(public dialog: MatDialog, private usersService: UsersService,
     public cdr: ChangeDetectorRef, private _snackBar: MatSnackBar, private router: Router,
     private commonServiceService: CommonServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    // this.organisations = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value))
-    // );
-
-    fromEvent(this.searchInput.nativeElement, 'keyup').pipe(
-      // get value
-      map((event: any) => {
-        return event.target.value;
-      })
-      // if character length greater then 2
-      , filter(res => res.length > 2 || res.length == 0)
-      // Time in milliseconds between key events
-      // , debounceTime(1000)
-      // If previous query is diffent from current
-      , distinctUntilChanged()
-      // subscription for response
-    ).subscribe((text: string) => {
-      this.getUserList();
-    });
     this.getUserOrginasations();
     this.paginator.page.subscribe((page: PageEvent) => {
       this.queryParams.page = page.pageIndex + 1;
@@ -109,11 +89,10 @@ export class UsersListComponent implements OnInit {
         });
       }
       this.recordCount = data['result'].count;
-      // this.cdr.detectChanges();
       this.listing = true;
     }, error => {
       this.listing = true;
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
   refreshDatasource(data) {
@@ -165,7 +144,7 @@ export class UsersListComponent implements OnInit {
 
 
   getSelected(data) {
-    // this.fieldsBackend.selectedOption = data;
+    this.selectedOrganisation = data;
     this.orgnsationId = data.value
     this.getUserList();
     this.paginator.firstPage();
@@ -210,6 +189,7 @@ export class UsersListComponent implements OnInit {
         this.organisations = data['result'];
         this.organisationsList = data['result'];
         this.myControl.setValue(this.organisations[0].label);
+        this.selectedOrganisation = this.organisations[0];
         this.firstorganisationValue = this.organisations[0].value;
         this.orgnsationId = this.firstorganisationValue
         this.getUserList();
@@ -221,10 +201,7 @@ export class UsersListComponent implements OnInit {
         this.listing = true;
       }
     }, error => {
-      this._snackBar.open('No Organisations Found', 'Dismiss', {
-        duration: 10000,
-        verticalPosition: 'top'
-      });
+      this.commonServiceService.errorHandling(error);
     });
 
   }
@@ -241,9 +218,7 @@ export class UsersListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    setTimeout(() => {
       this.getUserList();
-    }, 3000)
   }
 
   createForm() {
@@ -251,17 +226,15 @@ export class UsersListComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsBackend = this.formdata.form;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
   bulkUploadSample() {
     this.usersService.sampleBulkUsers().subscribe(data => {
-      this.formdata = data['result'];
-     console.log('bulkUploadSample', this.formdata);
+      this.downloadedData = data['result'];
     }, error => {
-      this.downloadedData = error.error.text;
-      // this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -295,25 +268,25 @@ export class UsersListComponent implements OnInit {
     return '';
   }
 
-  bulkUploadModal(){
-    // this.UploadUsers(this.downloadedData);
-    this.commingsoon();
+  bulkUploadModal() {
+    this.UploadUsers(this.downloadedData);
   }
 
   // Adding multiple users popup
-  // UploadUsers(downloadedData) {
-  //   const dialogRef = this.dialog.open(AddMultipleUsersComponent
-  //     , {
-  //       disableClose: true,
-  //       width: '30%',
-  //       data: { downloadedData }
-  //     });
+  UploadUsers(downloadedData) {
+    const defaultValue = this.selectedOrganisation;
+    const organisationsToUpload = this.organisationsList;
+    const dialogRef = this.dialog.open(AddMultipleUsersComponent
+      , {
+        disableClose: true,
+        width: '30%',
+        data: { downloadedData, defaultValue, organisationsToUpload }
+      });
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.getUserList();
-  //   });
-  // }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   onRowClicked(row) {
   }
@@ -353,8 +326,6 @@ export class UsersListComponent implements OnInit {
   downLoadFile(data: any, type: string) {
     let blob = new Blob([data], { type: type });
     importedSaveAs(blob, this.fileName);
-    // let url = window.URL.createObjectURL(blob);
-    // let pwa = window.open(url);
     this._snackBar.open('Users Downloaded Successfully', 'success', {
       duration: 10000,
       verticalPosition: 'top'
@@ -362,27 +333,19 @@ export class UsersListComponent implements OnInit {
   }
 
 
-  commingsoon() {
-    this._snackBar.open('Comming soon', 'Dismiss', {
-      duration: 10000,
-      verticalPosition: 'top',
-      // horizontalPosition: 'end',
-    });
-  }
-
-
-
   // confirmDialog
   confirmDialog(user) {
     this.userObject = user;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData
+      data: confirmData
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -407,7 +370,7 @@ export class UsersListComponent implements OnInit {
       }, 1000);
 
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 

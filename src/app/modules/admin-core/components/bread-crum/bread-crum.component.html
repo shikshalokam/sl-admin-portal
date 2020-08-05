@@ -1,5 +1,6 @@
-<div *ngIf="edit != 'edit/:id'" class="pageName">
-    <span *ngFor="let data of crumData?.title">
+<div *ngIf ="show" class="pageName">
+    <span *ngFor="let data of crumData?.title; last as LastIndex">
         <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
+        <span *ngIf ="LastIndex < crumData?.title.length -1"> ></span>
     </span>
 </div>

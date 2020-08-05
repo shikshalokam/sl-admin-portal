@@ -7,13 +7,12 @@ import { OrganisationEditComponent } from './organisation-edit/organisation-edit
 const routes: Routes = [
   {
     path: '',
-    // data: { title: 'Home' },
     children: [
       {
-        path: 'list', component: OrganisationsListComponent, data: { title: [{ name: 'Home >', link: '/home' }, { name: 'Organisations', link: '/organisations/list' }] },
+        path: 'list', component: OrganisationsListComponent, data: { title: [{ name: 'Home', link: '/home' }, { name: 'Organisations', link: '/organisations/list' }] },
       },
       {
-        path: 'edit/:id', component: OrganisationEditComponent, data: { title: [{ name: 'Home >', link: '/home' }, { name: 'Organisations', link: '/organisations/list' }] },
+        path: 'edit/:id', component: OrganisationEditComponent, data: { title: [{ name: 'Home', link: '/home' }, { name: 'Organisations', link: '/organisations/list' }] },
       },
     ]
   }

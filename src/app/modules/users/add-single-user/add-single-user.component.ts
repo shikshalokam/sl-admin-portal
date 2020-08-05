@@ -3,9 +3,10 @@ import { DynamicFormComponent } from '../../admin-shared';
 import { FieldConfig } from "../../admin-shared/field.interface";
 import { FormGroup } from '@angular/forms';
 import { UsersService, CommonServiceService } from '../../admin-core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material';
 import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -20,6 +21,10 @@ export class AddUserComponent implements OnInit {
   formdata: any;
   loading: boolean = false;
   submitClick = false;
+  onload = {
+    buttonName: 'ADD USER',
+    submitClick: false
+  }
   constructor(private usersService: UsersService,
     private _snackBar: MatSnackBar,
     private datePipe: DatePipe, private commonServiceService: CommonServiceService,
@@ -56,15 +61,12 @@ export class AddUserComponent implements OnInit {
       this.form.validateAllFormFields(this.form.form);
     }
   }
-  submit(data) {
-
-  }
 
   /**
     * To Create the User
     */
   createUser(userdata) {
-    this.submitClick = true;
+    this.onload.submitClick = true;
     userdata.dateOfBirth = this.datePipe.transform(userdata.dateOfBirth, 'yyyy-MM-dd');
     this.usersService.createUser(userdata).subscribe(data => {
       if (data['result'].response === 'SUCCESS') {
@@ -74,11 +76,11 @@ export class AddUserComponent implements OnInit {
         });
         this.form.form.reset();
         this.dialogRef.close();
-        this.submitClick = false;
+        this.onload.submitClick = false;
       }
     }, error => {
       this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
-      this.submitClick = false;
+      this.onload.submitClick = false;
     });
   }
 

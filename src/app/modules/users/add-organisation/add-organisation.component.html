@@ -1,6 +1,6 @@
 <mat-toolbar role="toolbar" class="task-header">
   <mat-icon style="color: white;">account_circle</mat-icon>
-  <h5 class="title">Add New Organisation</h5>
+  <div class="title">Add New Organisation</div>
 </mat-toolbar>
 <h1 mat-dialog-title style="font-weight: 600;text-align: center;">
 </h1>
@@ -16,17 +16,6 @@
           You must select organisation
         </mat-error>
       </mat-form-field>
-      <!-- <mat-form-field class="example-chip-list" style="width: 100%;">
-        <mat-label>Organisation</mat-label>
-        <input type="text" aria-label="Number" formControlName="organisation" (keyup)="OnInput($event)" matInput
-          [matAutocomplete]="auto">
-        <mat-error *ngIf="errorHandling('organisation', 'required')">
-          You must select organisation
-        </mat-error>
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let item of finalData" [value]="item">{{item.label}}</mat-option>
-        </mat-autocomplete>
-      </mat-form-field> -->
     </div>
 
     <div>

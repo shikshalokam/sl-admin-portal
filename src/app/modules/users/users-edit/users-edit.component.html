@@ -1,7 +1,8 @@
 <div class="pageName">
   <span *ngFor="let data of crumData['title']">
     <a class="negative" [routerLink]="[data.link]"> {{data.name}}</a>
-  </span> >
+    >
+  </span>
   <span class="text-capital">{{editUserDetails?.firstName}}
     {{editUserDetails?.lastName}}</span>
 </div>
@@ -43,7 +44,7 @@
           </span>
           <span class="profile-actions-text"> RESET PASSWORD</span>
         </div>
-        <div *ngIf="editUserDetails?.status === 1" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
+        <div *ngIf="editUserDetails?.status === 1 && editUserDetails?.userDeactiveAccess ==  true" matTooltip="Deactivate user" class="col-md-9 profile-actions-icon"
           (click)="confirmDialog()">
           <span>
             <mat-icon class="negative">edit</mat-icon>
@@ -106,22 +107,6 @@
 
             </div>
           </div>
-          <!-- <div class="row" style="padding-top:15px">
-            <div class="col-md-3">
-              <label>User Name</label>
-              <input matInput disabled value="{{editUserDetails?.userName ? editUserDetails.userName: '-- --'}}">
-            </div>
-
-            <div class="col-md-3">
-              <label>Email</label>
-              <input matInput disabled type="text" value="{{editUserDetails?.email ? editUserDetails.email: '-- --'}}">
-            </div>
-
-            <div class="col-md-3">
-              <label>Phone Number</label>
-              <input matInput disabled value="{{editUserDetails?.phoneNumber ? editUserDetails.phoneNumber: '-- --'}}">
-            </div>
-          </div> -->
 
         </mat-expansion-panel>
       </mat-accordion>
@@ -149,7 +134,7 @@
 
             <ng-container matColumnDef="Roles">
               <mat-header-cell *matHeaderCellDef> Roles </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.list}}</mat-cell>
+              <mat-cell style="padding-right: 2%;" *matCellDef="let element">{{element.list}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Action">
@@ -157,8 +142,8 @@
               <mat-cell *matCellDef="let element">
                 <button (click)="editRoles(element)" matTooltip="Edit Roles" class="actions" mat-button>
                   Edit</button>&nbsp;
-                <button (click)="confirmForUserDelete(element)" matTooltip="Delete User from Organisation"
-                  class="actions" mat-button>Delete</button>
+                <button (click)="confirmForUserDelete(element)" matTooltip="Remove roles for Organisation"
+                  class="actions" mat-button>Remove All Roles</button>
               </mat-cell>
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

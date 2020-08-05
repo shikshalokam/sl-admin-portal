@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { RolesEditComponent } from '../roles-edit/roles-edit.component';
 import { DatePipe } from '@angular/common';
 import { AddOrganisationComponent } from '../add-organisation/add-organisation.component';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 
 
@@ -36,6 +36,7 @@ export class UsersEditComponent implements OnInit {
   userId: any;
   crumData: any;
   deleteUserDetails: any;
+  updateResponse: any;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(private commonServiceService: CommonServiceService,
@@ -53,7 +54,7 @@ export class UsersEditComponent implements OnInit {
       .subscribe(data => {
         this.crumData = data;
       });
-      // this._location.back();
+    // this._location.back();
   }
 
   reset() {
@@ -65,7 +66,6 @@ export class UsersEditComponent implements OnInit {
     this.usersService.singleUserDetails(this.userId).subscribe(data => {
       this.editUserDetails = data['result'];
       this.details = this.editUserDetails.organisations;
-      console.log('details', this.details);
       this.editUserDetails.roleslist = []
       for (let i = 0; i < this.details.length; i++) {
         this.details[i].list = [];
@@ -76,20 +76,23 @@ export class UsersEditComponent implements OnInit {
       this.editUserDetails.userId = this.userId;
       this.load = true;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
+      this.commonServiceService.errorHandling(error);
+      this.router.navigate(['users/list'])
     })
   }
 
   // confirmDialog
   confirmDialog(): void {
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData,
+      data: confirmData,
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -111,32 +114,52 @@ export class UsersEditComponent implements OnInit {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       this.router.navigateByUrl('users/list');
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
 
   confirmForUserDelete(data): void {
     this.deleteUserDetails = data;
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData,
+      data: confirmData,
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.deleteUser(this.deleteUserDetails);
+        this.updateRoles();
       } else {
         this.dialog.closeAll();
       }
 
     });
+  }
+
+  //  update existing roles
+  updateRoles() {
+    let data = {
+      userId: this.userId,
+      organisationId: this.deleteUserDetails['value'],
+      roles: [],
+      removeRoles: true
+    }
+    this.usersService.updateRoles(data).subscribe(data => {
+      this.updateResponse = data;
+      this.getUserDetails();
+      this.commonServiceService.commonSnackBar(this.updateResponse.message, 'success', 'top', 1000)
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
   }
 
 
@@ -163,19 +186,19 @@ export class UsersEditComponent implements OnInit {
 
 
   // Delete User from the Organisation
-  deleteUser(data) {
-    let removeUser = {
-      userId: this.userId,
-      organisationId: data.value
-    }
-    this.usersService.removeUserFromOrganisation(removeUser).subscribe(data => {
-      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000)
-      this.getUserDetails();
-    }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
-    })
+  // deleteUser(data) {
+  //   let removeUser = {
+  //     userId: this.userId,
+  //     organisationId: data.value
+  //   }
+  //   this.usersService.removeUserFromOrganisation(removeUser).subscribe(data => {
+  //     this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', 10000)
+  //     this.getUserDetails();
+  //   }, error => {
+  //     this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+  //   })
 
-  }
+  // }
 
   // Add organisation and roles to the user
   addOrganisation(data) {

@@ -1,0 +1,81 @@
+<div class="dashboard-content">
+  <div class="c-toolbar">
+    <div class="row" style="padding-top: 5px;">
+      <div class="list-menu">
+        <a [routerLink]="['/home']">
+          <mat-icon matTooltip="Home" class="home" aria-hidden="false" aria-label="Example home icon">keyboard_backspace
+          </mat-icon>
+        </a>
+      </div>
+      <div class="list-menu">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Search </mat-label>
+          <input [(ngModel)]="search" [appDebounceDirective]="search" (onValueChange)="bulkUploadList()" #searchInput
+            matInput>
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+
+      <div class="list-menu" style="margin-left: 50px;">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Request Type</mat-label>
+          <mat-select [(value)]="initialType" (selectionChange)="requestTypeChange($event)">
+            <mat-option *ngFor="let request of requestTypes" [value]="request.value">{{request.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="list-menu" style="margin-left: 50px;">
+        <mat-form-field class="custom-form-field">
+          <mat-label>Status</mat-label>
+          <mat-select [(value)]="initialStatus" (selectionChange)="selectStatus($event)">
+            <mat-option *ngFor="let status of statusList" [value]="status.value">{{status.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="list-menu" class="btn-clear">
+        <button mat-button (click)="clearFilter()" matTooltip="clear filter">
+          Clear Filter
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <app-spinner *ngIf="listing == false"></app-spinner>
+    <mat-table *ngIf="dataSource" [dataSource]="dataSource" matSort>
+      <span *ngFor="let column of columns">
+        <ng-container [matColumnDef]="column.key">
+          <mat-header-cell *matHeaderCellDef>{{ column.label}}</mat-header-cell>
+          <span *ngIf="column.type == 'column'">
+            <mat-cell *matCellDef="let row" class="text-capital">
+              <span class="{{getItemCssClassByStatus(row[column.key])}}"> {{row[column.key] ? row[column.key]: '-- --'}}
+              </span>
+            </mat-cell>
+          </span>
+          <span *ngIf="column.type == 'action'">
+            <mat-cell *matCellDef="let user">
+              <button [disabled]="user?.inputFileAvailable == false" (click)="downloadLinks(user, 'input')"
+                matTooltip="Input file" class="actions" mat-button>Input</button> &nbsp;
+              <button [disabled]="user?.successFileAvailable == false" (click)="downloadLinks(user, 'success')"
+                matTooltip="Successfull file" class="actions" mat-button> Success</button> &nbsp;
+              <button [disabled]="user?.errorFileAvailable == false" (click)="downloadLinks(user, 'failure')"
+                matTooltip="Failure file" class="actions" mat-button>Failure</button>
+            </mat-cell>
+          </span>
+        </ng-container>
+      </span>
+      <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true" class="p-button">
+      </mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;">
+      </mat-row>
+    </mat-table>
+    <app-no-record *ngIf="recordCount == 0 || !dataSource"></app-no-record>
+    <mat-paginator [length]="recordCount" [showFirstLastButtons]="true" [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </div>
+</div>

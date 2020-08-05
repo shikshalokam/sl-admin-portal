@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OrganisationService, CommonServiceService } from '../../admin-core';
-import { ConfirmDialogComponent, ConfirmDialogModel } from '../../admin-shared';
+import { ConfirmDialogComponent } from '../../admin-shared';
 import { MatDialog } from '@angular/material';
 import { CreateandEditOrganisationComponent } from '../createandEdit-organisation/createandEdit-organisation.component';
 
@@ -38,23 +38,23 @@ export class OrganisationEditComponent implements OnInit {
   getOrganisationDetails() {
     this.organisationService.organisationDetails(this.organisationId).subscribe(data => {
       this.editOrganisationDetails = data['result'];
-      console.log(' this.editOrganisationDetails', this.editOrganisationDetails);
-
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 1000)
+      this.commonServiceService.errorHandling(error);
     })
   }
 
   // confirmDialog
   confirmDialog(): void {
-    const message = `Are you sure you want to do this action ?`;
-
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
+    let confirmData = {
+      title: "Confirmation",
+      message: "Are you sure you want to do this action ?",
+      confirmButtonText: "YES",
+      cancelButtonText: "NO"
+    }
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: "310px",
       height: "200px",
-      data: dialogData,
+      data: confirmData,
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
@@ -83,7 +83,7 @@ export class OrganisationEditComponent implements OnInit {
       // this.router.navigateByUrl('users/list');
       this.getOrganisationDetails();
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     })
   }
 
@@ -93,7 +93,7 @@ export class OrganisationEditComponent implements OnInit {
       this.formdata = data['result'];
       this.fieldsForOrganisation = this.formdata;
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
     });
   }
 
@@ -121,8 +121,8 @@ export class OrganisationEditComponent implements OnInit {
       });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-      this.getOrganisationDetails();
+      if (result) {
+        this.getOrganisationDetails();
       }
     });
   }

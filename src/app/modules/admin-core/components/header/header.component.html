@@ -1,25 +1,14 @@
-<div class="row head">
+<!-- <div class="row head">
   <div class="col-md-2 col-sm-4">
     <img class="b-color" (click)="sidemenu()" alt="Angular Logo" src="assets/images/shikshalokam.png" />
   </div>
-
   <div class="row">
-    <!-- <div class="Button">
-      <button class="b-color" matTooltip="Search" mat-icon-button aria-label="search">
-        <mat-icon >search</mat-icon>
-      </button>
-    </div> -->
-    <!-- <div class="Button"> -->
     <button class="b-color" matTooltip="Notifications" mat-icon-button aria-label="Notifications">
       <mat-icon (click)="notifications()" >notifications</mat-icon>
     </button>
-    <!-- </div> -->
-
-    <!-- <div class="Button"> -->
     <button class="b-color" matTooltip="Profile" mat-icon-button [matMenuTriggerFor]="menu" aria-label="user">
       <mat-icon >person</mat-icon>
     </button>
-
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <span>{{username}}</span>
@@ -28,6 +17,37 @@
         <span >Logout</span>
       </button>
     </mat-menu>
-    <!-- </div> -->
   </div>
-</div>
+</div> -->
+
+
+<mat-toolbar class="h-toolbar">
+  <div>
+      <img class="himage" alt="Angular Logo" src="assets/images/shikshalokam.png" />
+      <!-- <span>
+          <mat-form-field class="searchbar">
+              <mat-icon matSuffix>search</mat-icon>
+              <input type="search" matInput placeholder="Search" />
+          </mat-form-field>
+      </span> -->
+  </div>
+
+  <span class="toolbar-spacer"></span>
+  <button class="b-color header-icons" matTooltip="Other Portals" mat-icon-button aria-label="Notifications">
+      <mat-icon (click)="notifications()">dashboard</mat-icon>
+  </button>
+
+  <button class="b-color header-icons" [matMenuTriggerFor]="menu" matTooltip="Profile" mat-icon-button aria-label="user">
+      <mat-icon>person</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+          <span>{{username}}</span>
+      </button>
+      <button (click)="logout()" mat-menu-item>
+          <span>Logout</span>
+      </button>
+  </mat-menu>
+
+</mat-toolbar>

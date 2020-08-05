@@ -1,0 +1,36 @@
+@import "../../../../assets/scss/variables.scss";
+
+.task-header {
+  background-color: $primary-color;
+}
+
+.custom-dialog-content {
+  display: block;
+  margin: 0px;
+  padding: 0 24px;
+  height: 50%;
+  overflow: auto;
+  padding-top: 5%;
+}
+
+.custom-dialog-actions {
+  padding: 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 52px;
+  align-items: center;
+  padding-right: 42px;
+  margin-bottom: 16px;
+}
+
+.ref {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding-left: 5px;
+}
+
+.refnum {
+  font-weight: 700;
+  padding-left: 5px;
+}

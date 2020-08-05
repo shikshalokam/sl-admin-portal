@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 import { UnauthorizedComponent } from 'src/app/modules/admin-shared';
 import { keyCloakService } from '../auth-service/auth.service';
 import { MatDialog } from '@angular/material';
+import { CommonServiceService } from '../common-service.service';
+
 @Injectable()
 export class Interceptor implements HttpInterceptor {
     token;
     constructor(private router: Router,
         public dialog: MatDialog,
-        private KeycloakService: keyCloakService
-        // public storage: Storage,
+        private KeycloakService: keyCloakService,
+        private commonServiceService: CommonServiceService
     ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         this.token = this.KeycloakService.sendToken().token;
@@ -29,20 +31,7 @@ export class Interceptor implements HttpInterceptor {
                 }
             });
         }
-        if (!request.headers.has('Content-Type')) {
-            request = request.clone({
-                setHeaders: {
-                    'content-type': 'application/json'
-                }
-            });
-        }
-        // if (request.headers.has('Content-Type')) {
-        //     request = request.clone({
-        //         setHeaders: {
-        //             'content-type': 'multipart/form-data'
-        //         }
-        //     });
-        // }
+
         request = request.clone({
             headers: request.headers.set('Accept', 'application/json')
         });
@@ -65,11 +54,12 @@ export class Interceptor implements HttpInterceptor {
     }
 
     openDialog(): void {
+        const message = `You don't have right to access this site.`;
         const dialogRef = this.dialog.open(UnauthorizedComponent
             , {
                 disableClose: true,
                 width: '25%',
-                data: {}
+                data: { message }
             });
 
         dialogRef.afterClosed().subscribe(result => {

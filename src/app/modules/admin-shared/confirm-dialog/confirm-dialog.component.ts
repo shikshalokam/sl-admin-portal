@@ -9,12 +9,15 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class ConfirmDialogComponent implements OnInit {
   title: string;
   message: string;
-
+  cancelButtonText: string;
+  confirmButtonText: string;
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    this.cancelButtonText = data['cancelButtonText'];
+    this.confirmButtonText = data['confirmButtonText'];
   }
 
   ngOnInit() {
@@ -24,6 +27,7 @@ export class ConfirmDialogComponent implements OnInit {
     // Close the dialog, return true
     this.dialogRef.close(true);
   }
+
 
   onDismiss(): void {
     // Close the dialog, return false
@@ -38,6 +42,7 @@ export class ConfirmDialogComponent implements OnInit {
  */
 export class ConfirmDialogModel {
 
-  constructor(public title: string, public message: string) {
+  constructor(public title: string, public message: string,
+    public confirmButtonText: string, public cancelButtonText: string) {
   }
 }

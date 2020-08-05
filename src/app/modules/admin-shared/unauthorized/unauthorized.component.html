@@ -1,9 +1,9 @@
 
 <h1 class="author" mat-dialog-title>Hi {{username}}</h1>
 <div mat-dialog-content>
-  <p>You don't have right to access this site.</p>
+  <p>{{data?.message}}</p>
 </div>
 <div class="author" mat-dialog-actions  align="end">
-  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Re-login</button>
+  <button mat-button class="p-button" [mat-dialog-close]="false" cdkFocusInitial>Re-login</button>
 </div>
 

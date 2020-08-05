@@ -57,9 +57,6 @@ export class keyCloakService {
       console.log("errorrrr")
     })
   }
-  newMessage() {
-    this.commonServiceService.nextMessage("Second Message")
-  }
 
   getToken(): string {
     const accessToken = this.keycloak.getKeycloakInstance().token;
@@ -92,7 +89,7 @@ export class keyCloakService {
   }
   logout() {
     // environment.base_url + '/home'
-    this.keycloak.logout('https://devhome.shikshalokam.org/admin-portal/home');
+    this.keycloak.logout(environment.portal_url + 'admin-portal/home');
     localStorage.clear();
   }
 

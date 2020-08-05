@@ -1,7 +1,7 @@
 <div>
   <mat-toolbar role="toolbar" class="task-header">
     <mat-icon style="color: white;">account_balance</mat-icon>
-    <h5 class="title">{{title}}</h5>
+    <div class="title">{{title}}</div>
   </mat-toolbar>
 </div>
 <mat-dialog-content class="mat-typography custom-dialog-content">
@@ -12,30 +12,5 @@
 </mat-dialog-content>
 <mat-dialog-actions class="custom-dialog-actions" align="end">
   <button mat-button mat-dialog-close>CANCEL</button>
-  <!-- <button *ngIf="action == 'Add'" [disabled]="submitClick" mat-button class="p-button" (click)="onSubmit()"
-    cdkFocusInitial>ADD
-    ORGANISATION</button> -->
-  <button *ngIf="action == 'Add'" [disabled]="submitClick" cdkFocusInitial class="p-button"
-    (click)="onSubmit()" mat-button>
-    ADD
-    ORGANISATION
-    <mat-icon *ngIf="submitClick">
-      <mat-spinner diameter="20">
-      </mat-spinner>
-    </mat-icon>
-  </button>
-
-  <button *ngIf="action == 'Edit'" [disabled]="submitClick" cdkFocusInitial class="p-button" 
-    (click)="onEditSubmit()" mat-button>
-    UPDATE
-    ORGANISATION
-    <mat-icon *ngIf="submitClick">
-      <mat-spinner diameter="20">
-      </mat-spinner>
-    </mat-icon>
-  </button>
-  <!-- <button *ngIf="action == 'Edit'" [disabled]="submitClick" mat-button class="p-button" (click)="onEditSubmit()"
-    cdkFocusInitial>UPDATE
-    ORGANISATION</button> -->
-
+  <app-button-loading [btnData]="onload" (onSubmit)="handleChange($event)"></app-button-loading>
 </mat-dialog-actions>
