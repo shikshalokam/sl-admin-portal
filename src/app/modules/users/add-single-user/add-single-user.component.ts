@@ -79,7 +79,7 @@ export class AddUserComponent implements OnInit {
         this.onload.submitClick = false;
       }
     }, error => {
-      this.commonServiceService.commonSnackBar(error.error.message.params.errmsg, 'Dismiss', 'top', 10000);
+      this.commonServiceService.errorHandling(error);
       this.onload.submitClick = false;
     });
   }

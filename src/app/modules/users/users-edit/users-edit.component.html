@@ -90,14 +90,14 @@
 
             </div>
 
-            <div class="col-md-3">
+            <div *ngIf ="editUserDetails?.dob" class="col-md-3">
               <div class="text-color"> <label>Date of Birth </label></div>
               <div>
                 {{editUserDetails?.dob ? editUserDetails.dob: '-- --'}}
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div *ngIf ="editUserDetails?.gender" class="col-md-3">
               <div class="text-color">
                 <label>Gender </label>
               </div>
