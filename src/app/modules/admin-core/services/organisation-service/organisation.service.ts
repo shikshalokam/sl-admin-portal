@@ -31,11 +31,15 @@ export class OrganisationService {
     return this.Http.get(environment.base_url + OrganisationConfig.organisationDetails + id)
   }
 
-  // Active and deActivate organisation
-  activateDeActivateOrganisation(data) {
-    return this.Http.post(environment.base_url + OrganisationConfig.blockOrganisation, data);
+  // Active organisation
+  activateOrganisation(data) {
+    return this.Http.get(environment.base_url + OrganisationConfig.activateOrganisation + data._id);
   }
 
+  // deActivate organisation
+  deActivateOrganisation(data) {
+    return this.Http.get(environment.base_url + OrganisationConfig.deActivateOrganisation + data._id);
+  }
   // Update Organisation
   updateOrganisation(data) {
     return this.Http.post(environment.base_url + OrganisationConfig.updateorganisationDetails, data);

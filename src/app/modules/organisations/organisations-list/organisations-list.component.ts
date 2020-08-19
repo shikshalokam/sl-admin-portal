@@ -131,7 +131,11 @@ export class OrganisationsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activateDeActivateOrganisation(this.orgObject);
+        if(this.orgObject.status === 'Active') {
+          this.deActivateOrganisation(this.orgObject);
+          } else {
+            this.activateOrganisation(this.orgObject);
+          }
       } else {
         this.dialog.closeAll();
       }
@@ -139,29 +143,32 @@ export class OrganisationsListComponent implements OnInit {
     });
   }
 
-
-  // Activate and Deactivate User
-  activateDeActivateOrganisation(data) {
-    if (data.status === 'Active') {
-      this.assignedStatus = 0;
-    } else {
-      this.assignedStatus = 1;
-    }
-    let updateData = {
-      organisationId: data._id,
-      status: this.assignedStatus
-    }
-    this.organisationService.activateDeActivateOrganisation(updateData).subscribe(data => {
+  // activate organisation
+  activateOrganisation(data) {
+    this.organisationService.activateOrganisation(data).subscribe(data => {
       setTimeout(() => {
-        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
         this.getOrganisationList();
-      }, 1000);
-
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+      }, 1000)
+     
     }, error => {
       this.commonServiceService.errorHandling(error);
     })
   }
 
+   // deActivate organisation
+   deActivateOrganisation(data) {
+    this.organisationService.deActivateOrganisation(data).subscribe(data => {
+      setTimeout(() => {
+        this.getOrganisationList();
+        this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+      }, 1000)
+    
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
+  }
+  
   editOrganisation(data) {
     this.router.navigate(['/organisations/edit', data._id])
   }

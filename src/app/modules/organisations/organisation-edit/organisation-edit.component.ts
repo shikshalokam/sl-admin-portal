@@ -60,25 +60,31 @@ export class OrganisationEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe(dialogResult => {
       this.confirmPopupResult = dialogResult;
       if (this.confirmPopupResult) {
-        this.activateDeActivateOrganisation(this.editOrganisationDetails);
+        if(this.editOrganisationDetails.status === 'Active') {
+        this.deActivateOrganisation(this.editOrganisationDetails);
+        } else {
+          this.activateOrganisation(this.editOrganisationDetails);
+        }
       } else {
         this.dialog.closeAll();
       }
     });
   }
 
-  // activate and deActivate User
-  activateDeActivateOrganisation(data) {
-    if (data.status === 'Active') {
-      this.assignedStatus = 0;
-    } else {
-      this.assignedStatus = 1;
-    }
-    let updateData = {
-      organisationId: this.organisationId,
-      status: this.assignedStatus
-    }
-    this.organisationService.activateDeActivateOrganisation(updateData).subscribe(data => {
+  // activate organisation
+  activateOrganisation(data) {
+    this.organisationService.activateOrganisation(data).subscribe(data => {
+      this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
+      // this.router.navigateByUrl('users/list');
+      this.getOrganisationDetails();
+    }, error => {
+      this.commonServiceService.errorHandling(error);
+    })
+  }
+
+   // deActivate organisation
+   deActivateOrganisation(data) {
+    this.organisationService.deActivateOrganisation(data).subscribe(data => {
       this.commonServiceService.commonSnackBar(data['message'], 'Dismiss', 'top', '10000');
       // this.router.navigateByUrl('users/list');
       this.getOrganisationDetails();

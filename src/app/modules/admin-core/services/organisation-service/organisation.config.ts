@@ -3,6 +3,7 @@ export const OrganisationConfig = {
     organisationForm: 'v1/organisations/getForm',
     createOrganisation: 'v1/organisations/create',
     organisationDetails: 'v1/organisations/details/',
-    blockOrganisation: 'v1/organisations/updateStatus',
+    activateOrganisation: 'v1/organisations/activate/',
+    deActivateOrganisation: 'v1/organisations/deactivate/',
     updateorganisationDetails: 'v1/organisations/update'
 }
